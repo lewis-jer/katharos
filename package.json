@@ -1,0 +1,11 @@
+{
+    "name": "katharos",
+    "version": "1.0.0",
+    "description": "",
+    "main": "src/index.js",
+    "scripts": {
+      "test": "node index.js"
+    },
+    "author": "",
+    "license": "ISC"
+  }
