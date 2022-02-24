@@ -1,10 +1,14 @@
 {
     "name": "katharos",
     "version": "1.0.0",
-    "description": "",
+    "description": "katharos framework",
     "main": "src/index.js",
     "scripts": {
       "test": "node index.js"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/cnsdetroit/katharos.git"
     },
     "author": "",
     "license": "ISC"
