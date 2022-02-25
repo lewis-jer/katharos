@@ -145,8 +145,6 @@ const katharos = {
           await pageMiddleware.pluginLoader(pageInfo);
           await pageMiddleware.controllerLoader(pageInfo);
           await pageMiddleware.middlewareLoader(pageInfo);
-          console.log(pageInfo)
-          console.log(pageActions.loadIndex);
           middleware[pageActions.loadIndex] ? middleware[pageActions.loadIndex]() : false;
           pageInfo.loaded = true;
           pageActions.loadIndex++;
