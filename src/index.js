@@ -7,7 +7,9 @@ import { initialization } from "./core/api/index";
 const fs = require("fs");
 const dir = "./core";
 
-fs.existsSync(dir) ? console.log("Directory exists") : false;
+fs.existsSync(dir)
+  ? console.log("Directory exists")
+  : console.log("Directory Not exists");
 
 const katharos = {
   pageActions: pageActions,
