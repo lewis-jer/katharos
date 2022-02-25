@@ -1,8 +1,8 @@
-import { pageActions } from "./core/action.js";
-import { pageLoader } from "./core/instance.js";
-import { pageMiddleware } from "./core/middleware.js";
-import { pageObjects } from "./core/object.js";
-import { initialization } from "./core/api/index.js";
+import { pageActions } from "./core/action";
+import { pageLoader } from "./core/instance";
+import { pageMiddleware } from "./core/middleware";
+import { pageObjects } from "./core/object";
+import { initialization } from "./core/api/index";
 
 const katharos = {
   pageActions: pageActions,
