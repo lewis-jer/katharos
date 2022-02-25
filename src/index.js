@@ -200,7 +200,6 @@ const katharos = {
                 dataWorker.stringToHash(pageInfo.plugins[j])
               )
             ) {
-              console.log(require(pageInfo.plugins[j]));
               await $.getScript(pageInfo.plugins[j]);
               console.log(`${window.pluginIndex} => ${pageInfo.plugins[j]}`);
               window.pluginIndex++;
