@@ -1,4 +1,4 @@
-const loadPage = async () => {
+const loadPage = async (currPage, pageName) => {
   let router = await routerActions.getEndpoint(currPage, pageName);
   console.log(router);
   if (router.sourceRouteInformation.loaded) {
@@ -19,7 +19,7 @@ const loadPage = async () => {
   });
 };
 
-const clearPage = async () => {
+const clearPage = async (pageInfo) => {
   await pageMiddleware.dynamicTableDestructor(pageInfo);
   await pageMiddleware.pageDestructor(pageInfo);
 };
