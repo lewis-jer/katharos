@@ -1,3 +1,6 @@
+import plugins from "plugin";
+console.log(plugins);
+
 const initialization = async function (url) {
   for (var i in modulePath) {
     modulePath[i].arrayExpression = modulePath[i].endpoint;
