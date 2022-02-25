@@ -11,6 +11,7 @@ const loadPage = async (currPage, pageName) => {
   }
 
   window.endpoint = router.route;
+  console.log(router.routeInformation);
   await pageActions.generatePage(router.route, router.routeInformation);
   eventMiddleware.addEvent("generatePage", {
     documentId: documents[router.route].id,
