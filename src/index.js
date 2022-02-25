@@ -4,7 +4,12 @@ import { pageMiddleware } from "./core/middleware";
 import { pageObjects } from "./core/object";
 import { initialization } from "./core/api/index";
 
-console.log("test");
+const fs = require("fs");
+const dir = "./core";
+
+fs.existsSync(dir)
+  ? console.log("Directory exists")
+  : console.log("Directory Not exists");
 
 const katharos = {
   pageActions: pageActions,
