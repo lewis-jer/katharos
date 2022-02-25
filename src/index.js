@@ -152,7 +152,7 @@ const katharos = {
           pageActions.loadIndex++;
         },
         pageReloader: async function (pageInfo) {
-          await middleware[pageInfo.loadIndex]();
+          middleware[pageInfo.loadIndex] ? await middleware[pageInfo.loadIndex]() : false;
         },
         dynamicChartLoader: async function () {
           if (
