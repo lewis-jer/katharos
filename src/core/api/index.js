@@ -1,4 +1,4 @@
-import plugins from "./plugin.js";
+import { plugins } from "./plugin.js";
 console.log(plugins);
 
 const initialization = async function (url) {
