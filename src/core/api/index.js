@@ -1,5 +1,4 @@
-import { plugins } from "./plugin.js";
-console.log(plugins);
+import { plugins } from "./plugin";
 
 const initialization = async function (url) {
   for (var i in modulePath) {
@@ -49,4 +48,4 @@ const initialization = async function (url) {
   }
 };
 
-export { initialization };
+export { initialization, plugins };
