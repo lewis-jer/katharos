@@ -193,6 +193,7 @@ const katharos = {
     },
     pluginLoader: async function (pageInfo) {
       for (var j in pageInfo.plugins) {
+        console.log(pageInfo.plugins[j]);
         if (pageInfo.plugins[j].includes("js")) {
           try {
             if (
