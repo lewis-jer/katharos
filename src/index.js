@@ -1,5 +1,4 @@
 import { pageActions } from "../core/action.js";
-console.log(pageActions);
 
 const initialization = async function (url) {
   for (var i in modulePath) {
