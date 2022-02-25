@@ -5,10 +5,9 @@ import { pageObjects } from "./core/object";
 import { initialization } from "./core/api/index";
 
 try {
-  console.log(require.resolve("katgood"));
+  console.log(require.resolve("katharos-router"));
 } catch (e) {
-  console.error("katharos is not found");
-  process.exit(e.code);
+  console.error("katharos-router is not found");
 }
 
 const katharos = {
