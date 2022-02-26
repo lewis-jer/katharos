@@ -3,7 +3,8 @@ import { modalMiddleware } from './instance/hook-modal';
 
 const _dom = (test) => {
   return {
-    test: test,
+    test2: 'test success',
+    test1: test,
     updateTable: function (tableName, data, formAction, endpoint) {
       if (endpoint == 'tx') {
         [data].forEach((x, i) => {
