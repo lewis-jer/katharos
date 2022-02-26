@@ -174,4 +174,4 @@ const _dom = (test) => {
   };
 };
 
-export { _dom };
+export { _dom as _domObject };
