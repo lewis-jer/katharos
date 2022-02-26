@@ -1,19 +1,17 @@
-import { loadPage } from "./action-canvas";
-import { gatherPageInfo } from "./util";
-import { _dom } from "./instance";
+import { loadPage } from './action-canvas';
+import { gatherPageInfo } from './util';
+import { _dom } from './dom';
 
 const pageActions = {
   loadPage: loadPage,
   gatherPageInfo: gatherPageInfo,
-  selective: [""],
+  selective: [''],
   loadIndex: 1,
-  function: true,
+  function: true
 };
 
-
-
 const _dom = {
-  ..._dom,
+  ..._dom()
 };
 
 export { pageActions, _dom };

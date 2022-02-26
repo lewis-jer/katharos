@@ -1,15 +1,17 @@
-import { plugins } from "./plugin";
+import { plugins } from './plugin';
+
+const _api = { test: 'test' };
 
 const initialization = async function (url) {
   for (var i in modulePath) {
     modulePath[i].arrayExpression = modulePath[i].endpoint;
-    if (modulePath[i].endpoint == "system") {
+    if (modulePath[i].endpoint == 'system') {
       modulePath[i].loaded = true;
       modulePath[i].loadIndex = 0;
-      controller.push("system reserved");
-      middleware.push("system reserved");
+      controller.push('system reserved');
+      middleware.push('system reserved');
       for (var j in modulePath[i].plugins) {
-        if (modulePath[i].plugins[j].includes("js")) {
+        if (modulePath[i].plugins[j].includes('js')) {
           try {
             await $.getScript(modulePath[i].plugins[j]);
             console.log(`${pluginIndex} => ${modulePath[i].plugins[j]}`);
@@ -22,7 +24,7 @@ const initialization = async function (url) {
             );
             pluginIndex++;
           }
-        } else if (modulePath[i].plugins[j].includes("css")) {
+        } else if (modulePath[i].plugins[j].includes('css')) {
           try {
             document.head.innerHTML += `<link type="text/css" rel="stylesheet" href=${
               modulePath[i].plugins[j]
@@ -48,4 +50,4 @@ const initialization = async function (url) {
   }
 };
 
-export { initialization, plugins };
+export { _api, initialization, plugins };
