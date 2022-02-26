@@ -14,4 +14,4 @@ const _domInit = (test) => {
   return { test1: test, ..._domObject('test success') };
 };
 
-export { pageActions, _domInit as _dom };
+export { pageActions, _domInit };
