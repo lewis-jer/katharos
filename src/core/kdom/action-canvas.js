@@ -1,7 +1,7 @@
-import { router as routerActions } from "../../../../katharos-router";
+import { getEndpoint } from "../../../../katharos-router";
 
 const loadPage = async (currPage, pageName) => {
-  let router = await routerActions.getEndpoint(currPage, pageName);
+  let router = await getEndpoint(currPage, pageName);
   console.log(router);
   if (router.sourceRouteInformation.loaded) {
     eventMiddleware.addEvent("clearPage", {
