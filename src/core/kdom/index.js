@@ -11,7 +11,7 @@ const pageActions = {
 };
 
 const _dom = {
-  ..._dom()
+  ..._dom('test success')
 };
 
 export { pageActions, _dom };
