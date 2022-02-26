@@ -7,7 +7,7 @@ const katharos = {
   pageActions: pageActions,
   pageLoader: pageLoader,
   pageObjects: pageObjects,
-  ..._api
+  _api: _api
 };
 
 const _dom = _domInit(_api);
