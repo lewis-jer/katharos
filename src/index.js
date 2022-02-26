@@ -1,7 +1,7 @@
-import { pageActions } from "./core/kdom/action";
+import { pageActions } from "./core/kdom";
 import { pageLoader } from "./core/instance";
-import { pageObjects } from "./core/object";
-import { initialization, plugins } from "./core/api/index";
+import { pageObjects } from "./core/components";
+import { initialization, plugins } from "./core/api";
 
 const katharos = {
   pageActions: pageActions,
