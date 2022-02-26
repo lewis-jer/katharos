@@ -10,8 +10,8 @@ const pageActions = {
   function: true
 };
 
-const _dom = {
-  ..._domObject('test success')
+const _domInit = (test) => {
+  return { test1: test, ..._domObject('test success') };
 };
 
-export { pageActions, _dom };
+export { pageActions, _domInit as _dom };
