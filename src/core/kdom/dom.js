@@ -1,8 +1,9 @@
 import { formMiddleware } from './instance/hook-form';
 import { modalMiddleware } from './instance/hook-modal';
 
-const _dom = (test) => {
+const _dom = (_api) => {
   return {
+    _api: _api,
     updateTable: function (tableName, data, formAction, endpoint) {
       if (endpoint == 'tx') {
         [data].forEach((x, i) => {

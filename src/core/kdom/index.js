@@ -10,8 +10,8 @@ const pageActions = {
   function: true
 };
 
-const _domInit = (test) => {
-  return { test1: test, ..._domObject('test success') };
+const _domInit = (_api) => {
+  return { ..._domObject(_api) };
 };
 
 export { pageActions, _domInit };

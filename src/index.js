@@ -9,6 +9,6 @@ const katharos = {
   pageObjects: pageObjects
 };
 
-const _dom = _domInit('test success');
-console.log(_dom);
+const _dom = _domInit(_api);
+
 export { _dom, katharos, initialization };
