@@ -1,6 +1,6 @@
 import { loadPage } from './action-canvas';
 import { gatherPageInfo } from './util';
-import { _dom } from './dom';
+import { _domObject } from './dom';
 
 const pageActions = {
   loadPage: loadPage,
