@@ -20,9 +20,4 @@ const loadPage = async (currPage, pageName) => {
   });
 };
 
-const clearPage = async (pageInfo) => {
-  await pageMiddleware.dynamicTableDestructor(pageInfo);
-  await pageMiddleware.pageDestructor(pageInfo);
-};
-
-export { loadPage, clearPage };
+export { loadPage };

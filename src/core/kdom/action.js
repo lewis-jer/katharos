@@ -1,6 +1,6 @@
-import { loadPage, clearPage } from "./action-canvas";
+import { loadPage } from "./action-canvas";
 import { gatherPageInfo } from "./util/index.js";
-import { generatePage } from "../native/index.js";
+import { generatePage, clearPage } from "../native/index.js";
 
 const pageActions = {
   loadPage: loadPage,
