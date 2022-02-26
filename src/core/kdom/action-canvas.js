@@ -1,4 +1,4 @@
-import { routerActions } from "../../../../katharos-router";
+import { router as routerActions } from "../../../../katharos-router";
 
 const loadPage = async (currPage, pageName) => {
   let router = await routerActions.getEndpoint(currPage, pageName);
