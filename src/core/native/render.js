@@ -4,19 +4,8 @@ import {
   dynamicChartLoader,
   componentLoader,
 } from "./environment/index";
+import { pageDestructor, dynamicTableDestructor } from "./destructor";
 
-const pageDestructor = async function (pageInfo) {
-  document.getElementById(pageInfo.viewport).innerHTML = "";
-};
-const dynamicTableDestructor = async function (pageInfo) {
-  if (pageInfo.dynamicTables) {
-    if (pageInfo.dynamicTables.status) {
-      for (var i in pageInfo.dynamicTables.tables) {
-        _dom.emptyTable(pageInfo.dynamicTables.tables[i], true);
-      }
-    }
-  }
-};
 const drawPage = async function (pageName, pageInfo) {
   var body = documents[pageInfo.arrayExpression].html;
   if (
