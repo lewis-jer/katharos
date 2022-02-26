@@ -1,6 +1,7 @@
 import { plugins } from './plugin';
+import { dataHandler, eventHandler } from './helper';
 
-const _api = { test: 'test' };
+const _api = { ...dataHandler, ...eventHandler };
 
 const initialization = async function (url) {
   for (var i in modulePath) {
