@@ -2,7 +2,7 @@ import { plugins } from './plugin';
 import { pageObjects } from '../core/components';
 import { dataHandler, eventHandler } from './helper';
 
-const _api = { ...dataHandler, ...eventHandler, ...pageObjects(_api) };
+const _api = { ...dataHandler, ...eventHandler };
 
 const initialization = async function (url) {
   for (var i in modulePath) {
