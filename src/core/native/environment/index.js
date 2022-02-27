@@ -37,11 +37,13 @@ const componentLoader = async function (_api, pageInfo) {
     _api.arrayToObject(components.system).navbar.arrayExpression
   ].loaded
     ? await pageReloader(
+        _api,
         _api.arrayToObject(modulePath)[
           _api.arrayToObject(components.system).navbar.arrayExpression
         ]
       )
     : await pageLoader(
+        _api,
         _api.arrayToObject(modulePath)[
           _api.arrayToObject(components.system).navbar.arrayExpression
         ]
