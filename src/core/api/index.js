@@ -1,5 +1,5 @@
 import { plugins } from './plugin';
-import { pageActions, _domInit } from './core/kdom';
+import { pageActions, _domInit } from '../../core/kdom';
 import { pageObjects } from '../../core/components';
 import { dataHandler, eventHandler } from './helper';
 
