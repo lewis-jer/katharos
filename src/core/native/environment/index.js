@@ -5,23 +5,25 @@ import {
 } from './environment';
 import { dynamicChartLoader } from './hook-chart';
 
+const middlewareInit = async (_api, pageInfo) => {
+  middleware[pageInfo.loadIndex]
+    ? await middleware[pageInfo.loadIndex](_api)
+    : false;
+};
+
 const pageLoader = async function (_api, pageInfo) {
   console.log(_api);
   pageInfo.loadIndex = pageActions.loadIndex;
   await pluginLoader(_api, pageInfo);
   await controllerLoader(_api, pageInfo);
   await middlewareLoader(_api, pageInfo);
-  middleware[pageActions.loadIndex]
-    ? middleware[pageActions.loadIndex](_api)
-    : false;
+  await middlewareInit(_api, pageInfo);
   pageInfo.loaded = true;
   pageActions.loadIndex++;
 };
 const pageReloader = async function (_api, pageInfo) {
   console.log(_api);
-  middleware[pageInfo.loadIndex]
-    ? await middleware[pageInfo.loadIndex](_api)
-    : false;
+  await middlewareInit(_api, pageInfo);
 };
 const componentLoader = async function (_api, pageInfo) {
   var systemComponents = _api.arrayToObject(components.system);
