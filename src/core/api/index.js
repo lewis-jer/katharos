@@ -4,7 +4,9 @@ import { pageObjects } from '../../core/components';
 import { dataHandler, eventHandler } from './helper';
 
 let _api = { ...dataHandler, ...eventHandler };
-_api = { ..._api, ...pageObjects(_api), ...pageActions(_api) };
+console.log(_api);
+_api = { ..._api, ...pageObjects(_api) };
+_api = { ...pageActions(_api) };
 
 const initialization = async function (url) {
   for (var i in modulePath) {
