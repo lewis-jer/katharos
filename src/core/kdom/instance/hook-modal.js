@@ -1,4 +1,4 @@
-const constaddElementsById = (
+const addElementsById = (
   objectId,
   systemReserved,
   formAction,
@@ -54,7 +54,7 @@ const removeElementsById = (
 };
 
 const modalMiddleware = {
-  addElementsById: removeElementsById,
+  addElementsById: addElementsById,
   removeElementsById: removeElementsById
 };
 
