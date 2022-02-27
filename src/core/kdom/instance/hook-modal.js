@@ -6,7 +6,7 @@ const addElementsById = (_api) => {
     modalName,
     newObjects = false
   ) => {
-    var modalInfo = arrayFunctions.arrayToObject(
+    var modalInfo = _api.arrayToObject(
       modals[modalName.replace(`${formAction}`, '')]
     )[modalName];
     var object = document.getElementById(objectId),
@@ -37,7 +37,7 @@ const addElementsById = (_api) => {
 
 const removeElementsById = (_api) => {
   return (objectId, systemReserved, formAction, modalName) => {
-    var modalInfo = arrayFunctions.arrayToObject(
+    var modalInfo = _api.arrayToObject(
       modals[modalName.replace(`${formAction}`, '')]
     )[modalName];
     var object = document.getElementById(objectId);
