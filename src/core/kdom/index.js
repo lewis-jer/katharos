@@ -4,7 +4,7 @@ import { _domObject } from './dom';
 
 const pageActions = (_api) => {
   return {
-    loadPage: loadPage(),
+    loadPage: loadPage(_api),
     gatherPageInfo: gatherPageInfo
   };
 };
