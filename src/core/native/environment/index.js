@@ -6,6 +6,7 @@ import {
 import { dynamicChartLoader } from './hook-chart';
 
 const pageLoader = async function (_api, pageInfo) {
+  console.log(_api);
   pageInfo.loadIndex = pageActions.loadIndex;
   await pluginLoader(_api, pageInfo);
   await controllerLoader(_api, pageInfo);
