@@ -159,10 +159,7 @@ const dataHandler = {
         }
       }
     }
-  },
-  selective: ['loginLoader', 'formSubmissionLoader'],
-  excludes: ['r', 'login'],
-  function: true
+  }
 };
 
 const eventHandler = {
@@ -178,10 +175,7 @@ const eventHandler = {
     });
     return true;
   },
-  removeEvent: function (objectId, systemReserved, formAction, modalName) {},
-  selective: [],
-  excludes: ['r', 'login'],
-  function: true
+  removeEvent: function (objectId, systemReserved, formAction, modalName) {}
 };
 
 export { dataHandler, eventHandler };

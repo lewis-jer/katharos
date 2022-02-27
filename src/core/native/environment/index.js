@@ -49,7 +49,7 @@ const componentLoader = async function (_api, pageInfo) {
         ]
       );
 
-  eventMiddleware.addEvent('loadComponent', {
+  _api.addEvent('loadComponent', {
     componentId: componentLib.navigationBar.id,
     userIdentifier: JSON.parse(localStorage.getItem('user')).email,
     location: window.endpoint
@@ -62,7 +62,7 @@ const componentLoader = async function (_api, pageInfo) {
   componentLib.pageLoader.status = true;
   componentLib.pageLoader.id = uuid();
 
-  eventMiddleware.addEvent('loadComponent', {
+  _api.addEvent('loadComponent', {
     componentId: componentLib.pageLoader.id,
     userIdentifier: JSON.parse(localStorage.getItem('user')).email,
     location: window.endpoint
@@ -75,7 +75,7 @@ const componentLoader = async function (_api, pageInfo) {
   componentLib.footer.status = true;
   componentLib.footer.id = uuid();
 
-  eventMiddleware.addEvent('loadComponent', {
+  _api.addEvent('loadComponent', {
     componentId: componentLib.footer.id,
     userIdentifier: JSON.parse(localStorage.getItem('user')).email,
     location: window.endpoint

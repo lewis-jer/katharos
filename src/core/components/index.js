@@ -4,7 +4,7 @@ const pageObjects = (_api) => {
       var inputModal = _api.arrayToObject(modals[pageName]);
       document.getElementById('modalCanvas').innerHTML =
         inputModal[modalName].html;
-      eventMiddleware.addEvent('createModal', {
+      _api.addEvent('createModal', {
         modalId: inputModal[modalName].id,
         userIdentifier: JSON.parse(localStorage.getItem('user')).email,
         location: pageName
@@ -13,7 +13,7 @@ const pageObjects = (_api) => {
       var inputForm = _api.arrayToObject(forms[pageName]);
       document.getElementById('formCanvas').innerHTML =
         inputForm[modalName].html;
-      eventMiddleware.addEvent('createForm', {
+      _api.addEvent('createForm', {
         formId: inputForm[modalName].id,
         userIdentifier: JSON.parse(localStorage.getItem('user')).email,
         location: pageName
@@ -22,14 +22,14 @@ const pageObjects = (_api) => {
     objectDestructor: function (form = false, modal = false) {
       if (form) {
         document.getElementById('formCanvas').innerHTML = '';
-        eventMiddleware.addEvent('destroyForm', {
+        _api.addEvent('destroyForm', {
           userIdentifier: JSON.parse(localStorage.getItem('user')).email,
           location: window.endpoint
         });
       }
       if (modal) {
         document.getElementById('modalCanvas').innerHTML = '';
-        eventMiddleware.addEvent('destroyModal', {
+        _api.addEvent('destroyModal', {
           userIdentifier: JSON.parse(localStorage.getItem('user')).email,
           location: window.endpoint
         });
