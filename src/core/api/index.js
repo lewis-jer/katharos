@@ -3,7 +3,7 @@ import { pageObjects } from '../../core/components';
 import { dataHandler, eventHandler } from './helper';
 
 let _api = { ...dataHandler, ...eventHandler };
-api = { ..._api, ...pageObjects(_api) };
+_api = { ..._api, ...pageObjects(_api) };
 
 const initialization = async function (url) {
   for (var i in modulePath) {
