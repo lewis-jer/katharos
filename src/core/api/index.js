@@ -1,6 +1,4 @@
 import { plugins } from './plugin';
-import { loadPage } from '../kdom/action-canvas';
-import { pageActions, _domInit } from '../../core/kdom';
 import { pageObjects } from '../../core/components';
 import { dataHandler, eventHandler } from './helper';
 import { gatherPageInfo } from '../util';
