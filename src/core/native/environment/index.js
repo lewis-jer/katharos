@@ -13,13 +13,13 @@ const middlewareInit = async (_api, pageInfo) => {
 
 const pageLoader = async function (_api, pageInfo) {
   console.log(_api);
-  pageInfo.loadIndex = pageActions.loadIndex;
+  pageInfo.loadIndex = configuration.katharos.pageActions.loadIndex;
   await pluginLoader(_api, pageInfo);
   await controllerLoader(_api, pageInfo);
   await middlewareLoader(_api, pageInfo);
   await middlewareInit(_api, pageInfo);
   pageInfo.loaded = true;
-  pageActions.loadIndex++;
+  configuration.katharos.pageActions.loadIndex++;
 };
 const pageReloader = async function (_api, pageInfo) {
   console.log(_api);
