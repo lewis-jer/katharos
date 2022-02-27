@@ -2,12 +2,11 @@ import { loadPage } from './action-canvas';
 import { gatherPageInfo } from './util';
 import { _domObject } from './dom';
 
-const pageActions = {
-  loadPage: loadPage,
-  gatherPageInfo: gatherPageInfo,
-  selective: [''],
-  loadIndex: 1,
-  function: true
+const pageActions = (_api) => {
+  return {
+    loadPage: loadPage(),
+    gatherPageInfo: gatherPageInfo
+  };
 };
 
 const _domInit = (_api) => {
