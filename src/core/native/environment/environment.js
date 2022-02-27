@@ -4,13 +4,13 @@ const pluginLoader = async function (_api, pageInfo) {
       try {
         if (
           !Object.keys(pluginLib).includes(
-            dataWorker.stringToHash(pageInfo.plugins[j])
+            _api.stringToHash(pageInfo.plugins[j])
           )
         ) {
           await $.getScript(pageInfo.plugins[j]);
           console.log(`${window.pluginIndex} => ${pageInfo.plugins[j]}`);
           window.pluginIndex++;
-          pluginLib[dataWorker.stringToHash(pageInfo.plugins[j])] =
+          pluginLib[_api.stringToHash(pageInfo.plugins[j])] =
             pageInfo.plugins[j];
         }
       } catch (e) {}
@@ -18,7 +18,7 @@ const pluginLoader = async function (_api, pageInfo) {
       try {
         if (
           !Object.keys(pluginLib).includes(
-            dataWorker.stringToHash(pageInfo.plugins[j])
+            _api.stringToHash(pageInfo.plugins[j])
           )
         ) {
           document.head.innerHTML += `<link type="text/css" rel="stylesheet" href=${
@@ -26,7 +26,7 @@ const pluginLoader = async function (_api, pageInfo) {
           }?update=${Date.now()}>`;
           console.log(`${window.pluginIndex} => ${pageInfo.plugins[j]}`);
           window.pluginIndex++;
-          pluginLib[dataWorker.stringToHash(pageInfo.plugins[j])] =
+          pluginLib[_api.stringToHash(pageInfo.plugins[j])] =
             pageInfo.plugins[j];
         }
       } catch (e) {}

@@ -11,7 +11,7 @@ const pageLoader = async function (_api, pageInfo) {
   await controllerLoader(_api, pageInfo);
   await middlewareLoader(_api, pageInfo);
   middleware[pageActions.loadIndex]
-    ? middleware[pageActions.loadIndex]()
+    ? middleware[pageActions.loadIndex](_api)
     : false;
   pageInfo.loaded = true;
   pageActions.loadIndex++;
