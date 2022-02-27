@@ -18,6 +18,7 @@ const pageLoader = async function (_api, pageInfo) {
   pageActions.loadIndex++;
 };
 const pageReloader = async function (_api, pageInfo) {
+  console.log(_api);
   middleware[pageInfo.loadIndex]
     ? await middleware[pageInfo.loadIndex](_api)
     : false;
