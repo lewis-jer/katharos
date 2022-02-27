@@ -2,7 +2,6 @@ import { formMiddleware } from './instance/hook-form';
 import { modalMiddleware } from './instance/hook-modal';
 
 const _dom = (_api) => {
-  const dataWorker = _api.dataWorker;
   return {
     updateTable: function (tableName, data, formAction, endpoint) {
       if (endpoint == 'tx') {
@@ -14,13 +13,13 @@ const _dom = (_api) => {
           data.searchAssist2 = `${monthNames[new Date(x.txdate).getMonth()]}`;
           data.txdate = `${new Date(x.txdate).toLocaleDateString()}`;
           data.txamt = data.txamount;
-          data.txbcat = dataWorker.txMatcher(data.txbcat);
-          data.tx = dataWorker.decrypter(data.tx);
+          data.txbcat = _api.txMatcher(data.txbcat);
+          data.tx = _api.decrypter(data.tx);
         });
       } else if (endpoint == 'bcat') {
         [data].forEach((x, i) => {
-          data.Modules = dataWorker.bcatMatcher(data.module, 'module');
-          data.Type = dataWorker.bcatMatcher(data.type, 'type');
+          data.Modules = _api.bcatMatcher(data.module, 'module');
+          data.Type = _api.bcatMatcher(data.type, 'type');
           data.Frequency = data.frequency;
         });
       }
@@ -48,7 +47,7 @@ const _dom = (_api) => {
           data.bxamt = data.bcatamt;
           data.bxbcat = data.Category;
           console.log(tableName);
-          dataWorker.updateUserProfileData(
+          _api.updateUserProfileData(
             'bxExpData',
             data.id,
             formAction,
@@ -74,18 +73,8 @@ const _dom = (_api) => {
       }
       if (endPoint == 'bx') {
         res = await dataService('DELETE', 'bx', selectedRow.id);
-        dataWorker.updateUserProfileData(
-          'bxExpData',
-          selectedRow.id,
-          'delete',
-          'bx'
-        );
-        dataWorker.updateUserProfileData(
-          'bxIncData',
-          selectedRow.id,
-          'delete',
-          'bx'
-        );
+        _api.updateUserProfileData('bxExpData', selectedRow.id, 'delete', 'bx');
+        _api.updateUserProfileData('bxIncData', selectedRow.id, 'delete', 'bx');
       }
       var table = $(`#${tableName}`).DataTable();
       table.row($(selectedRowIndex).parents('tr')).remove().draw();
@@ -145,7 +134,7 @@ const _dom = (_api) => {
         var data = await dataService('GET', 'tx');
         data.forEach((x, i) => {
           data[i].txdate = `${new Date(x.txdate).toLocaleDateString('en-US')}`;
-          data[i].tx = dataWorker.decrypter(data[i].tx);
+          data[i].tx = _api.decrypter(data[i].tx);
           table.row.add(data[i]).draw().node();
         });
       } else if (endpoint == 'bx') {
@@ -163,7 +152,7 @@ const _dom = (_api) => {
         var data = userProfile.txUploadData;
         data.forEach((x, i) => {
           data[i].txdate = `${new Date(x.txdate).toLocaleDateString('en-US')}`;
-          data[i].tx = dataWorker.decrypter(data[i].tx);
+          data[i].tx = _api.decrypter(data[i].tx);
           table.row.add(data[i]).draw().node();
         });
       }

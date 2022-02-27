@@ -17,7 +17,7 @@ const initialization = async function (url) {
             await $.getScript(modulePath[i].plugins[j]);
             console.log(`${pluginIndex} => ${modulePath[i].plugins[j]}`);
             pluginIndex++;
-            pluginLib[dataWorker.stringToHash(modulePath[i].plugins[j])] =
+            pluginLib[_api.stringToHash(modulePath[i].plugins[j])] =
               modulePath[i].plugins[j];
           } catch (e) {
             console.log(
@@ -32,7 +32,7 @@ const initialization = async function (url) {
             }?update=${Date.now()}>`;
             console.log(`${pluginIndex} => ${modulePath[i].plugins[j]}`);
             pluginIndex++;
-            pluginLib[dataWorker.stringToHash(modulePath[i].plugins[j])] =
+            pluginLib[_api.stringToHash(modulePath[i].plugins[j])] =
               modulePath[i].plugins[j];
           } catch (e) {
             console.log(
