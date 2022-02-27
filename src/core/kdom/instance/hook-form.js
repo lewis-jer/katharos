@@ -307,6 +307,7 @@ const formSubmission = (_api) => {
     } else {
       formSpinner();
       formValidation(formName, formAction, contents);
+      console.log(formAction);
       formAction(_api)(contents, formName, formAction, modalName, tableName);
     }
   };
