@@ -89,7 +89,7 @@ const cleanForm = (formName, formAction) => {
   });
 };
 
-const formAction = (_api) => {
+const formSubmit = (_api) => {
   return async (contents, formName, formAction, modalName, tableName) => {
     console.log(_api);
     var modal = document.getElementById(modalName),
@@ -308,7 +308,7 @@ const formSubmission = (_api) => {
       formSpinner();
       formValidation(formName, formAction, contents);
       console.log(formAction);
-      formAction(_api)(contents, formName, formAction, modalName, tableName);
+      formSubmit(_api)(contents, formName, formAction, modalName, tableName);
     }
   };
 };
@@ -371,7 +371,7 @@ const formMiddleware = (_api) => {
     filterByValue: filterByValue,
     validateForm: validateForm,
     cleanForm: cleanForm,
-    formAction: formAction(_api),
+    formSubmit: formSubmit(_api),
     formClose: formClose,
     formData: formData,
     formContents: formContents,
