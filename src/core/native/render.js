@@ -2,18 +2,19 @@ import {
   pageLoader,
   pageReloader,
   dynamicChartLoader,
-  componentLoader,
-} from "./environment/index";
-import { pageDestructor, dynamicTableDestructor } from "./destructor";
+  componentLoader
+} from './environment/index';
+import { pageDestructor, dynamicTableDestructor } from './destructor';
 
-const drawPage = async function (pageName, pageInfo) {
+const drawPage = async function (pageName, pageInfo, _api) {
+  console.log(_api);
   var body = documents[pageInfo.arrayExpression].html;
   if (
-    pageName == "login" ||
-    pageName == "account_verify" ||
-    pageName == "eula"
+    pageName == 'login' ||
+    pageName == 'account_verify' ||
+    pageName == 'eula'
   ) {
-    document.body.classList.add("bg-gradient-primary");
+    document.body.classList.add('bg-gradient-primary');
     componentLib.navigationBar.status = false;
   } else if (!pageInfo.document && !componentLib.navigationBar.status) {
     await componentLoader(pageInfo);
@@ -21,7 +22,7 @@ const drawPage = async function (pageName, pageInfo) {
       pageName
     )
       ? await configuration.katharos.pageLoader.script(pageInfo.name)
-      : "Loader Not Initialized";
+      : 'Loader Not Initialized';
   }
 
   document.getElementById(pageInfo.viewport).innerHTML = body;
