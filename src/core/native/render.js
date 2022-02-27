@@ -7,7 +7,6 @@ import {
 import { pageDestructor, dynamicTableDestructor } from './destructor';
 
 const drawPage = async function (pageName, pageInfo, _api) {
-  console.log(_api);
   var body = documents[pageInfo.arrayExpression].html;
   if (
     pageName == 'login' ||
@@ -17,7 +16,7 @@ const drawPage = async function (pageName, pageInfo, _api) {
     document.body.classList.add('bg-gradient-primary');
     componentLib.navigationBar.status = false;
   } else if (!pageInfo.document && !componentLib.navigationBar.status) {
-    await componentLoader(pageInfo);
+    await componentLoader(_api, pageInfo);
     let loaderStatus = !configuration.katharos.pageLoader.excludes.includes(
       pageName
     )
@@ -33,9 +32,9 @@ const drawPage = async function (pageName, pageInfo, _api) {
 
   if (!pageInfo.loaded) {
     console.log(pageInfo);
-    await pageLoader(pageInfo);
+    await pageLoader(_api, pageInfo);
   } else {
-    await pageReloader(pageInfo);
+    await pageReloader(_api, pageInfo);
   }
 
   history.replaceState({}, null, window.domain + pageName);
