@@ -1,4 +1,5 @@
 import { plugins } from './plugin';
+import { pageActions, _domInit } from './core/kdom';
 import { pageObjects } from '../../core/components';
 import { dataHandler, eventHandler } from './helper';
 import { gatherPageInfo } from '../util';
@@ -6,6 +7,7 @@ import { gatherPageInfo } from '../util';
 let _api = { ...dataHandler, ...eventHandler };
 _api = {
   ..._api,
+  ..._domInit(_api),
   ...pageObjects(_api),
   gatherPageInfo: gatherPageInfo(_api)
 };
