@@ -7,7 +7,12 @@ import { gatherPageInfo } from '../util';
 console.log(loadPage);
 
 let _api = { ...dataHandler, ...eventHandler };
-_api = { ..._api, ...pageObjects(_api), gatherPageInfo: gatherPageInfo(_api) };
+_api = {
+  ..._api,
+  ...pageObjects(_api),
+  gatherPageInfo: gatherPageInfo(_api),
+  loadPage
+};
 console.log(_api);
 
 const initialization = async function (url) {
