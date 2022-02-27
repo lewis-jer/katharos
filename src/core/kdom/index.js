@@ -5,7 +5,7 @@ import { _domObject } from './dom';
 const pageActions = (_api) => {
   return {
     loadPage: loadPage(_api),
-    gatherPageInfo: gatherPageInfo,
+    gatherPageInfo: gatherPageInfo(_api),
     loadIndex: 1
   };
 };
