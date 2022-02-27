@@ -7,7 +7,13 @@ const pluginLoader = async function (_api, pageInfo) {
             _api.stringToHash(pageInfo.plugins[j])
           )
         ) {
-          await $.getScript(pageInfo.plugins[j]);
+          await $.getScript(pageInfo.plugins[j]).done(function (
+            script,
+            textStatus
+          ) {
+            console.log(script);
+            console.log(textStatus);
+          });
           console.log(`${window.pluginIndex} => ${pageInfo.plugins[j]}`);
           window.pluginIndex++;
           pluginLib[_api.stringToHash(pageInfo.plugins[j])] =

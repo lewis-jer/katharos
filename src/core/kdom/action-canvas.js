@@ -1,5 +1,5 @@
 import { getEndpoint } from '../../../../katharos-router';
-import { generate, clearPage } from '../native/index.js';
+import { generate, clearPage } from '../native';
 
 const loadPage = (_api) => {
   const generatePage = generate(_api);
