@@ -1,8 +1,9 @@
 import { plugins } from './plugin';
-import { pageObjects } from '../core/components';
+import { pageObjects } from '../../core/components';
 import { dataHandler, eventHandler } from './helper';
 
-const _api = { ...dataHandler, ...eventHandler };
+let _api = { ...dataHandler, ...eventHandler };
+api = { ...api, ...pageObjects(_api) };
 
 const initialization = async function (url) {
   for (var i in modulePath) {
