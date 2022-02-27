@@ -1,5 +1,5 @@
 import { plugins } from './plugin';
-import { pageObjects } from './core/components';
+import { pageObjects } from '../core/components';
 import { dataHandler, eventHandler } from './helper';
 
 const _api = { ...dataHandler, ...eventHandler, ...pageObjects(_api) };
