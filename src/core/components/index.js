@@ -1,8 +1,7 @@
 const pageObjects = (_api) => {
-  console.log(_api);
   return {
     objectGenerator: function (pageName, modalName) {
-      var inputModal = arrayFunctions.arrayToObject(modals[pageName]);
+      var inputModal = _api.arrayToObject(modals[pageName]);
       document.getElementById('modalCanvas').innerHTML =
         inputModal[modalName].html;
       eventMiddleware.addEvent('createModal', {
@@ -11,7 +10,7 @@ const pageObjects = (_api) => {
         location: pageName
       });
 
-      var inputForm = arrayFunctions.arrayToObject(forms[pageName]);
+      var inputForm = _api.arrayToObject(forms[pageName]);
       document.getElementById('formCanvas').innerHTML =
         inputForm[modalName].html;
       eventMiddleware.addEvent('createForm', {

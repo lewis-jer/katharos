@@ -158,7 +158,7 @@ const _dom = (_api) => {
       }
     },
     formMiddleware: formMiddleware(_api),
-    modalMiddleware: modalMiddleware
+    modalMiddleware: modalMiddleware(_api)
   };
 };
 
