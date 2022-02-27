@@ -1,5 +1,5 @@
 import { loadPage } from './action-canvas';
-import { gatherPageInfo } from './util';
+import { gatherPageInfo } from '../util';
 import { _domObject } from './dom';
 
 const pageActions = (_api) => {

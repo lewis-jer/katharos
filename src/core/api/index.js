@@ -2,10 +2,11 @@ import { plugins } from './plugin';
 import { pageActions, _domInit } from '../../core/kdom';
 import { pageObjects } from '../../core/components';
 import { dataHandler, eventHandler } from './helper';
+import { gatherPageInfo } from '../util';
 
 let _api = { ...dataHandler, ...eventHandler };
+_api = { ..._api, ...pageObjects(_api), ...gatherPageInfo(_api) };
 console.log(_api);
-_api = { ..._api, ...pageObjects(_api), ...pageActions };
 _api = { ..._api, ...pageActions(_api) };
 
 const initialization = async function (url) {
