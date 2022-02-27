@@ -18,7 +18,7 @@ const pageLoader = async function (_api, pageInfo) {
 };
 const pageReloader = async function (_api, pageInfo) {
   middleware[pageInfo.loadIndex]
-    ? await middleware[pageInfo.loadIndex]()
+    ? await middleware[pageInfo.loadIndex](_api)
     : false;
 };
 const componentLoader = async function (_api, pageInfo) {
