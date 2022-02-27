@@ -5,8 +5,7 @@ import { dataHandler, eventHandler } from './helper';
 
 let _api = { ...dataHandler, ...eventHandler };
 console.log(_api);
-_api = { ..._api, ...pageObjects(_api) };
-_api = { ..._api, ...pageActions };
+_api = { ..._api, ...pageObjects(_api), ...pageActions };
 _api = { ..._api, ...pageActions(_api) };
 
 const initialization = async function (url) {
