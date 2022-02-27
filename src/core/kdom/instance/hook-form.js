@@ -289,25 +289,27 @@ const formContents = (formKeys, formAction, formContents) => {
   return contents;
 };
 
-const formSubmission = (formName, formAction, modalName, tableName) => {
-  var { formKeys, formContent } = formData(formName);
-  var contents = formContents(formKeys, formAction, formContent);
+const formSubmission = (_api) => {
+  return (formName, formAction, modalName, tableName) => {
+    var { formKeys, formContent } = formData(formName);
+    var contents = formContents(formKeys, formAction, formContent);
 
-  contents = contents.filter((el) => {
-    return (
-      el.object != null && el.object != '' && el.object.includes(formAction)
-    );
-  });
+    contents = contents.filter((el) => {
+      return (
+        el.object != null && el.object != '' && el.object.includes(formAction)
+      );
+    });
 
-  // formValidation
-  if (contents.some((x) => x.value === false)) {
-    console.log('Form Missing Required Information');
-    formValidation(formName, formAction, contents);
-  } else {
-    formSpinner();
-    formValidation(formName, formAction, contents);
-    formAction(contents, formName, formAction, modalName, tableName);
-  }
+    // formValidation
+    if (contents.some((x) => x.value === false)) {
+      console.log('Form Missing Required Information');
+      formValidation(formName, formAction, contents);
+    } else {
+      formSpinner();
+      formValidation(formName, formAction, contents);
+      formAction(_api)(contents, formName, formAction, modalName, tableName);
+    }
+  };
 };
 
 const preloadForm = (formName, formAction, modalName, content) => {
@@ -372,7 +374,7 @@ const formMiddleware = (_api) => {
     formClose: formClose,
     formData: formData,
     formContents: formContents,
-    formSubmission: formSubmission,
+    formSubmission: formSubmission(_api),
     preloadForm: preloadForm,
     modalSync: modalSync
   };
