@@ -89,157 +89,154 @@ const cleanForm = (formName, formAction) => {
   });
 };
 
-const formAction = async (
-  contents,
-  formName,
-  formAction,
-  modalName,
-  tableName
-) => {
-  var modal = document.getElementById(modalName),
-    data = {};
-  var endpoint = modalName.replace(`${formAction}`, '');
-  contents.map((x, i) => {
-    contents[i].object = contents[i].object.replace(`${formAction}_`, '');
-    if (contents[i].object == 'txamt') contents[i].object = 'txamount';
-    data[contents[i].object] = contents[i].value;
-  });
-  if (endpoint == 'tx') {
-    data = [data];
-    data.forEach((x) => {
-      data.push({
-        tx: dataWorker.encrypter(x.tx),
-        //tx: x.tx,
-        txdate: x.txdate,
-        txamount: x.txamount,
-        txbcat: x.txbcat,
-        txdesc: '',
-        username: userProfile.username
-      });
+const formAction = (_api) => {
+  return async (contents, formName, formAction, modalName, tableName) => {
+    console.log(_api);
+    var modal = document.getElementById(modalName),
+      data = {};
+    var endpoint = modalName.replace(`${formAction}`, '');
+    contents.map((x, i) => {
+      contents[i].object = contents[i].object.replace(`${formAction}_`, '');
+      if (contents[i].object == 'txamt') contents[i].object = 'txamount';
+      data[contents[i].object] = contents[i].value;
     });
-    data.splice(0, 1);
-    data = data[0];
-    data.SN = typeof data.SN !== 'undefined' ? data.SN : uuid();
-  }
-  let res;
-  if (formAction == 'add') {
     if (endpoint == 'tx') {
-      await dataService('POST', endpoint, false, data).then(
-        async ({ data: res }) => {
-          if (res.error) {
+      data = [data];
+      data.forEach((x) => {
+        data.push({
+          tx: _api.encrypter(x.tx),
+          //tx: x.tx,
+          txdate: x.txdate,
+          txamount: x.txamount,
+          txbcat: x.txbcat,
+          txdesc: '',
+          username: userProfile.username
+        });
+      });
+      data.splice(0, 1);
+      data = data[0];
+      data.SN = typeof data.SN !== 'undefined' ? data.SN : uuid();
+    }
+    let res;
+    if (formAction == 'add') {
+      if (endpoint == 'tx') {
+        await dataService('POST', endpoint, false, data).then(
+          async ({ data: res }) => {
+            if (res.error) {
+              completeAction(formName, formAction, modalName);
+              alertify.error(res.error);
+            }
+            data.id = res.insertId;
+            await _dom.updateTable(tableName, data, formAction, endpoint);
             completeAction(formName, formAction, modalName);
-            alertify.error(res.error);
+            alertify.success('Success message');
           }
-          data.id = res.insertId;
-          await _dom.updateTable(tableName, data, formAction, endpoint);
-          completeAction(formName, formAction, modalName);
-          alertify.success('Success message');
-        }
-      );
-    } else if (endpoint == 'bcat') {
-      data.func = document.getElementById('el1').innerHTML;
-      data.bcat = uuid();
-      data.SN = uuid();
-      data.username = userProfile.username;
-      await dataService('POST', endpoint, false, data).then(
-        async ({ data: res }) => {
-          if (res.error) {
+        );
+      } else if (endpoint == 'bcat') {
+        data.func = document.getElementById('el1').innerHTML;
+        data.bcat = uuid();
+        data.SN = uuid();
+        data.username = userProfile.username;
+        await dataService('POST', endpoint, false, data).then(
+          async ({ data: res }) => {
+            if (res.error) {
+              completeAction(formName, formAction, modalName);
+              alertify.error(res.error);
+            }
+            data.id = res[0].insertId;
+            await _dom.updateTable(tableName, data, formAction, endpoint);
             completeAction(formName, formAction, modalName);
-            alertify.error(res.error);
+            alertify.success('Success message');
           }
-          data.id = res[0].insertId;
-          await _dom.updateTable(tableName, data, formAction, endpoint);
-          completeAction(formName, formAction, modalName);
-          alertify.success('Success message');
-        }
-      );
-    } else if (endpoint == 'bx') {
-      data.date = data.mth + data.yr;
-      data.func = document.getElementById('el1').innerHTML;
-      data.dates = dataWorker.mySQLDateCreator(`${data.mth} 1 ${data.yr}`);
-      data.username = userProfile.username;
-      await dataService('POST', endpoint, false, data).then(
-        async ({ data: res }) => {
-          var error = false;
-          for (var i in res) {
-            if (Object.keys(res[i]).includes('errno')) {
-              error = true;
+        );
+      } else if (endpoint == 'bx') {
+        data.date = data.mth + data.yr;
+        data.func = document.getElementById('el1').innerHTML;
+        data.dates = _api.mySQLDateCreator(`${data.mth} 1 ${data.yr}`);
+        data.username = userProfile.username;
+        await dataService('POST', endpoint, false, data).then(
+          async ({ data: res }) => {
+            var error = false;
+            for (var i in res) {
+              if (Object.keys(res[i]).includes('errno')) {
+                error = true;
+              }
+            }
+            if (error) {
+              completeAction(formName, formAction, modalName);
+              alertify.error('Request Failed');
+            } else {
+              //data.id = res[0].insertId
+              data = res[1];
+              userProfile.bxExpData.push(data);
+              userProfile.bxIncData.push(data);
+              await _dom.updateTable(tableName, data, formAction, endpoint);
+              completeAction(formName, formAction, modalName);
+              alertify.success('Success message');
             }
           }
-          if (error) {
-            completeAction(formName, formAction, modalName);
-            alertify.error('Request Failed');
-          } else {
-            //data.id = res[0].insertId
-            data = res[1];
-            userProfile.bxExpData.push(data);
-            userProfile.bxIncData.push(data);
+        );
+      }
+    } else if (formAction == 'edit') {
+      if (endpoint == 'tx') {
+        var id = document.getElementById('el1').innerHTML;
+        data.id = id;
+        await dataService('PUT', endpoint, id, data).then(
+          async ({ data: res }) => {
+            if (res.error) {
+              completeAction(formName, formAction, modalName);
+              alertify.error(res.error);
+            }
             await _dom.updateTable(tableName, data, formAction, endpoint);
             completeAction(formName, formAction, modalName);
             alertify.success('Success message');
           }
-        }
-      );
-    }
-  } else if (formAction == 'edit') {
-    if (endpoint == 'tx') {
-      var id = document.getElementById('el1').innerHTML;
-      data.id = id;
-      await dataService('PUT', endpoint, id, data).then(
-        async ({ data: res }) => {
-          if (res.error) {
-            completeAction(formName, formAction, modalName);
-            alertify.error(res.error);
-          }
-          await _dom.updateTable(tableName, data, formAction, endpoint);
-          completeAction(formName, formAction, modalName);
-          alertify.success('Success message');
-        }
-      );
-    } else if (endpoint == 'bcat') {
-      data.module = data.Modules;
-      data.type = data.Type;
-      data.frequency = data.Frequency;
-      data.SN = document.getElementById('el3').innerHTML;
-      data.id = document.getElementById('el1').innerHTML;
-      await dataService('PUT', endpoint, id, data).then(
-        async ({ data: res }) => {
-          if (res.error) {
-            completeAction(formName, formAction, modalName);
-            alertify.error(res.error);
-          } else {
-            console.log(res);
-            await _dom.updateTable(tableName, data, formAction, endpoint);
-            completeAction(formName, formAction, modalName);
-            alertify.success('Success message');
-          }
-        }
-      );
-    } else if (endpoint == 'bx') {
-      data.ui = document.getElementById('el3').innerHTML;
-      data.id = document.getElementById('el1').innerHTML;
-      data.bxamt = parseFloat(data.bxamt);
-      await dataService('PUT', endpoint, data.id, data).then(
-        async ({ data: res }) => {
-          var error = false;
-          for (var i in res) {
-            if (Object.keys(res[i]).includes('errno')) {
-              error = true;
+        );
+      } else if (endpoint == 'bcat') {
+        data.module = data.Modules;
+        data.type = data.Type;
+        data.frequency = data.Frequency;
+        data.SN = document.getElementById('el3').innerHTML;
+        data.id = document.getElementById('el1').innerHTML;
+        await dataService('PUT', endpoint, id, data).then(
+          async ({ data: res }) => {
+            if (res.error) {
+              completeAction(formName, formAction, modalName);
+              alertify.error(res.error);
+            } else {
+              console.log(res);
+              await _dom.updateTable(tableName, data, formAction, endpoint);
+              completeAction(formName, formAction, modalName);
+              alertify.success('Success message');
             }
           }
-          if (error) {
-            completeAction(formName, formAction, modalName);
-            alertify.error('Request Failed');
-          } else {
-            data = res[1];
-            await _dom.updateTable(tableName, data, formAction, endpoint);
-            completeAction(formName, formAction, modalName);
-            alertify.success('Success message');
+        );
+      } else if (endpoint == 'bx') {
+        data.ui = document.getElementById('el3').innerHTML;
+        data.id = document.getElementById('el1').innerHTML;
+        data.bxamt = parseFloat(data.bxamt);
+        await dataService('PUT', endpoint, data.id, data).then(
+          async ({ data: res }) => {
+            var error = false;
+            for (var i in res) {
+              if (Object.keys(res[i]).includes('errno')) {
+                error = true;
+              }
+            }
+            if (error) {
+              completeAction(formName, formAction, modalName);
+              alertify.error('Request Failed');
+            } else {
+              data = res[1];
+              await _dom.updateTable(tableName, data, formAction, endpoint);
+              completeAction(formName, formAction, modalName);
+              alertify.success('Success message');
+            }
           }
-        }
-      );
+        );
+      }
     }
-  }
+  };
 };
 
 const formClose = (formName, formAction, modalName) => {
@@ -364,19 +361,21 @@ const modalSync = (modalFunc, modalName) => {
   }
 };
 
-const formMiddleware = {
-  completeAction: completeAction,
-  formValidation: formValidation,
-  filterByValue: filterByValue,
-  validateForm: validateForm,
-  cleanForm: cleanForm,
-  formAction: formAction,
-  formClose: formClose,
-  formData: formData,
-  formContents: formContents,
-  formSubmission: formSubmission,
-  preloadForm: preloadForm,
-  modalSync: modalSync
+const formMiddleware = (_api) => {
+  return {
+    completeAction: completeAction,
+    formValidation: formValidation,
+    filterByValue: filterByValue,
+    validateForm: validateForm,
+    cleanForm: cleanForm,
+    formAction: formAction(_api),
+    formClose: formClose,
+    formData: formData,
+    formContents: formContents,
+    formSubmission: formSubmission,
+    preloadForm: preloadForm,
+    modalSync: modalSync
+  };
 };
 
 export { formMiddleware };

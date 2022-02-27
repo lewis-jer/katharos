@@ -27,7 +27,7 @@ const drawPage = async function (pageName, pageInfo, _api) {
   document.getElementById(pageInfo.viewport).innerHTML = body;
 
   if (!pageInfo.document && pageInfo.dynamicCharts) {
-    await dynamicChartLoader();
+    await dynamicChartLoader(_api);
   }
 
   if (!pageInfo.loaded) {

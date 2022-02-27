@@ -157,7 +157,7 @@ const _dom = (_api) => {
         });
       }
     },
-    formMiddleware: formMiddleware,
+    formMiddleware: formMiddleware(_api),
     modalMiddleware: modalMiddleware
   };
 };
