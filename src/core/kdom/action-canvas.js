@@ -1,7 +1,8 @@
 import { getEndpoint } from '../../../../katharos-router';
 import { generatePage, clearPage } from '../native/index.js';
 
-const loadPage = () => {
+const loadPage = (_api) => {
+  console.log(_api);
   return async (currPage, pageName) => {
     let router = await getEndpoint(currPage, pageName);
     if (router.sourceRouteInformation.loaded) {
