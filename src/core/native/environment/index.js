@@ -7,9 +7,9 @@ import { dynamicChartLoader } from './hook-chart';
 
 const pageLoader = async function (_api, pageInfo) {
   pageInfo.loadIndex = pageActions.loadIndex;
-  await pluginLoader(pageInfo);
-  await controllerLoader(pageInfo);
-  await middlewareLoader(pageInfo);
+  await pluginLoader(_api, pageInfo);
+  await controllerLoader(_api, pageInfo);
+  await middlewareLoader(_api, pageInfo);
   middleware[pageActions.loadIndex]
     ? middleware[pageActions.loadIndex]()
     : false;

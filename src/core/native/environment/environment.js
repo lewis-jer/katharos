@@ -1,6 +1,6 @@
-const pluginLoader = async function (pageInfo) {
+const pluginLoader = async function (_api, pageInfo) {
   for (var j in pageInfo.plugins) {
-    if (pageInfo.plugins[j].includes("js")) {
+    if (pageInfo.plugins[j].includes('js')) {
       try {
         if (
           !Object.keys(pluginLib).includes(
@@ -14,7 +14,7 @@ const pluginLoader = async function (pageInfo) {
             pageInfo.plugins[j];
         }
       } catch (e) {}
-    } else if (pageInfo.plugins[j].includes("css")) {
+    } else if (pageInfo.plugins[j].includes('css')) {
       try {
         if (
           !Object.keys(pluginLib).includes(
@@ -33,14 +33,14 @@ const pluginLoader = async function (pageInfo) {
     }
   }
 };
-const controllerLoader = async function (pageInfo) {
+const controllerLoader = async function (_api, pageInfo) {
   controller.push(
     pageInfo.controller
       ? await controllerConfig[pageInfo.arrayExpression]
       : false
   );
 };
-const middlewareLoader = async function (pageInfo) {
+const middlewareLoader = async function (_api, pageInfo) {
   middleware.push(
     pageInfo.middleware
       ? await middlewareConfig[pageInfo.arrayExpression]
