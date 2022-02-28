@@ -1,3 +1,5 @@
+import { tableMiddleware } from './hook-table';
+
 const dataHandler = {
   arrayToObject: function (array) {
     var obj = {};
@@ -178,4 +180,4 @@ const eventHandler = {
   removeEvent: function (objectId, systemReserved, formAction, modalName) {}
 };
 
-export { dataHandler, eventHandler };
+export { dataHandler, eventHandler, tableMiddleware };

@@ -91,6 +91,7 @@ const cleanForm = (formName, formAction) => {
 
 const formSubmit = (_api) => {
   return async (contents, formName, formAction, modalName, tableName) => {
+    console.log(_dom);
     console.log(_api);
     var modal = document.getElementById(modalName),
       data = {};
