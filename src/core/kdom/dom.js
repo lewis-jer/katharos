@@ -116,9 +116,11 @@ const tableSync = (element, table) => {
   }
 };
 
-const refreshTable = (tableName, endpoint) => {
-  emptyTable(tableName, endpoint);
-  updateTableData(tableName, endpoint);
+const refreshTable = (_api) => {
+  return (tableName, endpoint) => {
+    emptyTable(tableName, endpoint);
+    updateTableData(_api)(tableName, endpoint);
+  };
 };
 
 const emptyTable = (tableName, func) => {
@@ -167,7 +169,7 @@ const _dom = (_api) => {
     updateTable: updateTable(_api),
     removeTableRow: removeTableRow(_api),
     tableSync: tableSync,
-    refreshTable: refreshTable,
+    refreshTable: refreshTable(_api),
     emptyTable: emptyTable,
     updateTableData: updateTableData(_api),
     formMiddleware: formMiddleware(_api),
