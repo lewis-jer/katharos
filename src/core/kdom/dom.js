@@ -117,8 +117,8 @@ const _dom = (_api) => {
       }
     },
     refreshTable: function (tableName, endpoint) {
-      _dom.emptyTable(tableName, endpoint);
-      _dom.updateTableData(tableName, endpoint);
+      emptyTable(tableName, endpoint);
+      updateTableData(tableName, endpoint);
     },
     emptyTable: function (tableName, func) {
       var table = $(`#${tableName}`).DataTable();
