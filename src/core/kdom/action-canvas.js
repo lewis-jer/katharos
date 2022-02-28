@@ -11,7 +11,7 @@ const loadPage = (_api) => {
         userIdentifier: router.authentication.userId,
         location: currPage
       });
-      await clearPage(router.sourceRouteInformation);
+      await clearPage(_api, router.sourceRouteInformation);
     }
 
     window.endpoint = router.route;

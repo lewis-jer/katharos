@@ -119,7 +119,7 @@ const dataHandler = {
   txUploadDump: async function (tableName, endpoint) {
     (await dataService('GET', 'txin/dump')).data;
     userProfile.txUploadData = (await dataService('GET', 'tx/upload')).data;
-    _dom.emptyTable(tableName);
+    tableMiddleware().emptyTable(tableName);
   },
   stringToHash: function (string) {
     var hash = 0;

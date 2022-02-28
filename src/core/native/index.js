@@ -6,8 +6,8 @@ const generate = (_api) => {
   };
 };
 
-const clearPage = async (pageInfo) => {
-  await dynamicTableDestructor(pageInfo);
+const clearPage = async (_api, pageInfo) => {
+  await dynamicTableDestructor(_api, pageInfo);
   await pageDestructor(pageInfo);
 };
 

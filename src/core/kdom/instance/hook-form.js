@@ -91,7 +91,6 @@ const cleanForm = (formName, formAction) => {
 
 const formSubmit = (_api) => {
   return async (contents, formName, formAction, modalName, tableName) => {
-    console.log(_dom);
     console.log(_api);
     var modal = document.getElementById(modalName),
       data = {};
@@ -128,7 +127,7 @@ const formSubmit = (_api) => {
               alertify.error(res.error);
             }
             data.id = res.insertId;
-            await _dom.updateTable(tableName, data, formAction, endpoint);
+            await _api.updateTable(tableName, data, formAction, endpoint);
             completeAction(formName, formAction, modalName);
             alertify.success('Success message');
           }
@@ -145,7 +144,7 @@ const formSubmit = (_api) => {
               alertify.error(res.error);
             }
             data.id = res[0].insertId;
-            await _dom.updateTable(tableName, data, formAction, endpoint);
+            await _api.updateTable(tableName, data, formAction, endpoint);
             completeAction(formName, formAction, modalName);
             alertify.success('Success message');
           }
@@ -171,7 +170,7 @@ const formSubmit = (_api) => {
               data = res[1];
               userProfile.bxExpData.push(data);
               userProfile.bxIncData.push(data);
-              await _dom.updateTable(tableName, data, formAction, endpoint);
+              await _api.updateTable(tableName, data, formAction, endpoint);
               completeAction(formName, formAction, modalName);
               alertify.success('Success message');
             }
@@ -188,7 +187,7 @@ const formSubmit = (_api) => {
               completeAction(formName, formAction, modalName);
               alertify.error(res.error);
             }
-            await _dom.updateTable(tableName, data, formAction, endpoint);
+            await _api.updateTable(tableName, data, formAction, endpoint);
             completeAction(formName, formAction, modalName);
             alertify.success('Success message');
           }
@@ -206,7 +205,7 @@ const formSubmit = (_api) => {
               alertify.error(res.error);
             } else {
               console.log(res);
-              await _dom.updateTable(tableName, data, formAction, endpoint);
+              await _api.updateTable(tableName, data, formAction, endpoint);
               completeAction(formName, formAction, modalName);
               alertify.success('Success message');
             }
@@ -229,7 +228,7 @@ const formSubmit = (_api) => {
               alertify.error('Request Failed');
             } else {
               data = res[1];
-              await _dom.updateTable(tableName, data, formAction, endpoint);
+              await _api.updateTable(tableName, data, formAction, endpoint);
               completeAction(formName, formAction, modalName);
               alertify.success('Success message');
             }
