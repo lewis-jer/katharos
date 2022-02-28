@@ -5,7 +5,7 @@ import { tableMiddleware } from './instance/hook-table';
 const _dom = (_api) => {
   return {
     ...tableMiddleware(_api),
-    formMiddleware: formMiddleware(_api),
+    ...formMiddleware(_api),
     modalMiddleware: modalMiddleware(_api)
   };
 };
