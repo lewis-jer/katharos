@@ -1,88 +1,87 @@
 import { formMiddleware } from './instance/hook-form';
 import { modalMiddleware } from './instance/hook-modal';
 
-const updateTable = (tableName, data, formAction, endpoint) => {
-  if (endpoint == 'tx') {
-    [data].forEach((x, i) => {
-      data.searchAssist0 = `${
-        monthNames[new Date(x.txdate).getMonth()]
-      } ${new Date(x.txdate).getFullYear()}`;
-      data.searchAssist1 = `${new Date(x.txdate).getFullYear()}`;
-      data.searchAssist2 = `${monthNames[new Date(x.txdate).getMonth()]}`;
-      data.txdate = `${new Date(x.txdate).toLocaleDateString()}`;
-      data.txamt = data.txamount;
-      data.txbcat = _api.txMatcher(data.txbcat);
-      data.tx = _api.decrypter(data.tx);
-    });
-  } else if (endpoint == 'bcat') {
-    [data].forEach((x, i) => {
-      data.Modules = _api.bcatMatcher(data.module, 'module');
-      data.Type = _api.bcatMatcher(data.type, 'type');
-      data.Frequency = data.frequency;
-    });
-  }
-
-  if (formAction == 'add') {
+const updateTable = (_api) => {
+  return (tableName, data, formAction, endpoint) => {
     if (endpoint == 'tx') {
-      var table = $(`#${tableName}`).DataTable();
-      table.row.add(data).draw().node();
+      [data].forEach((x, i) => {
+        data.searchAssist0 = `${
+          monthNames[new Date(x.txdate).getMonth()]
+        } ${new Date(x.txdate).getFullYear()}`;
+        data.searchAssist1 = `${new Date(x.txdate).getFullYear()}`;
+        data.searchAssist2 = `${monthNames[new Date(x.txdate).getMonth()]}`;
+        data.txdate = `${new Date(x.txdate).toLocaleDateString()}`;
+        data.txamt = data.txamount;
+        data.txbcat = _api.txMatcher(data.txbcat);
+        data.tx = _api.decrypter(data.tx);
+      });
     } else if (endpoint == 'bcat') {
-      var table = $(`#${tableName}`).DataTable();
-      table.row.add(data).draw().node();
-    } else if (endpoint == 'bx') {
-      var table = $(`#${tableName}`).DataTable();
-      data.bxamt = data.bcatamt;
-      data.bxbcat = data.Category;
-      table.row.add(data).draw().node();
+      [data].forEach((x, i) => {
+        data.Modules = _api.bcatMatcher(data.module, 'module');
+        data.Type = _api.bcatMatcher(data.type, 'type');
+        data.Frequency = data.frequency;
+      });
     }
-  } else if (formAction == 'edit') {
-    if (endpoint == 'tx' || endpoint == 'bcat') {
-      var table = $(`#${tableName}`).DataTable();
-      var selectedRow = JSON.parse(document.getElementById('el2').innerHTML)
-        ._DT_CellIndex.row;
-      table.row(selectedRow).data(data).draw();
-    } else if (endpoint == 'bx') {
-      data.bxamt = data.bcatamt;
-      data.bxbcat = data.Category;
-      console.log(tableName);
-      _api.updateUserProfileData(
-        'bxExpData',
-        data.id,
-        formAction,
-        endpoint,
-        data
-      );
-      var table = $(`#${tableName}`).DataTable();
-      var selectedRow = JSON.parse(document.getElementById('el2').innerHTML)
-        ._DT_CellIndex.row;
-      table.row(selectedRow).data(data).draw();
+
+    if (formAction == 'add') {
+      if (endpoint == 'tx') {
+        var table = $(`#${tableName}`).DataTable();
+        table.row.add(data).draw().node();
+      } else if (endpoint == 'bcat') {
+        var table = $(`#${tableName}`).DataTable();
+        table.row.add(data).draw().node();
+      } else if (endpoint == 'bx') {
+        var table = $(`#${tableName}`).DataTable();
+        data.bxamt = data.bcatamt;
+        data.bxbcat = data.Category;
+        table.row.add(data).draw().node();
+      }
+    } else if (formAction == 'edit') {
+      if (endpoint == 'tx' || endpoint == 'bcat') {
+        var table = $(`#${tableName}`).DataTable();
+        var selectedRow = JSON.parse(document.getElementById('el2').innerHTML)
+          ._DT_CellIndex.row;
+        table.row(selectedRow).data(data).draw();
+      } else if (endpoint == 'bx') {
+        data.bxamt = data.bcatamt;
+        data.bxbcat = data.Category;
+        console.log(tableName);
+        _api.updateUserProfileData(
+          'bxExpData',
+          data.id,
+          formAction,
+          endpoint,
+          data
+        );
+        var table = $(`#${tableName}`).DataTable();
+        var selectedRow = JSON.parse(document.getElementById('el2').innerHTML)
+          ._DT_CellIndex.row;
+        table.row(selectedRow).data(data).draw();
+      }
     }
-  }
+  };
 };
 
-const removeTableRow = async (
-  tableName,
-  selectedRow,
-  selectedRowIndex,
-  endPoint
-) => {
-  let res;
-  if (endPoint == 'tx') {
-    res = await dataService('DELETE', 'tx', selectedRow.id);
-  }
-  if (endPoint == 'bx') {
-    res = await dataService('DELETE', 'bx', selectedRow.id);
-    _api.updateUserProfileData('bxExpData', selectedRow.id, 'delete', 'bx');
-    _api.updateUserProfileData('bxIncData', selectedRow.id, 'delete', 'bx');
-  }
-  var table = $(`#${tableName}`).DataTable();
-  table.row($(selectedRowIndex).parents('tr')).remove().draw();
-  if (endPoint == 'tx') {
-    alertify.success(res);
-  }
-  if (endPoint == 'bx') {
-    alertify.success(res);
-  }
+const removeTableRow = (_api) => {
+  return async (tableName, selectedRow, selectedRowIndex, endPoint) => {
+    let res;
+    if (endPoint == 'tx') {
+      res = await dataService('DELETE', 'tx', selectedRow.id);
+    }
+    if (endPoint == 'bx') {
+      res = await dataService('DELETE', 'bx', selectedRow.id);
+      _api.updateUserProfileData('bxExpData', selectedRow.id, 'delete', 'bx');
+      _api.updateUserProfileData('bxIncData', selectedRow.id, 'delete', 'bx');
+    }
+    var table = $(`#${tableName}`).DataTable();
+    table.row($(selectedRowIndex).parents('tr')).remove().draw();
+    if (endPoint == 'tx') {
+      alertify.success(res);
+    }
+    if (endPoint == 'bx') {
+      alertify.success(res);
+    }
+  };
 };
 
 const tableSync = (element, table) => {
@@ -131,44 +130,46 @@ const emptyTable = (tableName, func) => {
   }
 };
 
-const updateTableData = async (tableName, endpoint) => {
-  var table = $(`#${tableName}`).DataTable();
-  if (endpoint == 'tx') {
-    var data = await dataService('GET', 'tx');
-    data.forEach((x, i) => {
-      data[i].txdate = `${new Date(x.txdate).toLocaleDateString('en-US')}`;
-      data[i].tx = _api.decrypter(data[i].tx);
-      table.row.add(data[i]).draw().node();
-    });
-  } else if (endpoint == 'bx') {
-    var data;
-    if (tableName == 'bxtablee') {
-      data = userProfile.bxExpData;
-    } else if (tableName == 'bxtablei') {
-      data = userProfile.bxIncData;
+const updateTableData = (_api) => {
+  return async (tableName, endpoint) => {
+    var table = $(`#${tableName}`).DataTable();
+    if (endpoint == 'tx') {
+      var data = await dataService('GET', 'tx');
+      data.forEach((x, i) => {
+        data[i].txdate = `${new Date(x.txdate).toLocaleDateString('en-US')}`;
+        data[i].tx = _api.decrypter(data[i].tx);
+        table.row.add(data[i]).draw().node();
+      });
+    } else if (endpoint == 'bx') {
+      var data;
+      if (tableName == 'bxtablee') {
+        data = userProfile.bxExpData;
+      } else if (tableName == 'bxtablei') {
+        data = userProfile.bxIncData;
+      }
+      data.forEach((x, i) => {
+        table.row.add(data[i]).draw().node();
+      });
+    } else {
+      userProfile.txUploadData = (await dataService('GET', 'tx/upload')).data;
+      var data = userProfile.txUploadData;
+      data.forEach((x, i) => {
+        data[i].txdate = `${new Date(x.txdate).toLocaleDateString('en-US')}`;
+        data[i].tx = _api.decrypter(data[i].tx);
+        table.row.add(data[i]).draw().node();
+      });
     }
-    data.forEach((x, i) => {
-      table.row.add(data[i]).draw().node();
-    });
-  } else {
-    userProfile.txUploadData = (await dataService('GET', 'tx/upload')).data;
-    var data = userProfile.txUploadData;
-    data.forEach((x, i) => {
-      data[i].txdate = `${new Date(x.txdate).toLocaleDateString('en-US')}`;
-      data[i].tx = _api.decrypter(data[i].tx);
-      table.row.add(data[i]).draw().node();
-    });
-  }
+  };
 };
 
 const _dom = (_api) => {
   return {
-    updateTable: updateTable,
-    removeTableRow: removeTableRow,
+    updateTable: updateTable(_api),
+    removeTableRow: removeTableRow(_api),
     tableSync: tableSync,
     refreshTable: refreshTable,
     emptyTable: emptyTable,
-    updateTableData: updateTableData,
+    updateTableData: updateTableData(_api),
     formMiddleware: formMiddleware(_api),
     modalMiddleware: modalMiddleware(_api)
   };
