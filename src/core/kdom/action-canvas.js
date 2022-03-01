@@ -5,6 +5,7 @@ const loadPage = (_api) => {
   const generatePage = generate(_api);
   return async (currPage, pageName) => {
     let router = await getEndpoint(_api, currPage, pageName);
+    console.log(_api);
     console.log(router);
     if (router.sourceRouteInformation.loaded) {
       _api.addEvent('clearPage', {
