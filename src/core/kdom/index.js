@@ -1,5 +1,4 @@
 import { loadPage } from './action-canvas';
-import { _domObject } from './dom';
 
 const pageActions = (_api) => {
   return {
@@ -8,8 +7,4 @@ const pageActions = (_api) => {
   };
 };
 
-const _domInit = (_api) => {
-  return { ..._domObject(_api) };
-};
-
-export { pageActions, _domInit };
+export { pageActions };

@@ -1,4 +1,4 @@
-import { pageActions, _domInit } from './core/kdom';
+import { pageActions } from './core/kdom';
 import { pageLoader } from './core/instance';
 import { _api, initialization, plugins } from './core/api';
 
@@ -8,6 +8,4 @@ const katharos = {
   _api: _api
 };
 
-const _dom = _domInit(_api);
-
-export { _dom, katharos, initialization };
+export { katharos, initialization };

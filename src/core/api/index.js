@@ -19,8 +19,12 @@ _api = {
 
 _api = {
   ..._api,
-  ...formMiddleware(_api),
   ...modalMiddleware(_api)
+};
+
+_api = {
+  ..._api,
+  ...formMiddleware(_api)
 };
 
 const initialization = async function (url) {

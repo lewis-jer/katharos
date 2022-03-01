@@ -1,5 +1,5 @@
 const completeAction = (formName, formAction, modalName) => {
-  modalMiddleware.removeElementsById(null, null, formAction, modalName);
+  _api.removeElementsById(null, null, formAction, modalName);
   cleanForm(formName, formAction);
   formSpinner(1);
   $(`#${modalName}`).modal('hide');
@@ -240,7 +240,7 @@ const formSubmit = (_api) => {
 };
 
 const formClose = (formName, formAction, modalName) => {
-  modalMiddleware.removeElementsById(null, null, formAction, modalName);
+  _api.removeElementsById(null, null, formAction, modalName);
   cleanForm(formName, formAction);
   $(`#${modalName}`).modal('hide');
   console.log('Form Closed Successfully');
