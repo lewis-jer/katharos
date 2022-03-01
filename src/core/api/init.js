@@ -48,4 +48,4 @@ const initialization = (_api) => {
   };
 };
 
-export { initialization as init };
+export { initialization };

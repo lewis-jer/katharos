@@ -8,7 +8,7 @@ import {
   modalMiddleware
 } from './helper';
 import { gatherPageInfo } from '../util';
-import { init } from './init';
+import { initialization } from './init';
 
 let _api = { ...dataHandler, ...eventHandler };
 _api = {
@@ -26,9 +26,9 @@ _api = {
 _api = {
   ..._api,
   ...formMiddleware(_api),
-  ...init(_api)
+  init: initialization(_api)
 };
 
-var initialization = init(_api);
+initialization = initialization(_api);
 
 export { _api, initialization, plugins };
