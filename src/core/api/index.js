@@ -19,7 +19,7 @@ _api = {
 
 _api = {
   ..._api,
-  ...helper.formMiddlewareformMiddleware(_api),
+  ...helper.formMiddleware(_api),
   init: initialization(_api)
 };
 
