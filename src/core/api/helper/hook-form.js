@@ -1,9 +1,11 @@
-const completeAction = (formName, formAction, modalName) => {
-  _api.removeElementsById(null, null, formAction, modalName);
-  cleanForm(formName, formAction);
-  formSpinner(1);
-  $(`#${modalName}`).modal('hide');
-  console.log('Form Submitted Successfully');
+const completeAction = (_api) => {
+  return (formName, formAction, modalName) => {
+    _api.removeElementsById(null, null, formAction, modalName);
+    cleanForm(formName, formAction);
+    formSpinner(1);
+    $(`#${modalName}`).modal('hide');
+    console.log('Form Submitted Successfully');
+  };
 };
 
 const formValidation = (formName, formAction, contents) => {
@@ -123,12 +125,12 @@ const formSubmit = (_api) => {
         await dataService('POST', endpoint, false, data).then(
           async ({ data: res }) => {
             if (res.error) {
-              completeAction(formName, formAction, modalName);
+              completeAction(_api)(formName, formAction, modalName);
               alertify.error(res.error);
             }
             data.id = res.insertId;
             await _api.updateTable(tableName, data, formAction, endpoint);
-            completeAction(formName, formAction, modalName);
+            completeAction(_api)(formName, formAction, modalName);
             alertify.success('Success message');
           }
         );
@@ -140,12 +142,12 @@ const formSubmit = (_api) => {
         await dataService('POST', endpoint, false, data).then(
           async ({ data: res }) => {
             if (res.error) {
-              completeAction(formName, formAction, modalName);
+              completeAction(_api)(formName, formAction, modalName);
               alertify.error(res.error);
             }
             data.id = res[0].insertId;
             await _api.updateTable(tableName, data, formAction, endpoint);
-            completeAction(formName, formAction, modalName);
+            completeAction(_api)(formName, formAction, modalName);
             alertify.success('Success message');
           }
         );
@@ -163,7 +165,7 @@ const formSubmit = (_api) => {
               }
             }
             if (error) {
-              completeAction(formName, formAction, modalName);
+              completeAction(_api)(formName, formAction, modalName);
               alertify.error('Request Failed');
             } else {
               //data.id = res[0].insertId
@@ -171,7 +173,7 @@ const formSubmit = (_api) => {
               userProfile.bxExpData.push(data);
               userProfile.bxIncData.push(data);
               await _api.updateTable(tableName, data, formAction, endpoint);
-              completeAction(formName, formAction, modalName);
+              completeAction(_api)(formName, formAction, modalName);
               alertify.success('Success message');
             }
           }
@@ -184,11 +186,11 @@ const formSubmit = (_api) => {
         await dataService('PUT', endpoint, id, data).then(
           async ({ data: res }) => {
             if (res.error) {
-              completeAction(formName, formAction, modalName);
+              completeAction(_api)(formName, formAction, modalName);
               alertify.error(res.error);
             }
             await _api.updateTable(tableName, data, formAction, endpoint);
-            completeAction(formName, formAction, modalName);
+            completeAction(_api)(formName, formAction, modalName);
             alertify.success('Success message');
           }
         );
@@ -201,12 +203,12 @@ const formSubmit = (_api) => {
         await dataService('PUT', endpoint, id, data).then(
           async ({ data: res }) => {
             if (res.error) {
-              completeAction(formName, formAction, modalName);
+              completeAction(_api)(formName, formAction, modalName);
               alertify.error(res.error);
             } else {
               console.log(res);
               await _api.updateTable(tableName, data, formAction, endpoint);
-              completeAction(formName, formAction, modalName);
+              completeAction(_api)(formName, formAction, modalName);
               alertify.success('Success message');
             }
           }
@@ -224,12 +226,12 @@ const formSubmit = (_api) => {
               }
             }
             if (error) {
-              completeAction(formName, formAction, modalName);
+              completeAction(_api)(formName, formAction, modalName);
               alertify.error('Request Failed');
             } else {
               data = res[1];
               await _api.updateTable(tableName, data, formAction, endpoint);
-              completeAction(formName, formAction, modalName);
+              completeAction(_api)(formName, formAction, modalName);
               alertify.success('Success message');
             }
           }
@@ -239,11 +241,13 @@ const formSubmit = (_api) => {
   };
 };
 
-const formClose = (formName, formAction, modalName) => {
-  _api.removeElementsById(null, null, formAction, modalName);
-  cleanForm(formName, formAction);
-  $(`#${modalName}`).modal('hide');
-  console.log('Form Closed Successfully');
+const formClose = (_api) => {
+  return (formName, formAction, modalName) => {
+    _api.removeElementsById(null, null, formAction, modalName);
+    cleanForm(formName, formAction);
+    $(`#${modalName}`).modal('hide');
+    console.log('Form Closed Successfully');
+  };
 };
 
 const formData = (formName) => {
@@ -366,12 +370,12 @@ const modalSync = (modalFunc, modalName) => {
 
 const formMiddleware = (_api) => {
   return {
-    completeAction: completeAction,
+    completeAction: completeAction(_api),
     formValidation: formValidation,
     filterByValue: filterByValue,
     validateForm: validateForm,
     cleanForm: cleanForm,
-    formClose: formClose,
+    formClose: formClose(api),
     formData: formData,
     formContents: formContents,
     formSubmission: formSubmission(_api),
