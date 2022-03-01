@@ -6,5 +6,5 @@ const pageActions = (_api) => {
     loadIndex: 1
   };
 };
-
+window._api;
 export { pageActions };

@@ -8,6 +8,6 @@ const katharos = {
   _api: _api
 };
 
-GLOBAL.test = 'test success';
+global.test = 'test success';
 
 export { katharos };
