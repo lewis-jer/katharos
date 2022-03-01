@@ -26,9 +26,9 @@ _api = {
 _api = {
   ..._api,
   ...formMiddleware(_api),
-  init(_api)
+  ...init(_api)
 };
 
-var initialization = init(_api)
+var initialization = init(_api);
 
 export { _api, initialization, plugins };
