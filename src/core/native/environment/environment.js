@@ -46,7 +46,6 @@ const middlewareLoader = async function (_api, pageInfo) {
       ? await middlewareConfig[pageInfo.arrayExpression]
       : false
   );
-  console.log(middleware);
 };
 
 export { pluginLoader, controllerLoader, middlewareLoader };

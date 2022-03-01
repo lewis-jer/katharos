@@ -159,7 +159,6 @@ const dataHandler = {
     } else if (action == 'edit' && endpoint == 'bx') {
       for (var i in object) {
         if (object[i].id == arrayExpression) {
-          console.log(newObject);
           object[i].bxamt = newObject.bxamt;
           object[i].bcatamt = newObject.bxamt;
         }

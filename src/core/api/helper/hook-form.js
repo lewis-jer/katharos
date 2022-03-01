@@ -93,7 +93,6 @@ const cleanForm = (formName, formAction) => {
 
 const formSubmit = (_api) => {
   return async (contents, formName, formAction, modalName, tableName) => {
-    console.log(_api);
     var modal = document.getElementById(modalName),
       data = {};
     var endpoint = modalName.replace(`${formAction}`, '');
@@ -206,7 +205,6 @@ const formSubmit = (_api) => {
               completeAction(_api)(formName, formAction, modalName);
               alertify.error(res.error);
             } else {
-              console.log(res);
               await _api.updateTable(tableName, data, formAction, endpoint);
               completeAction(_api)(formName, formAction, modalName);
               alertify.success('Success message');
@@ -311,7 +309,6 @@ const formSubmission = (_api) => {
     } else {
       formSpinner();
       formValidation(formName, formAction, contents);
-      console.log(formAction);
       formSubmit(_api)(contents, formName, formAction, modalName, tableName);
     }
   };

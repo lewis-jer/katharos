@@ -31,7 +31,6 @@ const drawPage = async function (pageName, pageInfo, _api) {
   }
 
   if (!pageInfo.loaded) {
-    console.log(pageInfo);
     await pageLoader(_api, pageInfo);
   } else {
     await pageReloader(_api, pageInfo);

@@ -42,7 +42,6 @@ const updateTable = (_api) => {
       } else if (endpoint == 'bx') {
         data.bxamt = data.bcatamt;
         data.bxbcat = data.Category;
-        console.log(tableName);
         _api.updateUserProfileData(
           'bxExpData',
           data.id,
