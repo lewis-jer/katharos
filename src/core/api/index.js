@@ -29,6 +29,4 @@ _api = {
   init: initialization(_api)
 };
 
-initialization = initialization(_api);
-
-export { _api, initialization, plugins };
+export { _api, plugins };
