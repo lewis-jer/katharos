@@ -2,6 +2,8 @@ import { tableMiddleware } from './hook-table';
 import { formMiddleware } from './hook-form';
 import { modalMiddleware } from './hook-modal';
 
+const event_log = [];
+
 const dataHandler = {
   arrayToObject: function (array) {
     var obj = {};
