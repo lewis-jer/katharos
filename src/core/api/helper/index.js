@@ -184,10 +184,12 @@ const eventHandler = {
   removeEvent: function (objectId, systemReserved, formAction, modalName) {}
 };
 
-export {
-  dataHandler,
-  eventHandler,
-  tableMiddleware,
-  formMiddleware,
-  modalMiddleware
+const helper = {
+  dataHandler: dataHandler,
+  eventHandler: eventHandler,
+  tableMiddleware: tableMiddleware,
+  formMiddleware: formMiddleware,
+  modalMiddleware: modalMiddleware
 };
+
+export { helper };

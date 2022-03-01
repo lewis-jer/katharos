@@ -1,31 +1,25 @@
 import { plugins } from './plugin';
 import { pageObjects } from '../../core/components';
-import {
-  dataHandler,
-  eventHandler,
-  tableMiddleware,
-  formMiddleware,
-  modalMiddleware
-} from './helper';
+import { helper } from './helper';
 import { gatherPageInfo } from '../util';
 import { initialization } from './init';
 
-let _api = { ...dataHandler, ...eventHandler };
+let _api = { ...helper.dataHandler, ...helper.eventHandler };
 _api = {
   ..._api,
   ...pageObjects(_api),
-  ...tableMiddleware(_api),
+  ...helper.tableMiddleware(_api),
   gatherPageInfo: gatherPageInfo(_api)
 };
 
 _api = {
   ..._api,
-  ...modalMiddleware(_api)
+  ...helper.modalMiddleware(_api)
 };
 
 _api = {
   ..._api,
-  ...formMiddleware(_api),
+  ...helper.formMiddlewareformMiddleware(_api),
   init: initialization(_api)
 };
 
