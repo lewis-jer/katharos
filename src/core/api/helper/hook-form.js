@@ -375,7 +375,7 @@ const formMiddleware = (_api) => {
     filterByValue: filterByValue,
     validateForm: validateForm,
     cleanForm: cleanForm,
-    formClose: formClose(api),
+    formClose: formClose(_api),
     formData: formData,
     formContents: formContents,
     formSubmission: formSubmission(_api),
