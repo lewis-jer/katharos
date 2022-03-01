@@ -1,11 +1,7 @@
 const dataHandler = {
   arrayToObject: function (array) {
     var obj = {};
-    array.map((element) => {
-      {
-        obj[element.arrayExpression] = element;
-      }
-    });
+    array.map((element) => (obj[element.arrayExpression] = element));
     console.log(obj);
     return obj;
   },
