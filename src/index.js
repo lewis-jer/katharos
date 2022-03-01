@@ -1,6 +1,6 @@
 import { pageActions } from './core/kdom';
 import { pageLoader } from './core/instance';
-import { _api, initialization, plugins } from './core/api';
+import { _api, plugins } from './core/api';
 
 const katharos = {
   pageActions: pageActions(_api),
@@ -8,4 +8,6 @@ const katharos = {
   _api: _api
 };
 
-export { katharos, initialization };
+GLOBAL.test = 'test success';
+
+export { katharos };
