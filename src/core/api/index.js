@@ -12,7 +12,6 @@ import { gatherPageInfo } from '../util';
 let _api = { ...dataHandler, ...eventHandler };
 _api = {
   ..._api,
-  ..._domObject(_api),
   ...pageObjects(_api),
   ...tableMiddleware(_api),
   gatherPageInfo: gatherPageInfo(_api)
