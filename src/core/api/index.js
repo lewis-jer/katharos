@@ -29,4 +29,6 @@ _api = {
   init: initialization(_api)
 };
 
+window._katharos_api_ = _api;
+
 export { _api, plugins };
