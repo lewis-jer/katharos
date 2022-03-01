@@ -1,5 +1,5 @@
 import { plugins } from './plugin';
-import { pageActions, _domInit } from '../kdom';
+import { _domObject } from '../kdom/dom';
 import { pageObjects } from '../../core/components';
 import { dataHandler, eventHandler, tableMiddleware } from './helper';
 import { gatherPageInfo } from '../util';
@@ -7,7 +7,7 @@ import { gatherPageInfo } from '../util';
 let _api = { ...dataHandler, ...eventHandler };
 _api = {
   ..._api,
-  ..._domInit(_api),
+  ..._domObject(_api),
   ...pageObjects(_api),
   ...tableMiddleware(_api),
   gatherPageInfo: gatherPageInfo(_api)
