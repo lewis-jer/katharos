@@ -1,5 +1,5 @@
-import { formMiddleware } from './instance/hook-form';
-import { modalMiddleware } from './instance/hook-modal';
+import { formMiddleware } from '../api/helper/hook-form';
+import { modalMiddleware } from '../api/helper/hook-modal';
 import { tableMiddleware } from '../api/helper/hook-table';
 
 const _dom = (_api) => {

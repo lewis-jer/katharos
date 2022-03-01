@@ -1,7 +1,12 @@
 import { plugins } from './plugin';
-import { _domObject } from '../kdom/dom';
 import { pageObjects } from '../../core/components';
-import { dataHandler, eventHandler, tableMiddleware } from './helper';
+import {
+  dataHandler,
+  eventHandler,
+  tableMiddleware,
+  formMiddleware,
+  modalMiddleware
+} from './helper';
 import { gatherPageInfo } from '../util';
 
 let _api = { ...dataHandler, ...eventHandler };
@@ -11,6 +16,12 @@ _api = {
   ...pageObjects(_api),
   ...tableMiddleware(_api),
   gatherPageInfo: gatherPageInfo(_api)
+};
+
+_api = {
+  ..._api,
+  ...formMiddleware(_api),
+  ...modalMiddleware(_api)
 };
 
 const initialization = async function (url) {

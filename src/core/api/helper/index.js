@@ -1,4 +1,6 @@
 import { tableMiddleware } from './hook-table';
+import { formMiddleware } from './hook-form';
+import { modalMiddleware } from './hook-modal';
 
 const dataHandler = {
   arrayToObject: function (array) {
@@ -180,4 +182,10 @@ const eventHandler = {
   removeEvent: function (objectId, systemReserved, formAction, modalName) {}
 };
 
-export { dataHandler, eventHandler, tableMiddleware };
+export {
+  dataHandler,
+  eventHandler,
+  tableMiddleware,
+  formMiddleware,
+  modalMiddleware
+};
