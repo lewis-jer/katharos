@@ -25,42 +25,36 @@ const dataHandler = {
   txMatcher: function (bcat = false, bmod = false) {
     if (bcat != false) {
       for (var i in userProfile.bcatData) {
-        if (userProfile.bcatData[i].bcat == bcat) {
+        if (userProfile.bcatData[i].bcat == bcat)
           return userProfile.bcatData[i].Category;
-        }
       }
     } else if (bmod != false) {
       for (var i in userProfile.moduleData) {
-        if (userProfile.moduleData[i].SN == bmod) {
+        if (userProfile.moduleData[i].SN == bmod)
           return userProfile.moduleData[i].func;
-        }
       }
     }
   },
   bcatMatcher: function (value, type) {
     if (type == 'func') {
       for (var i in userProfile.moduleData) {
-        if (userProfile.moduleData[i].SN == value) {
+        if (userProfile.moduleData[i].SN == value)
           return userProfile.moduleData[i].func;
-        }
       }
     } else if (type == 'module') {
       for (var i in userProfile.moduleData) {
-        if (userProfile.moduleData[i].SN == value) {
+        if (userProfile.moduleData[i].SN == value)
           return userProfile.moduleData[i].bmod;
-        }
       }
     } else if (type == 'type') {
       for (var i in userProfile.btypeData) {
-        if (userProfile.btypeData[i].SN == value) {
+        if (userProfile.btypeData[i].SN == value)
           return userProfile.btypeData[i].btype;
-        }
       }
     } else if (type == 'category') {
       for (var i in userProfile.bcatData) {
-        if (userProfile.bcatData[i].bcat == value) {
+        if (userProfile.bcatData[i].bcat == value)
           return userProfile.bcatData[i].Category;
-        }
       }
     }
   },
@@ -114,11 +108,10 @@ const dataHandler = {
     tableMiddleware().emptyTable(tableName);
   },
   stringToHash: function (string) {
-    var hash = 0;
-    var i;
-    var char;
+    var hash = 0,
+      i,
+      char;
     if (string.length == 0) return hash;
-
     for (i = 0; i < string.length; i++) {
       char = string.charCodeAt(i);
       hash = (hash << 5) - hash + char;
@@ -127,22 +120,20 @@ const dataHandler = {
     return 'eyz' + hash;
   },
   mySQLDateCreator: function (x) {
-    var dt = new Date(x).toJSON().slice(0, 10);
-    return dt;
+    return new Date(x).toJSON().slice(0, 10);
   },
-  updateUserProfileData: function (
+  updateUserProfileData: (
     userObject,
     arrayExpression,
     action,
     endpoint,
     newObject
-  ) {
+  ) => {
     var object = userProfile[userObject];
     if (action == 'delete' && endpoint == 'bx') {
       for (var i in object) {
-        if (object[i].id == arrayExpression) {
+        if (object[i].id == arrayExpression)
           object.splice(object.indexOf(object[i]), 1);
-        }
       }
     } else if (action == 'edit' && endpoint == 'bx') {
       for (var i in object) {
