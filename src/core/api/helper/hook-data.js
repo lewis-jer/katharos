@@ -2,15 +2,12 @@ const dataHandler = {
   arrayToObject: function (array) {
     var obj = {};
     array.map((element) => (obj[element.arrayExpression] = element));
-    console.log(obj);
     return obj;
   },
   squash: function (arr) {
     var tmp = [];
     for (var i = 0; i < arr.length; i++) {
-      if (tmp.indexOf(arr[i]) == -1) {
-        tmp.push(arr[i]);
-      }
+      if (tmp.indexOf(arr[i]) == -1) tmp.push(arr[i]);
     }
     return tmp;
   },
