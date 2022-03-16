@@ -119,9 +119,7 @@ const dataHandler = {
     }
     return 'eyz' + hash;
   },
-  mySQLDateCreator: function (x) {
-    return new Date(x).toJSON().slice(0, 10);
-  },
+  mySQLDateCreator: (x) => {return new Date(x).toJSON().slice(0, 10)},
   updateUserProfileData: (
     userObject,
     arrayExpression,
