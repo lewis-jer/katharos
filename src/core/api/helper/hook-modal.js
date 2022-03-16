@@ -52,7 +52,7 @@ const removeElementsById = (_api) => {
   };
 };
 
-const smodalMiddleware = (_api) => {
+const modalMiddleware = (_api) => {
   return {
     addElementsById: addElementsById(_api),
     removeElementsById: removeElementsById(_api)
