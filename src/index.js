@@ -12,7 +12,7 @@ const katharos = {
 (async () => {
   console.log(
     await axios.get(
-      'https://fp-exchange.azurewebsites.net/api/trigger-fp-exchange?code=ocU17KflR2/tAPM647FczJtoo60EGbVIeGKKgS7vCkatsrEgmWadeQ==a',
+      'https://fp-exchange.azurewebsites.net/api/trigger-fp-exchange?code=ocU17KflR2/tAPM647FczJtoo60EGbVIeGKKgS7vCkatsrEgmWadeQ==',
       {
         body: {
           request: 'secur-katharos-default'
