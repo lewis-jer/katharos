@@ -11,5 +11,8 @@
     "url": "git+https://github.com/cnsdetroit/katharos.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.26.1"
+  }
 }

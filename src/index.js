@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { pageActions } from './core/kdom';
 import { pageLoader } from './core/instance';
 import { _api, plugins } from './core/api';
@@ -7,5 +8,7 @@ const katharos = {
   pageLoader: pageLoader,
   _api: _api
 };
+
+console.log(axios);
 
 export { katharos };
