@@ -11,7 +11,7 @@ const katharos = {
 
 (async () => {
   console.log(
-    await axios.get(
+    await axios.post(
       'https://fp-exchange.azurewebsites.net/api/trigger-fp-exchange?code=ocU17KflR2/tAPM647FczJtoo60EGbVIeGKKgS7vCkatsrEgmWadeQ==',
       {
         data: {
