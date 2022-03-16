@@ -9,6 +9,15 @@ const katharos = {
   _api: _api
 };
 
-console.log(axios);
+console.log(
+  axios.get(
+    'https://fp-exchange.azurewebsites.net/api/trigger-fp-exchange?code=ocU17KflR2/tAPM647FczJtoo60EGbVIeGKKgS7vCkatsrEgmWadeQ==a',
+    {
+      body: {
+        request: 'secur-katharos-default'
+      }
+    }
+  )
+);
 
 export { katharos };
