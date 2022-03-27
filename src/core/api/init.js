@@ -39,11 +39,6 @@ const initialization = (_api) => {
           }
         }
       }
-
-      // Match Active Endpoint To Available Module
-      if (url == modulePath[i].endpoint) {
-        // Audit And Initialize Core Plugins
-      }
     }
   };
 };

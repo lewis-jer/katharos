@@ -1,6 +1,6 @@
 {
   "name": "katharos",
-  "version": "1.0.177",
+  "version": "1.0.178",
   "description": "katharos framework",
   "main": "src/index.js",
   "scripts": {
@@ -12,7 +12,5 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "axios": "^0.26.1"
-  }
+  "dependencies": {}
 }
