@@ -8,35 +8,7 @@ const initialization = (_api) => {
         controller.push('system reserved');
         middleware.push('system reserved');
         for (var j in modulePath[i].plugins) {
-          if (modulePath[i].plugins[j].includes('js')) {
-            try {
-              await $.getScript(modulePath[i].plugins[j]);
-              console.log(`${pluginIndex} => ${modulePath[i].plugins[j]}`);
-              pluginIndex++;
-              pluginLib[_api.stringToHash(modulePath[i].plugins[j])] =
-                modulePath[i].plugins[j];
-            } catch (e) {
-              console.log(
-                `${pluginIndex} => Failed To Load: ${modulePath[i].plugins[j]}`
-              );
-              pluginIndex++;
-            }
-          } else if (modulePath[i].plugins[j].includes('css')) {
-            try {
-              document.head.innerHTML += `<link type="text/css" rel="stylesheet" href=${
-                modulePath[i].plugins[j]
-              }?update=${Date.now()}>`;
-              console.log(`${pluginIndex} => ${modulePath[i].plugins[j]}`);
-              pluginIndex++;
-              pluginLib[_api.stringToHash(modulePath[i].plugins[j])] =
-                modulePath[i].plugins[j];
-            } catch (e) {
-              console.log(
-                `${pluginIndex} => Failed To Load: ${modulePath[i].plugins[j]}`
-              );
-              pluginIndex++;
-            }
-          }
+          _api.assembler(modulePath[i].plugins[j]);
         }
       }
     }

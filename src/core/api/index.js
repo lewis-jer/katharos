@@ -1,4 +1,4 @@
-import { plugins } from './plugin';
+import { plugins, assembler } from './plugin';
 import { pageObjects } from '../../core/components';
 import { helper } from './helper';
 import { gatherPageInfo } from '../util';
@@ -20,6 +20,7 @@ _api = {
 _api = {
   ..._api,
   ...helper.formMiddleware(_api),
+  ...assembler(_api),
   init: initialization(_api)
 };
 
