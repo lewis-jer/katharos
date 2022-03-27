@@ -20,7 +20,7 @@ _api = {
 _api = {
   ..._api,
   ...helper.formMiddleware(_api),
-  ...assembler(_api),
+  assembler: assembler(_api),
   init: initialization(_api)
 };
 
