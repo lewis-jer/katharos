@@ -14,13 +14,13 @@ _api = {
 
 _api = {
   ..._api,
-  ...helper.modalMiddleware(_api)
+  ...helper.modalMiddleware(_api),
+  assembler: assembler(_api)
 };
 
 _api = {
   ..._api,
   ...helper.formMiddleware(_api),
-  assembler: assembler(_api),
   init: initialization(_api)
 };
 
