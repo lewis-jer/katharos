@@ -8,14 +8,14 @@ try {
 
 const jsAssembler = async (_api, modulePlugin) => {
   await $.getScript(modulePlugin);
-  console.log(`${pluginIndex} => ${modulePlugin}`);
+  //console.log(`${pluginIndex} => ${modulePlugin}`);
   pluginIndex++;
   pluginLib[_api.stringToHash(modulePlugin)] = modulePlugin;
 };
 
 const cssAssembler = async (_api, modulePlugin) => {
   document.head.innerHTML += `<link type="text/css" rel="stylesheet" href=${modulePlugin}?update=${Date.now()}>`;
-  console.log(`${pluginIndex} => ${modulePlugin}`);
+  //console.log(`${pluginIndex} => ${modulePlugin}`);
   pluginIndex++;
   pluginLib[_api.stringToHash(modulePlugin)] = modulePlugin;
 };
