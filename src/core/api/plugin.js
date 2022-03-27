@@ -13,7 +13,7 @@ const jsAssembler = async (_api, modulePlugin) => {
   pluginLib[_api.stringToHash(modulePlugin)] = modulePlugin;
 };
 
-const cssAssembler = (_api, modulePlugin) => {
+const cssAssembler = async (_api, modulePlugin) => {
   document.head.innerHTML += `<link type="text/css" rel="stylesheet" href=${modulePlugin}?update=${Date.now()}>`;
   console.log(`${pluginIndex} => ${modulePlugin}`);
   pluginIndex++;
@@ -31,7 +31,7 @@ const assembler = (_api) => {
       }
     } else if (modulePlugin.includes('css')) {
       try {
-        cssAssembler(_api, modulePlugin);
+        await cssAssembler(_api, modulePlugin);
       } catch (e) {
         console.log(`${pluginIndex} => Failed To Load: ${modulePlugin}`);
         pluginIndex++;
