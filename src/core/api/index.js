@@ -26,6 +26,6 @@ _api = {
 };
 
 window._katharos_api_ = _api;
-window.System = System;
+window._katharos_system_ = System;
 
 export { _api, plugins };
