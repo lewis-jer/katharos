@@ -1,12 +1,14 @@
 class System {
   constructor(data) {
     this.data = {
-      processName: data.name
+      processName: data.name,
+      pluginIndex: 0
     };
     this.next = null;
   }
 
-  updateNode() {
+  updatePlugin() {
+    this.data.pluginIndex++;
     return this.data;
   }
 
