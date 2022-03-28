@@ -6,7 +6,9 @@ class System {
     this.next = null;
   }
 
-  updateNode() {}
+  updateNode() {
+    return this.data;
+  }
 
   setNextNode(node) {
     if (node instanceof System || node === null) {
