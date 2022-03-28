@@ -15,7 +15,6 @@ class testUser {
 const user = new testUser();
 user.push('toast');
 user._array.unshift('value');
-console.log(stack);
 
 // Testing Classes //
 // Node Modules //
