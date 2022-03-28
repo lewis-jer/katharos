@@ -4,7 +4,7 @@ import { helper } from './helper';
 import { gatherPageInfo } from '../util';
 import { initialization } from './init';
 
-let _api = { ...helper.dataHandler, ...helper.eventHandler };
+let _api = { ...helper.dataHandler, ...helper.eventHandler, pluginIndex: 0 };
 _api = {
   ..._api,
   ...pageObjects(_api),
