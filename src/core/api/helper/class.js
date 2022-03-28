@@ -7,6 +7,10 @@ class System {
     this.next = null;
   }
 
+  getPluginIndex() {
+    return this.data.pluginIndex;
+  }
+
   updatePlugin() {
     this.data.pluginIndex++;
     return this.data;
