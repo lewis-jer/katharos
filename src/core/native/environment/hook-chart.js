@@ -3,7 +3,7 @@ const dynamicChartLoader = async function (_api) {
     // Generate Page Charts
     window.verbAsyncInit = function () {
       Verb.init({
-        apiKey: 'c2d55c3e-124b-478a-870b-171e861718ff',
+        apiKey: configuration.chart,
         version: 'v1.0',
         authParams: {
           userToken: `${JSON.parse(localStorage.getItem('user')).accessToken}`
@@ -16,7 +16,7 @@ const dynamicChartLoader = async function (_api) {
     pluginLib[_api.stringToHash(verb.src)] = verb.src;
   } else {
     window.Verb.init({
-      apiKey: 'c2d55c3e-124b-478a-870b-171e861718ff',
+      apiKey: configuration.chart,
       version: 'v1.0',
       authParams: {
         userToken: `${JSON.parse(localStorage.getItem('user')).accessToken}`
