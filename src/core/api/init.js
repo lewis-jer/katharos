@@ -10,7 +10,7 @@ const initialization = (_api) => {
         for (var j in modulePath[i].plugins) {
           _api.assembler(modulePath[i].plugins[j]);
         }
-        _api.pluginIndex = modulePath[i].plugins.length;
+        console.log(_api.pluginIndex);
       }
     }
   };
