@@ -11,7 +11,7 @@ const system = new System({
 
 console.log(system);
 
-let _api = { ...helper.dataHandler, ...helper.eventHandler };
+let _api = { ...helper.dataHandler, ...helper.eventHandler, ...system };
 _api = {
   ..._api,
   ...pageObjects(_api),
