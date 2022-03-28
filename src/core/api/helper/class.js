@@ -2,7 +2,8 @@ class System {
   constructor(data) {
     this.data = {
       processName: data.name,
-      pluginIndex: 0
+      pluginIndex: 0,
+      pluginLib: {}
     };
     this.next = null;
   }
@@ -11,9 +12,23 @@ class System {
     return this.data.pluginIndex;
   }
 
-  updatePlugin() {
+  updatePlugin(plugin) {
+    pluginLib;
     this.data.pluginIndex++;
     return this.data;
+  }
+
+  stringToHash(string) {
+    var hash = 0,
+      i,
+      char;
+    if (string.length == 0) return hash;
+    for (i = 0; i < string.length; i++) {
+      char = string.charCodeAt(i);
+      hash = (hash << 5) - hash + char;
+      hash = hash & hash;
+    }
+    return 'eyz' + hash;
   }
 
   setNextNode(node) {
