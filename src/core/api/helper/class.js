@@ -71,6 +71,23 @@ while (currentNode) {
   currentNode = currentNode.getNextNode();
 }
 
-module.exports = Node;
+class System {
+  constructor(data) {
+    this.data = data;
+    this.next = null;
+  }
 
-export { user, Node };
+  setNextNode(node) {
+    if (node instanceof Node || node === null) {
+      this.next = node;
+    } else {
+      throw new Error('Next node must be a member of the Node class.');
+    }
+  }
+
+  getNextNode() {
+    return this.next;
+  }
+}
+
+export { System };

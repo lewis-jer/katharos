@@ -3,8 +3,9 @@ import { pageObjects } from '../../core/components';
 import { helper } from './helper';
 import { gatherPageInfo } from '../util';
 import { initialization } from './init';
+import { System } from './helper/class';
 
-let _api = { ...helper.dataHandler, ...helper.eventHandler, pluginIndex: 0 };
+let _api = { ...helper.dataHandler, ...helper.eventHandler };
 _api = {
   ..._api,
   ...pageObjects(_api),
@@ -25,5 +26,6 @@ _api = {
 };
 
 window._katharos_api_ = _api;
+window.System = System;
 
 export { _api, plugins };
