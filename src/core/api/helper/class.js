@@ -12,7 +12,7 @@ class testUser {
   }
 }
 
-const user = new user();
+const user = new testUser();
 user.push('toast');
 user._array.unshift('value');
 console.log(stack);
@@ -34,8 +34,8 @@ class testNode1 {
   }
 }
 
-const firstNode = new Node('I am an instance of a Node!');
-const secondNode = new Node('I am the next Node!');
+const firstNode = new testNode1('I am an instance of a Node!');
+const secondNode = new testNode1('I am the next Node!');
 firstNode.setNextNode(secondNode);
 
 // Testing Ice Creams //
@@ -58,9 +58,9 @@ class testNode2 {
   }
 }
 
-const vanillaNode = new Node('Vanilla');
-const strawberryNode = new Node('Berry Tasty');
-const coconutNode = new Node('Coconuts for Coconut');
+const vanillaNode = new testNode2('Vanilla');
+const strawberryNode = new testNode2('Berry Tasty');
+const coconutNode = new testNode2('Coconuts for Coconut');
 
 vanillaNode.setNextNode(strawberryNode);
 strawberryNode.setNextNode(coconutNode);
