@@ -9,6 +9,8 @@ const system = new System({
   name: 'system-reserved'
 });
 
+console.log(system);
+
 let _api = { ...helper.dataHandler, ...helper.eventHandler };
 _api = {
   ..._api,
