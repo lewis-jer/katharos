@@ -87,19 +87,14 @@ const dataHandler = {
     handler.open();
   },
   encrypter: function (message) {
-    var encryptMsg = CryptoJS.AES.encrypt(
-      message,
-      '2c641e48-afc2-4ccd-925f-aaeedb0e8602'
-    );
+    var encryptMsg = CryptoJS.AES.encrypt(message, configuration.system);
     encryptMsg = encryptMsg.toString();
     return encryptMsg;
   },
   decrypter: function (encrypted) {
-    var decryptMsg = CryptoJS.AES.decrypt(
-      encrypted,
-      '2c641e48-afc2-4ccd-925f-aaeedb0e8602'
-    );
+    var decryptMsg = CryptoJS.AES.decrypt(encrypted, configuration.system);
     decryptMsg = decryptMsg.toString(CryptoJS.enc.Utf8);
+    console.log(decryptMsg);
     return decryptMsg;
   },
   txUploadDump: async function (tableName, endpoint) {
@@ -119,7 +114,9 @@ const dataHandler = {
     }
     return 'eyz' + hash;
   },
-  mySQLDateCreator: (x) => {return new Date(x).toJSON().slice(0, 10)},
+  mySQLDateCreator: (x) => {
+    return new Date(x).toJSON().slice(0, 10);
+  },
   updateUserProfileData: (
     userObject,
     arrayExpression,
