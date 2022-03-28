@@ -1,4 +1,4 @@
-class user {
+class testUser {
   constructor() {
     this._array = [];
   }
@@ -19,7 +19,7 @@ console.log(stack);
 
 // Testing Classes //
 // Node Modules //
-class Node {
+class testNode1 {
   constructor(data) {
     this.data = data;
     this.next = null;
@@ -39,7 +39,7 @@ const secondNode = new Node('I am the next Node!');
 firstNode.setNextNode(secondNode);
 
 // Testing Ice Creams //
-class Node {
+class testNode2 {
   constructor(data) {
     this.data = data;
     this.next = null;
