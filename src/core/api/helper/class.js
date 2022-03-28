@@ -25,7 +25,7 @@ class testNode1 {
   }
 
   setNextNode(node) {
-    if (node instanceof Node || node === null) {
+    if (node instanceof testNode1 || node === null) {
       this.next = node;
     } else {
       throw new Error('Next node must be a member of the Node class.');
@@ -45,7 +45,7 @@ class testNode2 {
   }
 
   setNextNode(node) {
-    if (node instanceof Node || node === null) {
+    if (node instanceof testNode2 || node === null) {
       this.next = node;
     } else {
       throw new Error('Next node must be a member of the Node class.');
