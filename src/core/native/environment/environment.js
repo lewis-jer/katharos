@@ -8,8 +8,10 @@ const pluginLoader = async function (_api, pageInfo) {
           )
         ) {
           await $.getScript(pageInfo.plugins[j]);
-          console.log(`${_api.pluginIndex} => ${pageInfo.plugins[j]}`);
-          _api.pluginIndex++;
+          console.log(
+            `${_api.system.getPluginIndex()} => ${pageInfo.plugins[j]}`
+          );
+          _api.system.updatePlugin();
           pluginLib[_api.stringToHash(pageInfo.plugins[j])] =
             pageInfo.plugins[j];
         }
@@ -24,8 +26,10 @@ const pluginLoader = async function (_api, pageInfo) {
           document.head.innerHTML += `<link type="text/css" rel="stylesheet" href=${
             pageInfo.plugins[j]
           }?update=${Date.now()}>`;
-          console.log(`${_api.pluginIndex} => ${pageInfo.plugins[j]}`);
-          _api.pluginIndex++;
+          console.log(
+            `${_api.system.getPluginIndex()} => ${pageInfo.plugins[j]}`
+          );
+          _api.system.updatePlugin();
           pluginLib[_api.stringToHash(pageInfo.plugins[j])] =
             pageInfo.plugins[j];
         }
