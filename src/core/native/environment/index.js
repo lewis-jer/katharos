@@ -62,7 +62,7 @@ const componentLoader = async function (_api, pageInfo) {
   _api.system.componentLoader('pageLoader', true);
 
   _api.addEvent('loadComponent', {
-    componentId: _api.system.data.componentLib.pageLoader.id,
+    componentId: _api.system.getComponentId('pageLoader'),
     userIdentifier: JSON.parse(localStorage.getItem('user')).email,
     location: window.endpoint
   });
