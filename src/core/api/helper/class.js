@@ -28,7 +28,7 @@ class System {
   }
 
   componentLoader(component, toggle) {
-    console.log(uuid());
+    //console.log(uuid());
     this.data.componentLib[component].status = toggle;
     return toggle;
   }
