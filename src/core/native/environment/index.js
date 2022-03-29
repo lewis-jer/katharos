@@ -32,8 +32,8 @@ const componentLoader = async function (_api, pageInfo) {
   //Generate Page Navigation Bar
   document.getElementById('wrapper').innerHTML += systemComponents.navbar.html;
 
-  componentLib.navigationBar.status = true;
-  componentLib.navigationBar.id = uuid();
+  _api.system.data.componentLib.navigationBar.status = true;
+  _api.system.data.componentLib.navigationBar.id = uuid();
 
   _api.arrayToObject(modulePath)[
     _api.arrayToObject(components.system).navbar.arrayExpression
@@ -52,7 +52,7 @@ const componentLoader = async function (_api, pageInfo) {
       );
 
   _api.addEvent('loadComponent', {
-    componentId: componentLib.navigationBar.id,
+    componentId: _api.system.data.componentLib.navigationBar.id,
     userIdentifier: JSON.parse(localStorage.getItem('user')).email,
     location: window.endpoint
   });
@@ -60,12 +60,12 @@ const componentLoader = async function (_api, pageInfo) {
   //Generate Page Body
   document.getElementById('content').innerHTML += systemComponents.loader.html;
 
-  componentLib.pageLoader = {};
-  componentLib.pageLoader.status = true;
-  componentLib.pageLoader.id = uuid();
+  _api.system.data.componentLib.pageLoader = {};
+  _api.system.data.componentLib.pageLoader.status = true;
+  _api.system.data.componentLib.pageLoader.id = uuid();
 
   _api.addEvent('loadComponent', {
-    componentId: componentLib.pageLoader.id,
+    componentId: _api.system.data.componentLib.pageLoader.id,
     userIdentifier: JSON.parse(localStorage.getItem('user')).email,
     location: window.endpoint
   });
@@ -73,12 +73,12 @@ const componentLoader = async function (_api, pageInfo) {
   //Generate Page Footer
   document.getElementById('content').innerHTML += systemComponents.footer.html;
 
-  componentLib.footer = {};
-  componentLib.footer.status = true;
-  componentLib.footer.id = uuid();
+  _api.system.data.componentLib.footer = {};
+  _api.system.data.componentLib.footer.status = true;
+  _api.system.data.componentLib.footer.id = uuid();
 
   _api.addEvent('loadComponent', {
-    componentId: componentLib.footer.id,
+    componentId: _api.system.data.componentLib.footer.id,
     userIdentifier: JSON.parse(localStorage.getItem('user')).email,
     location: window.endpoint
   });
