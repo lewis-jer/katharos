@@ -15,8 +15,11 @@ const drawPage = async function (pageName, pageInfo, _api) {
     pageName == 'eula'
   ) {
     document.body.classList.add('bg-gradient-primary');
-    componentLib.navigationBar.status = false;
-  } else if (!pageInfo.document && !componentLib.navigationBar.status) {
+    _api.system.data.componentLib.navigationBar.status = false;
+  } else if (
+    !pageInfo.document &&
+    !_api.system.data.componentLib.navigationBar.status
+  ) {
     await componentLoader(_api, pageInfo);
     let loaderStatus = !configuration.katharos.pageLoader.excludes.includes(
       pageName
