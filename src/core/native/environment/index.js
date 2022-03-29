@@ -32,8 +32,7 @@ const componentLoader = async function (_api, pageInfo) {
   //Generate Page Navigation Bar
   document.getElementById('wrapper').innerHTML += systemComponents.navbar.html;
 
-  _api.system.data.componentLib.navigationBar.status = true;
-  _api.system.data.componentLib.navigationBar.id = uuid();
+  _api.system.componentLoader('navigationBar', true);
 
   _api.arrayToObject(modulePath)[
     _api.arrayToObject(components.system).navbar.arrayExpression
