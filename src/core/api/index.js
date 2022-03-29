@@ -9,6 +9,7 @@ const system = new System({
   name: 'system-reserved'
 });
 
+console.log(uuidv4());
 console.log(system);
 
 let _api = { ...helper.dataHandler, ...helper.eventHandler, system: system };

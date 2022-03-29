@@ -9,6 +9,4 @@ const katharos = {
   _api: _api
 };
 
-console.log(uuidv4());
-
 export { katharos };
