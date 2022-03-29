@@ -3,7 +3,7 @@ const pluginLoader = async function (_api, pageInfo) {
     if (pageInfo.plugins[j].includes('js')) {
       try {
         if (
-          !Object.keys(pluginLib).includes(
+          !Object.keys(_api.system.data.pluginLib).includes(
             _api.system.stringToHash(pageInfo.plugins[j])
           )
         ) {
@@ -11,7 +11,7 @@ const pluginLoader = async function (_api, pageInfo) {
           console.log(
             `${_api.system.getPluginIndex()} => ${pageInfo.plugins[j]}`
           );
-          _api.system.updatePlugin();
+          _api.system.updatePlugin(pageInfo.plugins[j]);
           pluginLib[_api.stringToHash(pageInfo.plugins[j])] =
             pageInfo.plugins[j];
         }
@@ -19,8 +19,8 @@ const pluginLoader = async function (_api, pageInfo) {
     } else if (pageInfo.plugins[j].includes('css')) {
       try {
         if (
-          !Object.keys(pluginLib).includes(
-            _api.stringToHash(pageInfo.plugins[j])
+          !Object.keys(_api.system.data.pluginLib).includes(
+            _api.system.stringToHash(pageInfo.plugins[j])
           )
         ) {
           document.head.innerHTML += `<link type="text/css" rel="stylesheet" href=${
@@ -29,8 +29,8 @@ const pluginLoader = async function (_api, pageInfo) {
           console.log(
             `${_api.system.getPluginIndex()} => ${pageInfo.plugins[j]}`
           );
-          _api.system.updatePlugin();
-          pluginLib[_api.stringToHash(pageInfo.plugins[j])] =
+          _api.system.updatePlugin(pageInfo.plugins[j]);
+          pluginLib[_api.system.stringToHash(pageInfo.plugins[j])] =
             pageInfo.plugins[j];
         }
       } catch (e) {}
