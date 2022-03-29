@@ -17,13 +17,17 @@ class System {
     return this.data.pluginIndex;
   }
 
+  getComponentStatus(component) {
+    return this.data.componentLib[component];
+  }
+
   updatePlugin(plugin) {
     this.data.pluginLib[this.stringToHash(plugin)] = plugin;
     this.data.pluginIndex++;
     return this.data;
   }
 
-  
+  componentLoader(component, toggle) {}
 
   stringToHash(string) {
     var hash = 0,
