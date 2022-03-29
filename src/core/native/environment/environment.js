@@ -12,8 +12,6 @@ const pluginLoader = async function (_api, pageInfo) {
             `${_api.system.getPluginIndex()} => ${pageInfo.plugins[j]}`
           );
           _api.system.updatePlugin(pageInfo.plugins[j]);
-          pluginLib[_api.stringToHash(pageInfo.plugins[j])] =
-            pageInfo.plugins[j];
         }
       } catch (e) {}
     } else if (pageInfo.plugins[j].includes('css')) {
@@ -30,8 +28,6 @@ const pluginLoader = async function (_api, pageInfo) {
             `${_api.system.getPluginIndex()} => ${pageInfo.plugins[j]}`
           );
           _api.system.updatePlugin(pageInfo.plugins[j]);
-          pluginLib[_api.system.stringToHash(pageInfo.plugins[j])] =
-            pageInfo.plugins[j];
         }
       } catch (e) {}
     }
