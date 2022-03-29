@@ -18,7 +18,7 @@ const drawPage = async function (pageName, pageInfo, _api) {
     _api.system.data.componentLib.navigationBar.status = false;
   } else if (
     !pageInfo.document &&
-    !_api.system.data.componentLib.navigationBar.status
+    !_api.system.getComponentStatus('navigationBar')
   ) {
     await componentLoader(_api, pageInfo);
     let loaderStatus = !configuration.katharos.pageLoader.excludes.includes(

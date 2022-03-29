@@ -27,7 +27,9 @@ class System {
     return this.data;
   }
 
-  componentLoader(component, toggle) {}
+  componentLoader(component, toggle) {
+    this.data.componentLib[component].status = toggle;
+  }
 
   stringToHash(string) {
     var hash = 0,
