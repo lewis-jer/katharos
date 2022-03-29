@@ -30,8 +30,8 @@ class System {
   }
 
   componentLoader(component, toggle) {
-    console.log(uuidv4());
     this.data.componentLib[component].status = toggle;
+    if (toggle) this.data.componentLib[component].id = uuidv4();
     return toggle;
   }
 
