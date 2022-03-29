@@ -70,12 +70,10 @@ const componentLoader = async function (_api, pageInfo) {
   //Generate Page Footer
   document.getElementById('content').innerHTML += systemComponents.footer.html;
 
-  _api.system.data.componentLib.footer = {};
-  _api.system.data.componentLib.footer.status = true;
-  _api.system.data.componentLib.footer.id = uuid();
+  _api.system.componentLoader('footer', true);
 
   _api.addEvent('loadComponent', {
-    componentId: _api.system.data.componentLib.footer.id,
+    componentId: _api.system.getComponentId('footer'),
     userIdentifier: JSON.parse(localStorage.getItem('user')).email,
     location: window.endpoint
   });
