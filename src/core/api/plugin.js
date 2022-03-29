@@ -9,7 +9,7 @@ try {
 const jsAssembler = async (_api, modulePlugin) => {
   await $.getScript(modulePlugin);
   //console.log(`${_api.system.getPluginIndex()} => ${modulePlugin}`);
-  _api.system.updatePlugin();
+  _api.system.updatePlugin(modulePlugin);
   pluginLib[_api.stringToHash(modulePlugin)] = modulePlugin;
 };
 
