@@ -8,6 +8,10 @@ class System {
     this.next = null;
   }
 
+  getPlugin(plugin) {
+    return this.data.pluginLib[this.stringToHash(plugin)];
+  }
+
   getPluginIndex() {
     return this.data.pluginIndex;
   }
