@@ -4,7 +4,7 @@ const pluginLoader = async function (_api, pageInfo) {
       try {
         if (
           !Object.keys(pluginLib).includes(
-            _api.stringToHash(pageInfo.plugins[j])
+            _api.system.stringToHash(pageInfo.plugins[j])
           )
         ) {
           await $.getScript(pageInfo.plugins[j]);

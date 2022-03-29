@@ -10,14 +10,12 @@ const jsAssembler = async (_api, modulePlugin) => {
   await $.getScript(modulePlugin);
   //console.log(`${_api.system.getPluginIndex()} => ${modulePlugin}`);
   _api.system.updatePlugin(modulePlugin);
-  pluginLib[_api.stringToHash(modulePlugin)] = modulePlugin;
 };
 
 const cssAssembler = async (_api, modulePlugin) => {
   document.head.innerHTML += `<link type="text/css" rel="stylesheet" href=${modulePlugin}?update=${Date.now()}>`;
   //console.log(`${_api.system.getPluginIndex()} => ${modulePlugin}`);
   _api.system.updatePlugin(modulePlugin);
-  pluginLib[_api.stringToHash(modulePlugin)] = modulePlugin;
 };
 
 const assembler = (_api) => {
