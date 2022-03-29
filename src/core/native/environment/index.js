@@ -51,7 +51,7 @@ const componentLoader = async function (_api, pageInfo) {
       );
 
   _api.addEvent('loadComponent', {
-    componentId: _api.system.data.componentLib.navigationBar.id,
+    componentId: _api.system.getComponentId(navigationBar),
     userIdentifier: JSON.parse(localStorage.getItem('user')).email,
     location: window.endpoint
   });

@@ -23,6 +23,10 @@ class System {
     return this.data.componentLib[component].status;
   }
 
+  getComponentId(component) {
+    return this.data.componentLib[component].id;
+  }
+
   updatePlugin(plugin) {
     this.data.pluginLib[this.stringToHash(plugin)] = plugin;
     this.data.pluginIndex++;
