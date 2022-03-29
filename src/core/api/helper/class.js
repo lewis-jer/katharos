@@ -18,7 +18,7 @@ class System {
   }
 
   getComponentStatus(component) {
-    return this.data.componentLib[component];
+    return this.data.componentLib[component].status;
   }
 
   updatePlugin(plugin) {
