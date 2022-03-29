@@ -102,18 +102,6 @@ const dataHandler = {
     userProfile.txUploadData = (await dataService('GET', 'tx/upload')).data;
     tableMiddleware().emptyTable(tableName);
   },
-  stringToHash: function (string) {
-    var hash = 0,
-      i,
-      char;
-    if (string.length == 0) return hash;
-    for (i = 0; i < string.length; i++) {
-      char = string.charCodeAt(i);
-      hash = (hash << 5) - hash + char;
-      hash = hash & hash;
-    }
-    return 'eyz' + hash;
-  },
   mySQLDateCreator: (x) => {
     return new Date(x).toJSON().slice(0, 10);
   },

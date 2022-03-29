@@ -3,7 +3,8 @@ class System {
     this.data = {
       processName: data.name,
       pluginIndex: 0,
-      pluginLib: {}
+      pluginLib: {},
+      componentLib: { navigationBar: { status: false } }
     };
     this.next = null;
   }
