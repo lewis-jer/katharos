@@ -13,8 +13,7 @@ class System {
   }
 
   updatePlugin(plugin) {
-    console.log(plugin);
-    console.log(this.stringToHash('testing'));
+    this.data.pluginLib[this.stringToHash(plugin)] = plugin;
     this.data.pluginIndex++;
     return this.data;
   }
