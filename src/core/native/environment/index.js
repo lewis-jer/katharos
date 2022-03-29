@@ -59,9 +59,7 @@ const componentLoader = async function (_api, pageInfo) {
   //Generate Page Body
   document.getElementById('content').innerHTML += systemComponents.loader.html;
 
-  _api.system.data.componentLib.pageLoader = {};
-  _api.system.data.componentLib.pageLoader.status = true;
-  _api.system.data.componentLib.pageLoader.id = uuid();
+  _api.system.componentLoader('pageLoader', true);
 
   _api.addEvent('loadComponent', {
     componentId: _api.system.data.componentLib.pageLoader.id,
