@@ -1,7 +1,7 @@
 import { plugins, assembler } from './plugin';
 import { pageObjects } from '../../core/components';
 import { helper } from './helper';
-import { gatherPageInfo } from '../util';
+import { gatherPageInfo, selectionController } from '../util';
 import { initialization } from './init';
 import { System } from './helper/class';
 
@@ -16,6 +16,7 @@ _api = {
   ..._api,
   ...pageObjects(_api),
   ...helper.tableMiddleware(_api),
+  selectionController: selectionController,
   gatherPageInfo: gatherPageInfo(_api)
 };
 

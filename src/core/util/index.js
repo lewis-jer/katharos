@@ -4,4 +4,13 @@ const gatherPageInfo = (_api) => {
   };
 };
 
-export { gatherPageInfo };
+const selectionController = (x, y = '', z = '') => {
+  var control = controller[x];
+  let { a, b } = control(y, z);
+  return {
+    a,
+    b
+  };
+};
+
+export { gatherPageInfo, selectionController };
