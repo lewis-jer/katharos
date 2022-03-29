@@ -23,6 +23,8 @@ class System {
     return this.data;
   }
 
+  
+
   stringToHash(string) {
     var hash = 0,
       i,

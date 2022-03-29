@@ -7,6 +7,7 @@ import {
 import { pageDestructor, dynamicTableDestructor } from './destructor';
 
 const drawPage = async function (pageName, pageInfo, _api) {
+  console.log(_api);
   var body = documents[pageInfo.arrayExpression].html;
   if (
     pageName == 'login' ||

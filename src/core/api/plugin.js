@@ -1,6 +1,5 @@
 let plugins = [];
 try {
-  //console.log(require.resolve('katharos-router'));
   plugins.push('katharos-router');
 } catch (e) {
   console.error('katharos-router is not found');
@@ -8,13 +7,11 @@ try {
 
 const jsAssembler = async (_api, modulePlugin) => {
   await $.getScript(modulePlugin);
-  //console.log(`${_api.system.getPluginIndex()} => ${modulePlugin}`);
   _api.system.updatePlugin(modulePlugin);
 };
 
 const cssAssembler = async (_api, modulePlugin) => {
   document.head.innerHTML += `<link type="text/css" rel="stylesheet" href=${modulePlugin}?update=${Date.now()}>`;
-  //console.log(`${_api.system.getPluginIndex()} => ${modulePlugin}`);
   _api.system.updatePlugin(modulePlugin);
 };
 
