@@ -1,5 +1,9 @@
 const dynamicChartLoader = async function (_api) {
-  if (!Object.keys(pluginLib).includes(_api.stringToHash(verb.src))) {
+  if (
+    !Object.keys(_api.system.data.pluginLib).includes(
+      _api.system.stringToHash(verb.src)
+    )
+  ) {
     // Generate Page Charts
     window.verbAsyncInit = function () {
       Verb.init({
@@ -12,8 +16,7 @@ const dynamicChartLoader = async function (_api) {
     };
 
     await document.getElementsByTagName('head')[0].appendChild(verb);
-    console.log(_api);
-    pluginLib[_api.stringToHash(verb.src)] = verb.src;
+    _api.system.updatePlugin(verb.src);
   } else {
     window.Verb.init({
       apiKey: configuration.chart,
