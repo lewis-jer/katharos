@@ -35,6 +35,8 @@ class System {
 
   componentLoader(component, toggle) {
     this.data.componentLib[component].status = toggle;
+    if (Object.keys(this.data.componentLib).includes(component))
+      console.log('component');
     if (toggle) this.data.componentLib[component].id = uuidv4();
     return toggle;
   }
