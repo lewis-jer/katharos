@@ -21,19 +21,13 @@ const assembler = (_api) => {
       try {
         await jsAssembler(_api, modulePlugin);
       } catch (e) {
-        console.log(
-          `${_api.system.getPluginIndex()} => Failed To Load: ${modulePlugin}`
-        );
-        _api.system.updatePlugin();
+        _api.system.updatePlugin(modulePlugin);
       }
     } else if (modulePlugin.includes('css')) {
       try {
         await cssAssembler(_api, modulePlugin);
       } catch (e) {
-        console.log(
-          `${_api.system.getPluginIndex()} => Failed To Load: ${modulePlugin}`
-        );
-        _api.system.updatePlugin();
+        _api.system.updatePlugin(modulePlugin);
       }
     }
   };
