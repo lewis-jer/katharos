@@ -65,6 +65,10 @@ class System {
   getNextNode() {
     return this.next;
   }
+
+  createUniqueId() {
+    return uuidv4();
+  }
 }
 
 export { System };
