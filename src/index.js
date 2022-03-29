@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import { pageActions } from './core/kdom';
 import { pageLoader } from './core/instance';
 import { _api, plugins } from './core/api';

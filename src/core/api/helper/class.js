@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 class System {
   constructor(data) {
     this.data = {
@@ -28,7 +30,7 @@ class System {
   }
 
   componentLoader(component, toggle) {
-    //console.log(uuid());
+    console.log(uuidv4());
     this.data.componentLib[component].status = toggle;
     return toggle;
   }
