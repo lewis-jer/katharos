@@ -15,7 +15,7 @@ const drawPage = async function (pageName, pageInfo, _api) {
     pageName == 'eula'
   ) {
     document.body.classList.add('bg-gradient-primary');
-    _api.system.data.componentLib.navigationBar.status = false;
+    _api.system.componentLoader('navigationBar', false);
   } else if (
     !pageInfo.document &&
     !_api.system.getComponentStatus('navigationBar')
