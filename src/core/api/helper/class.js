@@ -72,17 +72,19 @@ class System {
 
   async initializeController(pageInfo) {
     pageInfo.controller
-      ? await controllerConfig[pageInfo.arrayExpression]
-      : false;
-    this.data.controller.push(controller);
+      ? await this.data.controller.push(
+          controllerConfig[pageInfo.arrayExpression]
+        )
+      : this.data.controller.push(false);
     return true;
   }
 
   async initializeMiddleware(pageInfo) {
     pageInfo.middleware
-      ? await middlewareConfig[pageInfo.arrayExpression]
-      : false;
-    this.data.middleware.push(middleware);
+      ? await this.data.middleware.push(
+          middlewareConfig[pageInfo.arrayExpression]
+        )
+      : this.data.middleware.push(false);
     return true;
   }
 
