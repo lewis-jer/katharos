@@ -42,6 +42,11 @@ const controllerLoader = async function (_api, pageInfo) {
   );
 };
 const middlewareLoader = async function (_api, pageInfo) {
+  _api.system.initializeMiddleware(
+    pageInfo.middleware
+      ? await middlewareConfig[pageInfo.arrayExpression]
+      : false
+  );
   middleware.push(
     pageInfo.middleware
       ? await middlewareConfig[pageInfo.arrayExpression]

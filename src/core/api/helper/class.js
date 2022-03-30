@@ -75,6 +75,11 @@ class System {
     return true;
   }
 
+  initializeMiddleware(middleware) {
+    this.data.controller.push(controller);
+    return true;
+  }
+
   createUniqueId() {
     return uuidv4();
   }
