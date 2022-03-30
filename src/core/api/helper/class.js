@@ -70,6 +70,10 @@ class System {
     return this.next;
   }
 
+  getController(index) {
+    return this.data.controller[index];
+  }
+
   async initializeController(pageInfo) {
     pageInfo.controller
       ? await this.data.controller.push(
