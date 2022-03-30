@@ -6,9 +6,8 @@ const gatherPageInfo = (_api) => {
 
 const selectionController = (_api) => {
   return (x, y = '', z = '') => {
-    console.log(x);
-    console.log(_api);
-    var control = controller[x];
+    var control = _api.system.getController(x);
+    console.log(control);
     let { a, b } = control(y, z);
     return {
       a,
