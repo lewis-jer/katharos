@@ -70,12 +70,18 @@ class System {
     return this.next;
   }
 
-  async initializeController(controller) {
+  async initializeController(pageInfo) {
+    pageInfo.controller
+      ? await controllerConfig[pageInfo.arrayExpression]
+      : false;
     this.data.controller.push(controller);
     return true;
   }
 
-  initializeMiddleware(middleware) {
+  async initializeMiddleware(pageInfo) {
+    pageInfo.middleware
+      ? await middlewareConfig[pageInfo.arrayExpression]
+      : false;
     this.data.middleware.push(middleware);
     return true;
   }
