@@ -16,7 +16,7 @@ _api = {
   ..._api,
   ...pageObjects(_api),
   ...helper.tableMiddleware(_api),
-  selectionController: selectionController,
+  selectionController: selectionController(_api),
   gatherPageInfo: gatherPageInfo(_api)
 };
 

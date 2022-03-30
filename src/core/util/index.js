@@ -4,12 +4,14 @@ const gatherPageInfo = (_api) => {
   };
 };
 
-const selectionController = (x, y = '', z = '') => {
-  var control = controller[x];
-  let { a, b } = control(y, z);
-  return {
-    a,
-    b
+const selectionController = (_api) => {
+  return (x, y = '', z = '') => {
+    var control = controller[x];
+    let { a, b } = control(y, z);
+    return {
+      a,
+      b
+    };
   };
 };
 
