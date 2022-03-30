@@ -76,7 +76,7 @@ class System {
   }
 
   initializeMiddleware(middleware) {
-    this.data.controller.push(controller);
+    this.data.middleware.push(middleware);
     return true;
   }
 
