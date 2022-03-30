@@ -6,6 +6,10 @@ class System {
       processName: data.name,
       pluginIndex: 0,
       pluginLib: {},
+      controller: [],
+      controllerConfig: {},
+      middleware: [],
+      middlewareConfig: {},
       componentLib: { navigationBar: { status: false } }
     };
     this.next = null;
