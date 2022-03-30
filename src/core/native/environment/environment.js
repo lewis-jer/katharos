@@ -30,7 +30,7 @@ const pluginLoader = async function (_api, pageInfo) {
   }
 };
 const controllerLoader = async function (_api, pageInfo) {
-  _api.system.initializeController(
+  await _api.system.initializeController(
     pageInfo.controller
       ? await controllerConfig[pageInfo.arrayExpression]
       : false

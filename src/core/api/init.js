@@ -5,7 +5,7 @@ const initialization = (_api) => {
       if (modulePath[i].endpoint == 'system') {
         modulePath[i].loaded = true;
         modulePath[i].loadIndex = 0;
-        _api.system.initializeController('system reserved');
+        await _api.system.initializeController('system reserved');
         _api.system.initializeMiddleware('system reserved');
         controller.push('system reserved');
         middleware.push('system reserved');

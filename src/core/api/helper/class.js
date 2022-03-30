@@ -70,7 +70,7 @@ class System {
     return this.next;
   }
 
-  initializeController(controller) {
+  async initializeController(controller) {
     this.data.controller.push(controller);
     return true;
   }
