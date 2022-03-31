@@ -16,7 +16,8 @@ const pageLoader = async function (_api, pageInfo) {
   await pluginLoader(_api, pageInfo);
   await controllerLoader(_api, pageInfo);
   await middlewareLoader(_api, pageInfo);
-  console.log(_api.system.instantiateMiddleware)
+  console.log(_api.system.instantiateMiddleware);
+  console.log(middlewareInit);
   await middlewareInit(_api, pageInfo);
   pageInfo.loaded = true;
   configuration.katharos.pageActions.loadIndex++;
