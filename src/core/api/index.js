@@ -1,4 +1,5 @@
 import { plugins, assembler } from './plugin';
+import { meta } from './meta';
 import { pageObjects } from '../../core/components';
 import { helper } from './helper';
 import { gatherPageInfo, selectionController } from '../util';
@@ -11,7 +12,13 @@ const system = new System({
 
 console.log(system);
 
-let _api = { ...helper.dataHandler, ...helper.eventHandler, system: system };
+let _api = {
+  ...helper.dataHandler,
+  ...helper.eventHandler,
+  system: system,
+  meta: meta
+};
+
 _api = {
   ..._api,
   ...pageObjects(_api),
