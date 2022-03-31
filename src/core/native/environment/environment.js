@@ -29,16 +29,5 @@ const pluginLoader = async function (_api, pageInfo) {
     }
   }
 };
-const controllerLoader = async function (_api, pageInfo) {
-  await _api.system.initializeController(pageInfo);
-};
-const middlewareLoader = async function (_api, pageInfo) {
-  await _api.system.initializeMiddleware(pageInfo);
-  middleware.push(
-    pageInfo.middleware
-      ? await middlewareConfig[pageInfo.arrayExpression]
-      : false
-  );
-};
 
-export { pluginLoader, controllerLoader, middlewareLoader };
+export { pluginLoader };

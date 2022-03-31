@@ -1,24 +1,12 @@
-import {
-  pluginLoader,
-  controllerLoader,
-  middlewareLoader
-} from './environment';
+import { pluginLoader } from './environment';
 import { dynamicChartLoader } from './hook-chart';
-
-const middlewareInit = async (_api, pageInfo) => {
-  middleware[pageInfo.loadIndex]
-    ? await _api.system.getMiddleware(pageInfo.loadIndex)(_api)
-    : false;
-};
 
 const pageLoader = async function (_api, pageInfo) {
   pageInfo.loadIndex = configuration.katharos.pageActions.loadIndex;
   await pluginLoader(_api, pageInfo);
-  await controllerLoader(_api, pageInfo);
-  await middlewareLoader(_api, pageInfo);
+  await _api.system.initializeController(pageInfo);
+  await _api.system.initializeMiddleware(pageInfo);
   await _api.system.instantiateMiddleware(_api, pageInfo);
-  //console.log(middlewareInit);
-  //await middlewareInit(_api, pageInfo);
   pageInfo.loaded = true;
   configuration.katharos.pageActions.loadIndex++;
 };
