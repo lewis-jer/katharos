@@ -96,6 +96,12 @@ class System {
     return true;
   }
 
+  async instantiateMiddleware(pageInfo) {
+    this.data.middleware[pageInfo.loadIndex]
+      ? await this.getMiddleware(pageInfo.loadIndex)(_api)
+      : false;
+  }
+
   createUniqueId() {
     return uuidv4();
   }

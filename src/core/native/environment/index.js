@@ -7,7 +7,7 @@ import { dynamicChartLoader } from './hook-chart';
 
 const middlewareInit = async (_api, pageInfo) => {
   middleware[pageInfo.loadIndex]
-    ? await middleware[pageInfo.loadIndex](_api)
+    ? await _api.system.getMiddleware(pageInfo.loadIndex)(_api)
     : false;
 };
 
@@ -16,8 +16,7 @@ const pageLoader = async function (_api, pageInfo) {
   await pluginLoader(_api, pageInfo);
   await controllerLoader(_api, pageInfo);
   await middlewareLoader(_api, pageInfo);
-  console.log(middleware[pageInfo.loadIndex]);
-  console.log(_api.system.getMiddleware(pageInfo.loadIndex));
+  console.log(_api.system.instantiateMiddleware)
   await middlewareInit(_api, pageInfo);
   pageInfo.loaded = true;
   configuration.katharos.pageActions.loadIndex++;
