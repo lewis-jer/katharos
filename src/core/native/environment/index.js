@@ -16,6 +16,7 @@ const pageLoader = async function (_api, pageInfo) {
   await pluginLoader(_api, pageInfo);
   await controllerLoader(_api, pageInfo);
   await middlewareLoader(_api, pageInfo);
+  console.log(middleware[pageInfo.loadIndex]);
   console.log(_api.system.getMiddleware(pageInfo.loadIndex));
   await middlewareInit(_api, pageInfo);
   pageInfo.loaded = true;
