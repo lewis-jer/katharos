@@ -3,5 +3,5 @@ var header = `<meta charset='utf-8'> <meta http-equiv='X-UA-Compatible' content=
 el.innerHTML = header;
 
 console.log(el);
-
+console.log(el.getElementsByTagName('meta'));
 export { el as meta };
