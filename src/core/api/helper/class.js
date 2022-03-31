@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-
+console.log(window.location.pathname);
 class System {
   constructor(data) {
     this.data = {
