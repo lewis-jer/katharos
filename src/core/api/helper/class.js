@@ -74,6 +74,10 @@ class System {
     return this.data.controller[index];
   }
 
+  getMiddleware(index) {
+    return this.data.middleware[index];
+  }
+
   async initializeController(pageInfo) {
     pageInfo.controller
       ? await this.data.controller.push(

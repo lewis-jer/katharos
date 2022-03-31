@@ -7,7 +7,6 @@ const initialization = (_api) => {
         modulePath[i].loadIndex = 0;
         await _api.system.initializeController('system reserved');
         await _api.system.initializeMiddleware('system reserved');
-        controller.push('system reserved');
         middleware.push('system reserved');
         for (var j in modulePath[i].plugins) {
           _api.assembler(modulePath[i].plugins[j]);

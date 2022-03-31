@@ -31,11 +31,6 @@ const pluginLoader = async function (_api, pageInfo) {
 };
 const controllerLoader = async function (_api, pageInfo) {
   await _api.system.initializeController(pageInfo);
-  controller.push(
-    pageInfo.controller
-      ? await controllerConfig[pageInfo.arrayExpression]
-      : false
-  );
 };
 const middlewareLoader = async function (_api, pageInfo) {
   await _api.system.initializeMiddleware(pageInfo);
