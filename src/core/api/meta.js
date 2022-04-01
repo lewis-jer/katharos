@@ -83,7 +83,8 @@ for (var i in meta) {
             .replace(/[:]/g, '=')
             .replace(/[,p]/g, ', ')
         )
-      : child.setAttribute(meta[i].attributes[j], meta[i].values[j]);
+      : meta[i].values[j] &&
+        child.setAttribute(meta[i].attributes[j], meta[i].values[j]);
   }
   meta[i].container && (child.innerHTML = meta[i].innerHTML);
   el1.appendChild(child);
