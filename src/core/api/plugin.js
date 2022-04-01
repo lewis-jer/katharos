@@ -32,6 +32,7 @@ const assembler = (_api) => {
     console.log(modulePlugin);
     if (modulePlugin.includes('js')) {
       try {
+        console.log(_api);
         await jsAssembler(_api, modulePlugin);
       } catch (e) {
         _api.system.updatePlugin(modulePlugin);

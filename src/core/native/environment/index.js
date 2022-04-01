@@ -5,7 +5,7 @@ const pageLoader = async function (_api, pageInfo) {
   pageInfo.loadIndex = configuration.katharos.pageActions.loadIndex;
   console.log(_api);
   for (var i in pageInfo.plugins) {
-    console.log(pageInfo.plugins[i]);
+    //console.log(pageInfo.plugins[i]);
     await _api.assembler(pageInfo.plugins[i]);
   }
   //await pluginLoader(_api, pageInfo);
