@@ -71,11 +71,8 @@ var el1 = document.createElement('head');
 for (var i in meta) {
   const child = document.createElement(meta[i].type);
   for (var j in meta[i].attributes) {
-    console.log(meta[i].values[j]);
     child.setAttribute(meta[i].attributes[j], meta[i].values[j]);
-    //child[meta[i].attributes[j]] = meta[i].values[j];
-  }
-  console.log(child);
+  }\
   el1.appendChild(child);
 }
 console.log(el1);
