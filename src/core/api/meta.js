@@ -73,6 +73,7 @@ for (var i in meta) {
   for (var j in meta[i].attributes) {
     child.setAttribute(meta[i].attributes[j], meta[i].values[j]);
   }
+  meta[i].container && (child.innerHTML = meta[i].innerHTML);
   el1.appendChild(child);
 }
 console.log(el1);
