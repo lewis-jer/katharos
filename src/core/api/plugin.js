@@ -19,7 +19,7 @@ const jsAssembler = async (_api, modulePlugin) => {
 const cssAssembler = async (_api, modulePlugin) => {
   if (
     !Object.keys(_api.system.data.pluginLib).includes(
-      _api.system.stringToHash(modulePlugins)
+      _api.system.stringToHash(modulePlugin)
     )
   ) {
     document.head.innerHTML += `<link type="text/css" rel="stylesheet" href=${modulePlugin}?update=${Date.now()}>`;
@@ -29,10 +29,8 @@ const cssAssembler = async (_api, modulePlugin) => {
 
 const assembler = (_api) => {
   return async (modulePlugin) => {
-    console.log(modulePlugin);
     if (modulePlugin.includes('js')) {
       try {
-        console.log(_api);
         await jsAssembler(_api, modulePlugin);
       } catch (e) {
         _api.system.updatePlugin(modulePlugin);
