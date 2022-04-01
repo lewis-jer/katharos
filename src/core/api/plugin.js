@@ -6,13 +6,25 @@ try {
 }
 
 const jsAssembler = async (_api, modulePlugin) => {
-  await $.getScript(modulePlugin);
-  _api.system.updatePlugin(modulePlugin);
+  if (
+    !Object.keys(_api.system.data.pluginLib).includes(
+      _api.system.stringToHash(pageInfo.plugins[j])
+    )
+  ) {
+    await $.getScript(modulePlugin);
+    _api.system.updatePlugin(modulePlugin);
+  }
 };
 
 const cssAssembler = async (_api, modulePlugin) => {
-  document.head.innerHTML += `<link type="text/css" rel="stylesheet" href=${modulePlugin}?update=${Date.now()}>`;
-  _api.system.updatePlugin(modulePlugin);
+  if (
+    !Object.keys(_api.system.data.pluginLib).includes(
+      _api.system.stringToHash(pageInfo.plugins[j])
+    )
+  ) {
+    document.head.innerHTML += `<link type="text/css" rel="stylesheet" href=${modulePlugin}?update=${Date.now()}>`;
+    _api.system.updatePlugin(modulePlugin);
+  }
 };
 
 const assembler = (_api) => {
