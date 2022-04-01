@@ -69,11 +69,12 @@ el.innerHTML = header;
 
 var el1 = document.createElement('head');
 for (var i in meta) {
-  var child = document.createElement(meta[i].type);
+  const child = document.createElement(meta[i].type);
   for (var j in meta[i].attributes) {
     console.log(meta[i].attributes[j]);
     child[meta[i].attributes[j]] = meta[i].values[j];
   }
+  child.chartset = 'utf-8';
   console.log(child);
   el1.appendChild(child);
 }
