@@ -8,7 +8,7 @@ try {
 const jsAssembler = async (_api, modulePlugin) => {
   if (
     !Object.keys(_api.system.data.pluginLib).includes(
-      _api.system.stringToHash(pageInfo.plugins[j])
+      _api.system.stringToHash(modulePlugin)
     )
   ) {
     await $.getScript(modulePlugin);
@@ -19,7 +19,7 @@ const jsAssembler = async (_api, modulePlugin) => {
 const cssAssembler = async (_api, modulePlugin) => {
   if (
     !Object.keys(_api.system.data.pluginLib).includes(
-      _api.system.stringToHash(pageInfo.plugins[j])
+      _api.system.stringToHash(modulePlugin)
     )
   ) {
     document.head.innerHTML += `<link type="text/css" rel="stylesheet" href=${modulePlugin}?update=${Date.now()}>`;
