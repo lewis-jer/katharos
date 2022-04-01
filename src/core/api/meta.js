@@ -72,6 +72,7 @@ el.innerHTML = header;
 var el1 = document.createElement('head');
 for (var i in meta) {
   const child = document.createElement(meta[i].type);
+  child.setAttribute('name', meta[i].name);
   for (var j in meta[i].attributes) {
     typeof meta[i].values[j] == 'object'
       ? child.setAttribute(
