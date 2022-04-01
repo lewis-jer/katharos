@@ -79,6 +79,8 @@ for (var i in meta) {
           JSON.stringify(meta[i].values[j])
             .replace(/[{}]/g, '')
             .replace(/["]/g, '')
+            .replace(/[:]/g, '=')
+            .replace(/[,p]/g, ', ')
         )
       : child.setAttribute(meta[i].attributes[j], meta[i].values[j]);
   }
