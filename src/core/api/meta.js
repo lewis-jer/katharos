@@ -73,7 +73,7 @@ var el1 = document.createElement('head');
 for (var i in meta) {
   const child = document.createElement(meta[i].type);
   for (var j in meta[i].attributes) {
-    typeof meta[i].attributes[j] == 'object'
+    typeof meta[i].values[j] == 'object'
       ? console.log(JSON.stringify(meta[i].values[j]))
       : child.setAttribute(meta[i].attributes[j], meta[i].values[j]);
   }
