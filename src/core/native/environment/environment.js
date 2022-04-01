@@ -1,5 +1,4 @@
 const pluginLoader = async function (_api, pageInfo) {
-  console.log(_api);
   for (var j in pageInfo.plugins) {
     if (pageInfo.plugins[j].includes('js')) {
       try {
