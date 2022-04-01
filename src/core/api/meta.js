@@ -9,7 +9,7 @@ var meta = [
   {
     attributes: ['http-equiv', 'content'],
     container: false,
-    name: '',
+    name: null,
     type: 'meta',
     values: ['X-UA-Compatible', 'IE=edge']
   },
@@ -72,6 +72,8 @@ el.innerHTML = header;
 var el1 = document.createElement('head');
 for (var i in meta) {
   const child = document.createElement(meta[i].type);
+  console.log(!meta[i].name);
+  console.log(typeof meta[i].name);
   child.setAttribute('name', meta[i].name);
   for (var j in meta[i].attributes) {
     typeof meta[i].values[j] == 'object'
