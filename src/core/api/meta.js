@@ -72,7 +72,7 @@ for (var i in meta) {
   const child = document.createElement(meta[i].type);
   for (var j in meta[i].attributes) {
     child.setAttribute(meta[i].attributes[j], meta[i].values[j]);
-  }\
+  }
   el1.appendChild(child);
 }
 console.log(el1);
