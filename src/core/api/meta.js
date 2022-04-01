@@ -68,6 +68,10 @@ var header = `
 el.innerHTML = header;
 
 var el1 = document.createElement('head');
+for (var i in meta) {
+  const child = document.createElement(meta[i].type);
+  el1.appendChild(child);
+}
 console.log(el1);
 
 console.log(el);
