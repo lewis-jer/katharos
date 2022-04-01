@@ -74,7 +74,7 @@ for (var i in meta) {
   const child = document.createElement(meta[i].type);
   for (var j in meta[i].attributes) {
     typeof meta[i].values[j] == 'object'
-      ? console.log(JSON.stringify(meta[i].values[j]))
+      ? console.log(JSON.stringify(meta[i].values[j]).replace(/[{}]/g, ''))
       : child.setAttribute(meta[i].attributes[j], meta[i].values[j]);
   }
   meta[i].container && (child.innerHTML = meta[i].innerHTML);
