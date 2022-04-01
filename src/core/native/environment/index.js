@@ -15,7 +15,7 @@ const pageLoader = async function (_api, pageInfo) {
     .instantiateMiddleware(_api, pageInfo)
     .then((res) => console.log(res));
   pageInfo.loaded = true;
-  console.log(pageInfo);
+  //console.log(pageInfo);
   configuration.katharos.pageActions.loadIndex++;
 };
 const pageReloader = async function (_api, pageInfo) {
