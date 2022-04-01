@@ -15,7 +15,7 @@ const cssAssembler = async (_api, modulePlugin) => {
   _api.system.updatePlugin(modulePlugin);
 };
 
-const assembler = (_api) => {
+const assembler = async (_api) => {
   return async (modulePlugin) => {
     if (modulePlugin.includes('js')) {
       try {
