@@ -78,5 +78,4 @@ for (var i in meta) {
   meta[i].container && (child.innerHTML = meta[i].innerHTML);
   el.appendChild(child);
 }
-console.log(el);
 export { el as meta };
