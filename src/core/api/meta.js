@@ -9,7 +9,7 @@ var meta = [
   {
     attributes: ['http-equiv', 'content'],
     container: false,
-    name: null,
+    name: '',
     type: 'meta',
     values: ['X-UA-Compatible', 'IE=edge']
   },
@@ -51,7 +51,7 @@ var meta = [
     attributes: [],
     container: true,
     innerHTML: 'Level | Official Site',
-    name: 'author',
+    name: '',
     type: 'title',
     values: []
   }
@@ -72,8 +72,6 @@ el.innerHTML = header;
 var el1 = document.createElement('head');
 for (var i in meta) {
   const child = document.createElement(meta[i].type);
-  meta[i].name && console.log(meta[i].name);
-  meta[i].name && console.log(typeof meta[i].name);
   meta[i].name && child.setAttribute('name', meta[i].name);
   for (var j in meta[i].attributes) {
     typeof meta[i].values[j] == 'object'
