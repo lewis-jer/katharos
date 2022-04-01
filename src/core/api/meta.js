@@ -50,7 +50,7 @@ var meta = [
     container: true,
     innerHTML: '',
     name: 'author',
-    type: 'meta',
+    type: 'title',
     values: ['Level | Official Site']
   }
 ];
