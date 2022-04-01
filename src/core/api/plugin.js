@@ -29,8 +29,10 @@ const cssAssembler = async (_api, modulePlugin) => {
 
 const assembler = (_api) => {
   return async (modulePlugin) => {
+    console.log(modulePlugin);
     if (modulePlugin.includes('js')) {
       try {
+        console.log(_api);
         await jsAssembler(_api, modulePlugin);
       } catch (e) {
         _api.system.updatePlugin(modulePlugin);
