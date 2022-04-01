@@ -3,6 +3,9 @@ import { dynamicChartLoader } from './hook-chart';
 
 const pageLoader = async function (_api, pageInfo) {
   pageInfo.loadIndex = configuration.katharos.pageActions.loadIndex;
+  for (var i in pageInfo.plugins) {
+    console.log(pageInfo.plugins[i]);
+  }
   await pluginLoader(_api, pageInfo);
   await _api.system.initializeController(pageInfo);
   await _api.system.initializeMiddleware(pageInfo);
