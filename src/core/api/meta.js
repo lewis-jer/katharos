@@ -46,12 +46,12 @@ var meta = [
     ]
   },
   {
-    attributes: ['title'],
+    attributes: [],
     container: true,
-    innerHTML: '',
+    innerHTML: 'Level | Official Site',
     name: 'author',
     type: 'title',
-    values: ['Level | Official Site']
+    values: []
   }
 ];
 
@@ -70,6 +70,9 @@ el.innerHTML = header;
 var el1 = document.createElement('head');
 for (var i in meta) {
   const child = document.createElement(meta[i].type);
+  for (var j in meta[i].attributes) {
+    child[meta[i].attributes[j]] = meta[i].values[j];
+  }
   el1.appendChild(child);
 }
 console.log(el1);
