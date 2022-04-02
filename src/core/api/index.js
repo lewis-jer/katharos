@@ -6,7 +6,7 @@ import { gatherPageInfo, selectionController } from '../util';
 import { initialization } from './init';
 import { System } from './helper/class';
 
-const system = new System({
+const system = await new System({
   name: 'system-reserved'
 });
 
