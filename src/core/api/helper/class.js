@@ -105,7 +105,9 @@ class System {
 
   configure(config) {
     for (const [key, value] of Object.entries(config)) {
-      key.includes('controller') && console.log(key, value);
+      key.includes('controller') &&
+        (this.data.controllerConfig[key] = value) &&
+        console.log(key, value);
     }
   }
 
