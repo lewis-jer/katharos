@@ -104,7 +104,9 @@ class System {
   }
 
   configure(config) {
-    console.log(Object.entries(config));
+    for (const [key, value] of Object.entries(config)) {
+      console.log(key, value);
+    }
   }
 
   createUniqueId() {
