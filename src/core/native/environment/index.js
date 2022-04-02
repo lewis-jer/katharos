@@ -1,4 +1,3 @@
-import { pluginLoader } from './environment';
 import { dynamicChartLoader } from './hook-chart';
 
 const pageLoader = async function (_api, pageInfo) {
@@ -6,7 +5,6 @@ const pageLoader = async function (_api, pageInfo) {
   for (var i in pageInfo.plugins) {
     await _api.assembler(pageInfo.plugins[i]);
   }
-  //await pluginLoader(_api, pageInfo);
   await _api.system.initializeController(pageInfo);
   await _api.system.initializeMiddleware(pageInfo);
   await _api.system
