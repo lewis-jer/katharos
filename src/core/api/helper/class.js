@@ -103,7 +103,9 @@ class System {
     return true;
   }
 
-  configure() {}
+  configure(config) {
+    console.log(config);
+  }
 
   createUniqueId() {
     return uuidv4();
