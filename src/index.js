@@ -5,7 +5,8 @@ import { _api, plugins } from './core/api';
 const katharos = {
   pageActions: pageActions(_api),
   pageLoader: pageLoader,
-  _api: _api
+  _api: _api,
+  configure: _api.system.configure
 };
 
 export { katharos };

@@ -103,6 +103,8 @@ class System {
     return true;
   }
 
+  configure() {}
+
   createUniqueId() {
     return uuidv4();
   }
