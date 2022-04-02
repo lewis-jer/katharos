@@ -104,7 +104,7 @@ class System {
   }
 
   configure(config) {
-    console.log(this.data);
+    console.log(this);
     for (const [key, value] of Object.entries(config)) {
       const entries = Object.fromEntries(new Map([['foo', 'bar']]));
       key.includes('controller') &&
