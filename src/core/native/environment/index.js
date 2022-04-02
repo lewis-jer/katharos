@@ -3,9 +3,7 @@ import { dynamicChartLoader } from './hook-chart';
 
 const pageLoader = async function (_api, pageInfo) {
   pageInfo.loadIndex = configuration.katharos.pageActions.loadIndex;
-  console.log(_api);
   for (var i in pageInfo.plugins) {
-    //console.log(pageInfo.plugins[i]);
     await _api.assembler(pageInfo.plugins[i]);
   }
   //await pluginLoader(_api, pageInfo);
@@ -15,7 +13,6 @@ const pageLoader = async function (_api, pageInfo) {
     .instantiateMiddleware(_api, pageInfo)
     .then((res) => console.log(res));
   pageInfo.loaded = true;
-  //console.log(pageInfo);
   configuration.katharos.pageActions.loadIndex++;
 };
 const pageReloader = async function (_api, pageInfo) {

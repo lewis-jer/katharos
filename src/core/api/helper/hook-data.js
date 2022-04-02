@@ -94,7 +94,6 @@ const dataHandler = {
   decrypter: function (encrypted) {
     var decryptMsg = CryptoJS.AES.decrypt(encrypted, configuration.system);
     decryptMsg = decryptMsg.toString(CryptoJS.enc.Utf8);
-    console.log(decryptMsg);
     return decryptMsg;
   },
   txUploadDump: async function (tableName, endpoint) {
