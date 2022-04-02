@@ -105,8 +105,9 @@ class System {
 
   configure(config) {
     for (const [key, value] of Object.entries(config)) {
+      const entries = Object.fromEntries(new Map([['foo', 'bar']]));
       key.includes('controller') &&
-        (this.data.controllerConfig[key] = { value }) &&
+        Object.assign({ entries }, this.data.controllerConfig) &&
         console.log(key, value);
     }
   }
