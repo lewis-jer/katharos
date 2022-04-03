@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 class System {
   constructor(data) {
     this.data = {
-      exclusions: [],
+      exclusions: {},
       processName: data.name,
       pluginIndex: 0,
       pluginLib: {},
@@ -125,6 +125,7 @@ class System {
   }
 
   setExclusions(exclusionList) {
+    console.log(exclusionList);
     this.data.exclusions.push(...exclusionList);
     return true;
   }
