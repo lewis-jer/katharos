@@ -91,7 +91,7 @@ class System {
   async initializeController(pageInfo) {
     pageInfo.controller
       ? await this.data.controller.push(
-          controllerConfig[pageInfo.arrayExpression]
+          this.data.controllerConfig[pageInfo.arrayExpression]
         )
       : this.data.controller.push(false);
     return true;
@@ -100,7 +100,7 @@ class System {
   async initializeMiddleware(pageInfo) {
     pageInfo.middleware
       ? await this.data.middleware.push(
-          middlewareConfig[pageInfo.arrayExpression]
+          this.data.middlewareConfig[pageInfo.arrayExpression]
         )
       : this.data.middleware.push(false);
     return true;
