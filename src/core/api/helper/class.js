@@ -32,6 +32,7 @@ class System {
   }
 
   updatePlugin(plugin) {
+    console.log(this);
     this.data.pluginLib[this.stringToHash(plugin)] = plugin;
     this.data.pluginIndex++;
     return this.data;
