@@ -97,6 +97,7 @@ class System {
   }
 
   async instantiateMiddleware(_api, pageInfo) {
+    console.log(this);
     this.data.middleware[pageInfo.loadIndex]
       ? await this.getMiddleware(pageInfo.loadIndex)(_api)
       : false;
