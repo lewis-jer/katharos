@@ -121,6 +121,7 @@ class System {
   }
 
   setExclusions(exclusionList) {
+    console.log(exclusionList);
     this.data.exclusions.concat(exclusionList);
     return true;
   }
