@@ -120,6 +120,10 @@ class System {
     return uuidv4();
   }
 
+  getExclusions() {
+    return this.data.exclusions;
+  }
+
   setExclusions(exclusionList) {
     this.data.exclusions.push(...exclusionList);
     return true;
