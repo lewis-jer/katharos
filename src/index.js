@@ -9,6 +9,6 @@ const katharos = {
   configure: _api.system.configure
 };
 
-katharos.configure({});
+katharos._api.system.configure({});
 
 export { katharos };
