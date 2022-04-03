@@ -122,7 +122,7 @@ class System {
 
   setExclusions(exclusionList) {
     console.log(exclusionList.flat());
-    this.data.exclusions.fill(exclusionList);
+    this.data.exclusions.push(exclusionList.flat());
     return true;
   }
 }
