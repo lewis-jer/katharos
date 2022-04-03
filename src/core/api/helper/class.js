@@ -20,7 +20,8 @@ class System {
     console.log(config);
     for (const [key, value] of Object.entries(config)) {
       console.log(key, value);
-      const entries = Object.fromEntries(new Map([key, value]));
+      const entries = Object.fromEntries(new Map([[key, value]]));
+      console.log(entries);
       key.includes('controller') &&
         Object.assign({ entries }, this.data.controllerConfig);
     }
