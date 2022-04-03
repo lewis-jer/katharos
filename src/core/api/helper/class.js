@@ -120,12 +120,14 @@ class System {
     return uuidv4();
   }
 
-  getExclusions() {
-    return this.data.exclusions;
+  getExclusions(index) {
+    return this.data[index].exclusions;
   }
 
   setExclusions(exclusionList) {
-    console.log(exclusionList);
+    for (const [key, value] of Object.entries(config)) {
+      console.log(key, value);
+    }
     this.data.exclusions.push(...exclusionList);
     return true;
   }
