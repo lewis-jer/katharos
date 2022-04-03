@@ -126,6 +126,7 @@ class System {
 
   setExclusions(exclusionList) {
     for (const [key, value] of Object.entries(exclusionList)) {
+      console.log(!(key in this.data.exclusions));
       !(key in this.data.exclusions) && (this.data.exclusions[key] = []);
       this.data.exclusions[key].push(...value);
     }
