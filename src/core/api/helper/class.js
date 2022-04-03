@@ -15,6 +15,18 @@ class System {
     this.next = null;
   }
 
+  configure(config) {
+    console.log(this);
+    console.log(config);
+    for (const [key, value] of Object.entries(config)) {
+      const entries = Object.fromEntries(new Map([['foo', 'bar']]));
+      //console.log(key, value);
+      key.includes('controller') &&
+        Object.assign({ entries }, this.data.controllerConfig) &&
+        console.log(key, value);
+    }
+  }
+
   getPlugin(plugin) {
     return this.data.pluginLib[this.stringToHash(plugin)];
   }
@@ -103,18 +115,6 @@ class System {
       ? await this.getMiddleware(pageInfo.loadIndex)(_api)
       : false;
     return true;
-  }
-
-  configure(config) {
-    console.log(this);
-    console.log(config);
-    for (const [key, value] of Object.entries(config)) {
-      const entries = Object.fromEntries(new Map([['foo', 'bar']]));
-      //console.log(key, value);
-      key.includes('controller') &&
-        Object.assign({ entries }, this.data.controllerConfig) &&
-        console.log(key, value);
-    }
   }
 
   createUniqueId() {
