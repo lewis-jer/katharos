@@ -125,7 +125,7 @@ class System {
   }
 
   setExclusions(exclusionList) {
-    for (const [key, value] of Object.entries(config)) {
+    for (const [key, value] of Object.entries(exclusionList)) {
       console.log(key, value);
     }
     this.data.exclusions.push(...exclusionList);
