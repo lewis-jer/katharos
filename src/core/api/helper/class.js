@@ -23,8 +23,10 @@ class System {
       const entries = Object.fromEntries(new Map([[key, value]]));
       console.log(entries);
       console.log(key.includes('controller'));
-      key.includes('controller') &&
-        Object.assign(this.data.controllerConfig, { entries });
+      (key.includes('controller') &&
+        Object.assign(this.data.controllerConfig, { entries })) ||
+        (key.includes('middleware') &&
+          Object.assign(this.data.controllerConfig, { entries }));
     }
   };
 
