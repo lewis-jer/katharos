@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 class System {
   constructor(data) {
     this.data = {
+      exclusions: [],
       processName: data.name,
       pluginIndex: 0,
       pluginLib: {},
@@ -22,6 +23,8 @@ class System {
 
       key.includes('middleware') &&
         Object.assign(this.data.middlewareConfig, { ...value });
+
+      console.log(key);
     }
   };
 
@@ -115,6 +118,11 @@ class System {
 
   createUniqueId() {
     return uuidv4();
+  }
+
+  setExclusions(exclusionList) {
+    this.data.exclusions.concat(exclusionList);
+    return true;
   }
 }
 
