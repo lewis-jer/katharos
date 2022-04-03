@@ -17,6 +17,7 @@ class System {
 
   configure(config) {
     console.log(this);
+    console.log(data);
     console.log(config);
     for (const [key, value] of Object.entries(config)) {
       const entries = Object.fromEntries(new Map([['foo', 'bar']]));
