@@ -24,7 +24,7 @@ class System {
       key.includes('middleware') &&
         Object.assign(this.data.middlewareConfig, { ...value });
 
-      console.log(key);
+      key.includes('excludes') && this.setExclusions(value);
     }
   };
 
