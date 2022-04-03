@@ -121,8 +121,7 @@ class System {
   }
 
   setExclusions(exclusionList) {
-    this.data.exclusions.push(exclusionList.flat());
-    this.data.exclusions.flat();
+    this.data.exclusions.push(...exclusionList);
     return true;
   }
 }
