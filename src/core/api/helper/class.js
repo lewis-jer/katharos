@@ -15,9 +15,8 @@ class System {
     this.next = null;
   }
 
-  configure(config) {
+  configure = (config) => {
     console.log(this);
-    console.log(data);
     console.log(config);
     for (const [key, value] of Object.entries(config)) {
       const entries = Object.fromEntries(new Map([['foo', 'bar']]));
@@ -26,7 +25,7 @@ class System {
         Object.assign({ entries }, this.data.controllerConfig) &&
         console.log(key, value);
     }
-  }
+  };
 
   getPlugin(plugin) {
     return this.data.pluginLib[this.stringToHash(plugin)];
