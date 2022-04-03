@@ -24,7 +24,7 @@ class System {
       console.log(entries);
       console.log(key.includes('controller'));
       key.includes('controller') &&
-        Object.assign({ entries }, this.data.controllerConfig);
+        Object.assign(this.data.controllerConfig, { entries });
     }
   };
 
