@@ -121,7 +121,7 @@ class System {
   }
 
   getExclusions(index) {
-    return this.data[index].exclusions;
+    return this.data.exclusions[index];
   }
 
   setExclusions(exclusionList) {
