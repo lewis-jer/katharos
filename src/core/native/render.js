@@ -39,7 +39,11 @@ const drawPage = async function (pageName, pageInfo, _api) {
     await pageReloader(_api, pageInfo);
   }
 
-  history.replaceState({}, null, window.domain + pageName);
+  history.replaceState(
+    {},
+    null,
+    document.URL.slice(0, document.URL.lastIndexOf('/') + 1) + pageName
+  );
 };
 
 export { dynamicTableDestructor, pageDestructor, drawPage };
