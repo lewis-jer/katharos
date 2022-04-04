@@ -25,6 +25,8 @@ class System {
         Object.assign(this.data.middlewareConfig, { ...value });
 
       key.includes('excludes') && this.setExclusions(value);
+
+      key.includes('secret') && this.setSecureContainer(value);
     }
   };
 
@@ -77,6 +79,13 @@ class System {
     } else {
       throw new Error('Next node must be a member of the Node class.');
     }
+  }
+
+  setSecureContainer(value) {
+    const secureId = uuidv4();
+    this.data[secureId] = {};
+    Object.assign(this.data[secureId], { ...value });
+    return secureId;
   }
 
   getNextNode() {
