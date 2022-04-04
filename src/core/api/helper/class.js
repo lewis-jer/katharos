@@ -81,8 +81,8 @@ class System {
     }
   }
 
-  getSecureContainer(secureId) {
-    return this.data[secureId];
+  getSecureContainer() {
+    return this.data[this.data.id];
   }
 
   setSecureContainer(value) {
