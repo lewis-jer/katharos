@@ -146,7 +146,18 @@ class User {
   }
 
   setLocalStorageItem(user) {
-    localStorage.setItem('user', user).then((res) => console.log(res));
+    localStorage.setItem('user', user);
+  }
+
+  parseUserObject(user) {
+    for (const [key, value] of Object.entries(user)) {
+      Object.assign(this.data.userLocalSession, { ...value });
+    }
+    setLocalStorageItem(user);
+  }
+
+  initializeUser(user) {
+    typeof user == 'object' ? parseUserObject(user) : setLocalStorageItem(user);
   }
 }
 
