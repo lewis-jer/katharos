@@ -82,10 +82,7 @@ class System {
   }
 
   getSecureContainer(secureId) {
-    const secureId = uuidv4();
-    this.data[secureId] = {};
-    Object.assign(this.data[secureId], { ...value });
-    return secureId;
+    return this.data[secureId];
   }
 
   setSecureContainer(value) {
