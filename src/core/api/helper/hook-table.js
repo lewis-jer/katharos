@@ -1,5 +1,6 @@
 const updateTable = (_api) => {
   return (tableName, data, formAction, endpoint) => {
+    const monthNames = _api.getMonthNames();
     if (endpoint == 'tx') {
       [data].forEach((x, i) => {
         data.searchAssist0 = `${
