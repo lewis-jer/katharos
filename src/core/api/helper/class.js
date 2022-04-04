@@ -81,9 +81,17 @@ class System {
     }
   }
 
+  getSecureContainer(secureId) {
+    const secureId = uuidv4();
+    this.data[secureId] = {};
+    Object.assign(this.data[secureId], { ...value });
+    return secureId;
+  }
+
   setSecureContainer(value) {
     const secureId = uuidv4();
     this.data[secureId] = {};
+    this.data.id = secureId;
     Object.assign(this.data[secureId], { ...value });
     return secureId;
   }
