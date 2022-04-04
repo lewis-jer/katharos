@@ -20,6 +20,7 @@ let _api = {
   ...helper.dataHandler,
   ...helper.eventHandler,
   system: system,
+  user: user,
   meta: meta
 };
 
