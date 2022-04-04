@@ -145,8 +145,8 @@ class User {
     return localStorage.getItem('user') || null;
   }
 
-  setLocalStorageItem() {
-    localStorage.setItem('user', token).then((res) => console.log(res));
+  setLocalStorageItem(user) {
+    localStorage.setItem('user', user).then((res) => console.log(res));
   }
 }
 
