@@ -10,6 +10,10 @@ const system = new System({
   name: 'system-reserved'
 });
 
+const user = new user({
+  name: 'system-reserved'
+});
+
 console.log(system);
 
 let _api = {

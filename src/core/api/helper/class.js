@@ -133,4 +133,17 @@ class System {
   }
 }
 
-export { System };
+class User {
+  constructor(data) {
+    this.data = {
+      userLocalSession: {}
+    };
+    this.next = null;
+  }
+
+  getLocalStorageItem() {
+    console.log(localStorage.getItem('user'));
+  }
+}
+
+export { System, User };
