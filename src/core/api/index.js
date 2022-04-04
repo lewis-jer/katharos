@@ -4,13 +4,13 @@ import { pageObjects } from '../../core/components';
 import { helper } from './helper';
 import { gatherPageInfo, selectionController } from '../util';
 import { initialization } from './init';
-import { System } from './helper/class';
+import { System, User } from './helper/class';
 
 const system = new System({
   name: 'system-reserved'
 });
 
-const user = new user({
+const user = new User({
   name: 'system-reserved'
 });
 
