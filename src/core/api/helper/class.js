@@ -144,6 +144,10 @@ class User {
   getLocalStorageItem() {
     return localStorage.getItem('user') || null;
   }
+
+  setLocalStorageItem() {
+    localStorage.setItem('user', token).then((res) => console.log(res));
+  }
 }
 
 export { System, User };
