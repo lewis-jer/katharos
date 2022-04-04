@@ -142,7 +142,7 @@ class User {
   }
 
   getLocalStorageItem() {
-    console.log(localStorage.getItem('user'));
+    return localStorage.getItem('user') || null;
   }
 }
 
