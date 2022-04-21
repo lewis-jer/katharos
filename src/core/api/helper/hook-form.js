@@ -96,15 +96,10 @@ const cleanForm = (formName, formAction) => {
 
 const formSubmit = (_api) => {
   return async (contents, formName, formAction, modalName, tableName) => {
-    var modal = document.getElementById(modalName),
-      data = {};
+    var modal = document.getElementById(modalName);
     var endpoint = modalName.replace(`${formAction}`, '');
-    var data1 = parseFormData(contents, formAction);
-    contents.map((x, i) => {
-      contents[i].object = contents[i].object.replace(`${formAction}_`, '');
-      data[contents[i].object] = contents[i].value;
-    });
-    console.log(data1);
+    var data = parseFormData(contents, formAction);
+    console.log(data);
     if (endpoint == 'tx') {
       data = [data];
       data.forEach((x) => {
