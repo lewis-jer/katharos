@@ -97,6 +97,7 @@ const formSubmit = (_api) => {
       data = {};
     console.log(modal);
     var endpoint = modalName.replace(`${formAction}`, '');
+    console.log(endpoint);
     contents.map((x, i) => {
       contents[i].object = contents[i].object.replace(`${formAction}_`, '');
       if (contents[i].object == 'txamt') contents[i].object = 'txamount';
