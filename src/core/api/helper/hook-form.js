@@ -103,6 +103,7 @@ const formSubmit = (_api) => {
       if (contents[i].object == 'txamt') contents[i].object = 'txamount';
       data[contents[i].object] = contents[i].value;
     });
+    console.log(data);
     if (endpoint == 'tx') {
       data = [data];
       data.forEach((x) => {
