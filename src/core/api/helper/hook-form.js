@@ -109,7 +109,6 @@ const formSubmit = (_api) => {
       data.forEach((x) => {
         data.push({
           tx: _api.encrypter(x.tx),
-          //tx: x.tx,
           txdate: x.txdate,
           txamount: x.txamount,
           txbcat: x.txbcat,
@@ -350,24 +349,6 @@ const preloadForm = (formName, formAction, modalName, content) => {
   });
 };
 
-const modalSync = (modalFunc, modalName) => {
-  for (var i in modals[modalFunc]) {
-    if (modals[modalFunc][i].modal == modalName) {
-      for (var j in modals[modalFunc][i].select) {
-        var select = document.getElementById(modals[modalFunc][i].select[j]);
-        var dataset = modals[modalFunc][i].datasets[j];
-        for (var k in dataset) {
-          var opt = dataset[k];
-          var el = document.createElement('option');
-          el.textContent = opt.content;
-          el.value = opt.value;
-          select.appendChild(el);
-        }
-      }
-    }
-  }
-};
-
 const formMiddleware = (_api) => {
   return {
     completeAction: completeAction(_api),
@@ -379,8 +360,7 @@ const formMiddleware = (_api) => {
     formData: formData,
     formContents: formContents,
     formSubmission: formSubmission(_api),
-    preloadForm: preloadForm,
-    modalSync: modalSync
+    preloadForm: preloadForm
   };
 };
 
