@@ -1,3 +1,6 @@
+import test from './hook-validation';
+console.log(test);
+
 const completeAction = (_api) => {
   return (formName, formAction, modalName) => {
     _api.removeElementsById(null, null, formAction, modalName);
@@ -95,9 +98,7 @@ const formSubmit = (_api) => {
   return async (contents, formName, formAction, modalName, tableName) => {
     var modal = document.getElementById(modalName),
       data = {};
-    console.log(modal);
     var endpoint = modalName.replace(`${formAction}`, '');
-    console.log(endpoint);
     contents.map((x, i) => {
       contents[i].object = contents[i].object.replace(`${formAction}_`, '');
       if (contents[i].object == 'txamt') contents[i].object = 'txamount';
