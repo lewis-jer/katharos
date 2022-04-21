@@ -104,7 +104,7 @@ const formSubmit = (_api) => {
       contents[i].object = contents[i].object.replace(`${formAction}_`, '');
       data[contents[i].object] = contents[i].value;
     });
-    console.log(data);
+    console.log(data1);
     if (endpoint == 'tx') {
       data = [data];
       data.forEach((x) => {
