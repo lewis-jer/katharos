@@ -95,6 +95,7 @@ const formSubmit = (_api) => {
   return async (contents, formName, formAction, modalName, tableName) => {
     var modal = document.getElementById(modalName),
       data = {};
+    console.log(modal);
     var endpoint = modalName.replace(`${formAction}`, '');
     contents.map((x, i) => {
       contents[i].object = contents[i].object.replace(`${formAction}_`, '');
