@@ -37,7 +37,14 @@ class System {
           });
         }
       }
-      key.includes('forms') && Object.assign(this.data.forms, { ...value });
+
+      if (key.includes('forms')) {
+        for (const [module, forms] of Object.entries(value)) {
+          forms.forEach((form) => {
+            this.data.forms[form.arrayExpression] = form;
+          });
+        }
+      }
     }
   };
 
