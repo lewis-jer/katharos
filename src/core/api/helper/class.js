@@ -30,8 +30,11 @@ class System {
 
       key.includes('secret') && this.setSecureContainer(value);
 
-      key.includes('modals') && console.log(value);
-
+      if (key.includes('modals')) {
+        for (const [module, modal] of Object.entries(value)) {
+          console.log(modal);
+        }
+      }
       key.includes('forms') && Object.assign(this.data.forms, { ...value });
     }
   };
