@@ -54,7 +54,7 @@ const removeElementsById = (_api) => {
 
 const modalSync = (_api) => {
   return (modalFunc, modalName) => {
-    console.log(modalFunc, modalName);
+    console.log(_api.system.getModal(modalName));
     for (var i in modals[modalFunc]) {
       if (modals[modalFunc][i].modal == modalName) {
         for (var j in modals[modalFunc][i].select) {
