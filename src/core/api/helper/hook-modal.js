@@ -9,30 +9,46 @@ const addElementsById = (_api) => {
     var modalInfo = _api.arrayToObject(
       modals[modalName.replace(`${formAction}`, '')]
     )[modalName];
+
+    console.log(modalInfo);
+
     var modal = _api.system.getModal(modalName);
+
     console.log(modal);
+
     var object = document.getElementById(objectId),
       modalObjects = [],
       systemReserved;
+
     console.log(object);
+
     for (var i in modalInfo.inputStore) {
       modalObjects[i] = [modalInfo.inputStore[i], modalInfo.inputDataStore[i]];
     }
+
     if (newObjects != false) {
       for (var i in newObjects) {
         modalObjects.push(newObjects[i]);
         modalInfo.inputStoreSession.push(newObjects[i][0]);
-        modalInfo.inputDataStoreSession.push(newObjects[i][1]);
+        m;
+        odalInfo.inputDataStoreSession.push(newObjects[i][1]);
       }
     }
+
     modalObjects = new Map(modalObjects);
     modalObjects = Object.fromEntries(modalObjects);
+
     Object.entries(modalObjects).forEach((entry) => {
       const [key, value] = entry;
+
       var label = document.createElement('label');
+
       label.setAttribute('id', key);
+
       label.setAttribute('hidden', '');
+
       label.innerHTML = value;
+
       object.appendChild(label);
     });
   };
