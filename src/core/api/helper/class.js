@@ -11,7 +11,9 @@ class System {
       controllerConfig: {},
       middleware: [],
       middlewareConfig: {},
-      componentLib: { navigationBar: { status: false } }
+      componentLib: { navigationBar: { status: false } },
+      modals: {},
+      forms: {}
     };
     this.next = null;
   }
@@ -27,6 +29,10 @@ class System {
       key.includes('excludes') && this.setExclusions(value);
 
       key.includes('secret') && this.setSecureContainer(value);
+
+      key.includes('modals') && Object.assign(this.data.modals, { ...value });
+
+      key.includes('forms') && Object.assign(this.data.forms, { ...value });
     }
   };
 
