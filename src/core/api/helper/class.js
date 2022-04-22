@@ -30,7 +30,7 @@ class System {
 
       key.includes('secret') && this.setSecureContainer(value);
 
-      key.includes('modals') && Object.assign(this.data.modals, { ...value });
+      key.includes('modals') && value.forEach((x) => console.log(x));
 
       key.includes('forms') && Object.assign(this.data.forms, { ...value });
     }
