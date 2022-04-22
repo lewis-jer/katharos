@@ -59,7 +59,7 @@ const modalSync = (_api) => {
         for (var j in modals[modalFunc][i].select) {
           var select = document.getElementById(modals[modalFunc][i].select[j]);
 
-          var dataset = modals[modalFunc][i].datasets[j];
+          var dataset = _api.user.getUserProfileData(modals[modalFunc][i].datasets[j]);
           for (var k in dataset) {
             var opt = dataset[k];
             var el = document.createElement('option');

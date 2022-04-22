@@ -184,6 +184,10 @@ class User {
   setUserProfile(data) {
     Object.assign(this.data.userProfile, { ...data });
   }
+
+  getUserProfileData(key) {
+    return this.userProfile[key];
+  }
 }
 
 export { System, User };
