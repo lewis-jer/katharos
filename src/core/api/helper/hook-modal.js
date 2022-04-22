@@ -9,9 +9,12 @@ const addElementsById = (_api) => {
     var modalInfo = _api.arrayToObject(
       modals[modalName.replace(`${formAction}`, '')]
     )[modalName];
+    var modal = _api.system.getModal(modalName);
+    console.log(modal);
     var object = document.getElementById(objectId),
       modalObjects = [],
       systemReserved;
+    console.log(object);
     for (var i in modalInfo.inputStore) {
       modalObjects[i] = [modalInfo.inputStore[i], modalInfo.inputDataStore[i]];
     }

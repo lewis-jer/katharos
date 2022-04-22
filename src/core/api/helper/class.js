@@ -213,9 +213,16 @@ class User {
 class Store {
   constructor(data) {
     this.data = {
-      store: {}
+      store: {
+        inputDataStore: {},
+        inputStore: {}
+      }
     };
     this.next = null;
+  }
+
+  setInputItem() {
+    Object.assign(this.data.userProfile, { ...data });
   }
 }
 
