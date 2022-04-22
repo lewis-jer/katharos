@@ -40,6 +40,7 @@ const removeElementsById = (_api) => {
     var modalInfo = _api.arrayToObject(
       modals[modalName.replace(`${formAction}`, '')]
     )[modalName];
+    console.log(modalInfo);
     var object = document.getElementById(objectId);
     for (var i in modalInfo.inputStore) {
       document.getElementById(modalInfo.inputStore[i]).remove();
