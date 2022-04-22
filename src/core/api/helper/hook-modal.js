@@ -52,29 +52,32 @@ const removeElementsById = (_api) => {
   };
 };
 
-const modalSync = (modalFunc, modalName) => {
-  for (var i in modals[modalFunc]) {
-    if (modals[modalFunc][i].modal == modalName) {
-      for (var j in modals[modalFunc][i].select) {
-        var select = document.getElementById(modals[modalFunc][i].select[j]);
-        var dataset = modals[modalFunc][i].datasets[j];
-        for (var k in dataset) {
-          var opt = dataset[k];
-          var el = document.createElement('option');
-          el.textContent = opt.content;
-          el.value = opt.value;
-          select.appendChild(el);
+const modalSync = (_api) => {
+  (modalFunc, modalName) => {
+    for (var i in modals[modalFunc]) {
+      if (modals[modalFunc][i].modal == modalName) {
+        for (var j in modals[modalFunc][i].select) {
+          var select = document.getElementById(modals[modalFunc][i].select[j]);
+
+          var dataset = modals[modalFunc][i].datasets[j];
+          for (var k in dataset) {
+            var opt = dataset[k];
+            var el = document.createElement('option');
+            el.textContent = opt.content;
+            el.value = opt.value;
+            select.appendChild(el);
+          }
         }
       }
     }
-  }
+  };
 };
 
 const modalMiddleware = (_api) => {
   return {
     addElementsById: addElementsById(_api),
     removeElementsById: removeElementsById(_api),
-    modalSync: modalSync
+    modalSync: modalSync(_api)
   };
 };
 
