@@ -15,6 +15,7 @@ const user = new User({
 });
 
 console.log(system);
+console.log(user);
 
 let _api = {
   ...helper.dataHandler,

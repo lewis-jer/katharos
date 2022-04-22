@@ -156,7 +156,8 @@ class System {
 class User {
   constructor(data) {
     this.data = {
-      userLocalSession: {}
+      userLocalSession: {},
+      userProfile: {}
     };
     this.next = null;
   }
@@ -178,6 +179,10 @@ class User {
 
   initializeUser(user) {
     typeof user == 'object' ? parseUserObject(user) : setLocalStorageItem(user);
+  }
+
+  setUserProfile(data) {
+    Object.assign(this.data.userProfile, { ...data });
   }
 }
 
