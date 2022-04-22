@@ -30,7 +30,7 @@ const addElementsById = (_api) => {
       for (var i in newObjects) {
         modalObjects.push(newObjects[i]);
         modalInfo.inputStoreSession.push(newObjects[i][0]);
-        odalInfo.inputDataStoreSession.push(newObjects[i][1]);
+        modalInfo.inputDataStoreSession.push(newObjects[i][1]);
       }
     }
 
