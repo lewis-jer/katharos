@@ -48,6 +48,14 @@ class System {
     }
   };
 
+  getModal(name) {
+    return this.data.modals[name];
+  }
+
+  getForm(name) {
+    return this.data.forms[name];
+  }
+
   getPlugin(plugin) {
     return this.data.pluginLib[this.stringToHash(plugin)];
   }
