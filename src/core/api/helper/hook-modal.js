@@ -53,13 +53,15 @@ const removeElementsById = (_api) => {
 };
 
 const modalSync = (_api) => {
-  (modalFunc, modalName) => {
+  return (modalFunc, modalName) => {
     for (var i in modals[modalFunc]) {
       if (modals[modalFunc][i].modal == modalName) {
         for (var j in modals[modalFunc][i].select) {
           var select = document.getElementById(modals[modalFunc][i].select[j]);
 
-          var dataset = _api.user.getUserProfileData(modals[modalFunc][i].datasets[j]);
+          var dataset = _api.user.getUserProfileData(
+            modals[modalFunc][i].datasets[j]
+          );
           for (var k in dataset) {
             var opt = dataset[k];
             var el = document.createElement('option');
