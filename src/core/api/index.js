@@ -4,7 +4,7 @@ import { pageObjects } from '../../core/components';
 import { helper } from './helper';
 import { gatherPageInfo, selectionController } from '../util';
 import { initialization } from './init';
-import { System, User } from './helper/class';
+import { System, User, Store } from './helper/class';
 
 const system = new System({
   name: 'system-reserved'
@@ -14,8 +14,13 @@ const user = new User({
   name: 'system-reserved'
 });
 
+const store = new Store({
+  name: 'system-reserved'
+});
+
 console.log(system);
 console.log(user);
+console.log(store);
 
 let _api = {
   ...helper.dataHandler,

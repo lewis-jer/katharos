@@ -210,4 +210,13 @@ class User {
   }
 }
 
-export { System, User };
+class Store {
+  constructor(data) {
+    this.data = {
+      store: {}
+    };
+    this.next = null;
+  }
+}
+
+export { System, User, Store };
