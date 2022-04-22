@@ -186,7 +186,7 @@ class User {
   }
 
   getUserProfileData(key) {
-    return this.userProfile[key];
+    return this.data.userProfile[key];
   }
 }
 
