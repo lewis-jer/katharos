@@ -6,32 +6,23 @@ const addElementsById = (_api) => {
     modalName,
     newObjects = false
   ) => {
-    var modalInfo = _api.arrayToObject(
-      modals[modalName.replace(`${formAction}`, '')]
-    )[modalName];
-
-    console.log(modalInfo);
-
     var modal = _api.system.getModal(modalName);
-
-    console.log(modal);
-
     var object = document.getElementById(objectId),
       modalObjects = [],
       systemReserved;
 
     console.log(object);
 
-    for (var i in modalInfo.inputStore) {
-      modalObjects[i] = [modalInfo.inputStore[i], modalInfo.inputDataStore[i]];
-      console.log(modalObjects);
+    for (var i in modal.inputStore) {
+      modalObjects[i] = [modal.inputStore[i], modal.inputDataStore[i]];
+      console.log(modalObjects[i]);
     }
 
     if (newObjects != false) {
       for (var i in newObjects) {
         modalObjects.push(newObjects[i]);
-        modalInfo.inputStoreSession.push(newObjects[i][0]);
-        modalInfo.inputDataStoreSession.push(newObjects[i][1]);
+        modal.inputStoreSession.push(newObjects[i][0]);
+        modal.inputDataStoreSession.push(newObjects[i][1]);
       }
     }
 
@@ -56,22 +47,18 @@ const addElementsById = (_api) => {
 
 const removeElementsById = (_api) => {
   return (objectId, systemReserved, formAction, modalName) => {
-    var modalInfo = _api.arrayToObject(
-      modals[modalName.replace(`${formAction}`, '')]
-    )[modalName];
     var modal = _api.system.getModal(modalName);
     console.log(objectId, systemReserved, formAction, modalName);
-    console.log(modalInfo);
     console.log(modal);
     var object = document.getElementById(objectId);
-    for (var i in modalInfo.inputStore) {
-      document.getElementById(modalInfo.inputStore[i]).remove();
+    for (var i in modal.inputStore) {
+      document.getElementById(modal.inputStore[i]).remove();
     }
     for (var i in modalInfo.inputStoreSession) {
-      document.getElementById(modalInfo.inputStoreSession[i]).remove();
+      document.getElementById(modal.inputStoreSession[i]).remove();
     }
-    modalInfo.inputStoreSession = [];
-    modalInfo.inputDataStoreSession = [];
+    modal.inputStoreSession = [];
+    modal.inputDataStoreSession = [];
   };
 };
 
