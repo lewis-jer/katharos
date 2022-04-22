@@ -24,6 +24,7 @@ const addElementsById = (_api) => {
 
     for (var i in modalInfo.inputStore) {
       modalObjects[i] = [modalInfo.inputStore[i], modalInfo.inputDataStore[i]];
+      console.log(modalObjects);
     }
 
     if (newObjects != false) {
