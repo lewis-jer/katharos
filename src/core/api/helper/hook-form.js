@@ -115,6 +115,7 @@ const formSubmit = (_api) => {
       data.splice(0, 1);
       data = data[0];
       data.SN = typeof data.SN !== 'undefined' ? data.SN : uuid();
+      console.log(data);
     }
     let res;
     if (formAction == 'add') {
