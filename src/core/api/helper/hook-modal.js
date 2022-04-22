@@ -54,23 +54,17 @@ const removeElementsById = (_api) => {
 
 const modalSync = (_api) => {
   return (modalFunc, modalName) => {
-    console.log(_api.system.getModal(modalName));
-    for (var i in modals[modalFunc]) {
-      if (modals[modalFunc][i].modal == modalName) {
-        for (var j in modals[modalFunc][i].select) {
-          var select = document.getElementById(modals[modalFunc][i].select[j]);
-
-          var dataset = _api.user.getUserProfileData(
-            modals[modalFunc][i].datasets[j]
-          );
-          for (var k in dataset) {
-            var opt = dataset[k];
-            var el = document.createElement('option');
-            el.textContent = opt.content;
-            el.value = opt.value;
-            select.appendChild(el);
-          }
-        }
+    modal = _api.system.getModal(modalName);
+    console.log(modal);
+    for (var j in modal.select) {
+      var select = document.getElementById(modal.select[j]);
+      var dataset = _api.user.getUserProfileData(modal.datasets[j]);
+      for (var k in dataset) {
+        var opt = dataset[k];
+        var el = document.createElement('option');
+        el.textContent = opt.content;
+        el.value = opt.value;
+        select.appendChild(el);
       }
     }
   };
