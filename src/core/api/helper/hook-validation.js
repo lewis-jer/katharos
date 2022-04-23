@@ -9,6 +9,7 @@ const parseFormData = (contents, formAction) => {
 
 const validateFormData = (_api) => {
   return (formName, data) => {
+    console.log(formName);
     var form = _api.system.getForm(formName);
     console.log(form);
 
