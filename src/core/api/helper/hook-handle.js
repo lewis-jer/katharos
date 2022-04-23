@@ -1,15 +1,15 @@
 import http from '../service/http.service.js';
 
 class DataService {
-  getAll() {
-    return http.get('/fp-app/tx');
+  insertTransaction(data) {
+    return http.post('/fp-app/tx', data);
   }
 }
 
 const dataService = new DataService();
 
-const submissionHandle = async (data) => {
-  console.log(await dataService.getAll());
+const submissionHandle = async (handle, data) => {
+  const response = await dataService[handle](data);
   //   await dataService('POST', endpoint, false, data).then(
   //     async ({ data: res }) => {
   //       if (res.error) {

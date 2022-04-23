@@ -8,9 +8,7 @@ const parseFormData = (contents, formAction) => {
 };
 
 const validateFormData = (_api) => {
-  return (modalName, data) => {
-    var modal = _api.system.getModal(modalName);
-    var form = _api.system.getForm(modal.form);
+  return (form, data) => {
     Object.entries(data).forEach((entry) => {
       const [key, value] = entry;
       form.encryption.includes(key) && (data[key] = _api.encrypter(value));
