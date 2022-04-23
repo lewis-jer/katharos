@@ -222,7 +222,7 @@ class Store {
   }
 
   setInputItem(data) {
-    Object.assign(this.data.inputStore, ...Object.fromEntries(data));
+    Object.assign(this.data.store.inputStore, ...Object.fromEntries(data));
   }
 
   getInputItem() {}
