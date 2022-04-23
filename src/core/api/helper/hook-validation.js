@@ -11,6 +11,7 @@ const validateFormData = (_api) => {
   return (modalName, data) => {
     console.log(modalName);
     var modal = _api.system.getModal(modalName);
+    console.log(modal);
     var form = _api.system.getModal(modal.form);
     console.log(form);
 
