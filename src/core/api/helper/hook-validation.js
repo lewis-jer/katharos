@@ -12,9 +12,14 @@ const validateFormData = (_api) => {
     console.log(modalName);
     var modal = _api.system.getModal(modalName);
     console.log(modal);
-    var form = _api.system.getModal(modal.form);
+    var form = _api.system.getForm(modal.form);
     console.log(form);
 
+    Object.entries(modalObjects).forEach((entry) => {
+      const [key, value] = entry;
+
+      console.log(key, value);
+    });
     data = [data];
 
     data.forEach((x) => {
