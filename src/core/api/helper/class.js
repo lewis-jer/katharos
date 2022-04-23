@@ -221,13 +221,12 @@ class Store {
     this.next = null;
   }
 
-  setInputItem() {
+  setInputItem(data) {
+    console.log(data);
     Object.assign(this.data.userProfile, { ...data });
   }
 
-  getInputItem() {
-    
-  }
+  getInputItem() {}
 }
 
 export { System, User, Store };

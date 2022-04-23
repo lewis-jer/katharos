@@ -27,6 +27,7 @@ const addElementsById = (_api) => {
     }
 
     modalObjects = new Map(modalObjects);
+    _api.store.setInputItem(modalObjects);
     modalObjects = Object.fromEntries(modalObjects);
 
     Object.entries(modalObjects).forEach((entry) => {
