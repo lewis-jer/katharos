@@ -9,9 +9,7 @@ const parseFormData = (contents, formAction) => {
 
 const validateFormData = (_api) => {
   return (modalName, data) => {
-    console.log(modalName);
     var modal = _api.system.getModal(modalName);
-    console.log(modal);
     var form = _api.system.getForm(modal.form);
     console.log(form);
 
@@ -20,6 +18,7 @@ const validateFormData = (_api) => {
       form.encryption.includes(key) && (data[key] = _api.encrypter(value));
       key == console.log(key, value);
     });
+    typeof data.SN !== 'undefined' && (data.SN = uuid());
     // data = [data];
 
     // data.forEach((x) => {
@@ -36,8 +35,6 @@ const validateFormData = (_api) => {
     // data.splice(0, 1);
 
     // data = data[0];
-
-    data.SN = typeof data.SN !== 'undefined' ? data.SN : uuid();
 
     console.log(data);
 
