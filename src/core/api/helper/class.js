@@ -224,6 +224,10 @@ class Store {
   setInputItem() {
     Object.assign(this.data.userProfile, { ...data });
   }
+
+  getInputItem() {
+    
+  }
 }
 
 export { System, User, Store };

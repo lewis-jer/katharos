@@ -54,7 +54,7 @@ const removeElementsById = (_api) => {
     for (var i in modal.inputStore) {
       document.getElementById(modal.inputStore[i]).remove();
     }
-    for (var i in modalInfo.inputStoreSession) {
+    for (var i in modal.inputStoreSession) {
       document.getElementById(modal.inputStoreSession[i]).remove();
     }
     modal.inputStoreSession = [];
