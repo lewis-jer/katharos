@@ -8,6 +8,7 @@ class DataService {
 
 const dataService = new DataService();
 console.log(dataService);
+console.log(new DataService());
 
 const submissionHandle = async (data) => {
   await dataService('POST', endpoint, false, data).then(
