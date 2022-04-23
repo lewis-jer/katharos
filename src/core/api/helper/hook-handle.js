@@ -23,6 +23,7 @@ const submissionHandle = async (handle, data) => {
   //       alertify.success('Success message');
   //     }
   //   );
+  return response;
 };
 
 export { submissionHandle };
