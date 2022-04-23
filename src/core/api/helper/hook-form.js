@@ -104,7 +104,7 @@ const formSubmit = (_api) => {
     let res;
     if (formAction == 'add') {
       if (endpoint == 'tx') {
-        await submissionHandle().then(() => {});
+        await submissionHandle(data).then(() => {});
       } else if (endpoint == 'bcat') {
         data.func = document.getElementById('el1').innerHTML;
         data.bcat = uuid();
