@@ -18,8 +18,8 @@ const validateFormData = (_api) => {
       const [key, value] = entry;
       form.encryption.includes(key) && (data[key] = _api.encrypter(value));
     });
-    console.log(typeof data.SN !== 'undefined');
-    typeof data.SN !== 'undefined' && (data.SN = uuid());
+    console.log(typeof data.SN == 'undefined');
+    typeof data.SN == 'undefined' && (data.SN = uuid());
     console.log(data);
 
     return data;
