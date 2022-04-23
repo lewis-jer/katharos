@@ -1,6 +1,6 @@
 import { parseFormData, validateFormData } from './hook-validation';
-import { submissionHandle } from './hook-validation';
-console.log(parseFormData);
+import { submissionHandle } from './hook-handle';
+//console.log(parseFormData);
 
 const completeAction = (_api) => {
   return (formName, formAction, modalName) => {
