@@ -10,6 +10,7 @@ const dataService = new DataService();
 
 const submissionHandle = async (handle, data) => {
   const response = await dataService[handle](data);
+  console.log(response);
   //   await dataService('POST', endpoint, false, data).then(
   //     async ({ data: res }) => {
   //       if (res.error) {
