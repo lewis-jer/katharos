@@ -2,13 +2,12 @@ import http from '../service/http.service.js';
 
 class DataService {
   getAll() {
-    return http.get('/fp-app/user');
+    return http.get('/fp-app/tx');
   }
 }
 
 const dataService = new DataService();
-console.log(dataService);
-console.log(new DataService());
+console.log(dataService.getAll());
 
 const submissionHandle = async (data) => {
   await dataService('POST', endpoint, false, data).then(
