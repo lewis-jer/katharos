@@ -222,8 +222,11 @@ class Store {
   }
 
   setInputItem(data) {
-    console.log(data );
-    Object.assign(this.data.userProfile, { ...data });
+    data.forEach((item) => {
+      console.log(item);
+    });
+    console.log(data);
+    Object.assign(this.data.inputStore, { ...data });
   }
 
   getInputItem() {}
