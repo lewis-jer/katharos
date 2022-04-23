@@ -17,7 +17,6 @@ const validateFormData = (_api) => {
     Object.entries(data).forEach((entry) => {
       const [key, value] = entry;
       form.encryption.includes(key) && (data[key] = _api.encrypter(value));
-      key == console.log(key, value);
     });
     typeof data.SN !== 'undefined' && (data.SN = uuid());
     console.log(data);
