@@ -222,10 +222,7 @@ class Store {
   }
 
   setInputItem(data) {
-    console.log(Object.fromEntries(data));
-    // data.forEach((value, key, map) => {
-    //   Object.assign(this.data.inputStore, Object.fromEntries());
-    // });
+    Object.assign(this.data.inputStore, ...Object.fromEntries(data));
   }
 
   getInputItem() {}
