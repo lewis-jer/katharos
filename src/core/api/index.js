@@ -27,6 +27,7 @@ let _api = {
   ...helper.eventHandler,
   system: system,
   user: user,
+  store: store,
   meta: meta
 };
 

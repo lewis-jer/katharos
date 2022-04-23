@@ -222,7 +222,7 @@ class Store {
   }
 
   setInputItem(data) {
-    console.log(data);
+    console.log(data );
     Object.assign(this.data.userProfile, { ...data });
   }
 
