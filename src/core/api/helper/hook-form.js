@@ -109,9 +109,7 @@ const formSubmit = (_api) => {
         const response = await submissionHandle(form.handle, data);
         typeof response.data !== 'undefined' &&
           (async () => {
-            const {
-              response: { data: res }
-            } = response;
+            const { data: res } = response;
             // if (res.error) {
             //   completeAction(_api)(formName, formAction, modalName);
             //   alertify.error(res.error);
