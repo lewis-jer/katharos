@@ -15,7 +15,7 @@ const validateFormData = (_api) => {
     var form = _api.system.getForm(modal.form);
     console.log(form);
 
-    Object.entries(modalObjects).forEach((entry) => {
+    Object.entries(data).forEach((entry) => {
       const [key, value] = entry;
 
       console.log(key, value);
