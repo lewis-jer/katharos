@@ -7,21 +7,21 @@ class DataService {
 }
 
 const dataService = new DataService();
-console.log(dataService.getAll());
 
 const submissionHandle = async (data) => {
-  await dataService('POST', endpoint, false, data).then(
-    async ({ data: res }) => {
-      if (res.error) {
-        completeAction(_api)(formName, formAction, modalName);
-        alertify.error(res.error);
-      }
-      data.id = res.insertId;
-      await _api.updateTable(tableName, data, formAction, endpoint);
-      completeAction(_api)(formName, formAction, modalName);
-      alertify.success('Success message');
-    }
-  );
+  console.log(await dataService.getAll());
+  //   await dataService('POST', endpoint, false, data).then(
+  //     async ({ data: res }) => {
+  //       if (res.error) {
+  //         completeAction(_api)(formName, formAction, modalName);
+  //         alertify.error(res.error);
+  //       }
+  //       data.id = res.insertId;
+  //       await _api.updateTable(tableName, data, formAction, endpoint);
+  //       completeAction(_api)(formName, formAction, modalName);
+  //       alertify.success('Success message');
+  //     }
+  //   );
 };
 
 export { submissionHandle };
