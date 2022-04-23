@@ -106,7 +106,7 @@ const formSubmit = (_api) => {
     let res;
     if (formAction == 'add') {
       if (endpoint == 'tx') {
-        const data = await submissionHandle(form.handle, data);
+        const response = await submissionHandle(form.handle, data);
         typeof response.data !== 'undefined' &&
           (async ({ response: { data: res } }) => {
             // if (res.error) {
