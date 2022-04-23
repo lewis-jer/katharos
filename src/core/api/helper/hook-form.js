@@ -98,25 +98,8 @@ const formSubmit = (_api) => {
   return async (contents, formName, formAction, modalName, tableName) => {
     var endpoint = modalName.replace(`${formAction}`, '');
     var data = parseFormData(contents, formAction);
-    var data1 = validateFormData(_api)(modalName, data);
-    console.log(data1);
-    if (endpoint == 'tx') {
-      data = [data];
-      data.forEach((x) => {
-        data.push({
-          tx: _api.encrypter(x.tx),
-          txdate: x.txdate,
-          txamount: x.txamount,
-          txbcat: x.txbcat,
-          txdesc: '',
-          username: userProfile.username
-        });
-      });
-      data.splice(0, 1);
-      data = data[0];
-      data.SN = typeof data.SN !== 'undefined' ? data.SN : uuid();
-      console.log(data);
-    }
+    data = validateFormData(_api)(modalName, data);
+    console.log(data);
     let res;
     if (formAction == 'add') {
       if (endpoint == 'tx') {
