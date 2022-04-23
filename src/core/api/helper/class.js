@@ -214,7 +214,6 @@ class Store {
   constructor(data) {
     this.data = {
       store: {
-        inputDataStore: {},
         inputStore: {}
       }
     };
@@ -225,7 +224,9 @@ class Store {
     Object.assign(this.data.store.inputStore, { ...Object.fromEntries(data) });
   }
 
-  getInputItem() {}
+  getInputItem(key) {
+    return this.data.store.inputStore[key];
+  }
 }
 
 export { System, User, Store };
