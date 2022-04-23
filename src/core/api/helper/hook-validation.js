@@ -8,9 +8,9 @@ const parseFormData = (contents, formAction) => {
 };
 
 const validateFormData = (_api) => {
-  return (modalName, data) => {
-    var modal = _api.system.getModal(modalName);
-    console.log(data);
+  return (formName, data) => {
+    var form = _api.system.getModal(formName);
+    console.log(form);
 
     data = [data];
 
