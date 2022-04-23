@@ -103,23 +103,24 @@ const formSubmit = (_api) => {
     var data = parseFormData(contents, formAction);
     data = validateFormData(_api)(form, data);
     console.log(data);
+    const response = await submissionHandle(form.handle, data);
+    typeof response.data !== 'undefined' &&
+      (async () => {
+        const { data: res } = response;
+        // if (res.error) {
+        //   completeAction(_api)(formName, formAction, modalName);
+        //   alertify.error(res.error);
+        // }
+        console.log(res);
+        data.id = res.insertId;
+        form.updateTable &&
+          (await _api.updateTable(tableName, data, formAction, endpoint));
+        completeAction(_api)(formName, formAction, modalName);
+        alertify.success('Success message');
+      })();
     let res;
     if (formAction == 'add') {
-      if (endpoint == 'tx') {
-        const response = await submissionHandle(form.handle, data);
-        typeof response.data !== 'undefined' &&
-          (async () => {
-            const { data: res } = response;
-            // if (res.error) {
-            //   completeAction(_api)(formName, formAction, modalName);
-            //   alertify.error(res.error);
-            // }
-            data.id = res.insertId;
-            await _api.updateTable(tableName, data, formAction, endpoint);
-            completeAction(_api)(formName, formAction, modalName);
-            alertify.success('Success message');
-          })();
-      } else if (endpoint == 'bcat') {
+      if (endpoint == 'bcat') {
         data.func = document.getElementById('el1').innerHTML;
         data.bcat = uuid();
         data.SN = uuid();
