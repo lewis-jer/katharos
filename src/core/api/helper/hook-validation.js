@@ -17,31 +17,29 @@ const validateFormData = (_api) => {
 
     Object.entries(data).forEach((entry) => {
       const [key, value] = entry;
-
-      console.log(key, value);
+      form.encryption.includes(key) && (data[key] = _api.encrypter(value));
+      key == console.log(key, value);
     });
-    data = [data];
+    // data = [data];
 
-    data.forEach((x) => {
-      data.push({
-        tx: _api.encrypter(x.tx),
-        txdate: x.txdate,
-        txamount: x.txamount,
-        txbcat: x.txbcat,
-        txdesc: '',
-        username: userProfile.username
-      });
-    });
+    // data.forEach((x) => {
+    //   data.push({
+    //     tx: _api.encrypter(x.tx),
+    //     txdate: x.txdate,
+    //     txamount: x.txamount,
+    //     txbcat: x.txbcat,
+    //     txdesc: '',
+    //     username: userProfile.username
+    //   });
+    // });
 
-    data.splice(0, 1);
+    // data.splice(0, 1);
 
-    data = data[0];
+    // data = data[0];
 
     data.SN = typeof data.SN !== 'undefined' ? data.SN : uuid();
 
     console.log(data);
-
-    modal.encryption;
 
     return data;
   };
