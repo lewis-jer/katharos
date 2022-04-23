@@ -1,4 +1,5 @@
 import { parseFormData, validateFormData } from './hook-validation';
+import { submissionHandle } from './hook-validation';
 console.log(parseFormData);
 
 const completeAction = (_api) => {
@@ -103,18 +104,7 @@ const formSubmit = (_api) => {
     let res;
     if (formAction == 'add') {
       if (endpoint == 'tx') {
-        // await dataService('POST', endpoint, false, data).then(
-        //   async ({ data: res }) => {
-        //     if (res.error) {
-        //       completeAction(_api)(formName, formAction, modalName);
-        //       alertify.error(res.error);
-        //     }
-        //     data.id = res.insertId;
-        //     await _api.updateTable(tableName, data, formAction, endpoint);
-        //     completeAction(_api)(formName, formAction, modalName);
-        //     alertify.success('Success message');
-        //   }
-        // );
+        await submissionHandle().then(() => {});
       } else if (endpoint == 'bcat') {
         data.func = document.getElementById('el1').innerHTML;
         data.bcat = uuid();
