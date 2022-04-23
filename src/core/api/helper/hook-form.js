@@ -98,8 +98,8 @@ const formSubmit = (_api) => {
   return async (contents, formName, formAction, modalName, tableName) => {
     var endpoint = modalName.replace(`${formAction}`, '');
     var data = parseFormData(contents, formAction);
-    data = validateFormData(_api)(modalName, data);
-    console.log(data);
+    data1 = validateFormData(_api)(modalName, data);
+    console.log(data1);
     if (endpoint == 'tx') {
       data = [data];
       data.forEach((x) => {
