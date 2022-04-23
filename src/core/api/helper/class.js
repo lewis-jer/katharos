@@ -186,6 +186,10 @@ class User {
     return localStorage.getItem('user') || null;
   }
 
+  getUsername() {
+    return this.data.username;
+  }
+
   setLocalStorageItem(user) {
     localStorage.setItem('user', user);
   }
@@ -203,6 +207,11 @@ class User {
 
   setUserProfile(data) {
     Object.assign(this.data.userProfile, { ...data });
+    this.data.username = data.username;
+  }
+
+  setUsername(username) {
+    this.data.username = username;
   }
 
   getUserProfileData(key) {
