@@ -11,8 +11,6 @@ const addElementsById = (_api) => {
       modalObjects = [],
       systemReserved;
 
-    console.log(object);
-
     for (var i in modal.inputStore) {
       modalObjects[i] = [modal.inputStore[i], modal.inputDataStore[i]];
       console.log(modalObjects[i]);
