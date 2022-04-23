@@ -117,7 +117,7 @@ const formSubmit = (_api) => {
             await _api.updateTable(tableName, data, formAction, endpoint);
             completeAction(_api)(formName, formAction, modalName);
             alertify.success('Success message');
-          });
+          })();
       } else if (endpoint == 'bcat') {
         data.func = document.getElementById('el1').innerHTML;
         data.bcat = uuid();
