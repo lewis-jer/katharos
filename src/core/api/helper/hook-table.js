@@ -1,3 +1,5 @@
+import { handleTableAction } from './hook-action';
+
 const updateTable = (_api) => {
   return (tableName, data, formAction, endpoint) => {
     const monthNames = _api.getMonthNames();
@@ -21,25 +23,18 @@ const updateTable = (_api) => {
       });
     }
 
+    endpoint != 'bx' &&
+      handleTableAction(_api)(tableName, data, formAction, endpoint);
+
     if (formAction == 'add') {
-      if (endpoint == 'tx') {
-        var table = $(`#${tableName}`).DataTable();
-        table.row.add(data).draw().node();
-      } else if (endpoint == 'bcat') {
-        var table = $(`#${tableName}`).DataTable();
-        table.row.add(data).draw().node();
-      } else if (endpoint == 'bx') {
+      if (endpoint == 'bx') {
         var table = $(`#${tableName}`).DataTable();
         data.bxamt = data.bcatamt;
         data.bxbcat = data.Category;
         table.row.add(data).draw().node();
       }
     } else if (formAction == 'edit') {
-      if (endpoint == 'tx' || endpoint == 'bcat') {
-        var table = $(`#${tableName}`).DataTable();
-        var selectedRow = JSON.parse(data.tableIndex)._DT_CellIndex.row;
-        table.row(selectedRow).data(data).draw();
-      } else if (endpoint == 'bx') {
+      if (endpoint == 'bx') {
         data.bxamt = data.bcatamt;
         data.bxbcat = data.Category;
         _api.updateUserProfileData(

@@ -146,25 +146,7 @@ const formSubmit = (_api) => {
     let res;
 
     if (formAction == 'add') {
-      if (endpoint == 'bcat') {
-        // data.func = document.getElementById('func').innerHTML;
-        // data.bcat = uuid();
-        // data.SN = uuid();
-        // data.username = userProfile.username;
-        // console.log(data);
-        // await dataService('POST', endpoint, false, data).then(
-        //   async ({ data: res }) => {
-        //     if (res.error) {
-        //       await completeAction(_api)(formName, formAction, modalName);
-        //       alertify.error(res.error);
-        //     }
-        //     data.id = res[0].insertId;
-        //     await _api.updateTable(tableName, data, formAction, endpoint);
-        //     await completeAction(_api)(formName, formAction, modalName);
-        //     alertify.success('Success message');
-        //   }
-        // );
-      } else if (endpoint == 'bx') {
+      if (endpoint == 'bx') {
         data.date = data.mth + data.yr;
         data.func = document.getElementById('el1').innerHTML;
         data.dates = _api.mySQLDateCreator(`${data.mth} 1 ${data.yr}`);
@@ -199,18 +181,18 @@ const formSubmit = (_api) => {
         data.frequency = data.Frequency;
         data.SN = document.getElementById('el3').innerHTML;
         data.id = document.getElementById('func').innerHTML;
-        await dataService('PUT', endpoint, id, data).then(
-          async ({ data: res }) => {
-            if (res.error) {
-              await completeAction(_api)(formName, formAction, modalName);
-              alertify.error(res.error);
-            } else {
-              await _api.updateTable(tableName, data, formAction, endpoint);
-              await completeAction(_api)(formName, formAction, modalName);
-              alertify.success('Success message');
-            }
-          }
-        );
+        // await dataService('PUT', endpoint, id, data).then(
+        //   async ({ data: res }) => {
+        //     if (res.error) {
+        //       await completeAction(_api)(formName, formAction, modalName);
+        //       alertify.error(res.error);
+        //     } else {
+        //       await _api.updateTable(tableName, data, formAction, endpoint);
+        //       await completeAction(_api)(formName, formAction, modalName);
+        //       alertify.success('Success message');
+        //     }
+        //   }
+        // );
       } else if (endpoint == 'bx') {
         data.ui = document.getElementById('el3').innerHTML;
         data.id = document.getElementById('el1').innerHTML;
