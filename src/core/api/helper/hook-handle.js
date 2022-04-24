@@ -4,7 +4,7 @@ class DataService {
   insertTransaction(data) {
     return http.post('/fp-app/tx', data);
   }
-  updateTransaction() {
+  updateTransaction(data) {
     return http.put('/fp-app/tx', data);
   }
 }
