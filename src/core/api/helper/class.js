@@ -222,19 +222,21 @@ class User {
 class Store {
   constructor(data) {
     this.data = {
-      store: {
-        inputStore: {}
-      }
+      inputStore: {}
     };
     this.next = null;
   }
 
   setInputItem(data) {
-    Object.assign(this.data.store.inputStore, { ...Object.fromEntries(data) });
+    Object.assign(this.data.inputStore, { ...Object.fromEntries(data) });
   }
 
   getInputItem(key) {
-    return this.data.store.inputStore[key];
+    return this.data.inputStore[key];
+  }
+
+  getStoreItem(item) {
+    this.data[item];
   }
 }
 
