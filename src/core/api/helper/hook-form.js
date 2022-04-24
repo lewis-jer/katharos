@@ -20,7 +20,7 @@ const completeAction = (_api) => {
       console.log('Form Submitted Successfully');
     } else {
       const { data: res } = response;
-
+      console.log(res);
       form.updateTable &&
         (await _api.updateTable(tableName, data, formAction, endpoint));
 
