@@ -118,20 +118,21 @@ const formSubmit = (_api) => {
     var form = _api.system.getForm(modal.form);
     var endpoint = modalName.replace(`${formAction}`, '');
     var data = parseFormData(contents, formAction);
+    if (form.enabled) {
+      form.version == 1 && (data = validateFormData(_api)(form, data));
 
-    form.version == 1 && (data = validateFormData(_api)(form, data));
+      const response =
+        form.version == 1 && (await submissionHandle(form.handle, data));
 
-    const response =
-      form.version == 1 && (await submissionHandle(form.handle, data));
-
-    typeof response.data !== 'undefined' &&
-      form.version == 1 &&
-      (async () => {
-        const { data: res } = response;
-        typeof res.insertId !== 'undefined' && (data.id = res.insertId);
-        const params = { form, response, data, tableName };
-        await completeAction(_api)(formName, formAction, modalName, params);
-      })();
+      typeof response.data !== 'undefined' &&
+        form.version == 1 &&
+        (async () => {
+          const { data: res } = response;
+          typeof res.insertId !== 'undefined' && (data.id = res.insertId);
+          const params = { form, response, data, tableName };
+          await completeAction(_api)(formName, formAction, modalName, params);
+        })();
+    }
 
     let res;
 
