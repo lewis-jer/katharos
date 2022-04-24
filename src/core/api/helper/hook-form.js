@@ -148,7 +148,7 @@ const formSubmit = (_api) => {
     if (formAction == 'add') {
       if (endpoint == 'bx') {
         data.date = data.mth + data.yr;
-        data.func = document.getElementById('el1').innerHTML;
+        data.func = document.getElementById('func').innerHTML;
         data.dates = _api.mySQLDateCreator(`${data.mth} 1 ${data.yr}`);
         data.username = userProfile.username;
         console.log(data);
