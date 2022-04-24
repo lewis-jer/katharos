@@ -179,7 +179,7 @@ const formSubmit = (_api) => {
         data.module = data.Modules;
         data.type = data.Type;
         data.frequency = data.Frequency;
-        data.SN = document.getElementById('el3').innerHTML;
+        data.SN = document.getElementById('SN').innerHTML;
         data.id = document.getElementById('func').innerHTML;
         console.log(data);
         // await dataService('PUT', endpoint, id, data).then(
