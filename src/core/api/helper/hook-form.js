@@ -3,7 +3,15 @@ import { submissionHandle } from './hook-handle';
 //console.log(parseFormData);
 
 const completeAction = (_api) => {
-  return (formName, formAction, modalName, form = false, response, data, tableName) => {
+  return async (
+    formName,
+    formAction,
+    modalName,
+    form = false,
+    response,
+    data,
+    tableName
+  ) => {
     if (!form) {
       _api.removeElementsById(null, null, formAction, modalName);
       cleanForm(formName, formAction);
@@ -11,11 +19,10 @@ const completeAction = (_api) => {
       $(`#${modalName}`).modal('hide');
       console.log('Form Submitted Successfully');
     } else {
-
       const { data: res } = response;
 
       form.updateTable &&
-      (await _api.updateTable(tableName, data, formAction, endpoint));
+        (await _api.updateTable(tableName, data, formAction, endpoint));
 
       _api.removeElementsById(null, null, formAction, modalName);
 
@@ -27,12 +34,11 @@ const completeAction = (_api) => {
 
       console.log('Form Submitted Successfully');
 
-      if (res.status == 'success') {        
+      if (res.status == 'success') {
         alertify.success('Success');
       } else {
         alertify.error('Failure');
       }
-      
     }
   };
 };
@@ -134,11 +140,19 @@ const formSubmit = (_api) => {
       (async () => {
         const { data: res } = response;
         typeof res.insertId !== 'undefined' && (data.id = res.insertId);
-        completeAction(_api)(formName, formAction, modalName, form, response, data, tableName);
+        await completeAction(_api)(
+          formName,
+          formAction,
+          modalName,
+          form,
+          response,
+          data,
+          tableName
+        );
       })();
 
     let res;
-    
+
     if (formAction == 'add') {
       if (endpoint == 'bcat') {
         data.func = document.getElementById('el1').innerHTML;
@@ -148,12 +162,12 @@ const formSubmit = (_api) => {
         await dataService('POST', endpoint, false, data).then(
           async ({ data: res }) => {
             if (res.error) {
-              completeAction(_api)(formName, formAction, modalName);
+              await completeAction(_api)(formName, formAction, modalName);
               alertify.error(res.error);
             }
             data.id = res[0].insertId;
             await _api.updateTable(tableName, data, formAction, endpoint);
-            completeAction(_api)(formName, formAction, modalName);
+            await completeAction(_api)(formName, formAction, modalName);
             alertify.success('Success message');
           }
         );
@@ -171,7 +185,7 @@ const formSubmit = (_api) => {
               }
             }
             if (error) {
-              completeAction(_api)(formName, formAction, modalName);
+              await completeAction(_api)(formName, formAction, modalName);
               alertify.error('Request Failed');
             } else {
               //data.id = res[0].insertId
@@ -179,7 +193,7 @@ const formSubmit = (_api) => {
               userProfile.bxExpData.push(data);
               userProfile.bxIncData.push(data);
               await _api.updateTable(tableName, data, formAction, endpoint);
-              completeAction(_api)(formName, formAction, modalName);
+              await completeAction(_api)(formName, formAction, modalName);
               alertify.success('Success message');
             }
           }
@@ -192,11 +206,11 @@ const formSubmit = (_api) => {
         await dataService('PUT', endpoint, id, data).then(
           async ({ data: res }) => {
             if (res.error) {
-              completeAction(_api)(formName, formAction, modalName);
+              await completeAction(_api)(formName, formAction, modalName);
               alertify.error(res.error);
             }
             await _api.updateTable(tableName, data, formAction, endpoint);
-            completeAction(_api)(formName, formAction, modalName);
+            await completeAction(_api)(formName, formAction, modalName);
             alertify.success('Success message');
           }
         );
@@ -209,11 +223,11 @@ const formSubmit = (_api) => {
         await dataService('PUT', endpoint, id, data).then(
           async ({ data: res }) => {
             if (res.error) {
-              completeAction(_api)(formName, formAction, modalName);
+              await completeAction(_api)(formName, formAction, modalName);
               alertify.error(res.error);
             } else {
               await _api.updateTable(tableName, data, formAction, endpoint);
-              completeAction(_api)(formName, formAction, modalName);
+              await completeAction(_api)(formName, formAction, modalName);
               alertify.success('Success message');
             }
           }
@@ -231,12 +245,12 @@ const formSubmit = (_api) => {
               }
             }
             if (error) {
-              completeAction(_api)(formName, formAction, modalName);
+              await completeAction(_api)(formName, formAction, modalName);
               alertify.error('Request Failed');
             } else {
               data = res[1];
               await _api.updateTable(tableName, data, formAction, endpoint);
-              completeAction(_api)(formName, formAction, modalName);
+              await completeAction(_api)(formName, formAction, modalName);
               alertify.success('Success message');
             }
           }
