@@ -13,24 +13,18 @@ const completeAction = (_api) => {
       console.log('Form Submitted Successfully');
     } else {
       const { data: res } = response;
+
       form.updateTable &&
         (await _api.updateTable(tableName, data, formAction, endpoint));
 
       _api.removeElementsById(null, null, formAction, modalName);
 
       cleanForm(formName, formAction);
-
       formSpinner(1);
-
       $(`#${modalName}`).modal('hide');
 
-      console.log('Form Submitted Successfully');
-
-      if (res.status == 'success') {
-        alertify.success('Success');
-      } else {
-        alertify.error('Failure');
-      }
+      res.status == 'success' && alertify.success('Success');
+      res.status == 'fail' && alertify.error('Failure');
     }
   };
 };
@@ -328,7 +322,7 @@ const preloadForm = (formName, formAction, modalName, content) => {
         var timestamp = Date.parse(
           content[x.object.replace(`${formAction}_`, '')]
         );
-        if (!x.object.includes('amt') && isNaN(timestamp) == false) {
+        if (!x.object.includes('amount') && isNaN(timestamp) == false) {
           var d = new Date(timestamp).toISOString().substring(0, 10);
           formContent[x.object].value = d;
         } else {
