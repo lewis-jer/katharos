@@ -122,6 +122,7 @@ const formSubmit = (_api) => {
     data = validateFormData(_api)(form, data);
     const response = await submissionHandle(form.handle, data);
     typeof response.data !== 'undefined' &&
+      form.version == 1 &&
       (async () => {
         const { data: res } = response;
         typeof res.insertId !== 'undefined' && (data.id = res.insertId);
