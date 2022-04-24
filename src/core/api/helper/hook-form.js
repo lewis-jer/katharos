@@ -120,10 +120,10 @@ const formSubmit = (_api) => {
     var data = parseFormData(contents, formAction);
     form.version == 1 && (data = validateFormData(_api)(form, data));
 
-    const response =
-      form.version == 1 && (await submissionHandle(form.handle, data));
-
     if (form.enabled) {
+      const response =
+        form.version == 1 && (await submissionHandle(form.handle, data));
+
       typeof response.data !== 'undefined' &&
         form.version == 1 &&
         (async () => {
