@@ -1,4 +1,8 @@
-import { parseFormData, validateFormData } from './hook-validation';
+import {
+  parseFormData,
+  validateFormData,
+  validateSystemFields
+} from './hook-validation';
 import { submissionHandle } from './hook-handle';
 //console.log(parseFormData);
 
@@ -120,10 +124,8 @@ const formSubmit = (_api) => {
     var data = parseFormData(contents, formAction);
     form.version == 1 && (data = validateFormData(_api)(form, data));
     form.store && Object.assign(data, { ..._api.store.getInputStore() });
-    form?.hasOwnProperty('systemFields') &&
-      form?.systemFields.forEach((field) => {
-        data[field] = _api.system.createUniqueId();
-      });
+    data = validateSystemFields(form, data) 
+    
     console.log('----------------------');
     console.log(data);
     console.log('----------------------');

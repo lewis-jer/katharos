@@ -20,4 +20,12 @@ const validateFormData = (_api) => {
   };
 };
 
-export { parseFormData, validateFormData };
+const validateSystemFields = (form, data) => {
+  form?.hasOwnProperty('systemFields') &&
+    form?.systemFields.forEach((field) => {
+      data[field] = _api.system.createUniqueId();
+    });
+  return data;
+};
+
+export { parseFormData, validateFormData, validateSystemFields };
