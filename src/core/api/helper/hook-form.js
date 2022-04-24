@@ -120,7 +120,9 @@ const formSubmit = (_api) => {
     var data = parseFormData(contents, formAction);
     form.version == 1 && (data = validateFormData(_api)(form, data));
     form.store && Object.assign(data, { ..._api.store.getInputStore() });
-
+    console.log('----------------------');
+    console.log(data);
+    console.log('----------------------');
     if (form.enabled) {
       const response =
         form.version == 1 && (await submissionHandle(form.handle, data));
@@ -143,6 +145,7 @@ const formSubmit = (_api) => {
         data.bcat = uuid();
         data.SN = uuid();
         data.username = userProfile.username;
+        console.log(data);
         // await dataService('POST', endpoint, false, data).then(
         //   async ({ data: res }) => {
         //     if (res.error) {
