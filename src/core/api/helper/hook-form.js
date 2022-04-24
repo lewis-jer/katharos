@@ -117,7 +117,7 @@ const formSubmit = (_api) => {
     var modal = _api.system.getModal(modalName);
     var form = _api.system.getForm(modal.form);
     var endpoint = modalName.replace(`${formAction}`, '');
-
+    console.log(form);
     var data = parseFormData(contents, formAction);
     form.version == 1 && (data = validateFormData(_api)(form, data));
     const response = await submissionHandle(form.handle, data);
