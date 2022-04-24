@@ -37,8 +37,7 @@ const updateTable = (_api) => {
     } else if (formAction == 'edit') {
       if (endpoint == 'tx' || endpoint == 'bcat') {
         var table = $(`#${tableName}`).DataTable();
-        var selectedRow = JSON.parse(document.getElementById('el2').innerHTML)
-          ._DT_CellIndex.row;
+        var selectedRow = JSON.parse(data.tableIndex)._DT_CellIndex.row;
         table.row(selectedRow).data(data).draw();
       } else if (endpoint == 'bx') {
         data.bxamt = data.bcatamt;
