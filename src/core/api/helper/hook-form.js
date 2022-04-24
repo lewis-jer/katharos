@@ -115,6 +115,7 @@ const cleanForm = (formName, formAction) => {
 const formSubmit = (_api) => {
   return async (contents, formName, formAction, modalName, tableName) => {
     var modal = _api.system.getModal(modalName);
+    console.log(modal);
     var form = _api.system.getForm(modal.form);
     var endpoint = modalName.replace(`${formAction}`, '');
     console.log(form);
