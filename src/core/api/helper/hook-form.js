@@ -3,15 +3,8 @@ import { submissionHandle } from './hook-handle';
 //console.log(parseFormData);
 
 const completeAction = (_api) => {
-  return async (
-    formName,
-    formAction,
-    modalName,
-    form = false,
-    response,
-    data,
-    tableName
-  ) => {
+  return async (formName, formAction, modalName, params = {}) => {
+    const { form, response, data, tableName } = params;
     if (!form) {
       _api.removeElementsById(null, null, formAction, modalName);
       cleanForm(formName, formAction);
@@ -133,23 +126,13 @@ const formSubmit = (_api) => {
 
     var data = parseFormData(contents, formAction);
     data = validateFormData(_api)(form, data);
-    console.log(data);
     const response = await submissionHandle(form.handle, data);
     typeof response.data !== 'undefined' &&
       (async () => {
         const { data: res } = response;
         typeof res.insertId !== 'undefined' && (data.id = res.insertId);
-        const params = { response, data, tableName };
-        console.log(params);
-        await completeAction(_api)(
-          formName,
-          formAction,
-          modalName,
-          form,
-          response,
-          data,
-          tableName
-        );
+        const params = { form, response, data, tableName };
+        await completeAction(_api)(formName, formAction, modalName, params);
       })();
 
     let res;
