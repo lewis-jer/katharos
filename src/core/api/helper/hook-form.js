@@ -120,6 +120,10 @@ const formSubmit = (_api) => {
     var data = parseFormData(contents, formAction);
     form.version == 1 && (data = validateFormData(_api)(form, data));
     form.store && Object.assign(data, { ..._api.store.getInputStore() });
+    req?.hasOwnProperty('systemFields') &&
+      form?.systemFields.forEach((field) => {
+        data[field] = _api.system.createUniqueId();
+      });
     console.log('----------------------');
     console.log(data);
     console.log('----------------------');
@@ -141,7 +145,7 @@ const formSubmit = (_api) => {
 
     if (formAction == 'add') {
       if (endpoint == 'bcat') {
-        data.func = document.getElementById('el1').innerHTML;
+        data.func = document.getElementById('func').innerHTML;
         data.bcat = uuid();
         data.SN = uuid();
         data.username = userProfile.username;
@@ -192,7 +196,7 @@ const formSubmit = (_api) => {
         data.type = data.Type;
         data.frequency = data.Frequency;
         data.SN = document.getElementById('el3').innerHTML;
-        data.id = document.getElementById('el1').innerHTML;
+        data.id = document.getElementById('func').innerHTML;
         await dataService('PUT', endpoint, id, data).then(
           async ({ data: res }) => {
             if (res.error) {
