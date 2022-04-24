@@ -147,11 +147,11 @@ const formSubmit = (_api) => {
 
     if (formAction == 'add') {
       if (endpoint == 'bx') {
-        data.date = data.mth + data.yr;
-        data.func = document.getElementById('func').innerHTML;
-        data.dates = _api.mySQLDateCreator(`${data.mth} 1 ${data.yr}`);
-        data.username = userProfile.username;
-        console.log(data);
+        // data.date = data.mth + data.yr;
+        // data.func = document.getElementById('func').innerHTML;
+        // data.dates = _api.mySQLDateCreator(`${data.mth} 1 ${data.yr}`);
+        // data.username = userProfile.username;
+        // console.log(data);
         // await dataService('POST', endpoint, false, data).then(
         //   async ({ data: res }) => {
         //     var error = false;
