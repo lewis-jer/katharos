@@ -185,9 +185,9 @@ const formSubmit = (_api) => {
       }
     } else if (formAction == 'edit') {
       if (endpoint == 'tx') {
-        var id = document.getElementById('el1').innerHTML;
-        data.id = id;
-        console.log(data);
+        // var id = document.getElementById('el1').innerHTML;
+        // data.id = id;
+        // console.log(data);
         // await dataService('PUT', endpoint, id, data).then(
         //   async ({ data: res }) => {
         //     if (res.error) {
