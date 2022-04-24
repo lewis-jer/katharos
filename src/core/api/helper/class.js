@@ -235,7 +235,7 @@ class Store {
     return this.data.inputStore[key];
   }
 
-  getInputStore(item) {
+  getInputStore() {
     this.data.inputStore;
   }
 }
