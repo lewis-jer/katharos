@@ -13,6 +13,12 @@ class DataService {
   updateCategory(data) {
     return http.put('/fp-app/bcat', data);
   }
+  createBudget(data) {
+    return http.post('/fp-app/bx', data);
+  }
+  updateBudget(data) {
+    return http.put('/fp-app/bx', data);
+  }
 }
 
 const dataService = new DataService();

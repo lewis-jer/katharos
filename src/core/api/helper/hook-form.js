@@ -151,50 +151,32 @@ const formSubmit = (_api) => {
         data.func = document.getElementById('el1').innerHTML;
         data.dates = _api.mySQLDateCreator(`${data.mth} 1 ${data.yr}`);
         data.username = userProfile.username;
-        await dataService('POST', endpoint, false, data).then(
-          async ({ data: res }) => {
-            var error = false;
-            for (var i in res) {
-              if (Object.keys(res[i]).includes('errno')) {
-                error = true;
-              }
-            }
-            if (error) {
-              await completeAction(_api)(formName, formAction, modalName);
-              alertify.error('Request Failed');
-            } else {
-              //data.id = res[0].insertId
-              data = res[1];
-              userProfile.bxExpData.push(data);
-              userProfile.bxIncData.push(data);
-              await _api.updateTable(tableName, data, formAction, endpoint);
-              await completeAction(_api)(formName, formAction, modalName);
-              alertify.success('Success message');
-            }
-          }
-        );
-      }
-    } else if (formAction == 'edit') {
-      if (endpoint == 'bcat') {
-        // data.module = data.Modules;
-        // data.type = data.Type;
-        // data.frequency = data.Frequency;
-        // data.SN = document.getElementById('SN').innerHTML;
-        // data.id = document.getElementById('id').innerHTML;
-        // console.log(data);
-        // await dataService('PUT', endpoint, id, data).then(
+        console.log(data);
+        // await dataService('POST', endpoint, false, data).then(
         //   async ({ data: res }) => {
-        //     if (res.error) {
+        //     var error = false;
+        //     for (var i in res) {
+        //       if (Object.keys(res[i]).includes('errno')) {
+        //         error = true;
+        //       }
+        //     }
+        //     if (error) {
         //       await completeAction(_api)(formName, formAction, modalName);
-        //       alertify.error(res.error);
+        //       alertify.error('Request Failed');
         //     } else {
+        //       //data.id = res[0].insertId
+        //       data = res[1];
+        //       userProfile.bxExpData.push(data);
+        //       userProfile.bxIncData.push(data);
         //       await _api.updateTable(tableName, data, formAction, endpoint);
         //       await completeAction(_api)(formName, formAction, modalName);
         //       alertify.success('Success message');
         //     }
         //   }
         // );
-      } else if (endpoint == 'bx') {
+      }
+    } else if (formAction == 'edit') {
+      if (endpoint == 'bx') {
         data.ui = document.getElementById('el3').innerHTML;
         data.id = document.getElementById('el1').innerHTML;
         data.bxamt = parseFloat(data.bxamt);
