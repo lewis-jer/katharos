@@ -147,11 +147,11 @@ const formSubmit = (_api) => {
 
     if (formAction == 'add') {
       if (endpoint == 'bcat') {
-        data.func = document.getElementById('func').innerHTML;
-        data.bcat = uuid();
-        data.SN = uuid();
-        data.username = userProfile.username;
-        console.log(data);
+        // data.func = document.getElementById('func').innerHTML;
+        // data.bcat = uuid();
+        // data.SN = uuid();
+        // data.username = userProfile.username;
+        // console.log(data);
         // await dataService('POST', endpoint, false, data).then(
         //   async ({ data: res }) => {
         //     if (res.error) {
