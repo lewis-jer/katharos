@@ -143,18 +143,18 @@ const formSubmit = (_api) => {
         data.bcat = uuid();
         data.SN = uuid();
         data.username = userProfile.username;
-        await dataService('POST', endpoint, false, data).then(
-          async ({ data: res }) => {
-            if (res.error) {
-              await completeAction(_api)(formName, formAction, modalName);
-              alertify.error(res.error);
-            }
-            data.id = res[0].insertId;
-            await _api.updateTable(tableName, data, formAction, endpoint);
-            await completeAction(_api)(formName, formAction, modalName);
-            alertify.success('Success message');
-          }
-        );
+        // await dataService('POST', endpoint, false, data).then(
+        //   async ({ data: res }) => {
+        //     if (res.error) {
+        //       await completeAction(_api)(formName, formAction, modalName);
+        //       alertify.error(res.error);
+        //     }
+        //     data.id = res[0].insertId;
+        //     await _api.updateTable(tableName, data, formAction, endpoint);
+        //     await completeAction(_api)(formName, formAction, modalName);
+        //     alertify.success('Success message');
+        //   }
+        // );
       } else if (endpoint == 'bx') {
         data.date = data.mth + data.yr;
         data.func = document.getElementById('el1').innerHTML;
@@ -184,22 +184,7 @@ const formSubmit = (_api) => {
         );
       }
     } else if (formAction == 'edit') {
-      if (endpoint == 'tx') {
-        // var id = document.getElementById('el1').innerHTML;
-        // data.id = id;
-        // console.log(data);
-        // await dataService('PUT', endpoint, id, data).then(
-        //   async ({ data: res }) => {
-        //     if (res.error) {
-        //       await completeAction(_api)(formName, formAction, modalName);
-        //       alertify.error(res.error);
-        //     }
-        //     await _api.updateTable(tableName, data, formAction, endpoint);
-        //     await completeAction(_api)(formName, formAction, modalName);
-        //     alertify.success('Success message');
-        //   }
-        // );
-      } else if (endpoint == 'bcat') {
+      if (endpoint == 'bcat') {
         data.module = data.Modules;
         data.type = data.Type;
         data.frequency = data.Frequency;
