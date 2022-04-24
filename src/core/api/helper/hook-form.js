@@ -122,8 +122,8 @@ const formSubmit = (_api) => {
     var form = _api.system.getForm(modal.form);
     var endpoint = modalName.replace(`${formAction}`, '');
     var data = parseFormData(contents, formAction);
-    form.version == 1 && (data = validateFormData(_api)(form, data));
     form.store && Object.assign(data, { ..._api.store.getInputStore() });
+    form.version == 1 && (data = validateFormData(_api)(form, data));
     data = validateSystemFields(_api)(form, data);
 
     console.log('----------------------');
