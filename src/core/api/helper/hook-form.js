@@ -124,8 +124,8 @@ const formSubmit = (_api) => {
     var data = parseFormData(contents, formAction);
     form.version == 1 && (data = validateFormData(_api)(form, data));
     form.store && Object.assign(data, { ..._api.store.getInputStore() });
-    data = validateSystemFields(form, data) 
-    
+    data = validateSystemFields(_api)(form, data);
+
     console.log('----------------------');
     console.log(data);
     console.log('----------------------');
