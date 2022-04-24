@@ -120,7 +120,7 @@ const formSubmit = (_api) => {
     var data = parseFormData(contents, formAction);
     form.version == 1 && (data = validateFormData(_api)(form, data));
     form.store && Object.assign(data, { ..._api.store.getInputStore() });
-    req?.hasOwnProperty('systemFields') &&
+    form?.hasOwnProperty('systemFields') &&
       form?.systemFields.forEach((field) => {
         data[field] = _api.system.createUniqueId();
       });
