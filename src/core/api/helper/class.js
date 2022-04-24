@@ -236,7 +236,7 @@ class Store {
   }
 
   getInputStore() {
-    this.data.inputStore;
+    return this.data.inputStore;
   }
 }
 
