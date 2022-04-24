@@ -115,14 +115,15 @@ const cleanForm = (formName, formAction) => {
 const formSubmit = (_api) => {
   return async (contents, formName, formAction, modalName, tableName) => {
     var modal = _api.system.getModal(modalName);
-    console.log(modal);
     var form = _api.system.getForm(modal.form);
     var endpoint = modalName.replace(`${formAction}`, '');
-    console.log(form);
     var data = parseFormData(contents, formAction);
+
     form.version == 1 && (data = validateFormData(_api)(form, data));
+
     const response =
       form.version == 1 && (await submissionHandle(form.handle, data));
+
     typeof response.data !== 'undefined' &&
       form.version == 1 &&
       (async () => {
@@ -184,17 +185,18 @@ const formSubmit = (_api) => {
       if (endpoint == 'tx') {
         var id = document.getElementById('el1').innerHTML;
         data.id = id;
-        await dataService('PUT', endpoint, id, data).then(
-          async ({ data: res }) => {
-            if (res.error) {
-              await completeAction(_api)(formName, formAction, modalName);
-              alertify.error(res.error);
-            }
-            await _api.updateTable(tableName, data, formAction, endpoint);
-            await completeAction(_api)(formName, formAction, modalName);
-            alertify.success('Success message');
-          }
-        );
+        console.log(data);
+        // await dataService('PUT', endpoint, id, data).then(
+        //   async ({ data: res }) => {
+        //     if (res.error) {
+        //       await completeAction(_api)(formName, formAction, modalName);
+        //       alertify.error(res.error);
+        //     }
+        //     await _api.updateTable(tableName, data, formAction, endpoint);
+        //     await completeAction(_api)(formName, formAction, modalName);
+        //     alertify.success('Success message');
+        //   }
+        // );
       } else if (endpoint == 'bcat') {
         data.module = data.Modules;
         data.type = data.Type;

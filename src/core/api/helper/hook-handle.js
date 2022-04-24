@@ -4,6 +4,9 @@ class DataService {
   insertTransaction(data) {
     return http.post('/fp-app/tx', data);
   }
+  updateTransaction() {
+    return http.put('/fp-app/tx', data);
+  }
 }
 
 const dataService = new DataService();
