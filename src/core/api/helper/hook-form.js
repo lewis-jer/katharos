@@ -119,7 +119,7 @@ const formSubmit = (_api) => {
     var endpoint = modalName.replace(`${formAction}`, '');
 
     var data = parseFormData(contents, formAction);
-    data = validateFormData(_api)(form, data);
+    form.version == 1 && (data = validateFormData(_api)(form, data));
     const response = await submissionHandle(form.handle, data);
     typeof response.data !== 'undefined' &&
       form.version == 1 &&
