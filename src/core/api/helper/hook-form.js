@@ -3,12 +3,37 @@ import { submissionHandle } from './hook-handle';
 //console.log(parseFormData);
 
 const completeAction = (_api) => {
-  return (formName, formAction, modalName) => {
-    _api.removeElementsById(null, null, formAction, modalName);
-    cleanForm(formName, formAction);
-    formSpinner(1);
-    $(`#${modalName}`).modal('hide');
-    console.log('Form Submitted Successfully');
+  return (formName, formAction, modalName, form = false, response, data, tableName) => {
+    if (!form) {
+      _api.removeElementsById(null, null, formAction, modalName);
+      cleanForm(formName, formAction);
+      formSpinner(1);
+      $(`#${modalName}`).modal('hide');
+      console.log('Form Submitted Successfully');
+    } else {
+
+      const { data: res } = response;
+
+      form.updateTable &&
+      (await _api.updateTable(tableName, data, formAction, endpoint));
+
+      _api.removeElementsById(null, null, formAction, modalName);
+
+      cleanForm(formName, formAction);
+
+      formSpinner(1);
+
+      $(`#${modalName}`).modal('hide');
+
+      console.log('Form Submitted Successfully');
+
+      if (res.status == 'success') {        
+        alertify.success('Success');
+      } else {
+        alertify.error('Failure');
+      }
+      
+    }
   };
 };
 
@@ -100,25 +125,20 @@ const formSubmit = (_api) => {
     var modal = _api.system.getModal(modalName);
     var form = _api.system.getForm(modal.form);
     var endpoint = modalName.replace(`${formAction}`, '');
+
     var data = parseFormData(contents, formAction);
     data = validateFormData(_api)(form, data);
-    console.log(data);
+
     const response = await submissionHandle(form.handle, data);
     typeof response.data !== 'undefined' &&
       (async () => {
         const { data: res } = response;
-        // if (res.error) {
-        //   completeAction(_api)(formName, formAction, modalName);
-        //   alertify.error(res.error);
-        // }
-        console.log(res);
-        data.id = res.insertId;
-        form.updateTable &&
-          (await _api.updateTable(tableName, data, formAction, endpoint));
-        completeAction(_api)(formName, formAction, modalName);
-        alertify.success('Success message');
+        typeof res.insertId !== 'undefined' && (data.id = res.insertId);
+        completeAction(_api)(formName, formAction, modalName, form, response, data, tableName);
       })();
+
     let res;
+    
     if (formAction == 'add') {
       if (endpoint == 'bcat') {
         data.func = document.getElementById('el1').innerHTML;

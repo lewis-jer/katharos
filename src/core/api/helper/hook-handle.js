@@ -12,18 +12,6 @@ const submissionHandle = async (handle, data) => {
   console.log(handle);
   const response = await dataService[handle](data);
   console.log(response);
-  //   await dataService('POST', endpoint, false, data).then(
-  //     async ({ data: res }) => {
-  //       if (res.error) {
-  //         completeAction(_api)(formName, formAction, modalName);
-  //         alertify.error(res.error);
-  //       }
-  //       data.id = res.insertId;
-  //       await _api.updateTable(tableName, data, formAction, endpoint);
-  //       completeAction(_api)(formName, formAction, modalName);
-  //       alertify.success('Success message');
-  //     }
-  //   );
   return response;
 };
 
