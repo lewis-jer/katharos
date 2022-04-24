@@ -10,6 +10,9 @@ class DataService {
   createCategory(data) {
     return http.post('/fp-app/bcat', data);
   }
+  updateCategory(data) {
+    return http.post('/fp-app/bcat', data);
+  }
 }
 
 const dataService = new DataService();
