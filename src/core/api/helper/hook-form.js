@@ -133,7 +133,7 @@ const formSubmit = (_api) => {
 
     var data = parseFormData(contents, formAction);
     data = validateFormData(_api)(form, data);
-
+    console.log(data);
     const response = await submissionHandle(form.handle, data);
     typeof response.data !== 'undefined' &&
       (async () => {
