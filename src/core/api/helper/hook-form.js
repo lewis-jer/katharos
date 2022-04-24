@@ -20,7 +20,6 @@ const completeAction = (_api) => {
       console.log('Form Submitted Successfully');
     } else {
       const { data: res } = response;
-      console.log(res);
       form.updateTable &&
         (await _api.updateTable(tableName, data, formAction, endpoint));
 
@@ -140,6 +139,8 @@ const formSubmit = (_api) => {
       (async () => {
         const { data: res } = response;
         typeof res.insertId !== 'undefined' && (data.id = res.insertId);
+        const params = { response, data, tableName };
+        console.log(params);
         await completeAction(_api)(
           formName,
           formAction,
