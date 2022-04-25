@@ -20,7 +20,7 @@ const completeAction = (_api) => {
       const { data: res } = response;
 
       data = await validateUserFields(form, data);
-
+      console.log(form, response, data, tableName);
       form.updateTable &&
         (await _api.updateTable(_api)(tableName, data, formAction, endpoint));
 
