@@ -221,6 +221,7 @@ class User {
   getUserItem(item, lookupValue) {
     const object = this.data.userProfile[item.target];
     console.log('----------------------getUserItem----------------------');
+    console.log('Lookup Value: ' + lookupValue);
     console.log(object);
     object.forEach((element) => {
       console.log(element);
