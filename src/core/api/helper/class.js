@@ -220,6 +220,7 @@ class User {
 
   getUserItem(item, lookupValue) {
     const object = this.data.userProfile[item.target];
+    var response;
     console.log('----------------------getUserItem----------------------');
     console.log('Lookup Value: ' + lookupValue);
     console.log('User Field: ' + JSON.stringify(item));
@@ -228,10 +229,11 @@ class User {
       element[item.lookupIndex];
       if (element[item.lookupIndex] == lookupValue) {
         console.log(element);
-        return element.Category;
+        response = element.Category;
       }
     });
     console.log('----------------------getUserItem----------------------');
+    return response;
   }
 }
 
