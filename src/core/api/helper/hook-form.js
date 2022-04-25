@@ -19,10 +19,10 @@ const completeAction = (_api) => {
     } else {
       const { data: res } = response;
 
-      data = await validateUserFields(form, data);
-      console.log(form, response, data, tableName);
+      data = await validateUserFields(_api)(form, data);
+
       form.updateTable &&
-        (await _api.updateTable(_api)(tableName, data, formAction, endpoint));
+        (await _api.updateTable(tableName, data, formAction, endpoint));
 
       _api.removeElementsById(null, null, formAction, modalName);
 
