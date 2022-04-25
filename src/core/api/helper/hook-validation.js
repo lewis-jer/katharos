@@ -22,12 +22,21 @@ const validateFormData = (_api) => {
 
 const validateSystemFields = (_api) => {
   return (form, data) => {
-    form?.hasOwnProperty('systemFields') &&
-      form?.systemFields.forEach((field) => {
-        data[field] = _api.system.createUniqueId();
+    form?.hasOwnProperty('userFields') &&
+      form?.userFields.forEach((item) => {
+        data[item.index] = _api.user.getUserItem(item, data[item.lookupIndex]);
       });
     return data;
   };
 };
 
-export { parseFormData, validateFormData, validateSystemFields };
+const validateUserItem = (_api) => {
+  return (form, data) => {};
+};
+
+export {
+  parseFormData,
+  validateFormData,
+  validateSystemFields,
+  validateUserItem
+};

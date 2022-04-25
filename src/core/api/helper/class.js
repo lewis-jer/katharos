@@ -217,6 +217,13 @@ class User {
   getUserProfileData(key) {
     return this.data.userProfile[key];
   }
+
+  getUserItem(item, lookupValue) {
+    const object = this.data.userProfile[item.target];
+    object.forEach((element) => {
+      if (element[item.lookupIndex] == lookupValue) return this.data.element;
+    });
+  }
 }
 
 class Store {
