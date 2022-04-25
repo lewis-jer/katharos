@@ -40,9 +40,19 @@ const validateUserFields = (_api) => {
   };
 };
 
+const validateResponse = (_api) => {
+  return (form, response, data) => {
+    form?.hasOwnProperty('mergeResponse') &&
+      form.mergeResponse &&
+      Object.assign(data, { ...response });
+    return data;
+  };
+};
+
 export {
   parseFormData,
   validateFormData,
   validateSystemFields,
-  validateUserFields
+  validateUserFields,
+  validateResponse
 };
