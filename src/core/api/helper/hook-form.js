@@ -9,7 +9,7 @@ import { submissionHandle } from './hook-handle';
 
 const completeAction = (_api) => {
   return async (formName, formAction, modalName, params = {}) => {
-    const { form, response, data, tableName } = params;
+    let { form, response, data, tableName } = params;
     if (!form) {
       _api.removeElementsById(null, null, formAction, modalName);
       cleanForm(formName, formAction);
