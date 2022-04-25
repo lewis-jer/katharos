@@ -22,7 +22,7 @@ const completeAction = (_api) => {
       data = await validateUserFields(form, data);
 
       form.updateTable &&
-        (await _api.updateTable(tableName, data, formAction, endpoint));
+        (await _api.updateTable(_api)(tableName, data, formAction, endpoint));
 
       _api.removeElementsById(null, null, formAction, modalName);
 
