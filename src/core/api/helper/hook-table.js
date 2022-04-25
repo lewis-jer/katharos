@@ -28,9 +28,9 @@ const updateTable = (_api) => {
 
     if (formAction == 'add') {
       if (endpoint == 'bx') {
-        var table = $(`#${tableName}`).DataTable();
-        data.bxamt = data.bcatamt;
-        data.bxbcat = data.Category;
+        //var table = $(`#${tableName}`).DataTable();
+        //data.bxamt = data.bcatamt;
+        //data.bxbcat = data.Category;
         //table.row.add(data).draw().node();
       }
     } else if (formAction == 'edit') {
