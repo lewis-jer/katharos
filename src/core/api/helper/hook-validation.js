@@ -30,7 +30,7 @@ const validateSystemFields = (_api) => {
   };
 };
 
-const validateUserItem = (_api) => {
+const validateUserFields = (_api) => {
   return (form, data) => {
     form?.hasOwnProperty('userFields') &&
       form?.userFields.forEach((item) => {
@@ -44,5 +44,5 @@ export {
   parseFormData,
   validateFormData,
   validateSystemFields,
-  validateUserItem
+  validateUserFields
 };
