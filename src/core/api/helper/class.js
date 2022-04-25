@@ -225,8 +225,7 @@ class User {
     console.log('User Field: ' + JSON.stringify(item));
     console.log(object);
     object.forEach((element) => {
-      console.log(element);
-      if (element[item.lookupIndex] == lookupValue) return this.data.element;
+      if (element[item.lookupIndex] == lookupValue) return element;
     });
     console.log('----------------------getUserItem----------------------');
   }
