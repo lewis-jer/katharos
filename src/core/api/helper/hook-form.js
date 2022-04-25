@@ -2,7 +2,7 @@ import {
   parseFormData,
   validateFormData,
   validateSystemFields,
-  validateUserItem
+  validateUserFields
 } from './hook-validation';
 import { submissionHandle } from './hook-handle';
 //console.log(parseFormData);
@@ -19,7 +19,7 @@ const completeAction = (_api) => {
     } else {
       const { data: res } = response;
 
-      data = await validateUserFields();
+      data = await validateUserFields(form, data);
 
       form.updateTable &&
         (await _api.updateTable(tableName, data, formAction, endpoint));
