@@ -21,19 +21,11 @@ const updateTable = (_api) => {
         data.Type = _api.bcatMatcher(data.Type, 'type');
       });
     }
-    console.log(data);
-    console.log(endpoint);
-    endpoint != 'bx' &&
-      handleTableAction(_api)(tableName, data, formAction, endpoint);
 
-    if (formAction == 'add') {
-      if (endpoint == 'bx') {
-        //var table = $(`#${tableName}`).DataTable();
-        //data.bxamt = data.bcatamt;
-        //data.bxbcat = data.Category;
-        //table.row.add(data).draw().node();
-      }
-    } else if (formAction == 'edit') {
+    console.log(endpoint);
+    handleTableAction(_api)(tableName, data, formAction, endpoint);
+
+    if (formAction == 'edit') {
       if (endpoint == 'bx') {
         data.bxamt = data.bcatamt;
         data.bxbcat = data.Category;

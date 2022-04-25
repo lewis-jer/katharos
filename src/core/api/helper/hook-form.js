@@ -151,37 +151,7 @@ const formSubmit = (_api) => {
 
     let res;
 
-    if (formAction == 'add') {
-      if (endpoint == 'bx') {
-        // data.date = data.mth + data.yr;
-        // data.func = document.getElementById('func').innerHTML;
-        // data.dates = _api.mySQLDateCreator(`${data.mth} 1 ${data.yr}`);
-        // data.username = userProfile.username;
-        // console.log(data);
-        // await dataService('POST', endpoint, false, data).then(
-        //   async ({ data: res }) => {
-        //     var error = false;
-        //     for (var i in res) {
-        //       if (Object.keys(res[i]).includes('errno')) {
-        //         error = true;
-        //       }
-        //     }
-        //     if (error) {
-        //       await completeAction(_api)(formName, formAction, modalName);
-        //       alertify.error('Request Failed');
-        //     } else {
-        //       //data.id = res[0].insertId
-        //       data = res[1];
-        //       userProfile.bxExpData.push(data);
-        //       userProfile.bxIncData.push(data);
-        //       await _api.updateTable(tableName, data, formAction, endpoint);
-        //       await completeAction(_api)(formName, formAction, modalName);
-        //       alertify.success('Success message');
-        //     }
-        //   }
-        // );
-      }
-    } else if (formAction == 'edit') {
+    if (formAction == 'edit') {
       if (endpoint == 'bx') {
         data.ui = document.getElementById('el3').innerHTML;
         data.id = document.getElementById('el1').innerHTML;
