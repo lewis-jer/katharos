@@ -13,7 +13,6 @@ const addElementsById = (_api) => {
 
     for (var i in modal.inputStore) {
       modalObjects[i] = [modal.inputStore[i], modal.inputDataStore[i]];
-      console.log(modalObjects[i]);
     }
 
     if (newObjects != false) {
@@ -47,8 +46,6 @@ const addElementsById = (_api) => {
 const removeElementsById = (_api) => {
   return (objectId, systemReserved, formAction, modalName) => {
     var modal = _api.system.getModal(modalName);
-    console.log(objectId, systemReserved, formAction, modalName);
-    console.log(modal);
     var object = document.getElementById(objectId);
     for (var i in modal.inputStore) {
       document.getElementById(modal.inputStore[i]).remove();

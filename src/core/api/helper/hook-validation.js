@@ -36,7 +36,6 @@ const validateUserFields = (_api) => {
       form?.userFields.forEach((item) => {
         data[item.index] = _api.user.getUserItem(item, data[item.lookupIndex]);
       });
-    console.log(data);
     return data;
   };
 };

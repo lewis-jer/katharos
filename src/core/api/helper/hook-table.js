@@ -29,7 +29,6 @@ const updateTable = (_api) => {
     if (formAction == 'add') {
       if (endpoint == 'bx') {
         var table = $(`#${tableName}`).DataTable();
-        console.log(data);
         data.bxamt = data.bcatamt;
         data.bxbcat = data.Category;
         //table.row.add(data).draw().node();
