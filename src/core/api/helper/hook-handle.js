@@ -24,7 +24,6 @@ class DataService {
 const dataService = new DataService();
 
 const submissionHandle = async (handle, data) => {
-  console.log(handle);
   const response = await dataService[handle](data);
   console.log(response);
   return response;
