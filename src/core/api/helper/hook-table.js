@@ -32,7 +32,7 @@ const updateTable = (_api) => {
         console.log(data);
         data.bxamt = data.bcatamt;
         data.bxbcat = data.Category;
-        table.row.add(data).draw().node();
+        //table.row.add(data).draw().node();
       }
     } else if (formAction == 'edit') {
       if (endpoint == 'bx') {

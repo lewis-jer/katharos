@@ -1,6 +1,7 @@
 const handleTableAction = (_api) => {
   return (tableName, data, formAction, endpoint) => {
     var table = $(`#${tableName}`).DataTable();
+    console.log(data);
     formAction == 'add' && table.row.add(data).draw().node();
     formAction == 'edit' &&
       table
