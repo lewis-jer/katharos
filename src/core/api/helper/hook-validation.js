@@ -32,13 +32,17 @@ const validateSystemFields = (_api) => {
 
 const validateUserFields = (_api) => {
   return (form, data) => {
-    console.log('----------------------getUserItem----------------------');
+    console.log(
+      '----------------------validateUserFields----------------------'
+    );
     form?.hasOwnProperty('userFields') &&
       form?.userFields.forEach((item) => {
         console.log(_api.user.getUserItem(item, data[item.lookupIndex]));
-        data[item.index] = _api.user.getUserItem(item, data[item.lookupIndex]);
+        //data[item.index] = _api.user.getUserItem(item, data[item.lookupIndex]);
       });
-    console.log('----------------------getUserItem----------------------');
+    console.log(
+      '----------------------validateUserFields----------------------'
+    );
     return data;
   };
 };
