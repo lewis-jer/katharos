@@ -44,7 +44,7 @@ const validateResponse = (_api) => {
   return (form, response, data) => {
     form?.hasOwnProperty('mergeResponse') &&
       form.mergeResponse &&
-      Object.assign(data, { ...response });
+      Object.assign(data, { ...response.data });
     return data;
   };
 };
