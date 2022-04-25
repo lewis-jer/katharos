@@ -21,6 +21,7 @@ const updateTable = (_api) => {
         data.Type = _api.bcatMatcher(data.Type, 'type');
       });
     }
+    console.log(data);
     console.log(endpoint);
     endpoint != 'bx' &&
       handleTableAction(_api)(tableName, data, formAction, endpoint);
