@@ -22,26 +22,7 @@ const updateTable = (_api) => {
       });
     }
 
-    console.log(endpoint);
-    console.log(data);
     handleTableAction(_api)(tableName, data, formAction, endpoint);
-
-    if (formAction == 'edit') {
-      // if (endpoint == 'bx') {
-      //   data.bxbcat = data.Category;
-      //   _api.updateUserProfileData(
-      //     'bxExpData',
-      //     data.id,
-      //     formAction,
-      //     endpoint,
-      //     data
-      //   );
-      //   var table = $(`#${tableName}`).DataTable();
-      //   var selectedRow = JSON.parse(document.getElementById('el2').innerHTML)
-      //     ._DT_CellIndex.row;
-      //   table.row(selectedRow).data(data).draw();
-      // }
-    }
   };
 };
 

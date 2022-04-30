@@ -3,10 +3,10 @@ import {
   validateFormData,
   validateSystemFields,
   validateUserFields,
-  validateResponse
+  validateResponse,
+  validateSearchAssist
 } from './hook-validation';
 import { submissionHandle } from './hook-handle';
-//console.log(parseFormData);
 
 const completeAction = (_api) => {
   return async (formName, formAction, modalName, params = {}) => {
@@ -21,8 +21,8 @@ const completeAction = (_api) => {
       const { data: res } = response;
 
       data = await validateUserFields(_api)(form, data);
-
       data = await validateResponse(_api)(form, response, data);
+      data = await validateSearchAssist(_api)(form, response, data);
 
       form.updateTable &&
         (await _api.updateTable(tableName, data, formAction, endpoint));
@@ -132,9 +132,7 @@ const formSubmit = (_api) => {
     form.version == 1 && (data = validateFormData(_api)(form, data));
     data = validateSystemFields(_api)(form, data);
 
-    console.log('----------------------');
     console.log(data);
-    console.log('----------------------');
     if (form.enabled) {
       const response =
         form.version == 1 && (await submissionHandle(form.handle, data));
@@ -147,36 +145,6 @@ const formSubmit = (_api) => {
           const params = { form, response, data, tableName };
           await completeAction(_api)(formName, formAction, modalName, params);
         })();
-    }
-
-    let res;
-
-    if (formAction == 'edit') {
-      if (endpoint == 'bx') {
-        //data.ui = document.getElementById('el3').innerHTML;
-        // data.id = document.getElementById('el1').innerHTML;
-        //data.bxamt = parseFloat(data.bxamt);
-        //console.log(data);
-        // await dataService('PUT', endpoint, data.id, data).then(
-        //   async ({ data: res }) => {
-        //     var error = false;
-        //     for (var i in res) {
-        //       if (Object.keys(res[i]).includes('errno')) {
-        //         error = true;
-        //       }
-        //     }
-        //     if (error) {
-        //       await completeAction(_api)(formName, formAction, modalName);
-        //       alertify.error('Request Failed');
-        //     } else {
-        //       data = res[1];
-        //       await _api.updateTable(tableName, data, formAction, endpoint);
-        //       await completeAction(_api)(formName, formAction, modalName);
-        //       alertify.success('Success message');
-        //     }
-        //   }
-        // );
-      }
     }
   };
 };
@@ -192,8 +160,7 @@ const formClose = (_api) => {
 
 const formData = (formName) => {
   var formKeys = [];
-  var /* formKeys = Object.keys(document.forms[formName].elements), */ formContent =
-      document.forms[formName].elements;
+  var formContent = document.forms[formName].elements;
   for (var i in formContent) {
     formKeys.push(formContent[i].name);
   }
@@ -201,6 +168,7 @@ const formData = (formName) => {
   formKeys = formKeys.filter((el) => {
     return el != null && el != '';
   });
+
   return {
     formKeys,
     formContent

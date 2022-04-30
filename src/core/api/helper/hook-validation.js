@@ -49,10 +49,36 @@ const validateResponse = (_api) => {
   };
 };
 
+const validateSearchAssist = (_api) => {
+  return (form, response, data) => {
+    const monthNames = _api.getMonthNames();
+    form?.hasOwnProperty('searchAssist') &&
+      form.searchAssist.fields.forEach((field, index) => {
+        switch (field.valueType) {
+          case 'month':
+            data[`searchAssist${index}`] = `${
+              monthNames[new Date(data[field.index]).getMonth()]
+            }`;
+          case 'year':
+            data[`searchAssist${index}`] = `${new Date(
+              data[field.index]
+            ).getFullYear()}`;
+          case 'month/year':
+            data[`searchAssist${index}`] = `${
+              monthNames[new Date(data[field.index]).getMonth()]
+            } ${new Date(data[field.index]).getFullYear()}`;
+        }
+      });
+    console.log(data);
+    return data;
+  };
+};
+
 export {
   parseFormData,
   validateFormData,
   validateSystemFields,
   validateUserFields,
-  validateResponse
+  validateResponse,
+  validateSearchAssist
 };
