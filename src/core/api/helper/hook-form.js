@@ -258,6 +258,7 @@ const formSubmission = (_api) => {
 const preloadForm = (formName, formAction, modalName, content) => {
   var { formKeys, formContent } = formData(formName);
   var contents = formContents(formKeys, formAction, formContent);
+  console.log(contents);
   contents.forEach((x) => {
     if (Object.keys(content).includes(x.object.replace(`${formAction}_`, ''))) {
       if (formContent[x.object].tagName == 'INPUT') {
