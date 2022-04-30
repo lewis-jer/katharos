@@ -156,25 +156,26 @@ const formSubmit = (_api) => {
         data.ui = document.getElementById('el3').innerHTML;
         data.id = document.getElementById('el1').innerHTML;
         data.bxamt = parseFloat(data.bxamt);
-        await dataService('PUT', endpoint, data.id, data).then(
-          async ({ data: res }) => {
-            var error = false;
-            for (var i in res) {
-              if (Object.keys(res[i]).includes('errno')) {
-                error = true;
-              }
-            }
-            if (error) {
-              await completeAction(_api)(formName, formAction, modalName);
-              alertify.error('Request Failed');
-            } else {
-              data = res[1];
-              await _api.updateTable(tableName, data, formAction, endpoint);
-              await completeAction(_api)(formName, formAction, modalName);
-              alertify.success('Success message');
-            }
-          }
-        );
+        console.log(data);
+        // await dataService('PUT', endpoint, data.id, data).then(
+        //   async ({ data: res }) => {
+        //     var error = false;
+        //     for (var i in res) {
+        //       if (Object.keys(res[i]).includes('errno')) {
+        //         error = true;
+        //       }
+        //     }
+        //     if (error) {
+        //       await completeAction(_api)(formName, formAction, modalName);
+        //       alertify.error('Request Failed');
+        //     } else {
+        //       data = res[1];
+        //       await _api.updateTable(tableName, data, formAction, endpoint);
+        //       await completeAction(_api)(formName, formAction, modalName);
+        //       alertify.success('Success message');
+        //     }
+        //   }
+        // );
       }
     }
   };
@@ -257,12 +258,9 @@ const formSubmission = (_api) => {
 
 const preloadForm = (formName, formAction, modalName, content) => {
   var { formKeys, formContent } = formData(formName);
-  console.log(content);
   var contents = formContents(formKeys, formAction, formContent);
-  console.log(contents);
   contents.forEach((x) => {
     if (Object.keys(content).includes(x.object.replace(`${formAction}_`, ''))) {
-      console.log(formContent[x.object].tagName);
       if (formContent[x.object].tagName == 'INPUT') {
         var timestamp = Date.parse(
           content[x.object.replace(`${formAction}_`, '')]
