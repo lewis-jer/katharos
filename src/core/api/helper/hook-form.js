@@ -243,6 +243,7 @@ const formSubmission = (_api) => {
         el.object != null && el.object != '' && el.object.includes(formAction)
       );
     });
+    console.log(contents);
 
     // formValidation
     if (contents.some((x) => x.value === false)) {
