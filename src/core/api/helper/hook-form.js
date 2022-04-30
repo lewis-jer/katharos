@@ -153,10 +153,10 @@ const formSubmit = (_api) => {
 
     if (formAction == 'edit') {
       if (endpoint == 'bx') {
-        data.ui = document.getElementById('el3').innerHTML;
-        data.id = document.getElementById('el1').innerHTML;
-        data.bxamt = parseFloat(data.bxamt);
-        console.log(data);
+        //data.ui = document.getElementById('el3').innerHTML;
+        // data.id = document.getElementById('el1').innerHTML;
+        //data.bxamt = parseFloat(data.bxamt);
+        //console.log(data);
         // await dataService('PUT', endpoint, data.id, data).then(
         //   async ({ data: res }) => {
         //     var error = false;
@@ -243,7 +243,6 @@ const formSubmission = (_api) => {
         el.object != null && el.object != '' && el.object.includes(formAction)
       );
     });
-    console.log(contents);
 
     // formValidation
     if (contents.some((x) => x.value === false)) {
