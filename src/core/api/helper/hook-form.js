@@ -267,7 +267,7 @@ const preloadForm = (formName, formAction, modalName, content) => {
         var timestamp = Date.parse(
           content[x.object.replace(`${formAction}_`, '')]
         );
-        if (!x.object.includes('amount') && isNaN(timestamp) == false) {
+        if (timestamp instanceof Date && isNaN(timestamp) == false) {
           var d = new Date(timestamp).toISOString().substring(0, 10);
           formContent[x.object].value = d;
         } else {
