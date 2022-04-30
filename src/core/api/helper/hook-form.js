@@ -192,6 +192,7 @@ const formClose = (_api) => {
 
 const formData = (formName) => {
   var formKeys = [];
+  console.log(formName);
   console.log(document.forms[formName]);
   var /* formKeys = Object.keys(document.forms[formName].elements), */ formContent =
       document.forms[formName].elements;
