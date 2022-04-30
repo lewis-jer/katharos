@@ -51,7 +51,6 @@ const filterByValue = (array, value) => {
 };
 
 const validateForm = (formName, formAction, formClose = '') => {
-  console.log(formName);
   var { formKeys, formContent } = formData(formName);
   var contents = formContents(formKeys, formAction, formContent);
 
@@ -193,8 +192,6 @@ const formClose = (_api) => {
 
 const formData = (formName) => {
   var formKeys = [];
-  console.log(formName);
-  console.log(document.forms[formName]);
   var /* formKeys = Object.keys(document.forms[formName].elements), */ formContent =
       document.forms[formName].elements;
   for (var i in formContent) {
