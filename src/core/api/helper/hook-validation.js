@@ -23,7 +23,6 @@ const validateFormData = (_api) => {
 const validateFormDecryption = (_api) => {
   return (form, data) => {
     Object.entries(data).forEach((entry) => {
-      console.log(entry);
       const [key, value] = entry;
       form.decryption.includes(key) && (data[key] = _api.decrypter(value));
     });

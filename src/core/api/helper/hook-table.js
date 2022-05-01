@@ -14,7 +14,7 @@ const updateTable = (_api) => {
         data.Type = _api.bcatMatcher(data.Type, 'type');
       });
     }
-
+    console.log(JSON.parse(JSON.stringify(data)));
     handleTableAction(_api)(tableName, data, formAction, endpoint);
   };
 };
