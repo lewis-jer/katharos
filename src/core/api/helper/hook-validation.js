@@ -55,6 +55,8 @@ const validateDataset = (_api) => {
                 break;
             }
             break;
+          default:
+            data[item.index] = data[item.lookupIndex];
         }
       });
     return data;
