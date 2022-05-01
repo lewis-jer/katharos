@@ -54,6 +54,7 @@ const validateSearchAssist = (_api) => {
     const monthNames = _api.getMonthNames();
     form?.hasOwnProperty('searchAssist') &&
       form.searchAssist.fields.forEach((field, index) => {
+        console.log(field);
         switch (field.valueType) {
           case 'month':
             data[`searchAssist${index}`] = `${
