@@ -2,12 +2,6 @@ import { handleTableAction } from './hook-action';
 
 const updateTable = (_api) => {
   return (tableName, data, formAction, endpoint) => {
-    if (endpoint == 'bcat') {
-      // [data].forEach((x, i) => {
-      //   data.Modules = _api.bcatMatcher(data.Modules, 'module');
-      //   data.Type = _api.bcatMatcher(data.Type, 'type');
-      // });
-    }
     console.log(JSON.parse(JSON.stringify(data)));
     handleTableAction(_api)(tableName, data, formAction, endpoint);
   };
