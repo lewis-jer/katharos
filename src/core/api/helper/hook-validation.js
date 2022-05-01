@@ -40,6 +40,12 @@ const validateDataset = (_api) => {
           case 'tx':
             data[item.index] = _api.txMatcher(data[item.lookupIndex]);
             break;
+          case 'bcat':
+            data[item.index] = _api.bcatMatcher(
+              data[item.lookupIndex],
+              item.type
+            );
+            break;
           case 'date':
             switch (item.type) {
               case 'LocaleDateString':
