@@ -8,6 +8,7 @@ const handleTableAction = (_api) => {
         .data(data)
         .draw();
     formAction == 'delete' && table.row($(data).parents('tr')).remove().draw();
+    formAction == 'empty' && table.rows().remove().draw();
   };
 };
 

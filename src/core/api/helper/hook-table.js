@@ -9,8 +9,6 @@ const updateTable = (_api) => {
 
 const removeTableRow = (_api) => {
   return async (tableName, selectedRow, selectedRowIndex, endPoint) => {
-    // _api.updateUserProfileData('bxExpData', selectedRow.id, 'delete', 'bx');
-    // _api.updateUserProfileData('bxIncData', selectedRow.id, 'delete', 'bx');
     handleTableAction(_api)(tableName, selectedRowIndex, 'delete', null);
   };
 };
@@ -49,18 +47,15 @@ const tableSync = (element, table) => {
 
 const refreshTable = (_api) => {
   return (tableName, endpoint) => {
-    emptyTable(tableName, endpoint);
+    handleTableAction(_api)(tableName, null, 'empty', null);
     updateTableData(_api)(tableName, endpoint);
   };
 };
 
 const emptyTable = (tableName, func) => {
   var table = $(`#${tableName}`).DataTable();
-  var rows = table.rows().remove().draw();
-  if (func && func != 'tx_u') {
-    table.clear().destroy();
-    $(`#${tableName}`).empty();
-  }
+  table.rows().remove().draw();
+  func && table.clear().destroy() && $(`#${tableName}`).empty();
 };
 
 const updateTableData = (_api) => {
