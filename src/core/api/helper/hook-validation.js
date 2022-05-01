@@ -9,10 +9,11 @@ const parseFormData = (contents, formAction) => {
 
 const validateFormData = (_api) => {
   return (form, data) => {
-    Object.entries(data).forEach((entry) => {
-      const [key, value] = entry;
-      form.encryption.includes(key) && (data[key] = _api.encrypter(value));
-    });
+    form?.hasOwnProperty('encryption') &&
+      Object.entries(data).forEach((entry) => {
+        const [key, value] = entry;
+        form.encryption.includes(key) && (data[key] = _api.encrypter(value));
+      });
     typeof data.username == 'undefined' &&
       (data.username = _api.user.getUsername());
     typeof data.SN == 'undefined' && (data.SN = uuid());
@@ -22,10 +23,11 @@ const validateFormData = (_api) => {
 
 const validateFormDecryption = (_api) => {
   return (form, data) => {
-    Object.entries(data).forEach((entry) => {
-      const [key, value] = entry;
-      form.decryption.includes(key) && (data[key] = _api.decrypter(value));
-    });
+    form?.hasOwnProperty('decryption') &&
+      Object.entries(data).forEach((entry) => {
+        const [key, value] = entry;
+        form.decryption.includes(key) && (data[key] = _api.decrypter(value));
+      });
     return data;
   };
 };
