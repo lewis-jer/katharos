@@ -2,12 +2,7 @@ import { handleTableAction } from './hook-action';
 
 const updateTable = (_api) => {
   return (tableName, data, formAction, endpoint) => {
-    const monthNames = _api.getMonthNames();
-    if (endpoint == 'tx') {
-      [data].forEach((x, i) => {
-        data.txdate = `${new Date(x.txdate).toLocaleDateString()}`;
-      });
-    } else if (endpoint == 'bcat') {
+    if (endpoint == 'bcat') {
       [data].forEach((x, i) => {
         data.Modules = _api.bcatMatcher(data.Modules, 'module');
         data.Type = _api.bcatMatcher(data.Type, 'type');

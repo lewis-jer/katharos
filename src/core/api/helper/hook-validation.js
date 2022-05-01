@@ -38,6 +38,15 @@ const validateDataset = (_api) => {
           case 'tx':
             data[item.index] = _api.txMatcher(data[item.lookupIndex]);
             break;
+          case 'date':
+            switch (item.type) {
+              case 'LocaleDateString':
+                data[item.index] = `${new Date(
+                  data[item.lookupIndex]
+                ).toLocaleDateString()}`;
+                break;
+            }
+            break;
         }
       });
     return data;
