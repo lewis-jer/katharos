@@ -10,9 +10,6 @@ const updateTable = (_api) => {
 const removeTableRow = (_api) => {
   return async (tableName, selectedRow, selectedRowIndex, endPoint) => {
     let res;
-    if (endPoint == 'tx') {
-      res = await dataService('DELETE', 'tx', selectedRow.id);
-    }
     if (endPoint == 'bx') {
       res = await dataService('DELETE', 'bx', selectedRow.id);
       _api.updateUserProfileData('bxExpData', selectedRow.id, 'delete', 'bx');
@@ -20,12 +17,10 @@ const removeTableRow = (_api) => {
     }
     var table = $(`#${tableName}`).DataTable();
     table.row($(selectedRowIndex).parents('tr')).remove().draw();
-    if (endPoint == 'tx') {
-      alertify.success(res);
-    }
     if (endPoint == 'bx') {
       alertify.success(res);
     }
+    return;
   };
 };
 
