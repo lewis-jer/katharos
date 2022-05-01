@@ -30,6 +30,20 @@ const validateFormDecryption = (_api) => {
   };
 };
 
+const validateDataset = (_api) => {
+  return (form, data) => {
+    form?.hasOwnProperty('datasetMatcher') &&
+      form?.datasetMatcher.forEach((item) => {
+        switch (item.target) {
+          case 'tx':
+            data[item.index] = _api.txMatcher(data[item.lookupIndex]);
+            break;
+        }
+      });
+    return data;
+  };
+};
+
 const validateSystemFields = (_api) => {
   return (form, data) => {
     form?.hasOwnProperty('systemFields') &&
@@ -63,6 +77,7 @@ const validateSearchAssist = (_api) => {
   return (form, response, data) => {
     const monthNames = _api.getMonthNames();
     form?.hasOwnProperty('searchAssist') &&
+      form.searchAssist.enabled &&
       form.searchAssist.fields.forEach((field, index) => {
         switch (field.valueType) {
           case 'month':
@@ -93,5 +108,6 @@ export {
   validateUserFields,
   validateResponse,
   validateSearchAssist,
-  validateFormDecryption
+  validateFormDecryption,
+  validateDataset
 };

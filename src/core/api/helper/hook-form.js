@@ -5,7 +5,8 @@ import {
   validateUserFields,
   validateResponse,
   validateSearchAssist,
-  validateFormDecryption
+  validateFormDecryption,
+  validateDataset
 } from './hook-validation';
 import { submissionHandle } from './hook-handle';
 
@@ -24,6 +25,7 @@ const completeAction = (_api) => {
       data = await validateUserFields(_api)(form, data);
       data = await validateResponse(_api)(form, response, data);
       data = await validateSearchAssist(_api)(form, response, data);
+      data = await validateDataset(_api)(form, data);
       data = await validateFormDecryption(_api)(form, data);
 
       form.updateTable &&

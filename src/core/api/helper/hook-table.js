@@ -6,7 +6,6 @@ const updateTable = (_api) => {
     if (endpoint == 'tx') {
       [data].forEach((x, i) => {
         data.txdate = `${new Date(x.txdate).toLocaleDateString()}`;
-        data.txbcat = _api.txMatcher(data.txbcat);
       });
     } else if (endpoint == 'bcat') {
       [data].forEach((x, i) => {
