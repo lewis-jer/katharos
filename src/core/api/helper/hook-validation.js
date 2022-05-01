@@ -60,14 +60,17 @@ const validateSearchAssist = (_api) => {
             data[`searchAssist${index}`] = `${
               monthNames[new Date(data[field.index]).getMonth()]
             }`;
+            break;
           case 'year':
             data[`searchAssist${index}`] = `${new Date(
               data[field.index]
             ).getFullYear()}`;
+            break;
           case 'month/year':
             data[`searchAssist${index}`] = `${
               monthNames[new Date(data[field.index]).getMonth()]
             } ${new Date(data[field.index]).getFullYear()}`;
+            break;
         }
       });
     console.log(data);
