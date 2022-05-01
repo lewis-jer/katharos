@@ -134,7 +134,7 @@ const formSubmit = (_api) => {
     form.version == 1 && (data = validateFormData(_api)(form, data));
     data = validateSystemFields(_api)(form, data);
 
-    console.log(data);
+    console.log(JSON.parse(JSON.stringify(data)));
     if (form.enabled) {
       const response =
         form.version == 1 && (await submissionHandle(form.handle, data));
