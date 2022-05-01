@@ -5,13 +5,7 @@ const updateTable = (_api) => {
     const monthNames = _api.getMonthNames();
     if (endpoint == 'tx') {
       [data].forEach((x, i) => {
-        // data.searchAssist0 = `${
-        //   monthNames[new Date(x.txdate).getMonth()]
-        // } ${new Date(x.txdate).getFullYear()}`;
-        // data.searchAssist1 = `${new Date(x.txdate).getFullYear()}`;
-        // data.searchAssist2 = `${monthNames[new Date(x.txdate).getMonth()]}`;
         data.txdate = `${new Date(x.txdate).toLocaleDateString()}`;
-        data.txamt = data.txamount;
         data.txbcat = _api.txMatcher(data.txbcat);
         data.tx = _api.decrypter(data.tx);
       });
