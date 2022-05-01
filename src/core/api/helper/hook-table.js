@@ -9,18 +9,9 @@ const updateTable = (_api) => {
 
 const removeTableRow = (_api) => {
   return async (tableName, selectedRow, selectedRowIndex, endPoint) => {
-    let res;
-    if (endPoint == 'bx') {
-      res = await dataService('DELETE', 'bx', selectedRow.id);
-      _api.updateUserProfileData('bxExpData', selectedRow.id, 'delete', 'bx');
-      _api.updateUserProfileData('bxIncData', selectedRow.id, 'delete', 'bx');
-    }
-    var table = $(`#${tableName}`).DataTable();
-    table.row($(selectedRowIndex).parents('tr')).remove().draw();
-    if (endPoint == 'bx') {
-      alertify.success(res);
-    }
-    return;
+    // _api.updateUserProfileData('bxExpData', selectedRow.id, 'delete', 'bx');
+    // _api.updateUserProfileData('bxIncData', selectedRow.id, 'delete', 'bx');
+    handleTableAction(_api)(tableName, selectedRowIndex, 'delete', null);
   };
 };
 
