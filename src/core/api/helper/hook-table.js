@@ -61,7 +61,14 @@ const emptyTable = (tableName, func) => {
 const updateTableData = (_api) => {
   return async (tableName, endpoint) => {
     var table = $(`#${tableName}`).DataTable();
-    if (endpoint == 'bx') {
+    if (endpoint == 'tx') {
+      var data = await dataService('GET', 'tx');
+      data.forEach((x, i) => {
+        data[i].txdate = `${new Date(x.txdate).toLocaleDateString('en-US')}`;
+        data[i].tx = _api.decrypter(data[i].tx);
+        table.row.add(data[i]).draw().node();
+      });
+    } else if (endpoint == 'bx') {
       var data;
       if (tableName == 'bxtablee') {
         data = userProfile.bxExpData;
