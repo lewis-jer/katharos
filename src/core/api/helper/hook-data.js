@@ -96,11 +96,6 @@ const dataHandler = {
     decryptMsg = decryptMsg.toString(CryptoJS.enc.Utf8);
     return decryptMsg;
   },
-  txUploadDump: async function (tableName, endpoint) {
-    (await dataService('GET', 'txin/dump')).data;
-    userProfile.txUploadData = (await dataService('GET', 'tx/upload')).data;
-    tableMiddleware().emptyTable(tableName);
-  },
   mySQLDateCreator: (x) => {
     return new Date(x).toJSON().slice(0, 10);
   },
