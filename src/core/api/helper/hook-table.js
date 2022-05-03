@@ -61,7 +61,9 @@ const emptyTable = (tableName, func) => {
 const updateTableData = (_api) => {
   return async (tableName, endpoint) => {
     var table = $(`#${tableName}`).DataTable();
+    console.log(tableName, endpoint);
     if (endpoint == 'tx') {
+      console.log('test: ' + endpoint);
       var data = await dataService('GET', 'tx');
       data.forEach((x, i) => {
         data[i].txdate = `${new Date(x.txdate).toLocaleDateString('en-US')}`;
@@ -69,6 +71,7 @@ const updateTableData = (_api) => {
         table.row.add(data[i]).draw().node();
       });
     } else if (endpoint == 'bx') {
+      console.log('test: ' + endpoint);
       var data;
       if (tableName == 'bxtablee') {
         data = userProfile.bxExpData;
@@ -79,6 +82,7 @@ const updateTableData = (_api) => {
         table.row.add(data[i]).draw().node();
       });
     } else {
+      console.log('test: ' + endpoint);
       userProfile.txUploadData = (await dataService('GET', 'tx/upload')).data;
       var data = userProfile.txUploadData;
       data.forEach((x, i) => {
