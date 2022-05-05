@@ -4,7 +4,8 @@ import { pageObjects } from '../../core/components';
 import { helper } from './helper';
 import { gatherPageInfo, selectionController } from '../util';
 import { initialization } from './init';
-import { System, User, Store } from './helper/class';
+import { System, User } from './helper/class';
+import { Store } from './helper/store';
 
 const system = new System({
   name: 'system-reserved'
