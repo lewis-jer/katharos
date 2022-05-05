@@ -3,6 +3,7 @@ import { handleTableAction } from './hook-action';
 const updateTable = (_api) => {
   return (tableName, data, formAction, endpoint) => {
     console.log(JSON.parse(JSON.stringify(data)));
+    console.log(JtableName, data, formAction, endpoint);
     handleTableAction(_api)(tableName, data, formAction, endpoint);
   };
 };
