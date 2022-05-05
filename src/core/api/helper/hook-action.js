@@ -9,6 +9,10 @@ const handleTableAction = (_api) => {
         .draw();
     formAction == 'delete' && table.row($(data).parents('tr')).remove().draw();
     formAction == 'empty' && table.rows().remove().draw();
+    formAction == 'update ' &&
+      data.forEach((x, i) => {
+        table.row.add(data[i]).draw().node();
+      });
   };
 };
 
