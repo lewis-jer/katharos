@@ -48,7 +48,7 @@ const tableSync = (element, table) => {
 const refreshTable = (_api) => {
   return (tableName, endpoint) => {
     handleTableAction(_api)(tableName, null, 'empty', null);
-    updateTableData(_api)(tableName, endpoint);
+    // updateTableData(_api)(tableName, endpoint);
   };
 };
 
@@ -83,13 +83,6 @@ const updateTableData = (_api) => {
       });
     } else {
       console.log('test (default): ' + endpoint);
-      userProfile.txUploadData = (await dataService('GET', 'tx/upload')).data;
-      var data = userProfile.txUploadData;
-      data.forEach((x, i) => {
-        data[i].txdate = `${new Date(x.txdate).toLocaleDateString('en-US')}`;
-        data[i].tx = _api.decrypter(data[i].tx);
-        table.row.add(data[i]).draw().node();
-      });
     }
   };
 };
