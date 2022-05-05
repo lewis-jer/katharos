@@ -57,41 +57,13 @@ const emptyTable = (tableName, func) => {
   func && table.clear().destroy() && $(`#${tableName}`).empty();
 };
 
-const updateTableData = (_api) => {
-  return async (tableName, endpoint) => {
-    var table = $(`#${tableName}`).DataTable();
-    console.log(tableName, endpoint);
-    if (endpoint == 'tx') {
-      console.log('test (tx): ' + endpoint);
-      var data = await dataService('GET', 'tx');
-      data.forEach((x, i) => {
-        data[i].txdate = `${new Date(x.txdate).toLocaleDateString('en-US')}`;
-        data[i].tx = _api.decrypter(data[i].tx);
-        table.row.add(data[i]).draw().node();
-      });
-    } else if (endpoint == 'bx') {
-      console.log('test (bx): ' + endpoint);
-      var data;
-      if (tableName == 'bxtablee') {
-        data = userProfile.bxExpData;
-      } else if (tableName == 'bxtablei') {
-        data = userProfile.bxIncData;
-      }
-      data.forEach((x, i) => {
-        table.row.add(data[i]).draw().node();
-      });
-    }
-  };
-};
-
 const tableMiddleware = (_api) => {
   return {
     updateTable: updateTable(_api),
     removeTableRow: removeTableRow(_api),
     tableSync: tableSync,
     refreshTable: refreshTable(_api),
-    emptyTable: emptyTable,
-    updateTableData: updateTableData(_api)
+    emptyTable: emptyTable
   };
 };
 
