@@ -11,7 +11,6 @@ const handleTableAction = (_api) => {
     formAction == 'empty' && table.rows().remove().draw();
     formAction == 'update' &&
       data.forEach((x, i) => {
-        console.log(data[i]);
         table.row.add(data[i]).draw().node();
       });
   };
