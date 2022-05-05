@@ -1,19 +1,20 @@
 import { handleTableAction } from './hook-action';
 
 const updateTable = (_api) => {
-  return (tableName, data, formAction, endpoint) => {
+  return (tableName, data, formAction) => {
     console.log(JSON.parse(JSON.stringify(data)));
-    handleTableAction(_api)(tableName, data, formAction, endpoint);
+    handleTableAction(_api)(tableName, data, formAction);
   };
 };
 
 const removeTableRow = (_api) => {
-  return async (tableName, selectedRow, selectedRowIndex, endPoint) => {
-    handleTableAction(_api)(tableName, selectedRowIndex, 'delete', null);
+  return async (tableName, selectedRow, selectedRowIndex) => {
+    handleTableAction(_api)(tableName, selectedRowIndex, 'delete');
   };
 };
 
-const tableSync = (element, table) => {
+const tableSync = (element, dataset) => {
+  console.log(dataset);
   function removeOptions(selectElement) {
     var i,
       L = selectElement.options.length - 1;
@@ -26,7 +27,6 @@ const tableSync = (element, table) => {
     if (select[i].tagName !== undefined) {
       var y = select[i],
         selectedItem = y.value;
-      var dataset = userProfile.bcatData;
       removeOptions(y);
       for (var k in dataset) {
         var opt = dataset[k],
@@ -46,8 +46,8 @@ const tableSync = (element, table) => {
 };
 
 const refreshTable = (_api) => {
-  return (tableName, endpoint) => {
-    handleTableAction(_api)(tableName, null, 'empty', null);
+  return (tableName) => {
+    handleTableAction(_api)(tableName, null, 'empty');
   };
 };
 

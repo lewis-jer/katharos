@@ -130,7 +130,6 @@ const formSubmit = (_api) => {
   return async (contents, formName, formAction, modalName, tableName) => {
     var modal = _api.system.getModal(modalName);
     var form = _api.system.getForm(modal.form);
-    var endpoint = modalName.replace(`${formAction}`, '');
     var data = parseFormData(contents, formAction);
     form.store && Object.assign(data, { ..._api.store.getInputStore() });
     form.version == 1 && (data = validateFormData(_api)(form, data));

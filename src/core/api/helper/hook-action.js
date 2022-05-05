@@ -1,5 +1,5 @@
 const handleTableAction = (_api) => {
-  return (tableName, data, formAction, endpoint) => {
+  return (tableName, data, formAction) => {
     var table = $(`#${tableName}`).DataTable();
     formAction == 'add' && table.row.add(data).draw().node();
     formAction == 'edit' &&
