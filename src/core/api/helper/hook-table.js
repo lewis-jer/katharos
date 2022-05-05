@@ -48,7 +48,6 @@ const tableSync = (element, table) => {
 const refreshTable = (_api) => {
   return (tableName, endpoint) => {
     handleTableAction(_api)(tableName, null, 'empty', null);
-    // updateTableData(_api)(tableName, endpoint);
   };
 };
 
@@ -81,8 +80,6 @@ const updateTableData = (_api) => {
       data.forEach((x, i) => {
         table.row.add(data[i]).draw().node();
       });
-    } else {
-      console.log('test (default): ' + endpoint);
     }
   };
 };
