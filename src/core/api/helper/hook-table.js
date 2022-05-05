@@ -14,7 +14,6 @@ const removeTableRow = (_api) => {
 };
 
 const tableSync = (element, dataset) => {
-  console.log(dataset);
   function removeOptions(selectElement) {
     var i,
       L = selectElement.options.length - 1;
