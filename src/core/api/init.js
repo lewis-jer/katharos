@@ -2,7 +2,7 @@ const initialization = (_api) => {
   return async function (url) {
     for (var i in modulePath) {
       modulePath[i].arrayExpression = modulePath[i].endpoint;
-      if (modulePath[i].endpoint == 'system') {
+      if (modulePath[i].system) {
         modulePath[i].loaded = true;
         modulePath[i].loadIndex = 0;
         await _api.system.initializeController('system reserved');

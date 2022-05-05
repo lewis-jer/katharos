@@ -99,28 +99,6 @@ const dataHandler = {
   mySQLDateCreator: (x) => {
     return new Date(x).toJSON().slice(0, 10);
   },
-  updateUserProfileData: (
-    userObject,
-    arrayExpression,
-    action,
-    endpoint,
-    newObject
-  ) => {
-    var object = userProfile[userObject];
-    if (action == 'delete' && endpoint == 'bx') {
-      for (var i in object) {
-        if (object[i].id == arrayExpression)
-          object.splice(object.indexOf(object[i]), 1);
-      }
-    } else if (action == 'edit' && endpoint == 'bx') {
-      for (var i in object) {
-        if (object[i].id == arrayExpression) {
-          object[i].bxamt = newObject.bxamt;
-          object[i].bcatamt = newObject.bxamt;
-        }
-      }
-    }
-  },
   getMonthNames: () => {
     return [
       'January',
