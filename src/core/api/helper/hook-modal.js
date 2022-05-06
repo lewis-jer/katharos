@@ -7,6 +7,7 @@ const addElementsById = (_api) => {
       }
     }
 
+    console.log(modalObjects);
     modalObjects = new Map(modalObjects);
     _api.store.setInputItem(modalObjects);
   };
