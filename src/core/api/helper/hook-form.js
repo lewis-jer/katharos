@@ -226,7 +226,7 @@ const formSubmission = (_api) => {
 const preloadForm = (formName, formAction, modalName, content) => {
   var { formKeys, formContent } = formData(formName);
   var contents = formContents(formKeys, formAction, formContent);
-  var dateValidation = new Date('01 Jan 1970 00:00:00 GMT');
+  var dateValidation = new Date('02 Jan 1970 00:00:00 GMT');
   console.log(dateValidation);
   contents.forEach((x) => {
     if (Object.keys(content).includes(x.object.replace(`${formAction}_`, ''))) {
