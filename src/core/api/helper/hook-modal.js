@@ -26,7 +26,7 @@ const removeElementsById = (_api) => {
   return (objectId, systemReserved, formAction, modalName) => {
     var modal = _api.system.getModal(modalName);
     var object = document.getElementById(objectId);
-    //_api.store.clearInputStore();
+    _api.store.clearInputStore();
     console.log(modal);
     console.log(object);
     modal.inputStoreSession = [];
