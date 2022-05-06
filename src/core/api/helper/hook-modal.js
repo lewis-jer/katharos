@@ -13,7 +13,7 @@ const addElementsById = (_api) => {
 };
 
 const removeElementsById = (_api) => {
-  return (objectId, systemReserved, formAction, modalName) => {
+  return () => {
     _api.store.clearInputStore();
   };
 };

@@ -14,7 +14,7 @@ const completeAction = (_api) => {
   return async (formName, formAction, modalName, params = {}) => {
     let { form, response, data, tableName } = params;
     if (!form) {
-      _api.removeElementsById(null, null, formAction, modalName);
+      _api.removeElementsById();
       cleanForm(formName, formAction);
       formSpinner(1);
       $(`#${modalName}`).modal('hide');
@@ -31,7 +31,7 @@ const completeAction = (_api) => {
       form.updateTable &&
         (await _api.updateTable(tableName, data, formAction, endpoint));
 
-      _api.removeElementsById(null, null, formAction, modalName);
+      _api.removeElementsById();
 
       cleanForm(formName, formAction);
       formSpinner(1);
@@ -150,7 +150,7 @@ const formSubmit = (_api) => {
 
 const formClose = (_api) => {
   return (formName, formAction, modalName) => {
-    _api.removeElementsById(null, null, formAction, modalName);
+    _api.removeElementsById();
     cleanForm(formName, formAction);
     $(`#${modalName}`).modal('hide');
     console.log('Form Closed Successfully');
