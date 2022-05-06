@@ -229,7 +229,7 @@ const preloadForm = (formName, formAction, modalName, content) => {
   contents.forEach((x) => {
     if (Object.keys(content).includes(x.object.replace(`${formAction}_`, ''))) {
       if (formContent[x.object].tagName == 'INPUT') {
-        var timestamp = new Date.parse(
+        var timestamp = new Date(
           content[x.object.replace(`${formAction}_`, '')]
         );
         console.log(timestamp);
