@@ -43,10 +43,6 @@ const completeAction = (_api) => {
   };
 };
 
-const formValidation = (formName, formAction, contents) => {
-  validateForm(formName, formAction);
-};
-
 const filterByValue = (array, value) => {
   return array.filter(
     (data) =>
@@ -215,13 +211,13 @@ const formSubmission = (_api) => {
       );
     });
 
-    // formValidation
+    // Form Validation
     if (contents.some((x) => x.value === false)) {
       console.log('Form Missing Required Information');
-      formValidation(formName, formAction, contents);
+      validateForm(formName, formAction);
     } else {
       formSpinner();
-      formValidation(formName, formAction, contents);
+      validateForm(formName, formAction);
       formSubmit(_api)(contents, formName, formAction, modalName, tableName);
     }
   };
@@ -236,6 +232,7 @@ const preloadForm = (formName, formAction, modalName, content) => {
         var timestamp = Date.parse(
           content[x.object.replace(`${formAction}_`, '')]
         );
+        console.log(timestamp);
         if (timestamp instanceof Date && isNaN(timestamp) == false) {
           var d = new Date(timestamp).toISOString().substring(0, 10);
           formContent[x.object].value = d;
@@ -263,7 +260,6 @@ const preloadForm = (formName, formAction, modalName, content) => {
 const formMiddleware = (_api) => {
   return {
     completeAction: completeAction(_api),
-    formValidation: formValidation,
     filterByValue: filterByValue,
     validateForm: validateForm,
     cleanForm: cleanForm,
