@@ -9,6 +9,7 @@ const addElementsById = (_api) => {
 
     console.log(modalObjects);
     modalObjects = new Map(modalObjects);
+    console.log(modalObjects);
     _api.store.setInputItem(modalObjects);
   };
 };
