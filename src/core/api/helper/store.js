@@ -17,6 +17,10 @@ class Store {
   getInputStore() {
     return this.data.inputStore;
   }
+
+  clearInputStore() {
+    this.data.inputStore = {};
+  }
 }
 
 export { Store };

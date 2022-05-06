@@ -26,12 +26,9 @@ const removeElementsById = (_api) => {
   return (objectId, systemReserved, formAction, modalName) => {
     var modal = _api.system.getModal(modalName);
     var object = document.getElementById(objectId);
-    for (var i in modal.inputStore) {
-      document.getElementById(modal.inputStore[i]).remove();
-    }
-    for (var i in modal.inputStoreSession) {
-      document.getElementById(modal.inputStoreSession[i]).remove();
-    }
+    //_api.store.clearInputStore();
+    console.log(modal);
+    console.log(object);
     modal.inputStoreSession = [];
     modal.inputDataStoreSession = [];
   };
