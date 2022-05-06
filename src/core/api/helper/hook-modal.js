@@ -25,21 +25,6 @@ const addElementsById = (_api) => {
 
     modalObjects = new Map(modalObjects);
     _api.store.setInputItem(modalObjects);
-    modalObjects = Object.fromEntries(modalObjects);
-
-    Object.entries(modalObjects).forEach((entry) => {
-      const [key, value] = entry;
-
-      var label = document.createElement('label');
-
-      label.setAttribute('id', key);
-
-      label.setAttribute('hidden', '');
-
-      label.innerHTML = value;
-
-      object.appendChild(label);
-    });
   };
 };
 
