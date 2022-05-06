@@ -226,6 +226,7 @@ const formSubmission = (_api) => {
 const preloadForm = (formName, formAction, modalName, content) => {
   var { formKeys, formContent } = formData(formName);
   var contents = formContents(formKeys, formAction, formContent);
+  var dateValidation = new Date('01 Jan 1970 00:00:00 GMT');
   contents.forEach((x) => {
     if (Object.keys(content).includes(x.object.replace(`${formAction}_`, ''))) {
       if (formContent[x.object].tagName == 'INPUT') {
@@ -236,7 +237,11 @@ const preloadForm = (formName, formAction, modalName, content) => {
         console.log(timestamp instanceof Date);
         console.log(isNaN(timestamp) == false);
         console.log(timestamp instanceof Date && isNaN(timestamp) == false);
-        if (timestamp instanceof Date && isNaN(timestamp) == false) {
+        if (
+          timestamp instanceof Date &&
+          isNaN(timestamp) == false &&
+          timestamp >= dateValidation
+        ) {
           var d = new Date(timestamp).toISOString().substring(0, 10);
           formContent[x.object].value = d;
         } else {
