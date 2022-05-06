@@ -1,5 +1,5 @@
 const addElementsById = (_api) => {
-  return (objectId, modalName, newObjects = false) => {
+  return (newObjects = false) => {
     var modalObjects = [];
     if (newObjects != false) {
       for (var i in newObjects) {
