@@ -1,19 +1,9 @@
 const addElementsById = (_api) => {
   return (objectId, modalName, newObjects = false) => {
-    var modal = _api.system.getModal(modalName);
-    var object = document.getElementById(objectId),
-      modalObjects = [],
-      systemReserved;
-
-    for (var i in modal.inputStore) {
-      modalObjects[i] = [modal.inputStore[i], modal.inputDataStore[i]];
-    }
-
+    var modalObjects = [];
     if (newObjects != false) {
       for (var i in newObjects) {
         modalObjects.push(newObjects[i]);
-        modal.inputStoreSession.push(newObjects[i][0]);
-        modal.inputDataStoreSession.push(newObjects[i][1]);
       }
     }
 
@@ -24,13 +14,7 @@ const addElementsById = (_api) => {
 
 const removeElementsById = (_api) => {
   return (objectId, systemReserved, formAction, modalName) => {
-    var modal = _api.system.getModal(modalName);
-    var object = document.getElementById(objectId);
     _api.store.clearInputStore();
-    console.log(modal);
-    console.log(object);
-    modal.inputStoreSession = [];
-    modal.inputDataStoreSession = [];
   };
 };
 
