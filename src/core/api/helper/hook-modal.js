@@ -1,11 +1,5 @@
 const addElementsById = (_api) => {
-  return (
-    objectId,
-    systemReserved,
-    formAction,
-    modalName,
-    newObjects = false
-  ) => {
+  return (objectId, modalName, newObjects = false) => {
     var modal = _api.system.getModal(modalName);
     var object = document.getElementById(objectId),
       modalObjects = [],
