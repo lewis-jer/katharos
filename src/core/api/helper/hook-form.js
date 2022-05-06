@@ -233,6 +233,9 @@ const preloadForm = (formName, formAction, modalName, content) => {
           content[x.object.replace(`${formAction}_`, '')]
         );
         console.log(timestamp);
+        console.log(timestamp instanceof Date);
+        console.log(isNaN(timestamp) == false);
+        console.log(timestamp instanceof Date && isNaN(timestamp) == false);
         if (timestamp instanceof Date && isNaN(timestamp) == false) {
           var d = new Date(timestamp).toISOString().substring(0, 10);
           formContent[x.object].value = d;
