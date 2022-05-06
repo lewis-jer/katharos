@@ -14,6 +14,10 @@ class Store {
     return this.data.inputStore[key];
   }
 
+  setInputItem(key, value) {
+    this.data.inputStore[key] = value;
+  }
+
   getInputStore() {
     return this.data.inputStore;
   }
