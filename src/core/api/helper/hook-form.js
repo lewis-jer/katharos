@@ -236,6 +236,7 @@ const preloadForm = (formName, formAction, modalName, content) => {
         console.log(timestamp);
         console.log(timestamp instanceof Date);
         console.log(isNaN(timestamp) == false);
+        console.log(timestamp >= dateValidation);
         console.log(timestamp instanceof Date && isNaN(timestamp) == false);
         if (
           timestamp instanceof Date &&
