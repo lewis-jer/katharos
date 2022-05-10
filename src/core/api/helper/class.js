@@ -220,12 +220,22 @@ class User {
 
   getUserItem(item, lookupValue) {
     const object = this.data.userProfile[item.target];
-    console.log(object);
     var response;
     object.forEach((element) => {
       element[item.lookupIndex];
       if (element[item.lookupIndex] == lookupValue) {
         response = element.Category;
+      }
+    });
+    return response;
+  }
+
+  getUserItems(item, lookupValue) {
+    const object = this.data.userProfile[item.target];
+    var response;
+    object.forEach((element) => {
+      if (element[item.lookupIndex] == lookupValue) {
+        response = element;
       }
     });
     return response;
