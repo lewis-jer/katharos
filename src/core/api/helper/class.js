@@ -235,7 +235,6 @@ class User {
     var response;
     object.forEach((element) => {
       if (element[item.lookupIndex] == lookupValue) {
-        console.log(element);
         response = element;
       }
     });
