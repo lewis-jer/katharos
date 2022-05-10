@@ -220,6 +220,7 @@ class User {
 
   getUserItem(item, lookupValue) {
     const object = this.data.userProfile[item.target];
+    console.log(object);
     var response;
     object.forEach((element) => {
       element[item.lookupIndex];

@@ -13,33 +13,25 @@ import { submissionHandle } from './hook-handle';
 const completeAction = (_api) => {
   return async (formName, formAction, modalName, params = {}) => {
     let { form, response, data, tableName } = params;
-    if (!form) {
-      _api.removeElementsById();
-      cleanForm(formName, formAction);
-      formSpinner(1);
-      $(`#${modalName}`).modal('hide');
-      console.log('Form Submitted Successfully');
-    } else {
-      const { data: res } = response;
+    const { data: res } = response;
 
-      data = await validateUserFields(_api)(form, data);
-      data = await validateResponse(_api)(form, response, data);
-      data = await validateSearchAssist(_api)(form, response, data);
-      data = await validateDataset(_api)(form, data);
-      data = await validateFormDecryption(_api)(form, data);
+    data = await validateUserFields(_api)(form, data);
+    data = await validateResponse(_api)(form, response, data);
+    data = await validateSearchAssist(_api)(form, response, data);
+    data = await validateDataset(_api)(form, data);
+    data = await validateFormDecryption(_api)(form, data);
 
-      form.updateTable &&
-        (await _api.updateTable(tableName, data, formAction, endpoint));
+    form.updateTable &&
+      (await _api.updateTable(tableName, data, formAction, endpoint));
 
-      _api.removeElementsById();
+    _api.removeElementsById();
 
-      cleanForm(formName, formAction);
-      formSpinner(1);
-      $(`#${modalName}`).modal('hide');
+    cleanForm(formName, formAction);
+    formSpinner(1);
+    $(`#${modalName}`).modal('hide');
 
-      res.status == 'success' && alertify.success('Success');
-      res.status == 'fail' && alertify.error('Failure');
-    }
+    res.status == 'success' && alertify.success('Success');
+    res.status == 'fail' && alertify.error('Failure');
   };
 };
 
