@@ -234,6 +234,7 @@ class User {
     const object = this.data.userProfile[item.target];
     var response;
     object.forEach((element) => {
+      console.log(element[item.lookupIndex] == lookupValue);
       if (element[item.lookupIndex] == lookupValue) {
         console.log(element);
         response = element;
