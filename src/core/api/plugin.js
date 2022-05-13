@@ -11,7 +11,7 @@ const jsAssembler = async (_api, modulePlugin) => {
       _api.system.stringToHash(modulePlugin)
     )
   ) {
-    await $.getScript(modulePlugin);
+    await $.getScript(`${modulePlugin}?${Date.now()}`);
     _api.system.updatePlugin(modulePlugin);
   }
 };
@@ -33,7 +33,7 @@ const assembler = (_api) => {
       try {
         await jsAssembler(_api, modulePlugin);
       } catch (e) {
-        _api.system.updatePlugin(modulePlugin);
+        _api.system.updatePlugin(`${modulePlugin}?${Date.now()}`);
       }
     } else if (modulePlugin.includes('css')) {
       try {

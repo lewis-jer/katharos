@@ -24,6 +24,7 @@ class Store {
 
   clearInputStore() {
     this.data.inputStore = {};
+    this.data.domStore = {};
   }
 }
 
