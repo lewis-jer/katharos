@@ -114,6 +114,13 @@ const dataHandler = {
       'November',
       'December'
     ];
+  },
+  findInCatArray: (Arr, Value) => {
+    for (var i = 0; i < Arr.length; i++) {
+      if (Arr[i] === Value) {
+        return i;
+      }
+    }
   }
 };
 
