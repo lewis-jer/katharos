@@ -242,7 +242,8 @@ class User {
   }
   getRandomUserItem(key) {
     var randomNumber =
-      Math.floor(Math.random() * (this.data.userProfile[key] - 1 - 0)) + 0;
+      Math.floor(Math.random() * (this.data.userProfile[key].length - 1 - 0)) +
+      0;
     console.log(randomNumber);
     return this.data.userProfile[key];
   }
