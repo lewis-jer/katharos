@@ -129,8 +129,7 @@ const dataHandler = {
   },
   test(trigger) {
     console.log(this);
-    this.test(true);
-    if (trigger) return;
+    if (!trigger) this.test(true);
   }
 };
 
