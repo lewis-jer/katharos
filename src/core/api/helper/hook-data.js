@@ -138,6 +138,9 @@ const dataHandler = {
       }
     });
     return r;
+  },
+  cleanArray: (Array) => {
+    return (Array = []);
   }
 };
 
