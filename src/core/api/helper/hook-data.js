@@ -121,6 +121,15 @@ const dataHandler = {
         return i;
       }
     }
+  },
+  sortByValue: (Arr) => {
+    return Arr.sort((a, b) => {
+      return b.sum - a.sum;
+    });
+  },
+  test() {
+    console.log(this);
+    this;
   }
 };
 
