@@ -240,6 +240,10 @@ class User {
     });
     return response;
   }
+  getRandomUserItem(key) {
+    console.log(this.data.userProfile[key]);
+    return this.data.userProfile[key];
+  }
 }
 
 export { System, User };
