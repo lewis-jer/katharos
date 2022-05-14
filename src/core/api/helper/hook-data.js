@@ -127,9 +127,10 @@ const dataHandler = {
       return b.sum - a.sum;
     });
   },
-  test() {
+  test(trigger) {
     console.log(this);
-    this;
+    this.test(true);
+    if (trigger) return;
   }
 };
 
