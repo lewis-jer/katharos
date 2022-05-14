@@ -244,8 +244,7 @@ class User {
     var randomNumber =
       Math.floor(Math.random() * (this.data.userProfile[key].length - 1 - 0)) +
       0;
-    console.log(randomNumber);
-    return this.data.userProfile[key];
+    return this.data.userProfile[key][randomNumber];
   }
 }
 
