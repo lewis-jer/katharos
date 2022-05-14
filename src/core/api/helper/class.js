@@ -192,6 +192,7 @@ class User {
 
   setLocalStorageItem(user) {
     localStorage.setItem('user', user);
+    localStorage.setItem('accessToken', user.accessToken);
   }
 
   parseUserObject(user) {
