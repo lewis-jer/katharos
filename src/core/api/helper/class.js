@@ -45,6 +45,14 @@ class System {
           });
         }
       }
+
+      if (key.includes('charts')) {
+        for (const [module, charts] of Object.entries(value)) {
+          charts.forEach((chart) => {
+            this.data.charts[chart.arrayExpression] = chart;
+          });
+        }
+      }
     }
   };
 
