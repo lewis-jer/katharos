@@ -9,7 +9,7 @@ const parseFormData = (contents, formAction) => {
 
 const validateFormData = (_api) => {
   return (form, data) => {
-    form?.hasOwnProperty('encryption') &&
+    form.hasOwnProperty('encryption') &&
       Object.entries(data).forEach((entry) => {
         const [key, value] = entry;
         form.encryption.includes(key) && (data[key] = _api.encrypter(value));
@@ -23,7 +23,7 @@ const validateFormData = (_api) => {
 
 const validateFormDecryption = (_api) => {
   return (form, data) => {
-    form?.hasOwnProperty('decryption') &&
+    form.hasOwnProperty('decryption') &&
       Object.entries(data).forEach((entry) => {
         const [key, value] = entry;
         form.decryption.includes(key) && (data[key] = _api.decrypter(value));
@@ -34,8 +34,8 @@ const validateFormDecryption = (_api) => {
 
 const validateDataset = (_api) => {
   return (form, data) => {
-    form?.hasOwnProperty('datasetMatcher') &&
-      form?.datasetMatcher.forEach((item) => {
+    form.hasOwnProperty('datasetMatcher') &&
+      form.datasetMatcher.forEach((item) => {
         switch (item.target) {
           case 'tx':
             data[item.index] = _api.txMatcher(data[item.lookupIndex]);
@@ -65,8 +65,8 @@ const validateDataset = (_api) => {
 
 const validateSystemFields = (_api) => {
   return (form, data) => {
-    form?.hasOwnProperty('systemFields') &&
-      form?.systemFields.forEach((field) => {
+    form.hasOwnProperty('systemFields') &&
+      form.systemFields.forEach((field) => {
         data[field] = _api.system.createUniqueId();
       });
     return data;
@@ -75,8 +75,8 @@ const validateSystemFields = (_api) => {
 
 const validateUserFields = (_api) => {
   return (form, data) => {
-    form?.hasOwnProperty('userFields') &&
-      form?.userFields.forEach((item) => {
+    form.hasOwnProperty('userFields') &&
+      form.userFields.forEach((item) => {
         data[item.index] = _api.user.getUserItem(item, data[item.lookupIndex]);
       });
     return data;
@@ -85,7 +85,7 @@ const validateUserFields = (_api) => {
 
 const validateResponse = (_api) => {
   return (form, response, data) => {
-    form?.hasOwnProperty('mergeResponse') &&
+    form.hasOwnProperty('mergeResponse') &&
       form.mergeResponse &&
       Object.assign(data, { ...response.data });
     return data;
@@ -95,7 +95,7 @@ const validateResponse = (_api) => {
 const validateSearchAssist = (_api) => {
   return (form, response, data) => {
     const monthNames = _api.getMonthNames();
-    form?.hasOwnProperty('searchAssist') &&
+    form.hasOwnProperty('searchAssist') &&
       form.searchAssist.enabled &&
       form.searchAssist.fields.forEach((field, index) => {
         switch (field.valueType) {
