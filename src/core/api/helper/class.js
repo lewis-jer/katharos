@@ -14,7 +14,8 @@ class System {
       componentLib: { navigationBar: { status: false } },
       modals: {},
       forms: {},
-      charts: {}
+      charts: {},
+      tables: {}
     };
     this.next = null;
   }
@@ -54,6 +55,14 @@ class System {
           });
         }
       }
+
+      if (key.includes('tables')) {
+        for (const [module, tables] of Object.entries(value)) {
+          tables.forEach((table) => {
+            this.data.tables[table.arrayExpression] = table;
+          });
+        }
+      }
     }
   };
 
@@ -67,6 +76,10 @@ class System {
 
   getChart(name) {
     return this.data.charts[name];
+  }
+
+  getTable(name) {
+    return this.data.tables[name];
   }
 
   setChartActiveElement(name, element) {
