@@ -13,7 +13,8 @@ class System {
       middlewareConfig: {},
       componentLib: { navigationBar: { status: false } },
       modals: {},
-      forms: {}
+      forms: {},
+      charts: {}
     };
     this.next = null;
   }
