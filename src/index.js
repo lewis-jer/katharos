@@ -6,7 +6,7 @@ const katharos = {
   pageActions: pageActions(_api),
   pageLoader: pageLoader,
   _api: _api,
-  configure: _api.system.configure
+  configure: _api.system.configure.bind(_api.system)
 };
 
 export { katharos };
