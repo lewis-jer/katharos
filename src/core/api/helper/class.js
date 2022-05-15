@@ -21,7 +21,6 @@ class System {
   }
 
   configure(config) {
-    console.log(this);
     for (const [key, value] of Object.entries(config)) {
       key.includes('controller') &&
         Object.assign(this.data.controllerConfig, { ...value });
