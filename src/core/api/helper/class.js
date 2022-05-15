@@ -65,6 +65,10 @@ class System {
     return this.data.forms[name];
   }
 
+  getChart(name) {
+    return this.data.charts[name];
+  }
+
   getPlugin(plugin) {
     return this.data.pluginLib[this.stringToHash(plugin)];
   }
