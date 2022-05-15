@@ -20,7 +20,7 @@ class System {
     this.next = null;
   }
 
-  configure = (config) => {
+  configure(config) {
     for (const [key, value] of Object.entries(config)) {
       key.includes('controller') &&
         Object.assign(this.data.controllerConfig, { ...value });
@@ -64,7 +64,7 @@ class System {
         }
       }
     }
-  };
+  }
 
   getModal(name) {
     return this.data.modals[name];
