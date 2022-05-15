@@ -69,6 +69,10 @@ class System {
     return this.data.charts[name];
   }
 
+  setChartActiveElement(name, element) {
+    this.data.charts[name].active = element;
+  }
+
   getPlugin(plugin) {
     return this.data.pluginLib[this.stringToHash(plugin)];
   }
