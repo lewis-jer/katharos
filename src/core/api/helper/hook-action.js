@@ -7,7 +7,8 @@ const handleTableAction = (_api) => {
         .row(JSON.parse(data.tableIndex)._DT_CellIndex.row)
         .data(data)
         .draw();
-    formAction == 'delete' && table.row($(data).parents('tr')).remove().draw();
+    formAction == 'delete' &&
+      table.row($(data).parents('tr')).remove().draw(false);
     formAction == 'empty' && table.rows().remove().draw();
     formAction == 'update' &&
       data.forEach((x, i) => {
