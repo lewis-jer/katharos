@@ -7,7 +7,7 @@ var headers = {
   'Content-type': 'application/json'
 };
 
-const http = axios.create({
+const http = new axios.create({
   baseURL: 'https://services.cnsdetroit.com',
   headers: headers
 });
