@@ -3,7 +3,7 @@ const axios = require('axios');
 var session = JSON.parse(localStorage.getItem('user'));
 
 var headers = {
-  'x-access-token': session ? session.token : false,
+  'x-access-token': session ? session.accessToken : false,
   'Content-type': 'application/json'
 };
 
