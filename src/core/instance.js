@@ -10,6 +10,10 @@ const pageLoader = {
   },
   loginLoader: async function (x = false) {
     if (x) {
+      document.getElementById('loginAuthBtn').hidden = false;
+      document.getElementById('loginAuthSafeBtn').hidden = true;
+      document.getElementsByClassName('loginloader')[0].style.display = 'none';
+      return true;
     } else {
       document.getElementById('loginAuthBtn').hidden = true;
       document.getElementById('loginAuthSafeBtn').hidden = false;
