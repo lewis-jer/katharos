@@ -1,13 +1,15 @@
 const axios = require('axios');
 
+var session = JSON.parse(localStorage.getItem('user'));
+
+var headers = {
+  'x-access-token': session ? session.token : false,
+  'Content-type': 'application/json'
+};
+
 const http = axios.create({
   baseURL: 'https://services.cnsdetroit.com',
-  headers: {
-    'x-access-token': JSON.parse(localStorage.getItem('user'))
-      ? JSON.parse(localStorage.getItem('user')).accessToken
-      : false,
-    'Content-type': 'application/json'
-  }
+  headers: headers
 });
 
 class DataService {
