@@ -16,6 +16,7 @@ class System {
       forms: {},
       charts: {},
       tables: {},
+      httpConfig: {},
       http: {}
     };
     this.next = null;
@@ -33,7 +34,7 @@ class System {
 
       key.includes('secret') && this.setSecureContainer(value);
 
-      key.includes('axios') && this.setHttpService(value);
+      key.includes('axios') && this.setHttp(value);
 
       if (key.includes('modals')) {
         for (const [module, modals] of Object.entries(value)) {
@@ -69,8 +70,20 @@ class System {
     }
   }
 
-  setHttpService(http) {
-    this.data.http = http;
+  setHttp(http) {
+    this.data.httpConfig = http;
+  }
+
+  setupHttpService() {
+    this.data.http = this.data.httpConfig.create({
+      baseURL: 'https://services.cnsdetroit.com',
+      headers: {
+        'x-access-token': JSON.parse(localStorage.getItem('user'))
+          ? JSON.parse(localStorage.getItem('user')).accessToken
+          : false,
+        'Content-type': 'application/json'
+      }
+    });
   }
 
   getModal(name) {
