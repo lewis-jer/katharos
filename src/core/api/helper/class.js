@@ -15,7 +15,8 @@ class System {
       modals: {},
       forms: {},
       charts: {},
-      tables: {}
+      tables: {},
+      http: {}
     };
     this.next = null;
   }
@@ -31,6 +32,8 @@ class System {
       key.includes('excludes') && this.setExclusions(value);
 
       key.includes('secret') && this.setSecureContainer(value);
+
+      key.includes('axios') && this.setHttpService(value);
 
       if (key.includes('modals')) {
         for (const [module, modals] of Object.entries(value)) {
@@ -64,6 +67,10 @@ class System {
         }
       }
     }
+  }
+
+  setHttpService(http) {
+    this.data.http = http;
   }
 
   getModal(name) {
