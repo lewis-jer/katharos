@@ -11,7 +11,8 @@ const drawPage = async function (pageName, pageInfo, _api) {
   if (
     pageName == 'login' ||
     pageName == 'account_verify' ||
-    pageName == 'eula'
+    pageName == 'eula' ||
+    pageName == 'forgot_password'
   ) {
     document.body.classList.add('bg-gradient-primary');
     _api.system.componentLoader('navigationBar', false);
