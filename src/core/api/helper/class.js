@@ -86,6 +86,10 @@ class System {
     });
   }
 
+  http() {
+    return this.data.http;
+  }
+
   getModal(name) {
     return this.data.modals[name];
   }
