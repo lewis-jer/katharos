@@ -165,6 +165,9 @@ const dataHandler = {
       s[1] += new Array(prec - s[1].length + 1).join('0');
     }
     return s.join(dec);
+  },
+  isEmpty(str) {
+    return !str || str.length === 0;
   }
 };
 
