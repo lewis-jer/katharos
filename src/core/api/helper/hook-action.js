@@ -19,6 +19,9 @@ const handleTableAction = (_api) => {
         table.row.add(data[i]).draw().node();
       });
     formAction == 'pull' && Object.keys(data).forEach((item) => {
+      Array.isArray(table) && table.forEach((el, i) => {
+        _api.emptyTable(tableName[i]);
+      })
       //console.log(tableName, data[item], formAction, Array.isArray(data[item]))
 
     })
