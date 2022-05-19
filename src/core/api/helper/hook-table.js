@@ -52,7 +52,6 @@ const refreshTable = (_api) => {
 
 const emptyTable = (tableName, func) => {
   var table = $(`#${tableName}`).DataTable();
-  table.rows().remove().draw();
   func && table.clear().destroy() && $(`#${tableName}`).empty();
 };
 
