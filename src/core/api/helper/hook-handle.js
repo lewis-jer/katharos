@@ -31,6 +31,9 @@ class DataService {
   updateBudget(data) {
     return http.put('/fp-app/bx', data);
   }
+  pullBudget(data) {
+    return http.post('/fp-app/bx/pull', data);
+  }
 }
 
 const dataService = new DataService();
