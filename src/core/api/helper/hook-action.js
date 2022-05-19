@@ -17,7 +17,7 @@ const handleTableAction = (_api) => {
     formAction == 'pull' && Object.keys(data).forEach((item) => {
       console.log(data[tableName])
       console.log(data[item])
-      Array.isArray(data[item]) && 
+      Array.isArray(data[item])
     })
   };
 };
