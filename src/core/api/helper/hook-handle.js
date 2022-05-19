@@ -20,7 +20,7 @@ class DataService {
     return http.put('/fp-app/tx', data);
   }
   createCategory(data) {
-    return http.post('/fp-app/bcat', data);
+    return http.post('/fp-app/bcat', data); 
   }
   updateCategory(data) {
     return http.put('/fp-app/bcat', data);
