@@ -12,13 +12,11 @@ const handleTableAction = (_api) => {
     formAction == 'delete' &&
       table.row($(data).parents('tr')).remove().draw(false);
     formAction == 'empty' && emptyTable(table);
-    formAction == 'update' &&
-      data.forEach((x, i) => {
-        table.row.add(data[i]).draw().node();
-      });
+    formAction == 'update' && updateTable(table, data)
     formAction == 'pull' && Object.keys(data).forEach((item) => {
       Array.isArray(table) && table.forEach((el, i) => {
         emptyTable(el);
+        updateTable(table, data.items)
       })
       //console.log(tableName, data[item], formAction, Array.isArray(data[item]))
 
@@ -28,6 +26,12 @@ const handleTableAction = (_api) => {
 
 const emptyTable = (table) => {
   table.rows().remove().draw();
+};
+
+const updateTable = (table, data) => {
+  data.forEach((x, i) => {
+    table.row.add(data[i]).draw().node();
+  });
 };
 
 export { handleTableAction };
