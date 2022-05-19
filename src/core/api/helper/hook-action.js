@@ -1,5 +1,6 @@
 const handleTableAction = (_api) => {
   return (tableName, data, formAction) => {
+    console.log(Array.isArray(tableName))
     var table = $(`#${tableName}`).DataTable();
     formAction == 'add' && table.row.add(data).draw().node();
     formAction == 'edit' &&
@@ -15,7 +16,7 @@ const handleTableAction = (_api) => {
         table.row.add(data[i]).draw().node();
       });
     formAction == 'pull' && Object.keys(data).forEach((item) => {
-      console.log(tableName, data[item], formAction, Array.isArray(data[item]))
+      //console.log(tableName, data[item], formAction, Array.isArray(data[item]))
 
     })
   };
