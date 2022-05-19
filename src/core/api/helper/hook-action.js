@@ -15,8 +15,7 @@ const handleTableAction = (_api) => {
         table.row.add(data[i]).draw().node();
       });
     formAction == 'pull' && Object.keys(data).forEach((item) => {
-      console.log(tableName)
-      console.log(data[item])
+      console.log(tableName, data[item], formAction)
       Array.isArray(data[item])
     })
   };
