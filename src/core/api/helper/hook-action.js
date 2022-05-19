@@ -1,8 +1,8 @@
 const handleTableAction = (_api) => {
   return (tableName, data, formAction) => {
-    var table = (Array.isArray(tableName) && tableName.map(tableElement => {
-      $(`#${tableElement}`).DataTable();
-    })) || $(`#${tableName}`).DataTable();
+    var table = (Array.isArray(tableName) && tableName.map(tableElement =>
+      $(`#${tableElement}`).DataTable()
+    )) || $(`#${tableName}`).DataTable();
     console.log(tableName)
     console.log(table)
     formAction == 'add' && table.row.add(data).draw().node();
