@@ -3,6 +3,7 @@ const handleTableAction = (_api) => {
     var table = (Array.isArray(tableName) && tableName.forEach(tableElement => {
       $(`#${tableElement}`).DataTable();
     })) || $(`#${tableName}`).DataTable();
+    console.log(tableName)
     console.log(table)
     formAction == 'add' && table.row.add(data).draw().node();
     formAction == 'edit' &&
