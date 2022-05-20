@@ -24,10 +24,8 @@ const handleTableAction = (_api) => {
     formAction == 'del' && Object.keys(data).forEach((item) => {
       Array.isArray(table) && table.forEach((el, i) => {
         emptyTable(el);
-        console.log(data)
-        //updateTable(el, data.items)
+        updateTable(el, data.items)
       })
-      //console.log(tableName, data[item], formAction, Array.isArray(data[item]))
     })
   };
 };
