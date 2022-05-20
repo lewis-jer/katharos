@@ -19,20 +19,25 @@ const handleTableAction = (_api) => {
         emptyTable(el);
         updateTable(el, data.items)
       })
-      //console.log(tableName, data[item], formAction, Array.isArray(data[item]))
+      formAction == 'del' && Object.keys(data).forEach((item) => {
+        Array.isArray(table) && table.forEach((el, i) => {
+          emptyTable(el);
+          updateTable(el, data.items)
+        })
+        //console.log(tableName, data[item], formAction, Array.isArray(data[item]))
 
-    })
+      })
+    };
   };
-};
 
-const emptyTable = (table) => {
-  table.rows().remove().draw();
-};
+  const emptyTable = (table) => {
+    table.rows().remove().draw();
+  };
 
-const updateTable = (table, data) => {
-  data.forEach((x, i) => {
-    table.row.add(data[i]).draw().node();
-  });
-};
+  const updateTable = (table, data) => {
+    data.forEach((x, i) => {
+      table.row.add(data[i]).draw().node();
+    });
+  };
 
-export { handleTableAction };
+  export { handleTableAction };
