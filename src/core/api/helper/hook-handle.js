@@ -35,15 +35,13 @@ class DataService {
     return http.post('/fp-app/bx/pull', data);
   }
   deleteBudgetByMonth(data) {
-    console.log(data)
-    return http.delete('/fp-app/bx/month', data);
+    return http.delete('/fp-app/bx/month', { data: data });
   }
 }
 
 const dataService = new DataService();
 
 const submissionHandle = async (handle, data) => {
-  console.log(data)
   const response = await dataService[handle](data);
   console.log(response);
   return response;
