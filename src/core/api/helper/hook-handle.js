@@ -35,6 +35,7 @@ class DataService {
     return http.post('/fp-app/bx/pull', data);
   }
   deleteBudgetByMonth(data) {
+    console.log(data)
     return http.delete('/fp-app/bx/month', data);
   }
 }
