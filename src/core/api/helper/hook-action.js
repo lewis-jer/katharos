@@ -1,6 +1,5 @@
 const handleTableAction = (_api) => {
   return (tableName, data, formAction) => {
-    console.log(formAction)
     var table = (Array.isArray(tableName) && tableName.map(tableElement =>
       $(`#${tableElement}`).DataTable()
     )) || $(`#${tableName}`).DataTable();
