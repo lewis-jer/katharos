@@ -209,10 +209,15 @@ const dataHandler = {
       }
       switch (floatValidation.length) {
         case 1:
+          floatPart = floatPart + '00';
           console.log('Case 1');
         case 2:
+          floatPart = floatPart + '0';
           console.log('Case 2');
+        default:
+          console.log('Float Validated');
       }
+      console.log(floatPart);
       return (
         negative +
         (prefix || '') +
