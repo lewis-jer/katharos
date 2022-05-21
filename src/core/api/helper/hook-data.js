@@ -212,11 +212,14 @@ const dataHandler = {
         case 1:
           floatPart = floatPart + '00';
           console.log('Case 1');
+          break;
         case 2:
           floatPart = floatPart + '0';
           console.log('Case 2');
+          break;
         default:
           console.log('Float Validated');
+          break;
       }
       console.log(floatPart);
       return (
