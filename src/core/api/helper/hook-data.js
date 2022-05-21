@@ -207,6 +207,7 @@ const dataHandler = {
         floatPart.charAt(i) == '.' && floatValidation.push(true);
         !isNaN(floatPart.charAt(i)) && floatValidation.push(true);
       }
+      console.log(floatPart);
       switch (floatValidation.length) {
         case 1:
           floatPart = floatPart + '00';
