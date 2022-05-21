@@ -202,26 +202,22 @@ const dataHandler = {
             .toString()
             .substring(2)
         : '';
+
       var floatValidation = [];
       for (var i = 0; i < floatPart.length; i++) {
         floatPart.charAt(i) == '.' && floatValidation.push(true);
         !isNaN(floatPart.charAt(i)) && floatValidation.push(true);
       }
-      console.log(floatPart);
+
       switch (floatValidation.length) {
         case 1:
           floatPart = floatPart + '00';
-          console.log('Case 1');
           break;
         case 2:
           floatPart = floatPart + '0';
-          console.log('Case 2');
-          break;
-        default:
-          console.log('Float Validated');
           break;
       }
-      console.log(floatPart);
+
       return (
         negative +
         (prefix || '') +
