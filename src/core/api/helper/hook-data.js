@@ -202,7 +202,7 @@ const dataHandler = {
             .toString()
             .substring(2)
         : '';
-
+      console.log(floatPart);
       return (
         negative +
         (prefix || '') +
