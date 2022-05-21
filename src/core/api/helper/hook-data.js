@@ -202,7 +202,12 @@ const dataHandler = {
             .toString()
             .substring(2)
         : '';
-      console.log(floatPart);
+      floatValidation = [];
+      floatPart.forEach((item) => {
+        item == '.' && floatValidation.push(true);
+        Number.isInteger(item) && floatValidation.push(true);
+      });
+      console.log(floatValidation);
       return (
         negative +
         (prefix || '') +
