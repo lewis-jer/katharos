@@ -78,9 +78,9 @@ const dataHandler = {
           publicToken: publicToken
         });
       },
-      onLoad: () => {},
-      onExit: (err, metadata) => {},
-      onEvent: (eventName, metadata) => {},
+      onLoad: () => { },
+      onExit: (err, metadata) => { },
+      onEvent: (eventName, metadata) => { },
       receivedRedirectUri: null
     });
 
@@ -168,7 +168,14 @@ const dataHandler = {
   },
   isEmpty(str) {
     return !str || str.length === 0;
-  }
+  },
+  integerValue(i) {
+    return typeof i === 'string'
+      ? i.replace(/[\$,]/g, '') * 1
+      : typeof i === 'number'
+        ? i
+        : 0;
+  };
 };
 
 export { dataHandler };
