@@ -207,7 +207,7 @@ class System {
     this.data.middleware[pageInfo.loadIndex]
       ? await this.getMiddleware(pageInfo.loadIndex)(_api)
       : false;
-    return true;
+    return 'Middleware Instantiated Succesful';
   }
 
   createUniqueId() {
