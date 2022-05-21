@@ -206,6 +206,7 @@ const dataHandler = {
       for (var i = 0; i < floatPart.length; i++) {
         console.log(floatPart.charAt(i));
         floatPart.charAt(i) == '.' && floatValidation.push(true);
+        console.log(Number.isInteger(floatPart.charAt(i)));
         Number.isInteger(floatPart.charAt(i)) && floatValidation.push(true);
       }
       console.log(floatValidation);
