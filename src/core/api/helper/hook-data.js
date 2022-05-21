@@ -204,6 +204,7 @@ const dataHandler = {
         : '';
       var floatValidation = [];
       for (var i = 0; i < floatPart.length; i++) {
+        console.log(floatPart.charAt(i));
         floatPart.charAt(i).includes('.') && floatValidation.push(true);
         Number.isInteger(floatPart.charAt(i)) && floatValidation.push(true);
       }
