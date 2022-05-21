@@ -175,6 +175,42 @@ const dataHandler = {
       : typeof i === 'number'
       ? i
       : 0;
+  },
+  customNumberFormat(thousands, decimal, precision, prefix, postfix) {
+    return function (d) {
+      if (typeof d !== 'number' && typeof d !== 'string') {
+        return d;
+      }
+
+      var negative = d < 0 ? '-' : '';
+      var flo = parseFloat(d);
+
+      // If NaN then there isn't much formatting that we can do - just
+      // return immediately, escaping any HTML (this was supposed to
+      // be a number after all)
+      if (isNaN(flo)) {
+        return __htmlEscapeEntities(d);
+      }
+
+      flo = flo.toFixed(precision);
+      d = Math.abs(flo);
+
+      var intPart = parseInt(d, 10);
+      var floatPart = precision
+        ? decimal +
+          Number((d - intPart).toFixed(precision))
+            .toString()
+            .substring(2)
+        : '';
+
+      return (
+        negative +
+        (prefix || '') +
+        intPart.toString().replace(/\B(?=(\d{3})+(?!\d))/g, thousands) +
+        floatPart +
+        (postfix || '')
+      );
+    };
   }
 };
 
