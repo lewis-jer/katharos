@@ -204,15 +204,13 @@ const dataHandler = {
         : '';
       var floatValidation = [];
       for (var i = 0; i < floatPart.length; i++) {
-        console.log(floatPart.charAt(i));
         floatPart.charAt(i) == '.' && floatValidation.push(true);
         !isNaN(floatPart.charAt(i)) && floatValidation.push(true);
       }
-      console.log(floatValidation);
       switch (floatValidation.length) {
-        case '1':
+        case 1:
           console.log('Case 1');
-        case '2':
+        case 2:
           console.log('Case 2');
       }
       return (
