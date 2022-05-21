@@ -207,7 +207,7 @@ const dataHandler = {
         console.log(floatPart.charAt(i));
         floatPart.charAt(i) == '.' && floatValidation.push(true);
         console.log(Number.isInteger(floatPart.charAt(i)));
-        Number.isInteger(floatPart.charAt(i)) && floatValidation.push(true);
+        !isNaN(floatPart.charAt(i)) && floatValidation.push(true);
       }
       console.log(floatValidation);
       return (
