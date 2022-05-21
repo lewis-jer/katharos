@@ -201,7 +201,7 @@ const dataHandler = {
           Number((d - intPart).toFixed(precision))
             .toString()
             .substring(2)
-        : 00;
+        : '00';
       console.log(floatPart);
       return (
         negative +
