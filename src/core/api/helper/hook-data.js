@@ -203,11 +203,10 @@ const dataHandler = {
             .substring(2)
         : '';
       var floatValidation = [];
-      [floatPart].forEach((item) => {
-        console.log(item);
-        item.includes('.') && floatValidation.push(true);
-        Number.isInteger(item) && floatValidation.push(true);
-      });
+      for (var i = 0; i < floatPart.length; i++) {
+        floatPart.charAt(i).includes('.') && floatValidation.push(true);
+        Number.isInteger(floatPart.charAt(i)) && floatValidation.push(true);
+      }
       console.log(floatValidation);
       return (
         negative +
