@@ -198,10 +198,10 @@ const dataHandler = {
       var intPart = parseInt(d, 10);
       var floatPart = precision
         ? decimal +
-          Number((d - intPart).toFixed(precision))
+          Number((((d - intPart) * 100) / 100).toFixed(precision))
             .toString()
             .substring(2)
-        : '00';
+        : '';
       console.log(floatPart);
       return (
         negative +
