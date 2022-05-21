@@ -199,8 +199,6 @@ const dataHandler = {
       var floatPart = precision
         ? decimal +
           Number((Math.round((d - intPart) * 100) / 100).toFixed(precision))
-            .toString()
-            .substring(2)
         : '';
       console.log(floatPart);
       return (
