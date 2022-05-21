@@ -209,6 +209,12 @@ const dataHandler = {
         !isNaN(floatPart.charAt(i)) && floatValidation.push(true);
       }
       console.log(floatValidation);
+      switch (floatValidation.length) {
+        case '1':
+          console.log('Case 1');
+        case '2':
+          console.log('Case 2');
+      }
       return (
         negative +
         (prefix || '') +
