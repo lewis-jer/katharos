@@ -226,6 +226,20 @@ const dataHandler = {
         (postfix || '')
       );
     };
+  },
+  calculate(originalValue, newValue, operator) {
+    var data;
+    switch (operator) {
+      case '+':
+        return originalValue + newValue;
+      case '-':
+        return originalValue - newValue;
+      case '/':
+        return originalValue / newValue;
+      case '*':
+        return originalValue * newValue;
+    }
+    return data;
   }
 };
 
