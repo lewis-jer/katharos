@@ -1,7 +1,8 @@
 class Store {
   constructor(data) {
     this.data = {
-      inputStore: {}
+      inputStore: {},
+      domStore: {}
     };
     this.next = null;
   }
