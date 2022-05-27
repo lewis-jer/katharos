@@ -152,6 +152,7 @@ const formClose = (_api) => {
 const formData = (formName) => {
   var formKeys = [];
   var formContent = document.forms[formName].elements;
+  console.log(formContent);
   for (var i in formContent) {
     formKeys.push(formContent[i].name);
   }
