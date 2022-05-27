@@ -191,6 +191,7 @@ const formContents = (formKeys, formAction, formContents) => {
         });
     }
   });
+  console.log();
   return contents;
 };
 
@@ -225,7 +226,6 @@ const preloadForm = (formName, formAction, modalName, content) => {
   console.log(content);
   var dateValidation = new Date('02 Jan 1970 00:00:00 GMT');
   contents.forEach((x) => {
-    console.log(x);
     if (Object.keys(content).includes(x.object.replace(`${formAction}_`, ''))) {
       if (formContent[x.object].tagName == 'INPUT') {
         var timestamp = new Date(
