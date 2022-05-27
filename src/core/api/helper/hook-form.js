@@ -218,6 +218,7 @@ const formSubmission = (_api) => {
 const preloadForm = (formName, formAction, modalName, content) => {
   var { formKeys, formContent } = formData(formName);
   var contents = formContents(formKeys, formAction, formContent);
+  console.log(contents);
   var dateValidation = new Date('02 Jan 1970 00:00:00 GMT');
   contents.forEach((x) => {
     console.log(x);
