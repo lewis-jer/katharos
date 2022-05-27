@@ -252,6 +252,10 @@ const preloadForm = (formName, formAction, modalName, content) => {
               console.log(y.options[i]);
               y.selectedIndex = i;
               break;
+            } else if (
+              y.options[i].value ==
+              content[x.object.replace(`${formAction}_`, '')]
+            ) {
             }
           }
         });
