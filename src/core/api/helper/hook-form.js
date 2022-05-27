@@ -160,8 +160,6 @@ const formData = (formName) => {
     return el != null && el != '';
   });
 
-  console.log(formKeys);
-  console.log(formContent);
   return {
     formKeys,
     formContent
@@ -191,7 +189,6 @@ const formContents = (formKeys, formAction, formContents) => {
         });
     }
   });
-  console.log();
   return contents;
 };
 
@@ -222,8 +219,6 @@ const preloadForm = (formName, formAction, modalName, content) => {
   console.log(formName);
   var { formKeys, formContent } = formData(formName);
   var contents = formContents(formKeys, formAction, formContent);
-  console.log(contents);
-  console.log(content);
   var dateValidation = new Date('02 Jan 1970 00:00:00 GMT');
   contents.forEach((x) => {
     if (Object.keys(content).includes(x.object.replace(`${formAction}_`, ''))) {
