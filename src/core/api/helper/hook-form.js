@@ -216,6 +216,7 @@ const formSubmission = (_api) => {
 };
 
 const preloadForm = (formName, formAction, modalName, content) => {
+  console.log(formName);
   var { formKeys, formContent } = formData(formName);
   var contents = formContents(formKeys, formAction, formContent);
   console.log(contents);
