@@ -242,11 +242,11 @@ const preloadForm = (formName, formAction, modalName, content) => {
       } else if (formContent[x.object].tagName == 'SELECT') {
         [formContent[x.object]].forEach((y, j) => {
           for (var i in y.options) {
-            console.log(y.options[i]);
             if (
               y.options[i].innerHTML ==
               content[x.object.replace(`${formAction}_`, '')]
             ) {
+              console.log(y.options[i]);
               y.selectedIndex = i;
               break;
             }
