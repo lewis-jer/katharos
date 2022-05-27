@@ -246,6 +246,7 @@ const preloadForm = (formName, formAction, modalName, content) => {
         [formContent[x.object]].forEach((y, j) => {
           for (var i in y.options) {
             console.log(y.options[i]);
+            console.log(content[x.object.replace(`${formAction}_`, '')]);
             if (
               y.options[i].innerHTML ==
               content[x.object.replace(`${formAction}_`, '')]
