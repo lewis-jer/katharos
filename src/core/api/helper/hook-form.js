@@ -218,11 +218,9 @@ const formSubmission = (_api) => {
 const preloadForm = (formName, formAction, modalName, content) => {
   var { formKeys, formContent } = formData(formName);
   var contents = formContents(formKeys, formAction, formContent);
-  console.log(JSON.stringify(formKeys, null, 2));
-  console.log(JSON.stringify(formContent, null, 2));
-  console.log(JSON.stringify(contents, null, 2));
   var dateValidation = new Date('02 Jan 1970 00:00:00 GMT');
   contents.forEach((x) => {
+    console.log(x);
     if (Object.keys(content).includes(x.object.replace(`${formAction}_`, ''))) {
       if (formContent[x.object].tagName == 'INPUT') {
         var timestamp = new Date(
@@ -242,6 +240,7 @@ const preloadForm = (formName, formAction, modalName, content) => {
       } else if (formContent[x.object].tagName == 'SELECT') {
         [formContent[x.object]].forEach((y, j) => {
           for (var i in y.options) {
+            console.log(y.options[i]);
             if (
               y.options[i].innerHTML ==
               content[x.object.replace(`${formAction}_`, '')]
