@@ -152,7 +152,6 @@ const formClose = (_api) => {
 const formData = (formName) => {
   var formKeys = [];
   var formContent = document.forms[formName].elements;
-  console.log(formContent);
   for (var i in formContent) {
     formKeys.push(formContent[i].name);
   }
@@ -161,6 +160,8 @@ const formData = (formName) => {
     return el != null && el != '';
   });
 
+  console.log(formKeys);
+  console.log(formContent);
   return {
     formKeys,
     formContent
