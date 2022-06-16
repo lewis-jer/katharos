@@ -48,7 +48,7 @@ _api = {
 
 _api = {
   ..._api,
-  ...helper.formMiddleware(_api).helper,
+  ...new helper.formMiddleware(_api).helper,
   init: initialization(_api)
 };
 
