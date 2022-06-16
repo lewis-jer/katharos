@@ -29,7 +29,7 @@ function formHelperAction(_api) {
       _api.removeElementsById();
 
       this.cleanForm(formName, formAction);
-      this.formSpinner(1);
+      formSpinner(1);
       $(`#${modalName}`).modal('hide');
 
       res.status == 'success' && alertify.success('Success');
@@ -201,7 +201,7 @@ function formHelperAction(_api) {
         console.log('Form Missing Required Information');
         this.validateForm(formName, formAction);
       } else {
-        this.formSpinner();
+        formSpinner();
         this.validateForm(formName, formAction);
         this.formSubmit(_api)(
           contents,
