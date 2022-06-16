@@ -275,7 +275,6 @@ const formMiddleware = (_api) => {
 
 function formHelperAction(_api) {
   const submissionHandle = handle(_api.system.http);
-  console.log(submissionHandle);
   this.helper = {
     completeAction(_api) {
       return async (formName, formAction, modalName, params = {}) => {
@@ -407,13 +406,11 @@ function formHelperAction(_api) {
         }
       };
     },
-    formClose(_api) {
-      return (formName, formAction, modalName) => {
-        _api.removeElementsById();
-        cleanForm(formName, formAction);
-        $(`#${modalName}`).modal('hide');
-        console.log('Form Closed Successfully');
-      };
+    formClose(formName, formAction, modalName) {
+      _api.removeElementsById();
+      cleanForm(formName, formAction);
+      $(`#${modalName}`).modal('hide');
+      console.log('Form Closed Successfully');
     },
     formData(formName) {
       var formKeys = [];
