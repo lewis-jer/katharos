@@ -276,29 +276,27 @@ const formMiddleware = (_api) => {
 function formHelperAction(_api) {
   const submissionHandle = handle(_api.system.http);
   this.helper = {
-    completeAction(_api) {
-      return async (formName, formAction, modalName, params = {}) => {
-        let { form, response, data, tableName } = params;
-        const { data: res } = response;
+    async completeAction(formName, formAction, modalName, params = {}) {
+      let { form, response, data, tableName } = params;
+      const { data: res } = response;
 
-        data = await validateUserFields(_api)(form, data);
-        data = await validateResponse(_api)(form, response, data);
-        data = await validateSearchAssist(_api)(form, response, data);
-        data = await validateDataset(_api)(form, data);
-        data = await validateFormDecryption(_api)(form, data);
+      data = await validateUserFields(_api)(form, data);
+      data = await validateResponse(_api)(form, response, data);
+      data = await validateSearchAssist(_api)(form, response, data);
+      data = await validateDataset(_api)(form, data);
+      data = await validateFormDecryption(_api)(form, data);
 
-        form.updateTable &&
-          (await _api.updateTable(tableName, data, formAction, endpoint));
+      form.updateTable &&
+        (await _api.updateTable(tableName, data, formAction, endpoint));
 
-        _api.removeElementsById();
+      _api.removeElementsById();
 
-        cleanForm(formName, formAction);
-        formSpinner(1);
-        $(`#${modalName}`).modal('hide');
+      cleanForm(formName, formAction);
+      formSpinner(1);
+      $(`#${modalName}`).modal('hide');
 
-        res.status == 'success' && alertify.success('Success');
-        res.status == 'fail' && alertify.error('Failure');
-      };
+      res.status == 'success' && alertify.success('Success');
+      res.status == 'fail' && alertify.error('Failure');
     },
     filterByValue(array, value) {
       return array.filter(
@@ -376,35 +374,28 @@ function formHelperAction(_api) {
         if (formContent[x].tagName == 'SELECT') removeOptions(formContent[x]);
       });
     },
-    formSubmit(_api) {
-      return async (contents, formName, formAction, modalName, tableName) => {
-        var modal = _api.system.getModal(modalName);
-        var form = _api.system.getForm(modal.form);
-        var data = parseFormData(contents, formAction);
-        form.store && Object.assign(data, { ..._api.store.getInputStore() });
-        form.version == 1 && (data = validateFormData(_api)(form, data));
-        data = validateSystemFields(_api)(form, data);
+    async formSubmit(contents, formName, formAction, modalName, tableName) {
+      var modal = _api.system.getModal(modalName);
+      var form = _api.system.getForm(modal.form);
+      var data = parseFormData(contents, formAction);
+      form.store && Object.assign(data, { ..._api.store.getInputStore() });
+      form.version == 1 && (data = validateFormData(_api)(form, data));
+      data = validateSystemFields(_api)(form, data);
 
-        console.log(JSON.parse(JSON.stringify(data)));
-        if (form.enabled) {
-          const response =
-            form.version == 1 && (await submissionHandle(form.handle, data));
+      console.log(JSON.parse(JSON.stringify(data)));
+      if (form.enabled) {
+        const response =
+          form.version == 1 && (await submissionHandle(form.handle, data));
 
-          typeof response.data !== 'undefined' &&
-            form.version == 1 &&
-            (async () => {
-              const { data: res } = response;
-              typeof res.insertId !== 'undefined' && (data.id = res.insertId);
-              const params = { form, response, data, tableName };
-              await completeAction(_api)(
-                formName,
-                formAction,
-                modalName,
-                params
-              );
-            })();
-        }
-      };
+        typeof response.data !== 'undefined' &&
+          form.version == 1 &&
+          (async () => {
+            const { data: res } = response;
+            typeof res.insertId !== 'undefined' && (data.id = res.insertId);
+            const params = { form, response, data, tableName };
+            await completeAction(_api)(formName, formAction, modalName, params);
+          })();
+      }
     },
     formClose(formName, formAction, modalName) {
       _api.removeElementsById();
@@ -453,35 +444,25 @@ function formHelperAction(_api) {
       });
       return contents;
     },
-    formSubmission(_api) {
-      return (formName, formAction, modalName, tableName) => {
-        var { formKeys, formContent } = formData(formName);
-        var contents = formContents(formKeys, formAction, formContent);
+    formSubmission(formName, formAction, modalName, tableName) {
+      var { formKeys, formContent } = formData(formName);
+      var contents = formContents(formKeys, formAction, formContent);
 
-        contents = contents.filter((el) => {
-          return (
-            el.object != null &&
-            el.object != '' &&
-            el.object.includes(formAction)
-          );
-        });
+      contents = contents.filter((el) => {
+        return (
+          el.object != null && el.object != '' && el.object.includes(formAction)
+        );
+      });
 
-        // Form Validation
-        if (contents.some((x) => x.value === false)) {
-          console.log('Form Missing Required Information');
-          validateForm(formName, formAction);
-        } else {
-          formSpinner();
-          validateForm(formName, formAction);
-          formSubmit(_api)(
-            contents,
-            formName,
-            formAction,
-            modalName,
-            tableName
-          );
-        }
-      };
+      // Form Validation
+      if (contents.some((x) => x.value === false)) {
+        console.log('Form Missing Required Information');
+        validateForm(formName, formAction);
+      } else {
+        formSpinner();
+        validateForm(formName, formAction);
+        formSubmit(_api)(contents, formName, formAction, modalName, tableName);
+      }
     },
     preloadForm(formName, formAction, modalName, content) {
       console.log(formName);
