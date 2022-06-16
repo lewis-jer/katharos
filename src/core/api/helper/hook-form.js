@@ -112,6 +112,7 @@ function formHelperAction(_api) {
       });
     },
     async formSubmit(contents, formName, formAction, modalName, tableName) {
+      console.log(this);
       var modal = _api.system.getModal(modalName);
       var form = _api.system.getForm(modal.form);
       var data = parseFormData(contents, formAction);
@@ -130,12 +131,7 @@ function formHelperAction(_api) {
             const { data: res } = response;
             typeof res.insertId !== 'undefined' && (data.id = res.insertId);
             const params = { form, response, data, tableName };
-            await this.completeAction(
-              formName,
-              formAction,
-              modalName,
-              params
-            );
+            await this.completeAction(formName, formAction, modalName, params);
           })();
       }
     },
@@ -203,13 +199,7 @@ function formHelperAction(_api) {
       } else {
         formSpinner();
         this.validateForm(formName, formAction);
-        this.formSubmit(
-          contents,
-          formName,
-          formAction,
-          modalName,
-          tableName
-        );
+        this.formSubmit(contents, formName, formAction, modalName, tableName);
       }
     },
     preloadForm(formName, formAction, modalName, content) {
