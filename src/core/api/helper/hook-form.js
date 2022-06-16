@@ -274,7 +274,7 @@ const formMiddleware = (_api) => {
 };
 
 function formHelperAction(_api) {
-  const submissionHandle = handle(_api.system.http);
+  this.submissionHandle = handle(_api.system.http);
   this.helper = {
     async completeAction(formName, formAction, modalName, params = {}) {
       let { form, response, data, tableName } = params;
@@ -385,7 +385,7 @@ function formHelperAction(_api) {
       console.log(JSON.parse(JSON.stringify(data)));
       if (form.enabled) {
         const response =
-          form.version == 1 && (await submissionHandle(form.handle, data));
+          form.version == 1 && (await this.submissionHandle(form.handle, data));
 
         typeof response.data !== 'undefined' &&
           form.version == 1 &&
