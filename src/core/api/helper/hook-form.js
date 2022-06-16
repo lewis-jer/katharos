@@ -111,7 +111,13 @@ function formHelperAction(_api) {
         if (formContent[x].tagName == 'SELECT') removeOptions(formContent[x]);
       });
     },
-    async formSubmit(contents, formName, formAction, modalName, tableName) {
+    formSubmit: async (
+      contents,
+      formName,
+      formAction,
+      modalName,
+      tableName
+    ) => {
       console.log('formHelper: ', this);
       var modal = _api.system.getModal(modalName);
       var form = _api.system.getForm(modal.form);
