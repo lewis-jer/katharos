@@ -381,6 +381,7 @@ function formHelperAction(_api) {
       modalName,
       tableName
     ) => {
+      console.log(this);
       var modal = _api.system.getModal(modalName);
       var form = _api.system.getForm(modal.form);
       var data = parseFormData(contents, formAction);
