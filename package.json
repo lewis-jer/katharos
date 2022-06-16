@@ -1,6 +1,6 @@
 {
   "name": "katharos",
-  "version": "1.0.807",
+  "version": "1.0.808",
   "description": "katharos framework",
   "main": "src/index.js",
   "scripts": {
