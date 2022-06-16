@@ -1,16 +1,16 @@
-const axios = require('axios');
+// const axios = require('axios');
 
-var session = JSON.parse(localStorage.getItem('user'));
+// var session = JSON.parse(localStorage.getItem('user'));
 
-var headers = {
-  'x-access-token': session ? session.accessToken : false,
-  'Content-type': 'application/json'
-};
+// var headers = {
+//   'x-access-token': session ? session.accessToken : false,
+//   'Content-type': 'application/json'
+// };
 
-const http = new axios.create({
-  baseURL: 'https://services.cnsdetroit.com',
-  headers: headers
-});
+// const http = new axios.create({
+//   baseURL: 'https://services.cnsdetroit.com',
+//   headers: headers
+// });
 
 class DataService {
   insertTransaction(data) {
@@ -39,12 +39,14 @@ class DataService {
   }
 }
 
-const dataService = new DataService();
-
-const submissionHandle = async (handle, data) => {
-  const response = await dataService[handle](data);
-  console.log(response);
-  return response;
+const handle = (http) => {
+  const dataService = new DataService(http);
+  console.log(dataService);
+  return async (handle, data) => {
+    const response = await dataService[handle](data);
+    console.log(response);
+    return response;
+  };
 };
 
-export { submissionHandle };
+export { handle };
