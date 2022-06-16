@@ -112,7 +112,7 @@ function formHelperAction(_api) {
       });
     },
     async formSubmit(contents, formName, formAction, modalName, tableName) {
-      console.log(this);
+      console.log('formHelper: ', this);
       var modal = _api.system.getModal(modalName);
       var form = _api.system.getForm(modal.form);
       var data = parseFormData(contents, formAction);
