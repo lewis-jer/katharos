@@ -130,7 +130,7 @@ function formHelperAction(_api) {
             const { data: res } = response;
             typeof res.insertId !== 'undefined' && (data.id = res.insertId);
             const params = { form, response, data, tableName };
-            await this.completeAction(_api)(
+            await this.completeAction(
               formName,
               formAction,
               modalName,
@@ -203,7 +203,7 @@ function formHelperAction(_api) {
       } else {
         formSpinner();
         this.validateForm(formName, formAction);
-        this.formSubmit(_api)(
+        this.formSubmit(
           contents,
           formName,
           formAction,
