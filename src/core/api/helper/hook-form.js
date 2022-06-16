@@ -11,7 +11,7 @@ import {
 import { handle } from './hook-handle';
 
 function formHelperAction(_api) {
-  this.submissionHandle = handle(_api.system.http);
+  this.submissionHandle = handle(_api.system.http());
   this.helper = {
     async completeAction(formName, formAction, modalName, params = {}) {
       let { form, response, data, tableName } = params;
