@@ -87,7 +87,7 @@ class System {
   }
 
   http() {
-    console.log(this);
+    console.log('http: ', this);
     return this.data.http;
   }
 
