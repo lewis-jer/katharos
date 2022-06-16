@@ -8,7 +8,9 @@ const parseFormData = (contents, formAction) => {
 };
 
 const validateFormData = (_api) => {
+  console.log(this);
   return (form, data) => {
+    console.log(this);
     form.hasOwnProperty('encryption') &&
       Object.entries(data).forEach((entry) => {
         const [key, value] = entry;
@@ -22,7 +24,9 @@ const validateFormData = (_api) => {
 };
 
 const validateFormDecryption = (_api) => {
+  console.log(this);
   return (form, data) => {
+    console.log(this);
     form.hasOwnProperty('decryption') &&
       Object.entries(data).forEach((entry) => {
         const [key, value] = entry;
@@ -33,7 +37,9 @@ const validateFormDecryption = (_api) => {
 };
 
 const validateDataset = (_api) => {
+  console.log(this);
   return (form, data) => {
+    console.log(this);
     form.hasOwnProperty('datasetMatcher') &&
       form.datasetMatcher.forEach((item) => {
         switch (item.target) {
@@ -64,7 +70,9 @@ const validateDataset = (_api) => {
 };
 
 const validateSystemFields = (_api) => {
+  console.log(this);
   return (form, data) => {
+    console.log(this);
     form.hasOwnProperty('systemFields') &&
       form.systemFields.forEach((field) => {
         data[field] = _api.system.createUniqueId();
@@ -74,7 +82,9 @@ const validateSystemFields = (_api) => {
 };
 
 const validateUserFields = (_api) => {
+  console.log(this);
   return (form, data) => {
+    console.log(this);
     form.hasOwnProperty('userFields') &&
       form.userFields.forEach((item) => {
         data[item.index] = _api.user.getUserItem(item, data[item.lookupIndex]);
@@ -84,7 +94,9 @@ const validateUserFields = (_api) => {
 };
 
 const validateResponse = (_api) => {
+  console.log(this);
   return (form, response, data) => {
+    console.log(this);
     form.hasOwnProperty('mergeResponse') &&
       form.mergeResponse &&
       Object.assign(data, { ...response.data });
@@ -93,7 +105,9 @@ const validateResponse = (_api) => {
 };
 
 const validateSearchAssist = (_api) => {
+  console.log(this);
   return (form, response, data) => {
+    console.log(this);
     const monthNames = _api.getMonthNames();
     form.hasOwnProperty('searchAssist') &&
       form.searchAssist.enabled &&
