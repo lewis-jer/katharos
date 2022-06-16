@@ -30,6 +30,7 @@ class DataService {
 const handle = (client) => {
   const dataService = new DataService();
   http = client;
+  console.log(client);
   return async (handle, data) => {
     const response = await dataService[handle](data);
     console.log(response);
