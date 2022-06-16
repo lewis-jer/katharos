@@ -1,4 +1,4 @@
-var http;
+var http = false;
 
 class DataService {
   insertTransaction(data) {
@@ -29,8 +29,8 @@ class DataService {
 
 const handle = (client) => {
   const dataService = new DataService();
-  http = client();
   return async (handle, data) => {
+    if (!http) http = client();
     const response = await dataService[handle](data);
     console.log(response);
     return response;
