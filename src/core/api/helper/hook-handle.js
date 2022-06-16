@@ -1,5 +1,3 @@
-var http = false;
-
 class DataService {
   insertTransaction(data) {
     return http.post('/fp-app/tx', data);
@@ -30,7 +28,7 @@ class DataService {
 const handle = (client) => {
   const dataService = new DataService();
   return async (handle, data) => {
-    if (!http) http = client();
+    console.log(client());
     const response = await dataService[handle](data);
     console.log(response);
     return response;
