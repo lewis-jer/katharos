@@ -1,16 +1,4 @@
-// const axios = require('axios');
-
-// var session = JSON.parse(localStorage.getItem('user'));
-
-// var headers = {
-//   'x-access-token': session ? session.accessToken : false,
-//   'Content-type': 'application/json'
-// };
-
-// const http = new axios.create({
-//   baseURL: 'https://services.cnsdetroit.com',
-//   headers: headers
-// });
+var http;
 
 class DataService {
   insertTransaction(data) {
@@ -26,7 +14,6 @@ class DataService {
     return http.put('/fp-app/bcat', data);
   }
   createBudget(data) {
-    console.log('createBudget: ', this);
     return http.post('/fp-app/bx', data);
   }
   updateBudget(data) {
@@ -41,8 +28,8 @@ class DataService {
 }
 
 const handle = (http) => {
-  const dataService = new DataService(http);
-  console.log(http);
+  const dataService = new DataService();
+  http = http;
   return async (handle, data) => {
     const response = await dataService[handle](data);
     console.log(response);
