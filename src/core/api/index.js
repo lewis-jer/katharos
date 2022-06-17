@@ -46,7 +46,7 @@ _api = {
   assembler: assembler(_api)
 };
 
-console.log(JSON.parse(JSON.stringify(_api)));
+console.log('_api current state: 2 ', JSON.parse(JSON.stringify(_api)));
 
 _api = {
   ..._api,
