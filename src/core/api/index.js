@@ -46,6 +46,8 @@ _api = {
   assembler: assembler(_api)
 };
 
+console.log(JSON.parse(JSON.stringify(_api)));
+
 _api = {
   ..._api,
   ...new helper.formMiddleware(_api).helper,
