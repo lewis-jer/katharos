@@ -141,7 +141,12 @@ function formHelperAction(_api) {
             typeof res.insertId !== 'undefined' && (data.id = res.insertId);
             const params = { form, response, data, tableName };
             console.log('Inside Scope: ', this);
-            await this.completeAction(formName, formAction, modalName, params);
+            await this.helper.completeAction(
+              formName,
+              formAction,
+              modalName,
+              params
+            );
           })();
       }
     },
