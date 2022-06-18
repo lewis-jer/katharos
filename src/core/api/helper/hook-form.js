@@ -118,7 +118,7 @@ function formHelperAction(_api) {
       modalName,
       tableName
     ) => {
-      !this.submissionHandle &&
+      !this.submissionHandle && 
         (this.submissionHandle = handle(_api.system.http()));
       console.log('formHelper: ', this);
       var modal = _api.system.getModal(modalName);

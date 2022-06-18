@@ -301,7 +301,7 @@ class User {
     return this.data.userProfile[key][randomNumber];
   }
   getUserStatus() {
-    if (getLocalStorageItem() == null) {
+    if (this.getLocalStorageItem() == null) {
       return true;
     } else {
       return false;
