@@ -7,20 +7,17 @@ function parseFormData(contents, formAction) {
   return data;
 }
 
-function validateFormData(_api) {
+function validateFormData(form, data) {
   console.log('validateFormData: ', this);
-  return (form, data) => {
-    console.log('validateFormData: ', this);
-    form.hasOwnProperty('encryption') &&
-      Object.entries(data).forEach((entry) => {
-        const [key, value] = entry;
-        form.encryption.includes(key) && (data[key] = _api.encrypter(value));
-      });
-    typeof data.username == 'undefined' &&
-      (data.username = _api.user.getUsername());
-    typeof data.SN == 'undefined' && (data.SN = uuid());
-    return data;
-  };
+  form.hasOwnProperty('encryption') &&
+    Object.entries(data).forEach((entry) => {
+      const [key, value] = entry;
+      form.encryption.includes(key) && (data[key] = this.encrypter(value));
+    });
+  typeof data.username == 'undefined' &&
+    (data.username = this.user.getUsername());
+  typeof data.SN == 'undefined' && (data.SN = uuid());
+  return data;
 }
 
 function validateFormDecryption(_api) {
