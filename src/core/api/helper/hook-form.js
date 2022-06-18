@@ -12,7 +12,20 @@ import { handle } from './hook-handle';
 
 function formHelperAction(_api) {
   this.submissionHandle = false;
+  this.count = 0;
   this.helper = {
+    async synchronizeForms() {
+      !this.submissionHandle &&
+        (this.submissionHandle = handle(_api.system.http()));
+
+      if (!(_api.user.getUserCount() != this.count)) {
+        this.submissionHandle = handle(_api.system.http());
+        this.count = _api.user.getUserCount();
+        console.log('New User Forms Synchronized');
+      }
+
+      return true;
+    },
     async completeAction(formName, formAction, modalName, params = {}) {
       let { form, response, data, tableName } = params;
       const { data: res } = response;
@@ -118,8 +131,10 @@ function formHelperAction(_api) {
       modalName,
       tableName
     ) => {
-      !this.submissionHandle && 
-        (this.submissionHandle = handle(_api.system.http()));
+      if (!synchronizeForms) {
+        formClose(formName, formAction, modalName, 'Form fail synchronize');
+        return;
+      }
       console.log('formHelper: ', this);
       var modal = _api.system.getModal(modalName);
       var form = _api.system.getForm(modal.form);
@@ -150,11 +165,12 @@ function formHelperAction(_api) {
           })();
       }
     },
-    formClose(formName, formAction, modalName) {
+    formClose(formName, formAction, modalName, message = false) {
       _api.removeElementsById();
       this.cleanForm(formName, formAction);
       $(`#${modalName}`).modal('hide');
-      console.log('Form Closed Successfully');
+      if (!message) console.log('Form Closed Successfully');
+      message && console.log(message);
     },
     formData(formName) {
       var formKeys = [];
