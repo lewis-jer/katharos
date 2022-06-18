@@ -12,7 +12,7 @@ import { handle } from './hook-handle';
 
 function formHelperAction(_api) {
   this.submissionHandle = false;
-  this.count = 0;
+  this.count = 1;
   this.helper = {
     async synchronizeForms() {
       !this.submissionHandle &&
