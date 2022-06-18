@@ -25,7 +25,7 @@ function validateFormDecryption(form, data) {
   form.hasOwnProperty('decryption') &&
     Object.entries(data).forEach((entry) => {
       const [key, value] = entry;
-      form.decryption.includes(key) && (data[key] = _api.decrypter(value));
+      form.decryption.includes(key) && (data[key] = this.decrypter(value));
     });
   return data;
 }
@@ -36,10 +36,10 @@ function validateDataset(form, data) {
     form.datasetMatcher.forEach((item) => {
       switch (item.target) {
         case 'tx':
-          data[item.index] = _api.txMatcher(data[item.lookupIndex]);
+          data[item.index] = this.txMatcher(data[item.lookupIndex]);
           break;
         case 'bcat':
-          data[item.index] = _api.bcatMatcher(
+          data[item.index] = this.bcatMatcher(
             data[item.lookupIndex],
             item.type
           );
@@ -74,7 +74,7 @@ function validateUserFields(form, data) {
   console.log('validateUserFields: ', this);
   form.hasOwnProperty('userFields') &&
     form.userFields.forEach((item) => {
-      data[item.index] = _api.user.getUserItem(item, data[item.lookupIndex]);
+      data[item.index] = this.user.getUserItem(item, data[item.lookupIndex]);
     });
   return data;
 }
@@ -89,7 +89,7 @@ function validateResponse(form, response, data) {
 
 function validateSearchAssist(form, response, data) {
   console.log('validateSearchAssist: ', this);
-  const monthNames = _api.getMonthNames();
+  const monthNames = this.getMonthNames();
   form.hasOwnProperty('searchAssist') &&
     form.searchAssist.enabled &&
     form.searchAssist.fields.forEach((field, index) => {
