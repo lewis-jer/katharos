@@ -140,6 +140,7 @@ function formHelperAction(_api) {
             typeof res.insertId !== 'undefined' && (data.id = res.insertId);
             const params = { form, response, data, tableName };
             await this.completeAction(formName, formAction, modalName, params);
+            console.log(this);
           })();
       }
     },
