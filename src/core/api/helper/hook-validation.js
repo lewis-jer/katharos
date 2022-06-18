@@ -69,17 +69,14 @@ function validateDataset(_api) {
   };
 }
 
-function validateSystemFields(_api) {
+function validateSystemFields(form, data) {
   console.log('validateSystemFields: ', this);
-  return (form, data) => {
-    console.log('validateSystemFields: ', this);
-    form.hasOwnProperty('systemFields') &&
-      form.systemFields.forEach((field) => {
-        data[field] = this.system.createUniqueId();
-      });
-    console.log(JSON.parse(JSON.stringify(data)));
-    return data;
-  };
+  form.hasOwnProperty('systemFields') &&
+    form.systemFields.forEach((field) => {
+      data[field] = this.system.createUniqueId();
+    });
+  console.log(JSON.parse(JSON.stringify(data)));
+  return data;
 }
 
 function validateUserFields(_api) {
