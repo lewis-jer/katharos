@@ -133,7 +133,7 @@ function formHelperAction(_api) {
         const response =
           form.version == 1 && (await this.submissionHandle(form.handle, data));
 
-        console.log(JSON.parse(JSON.stringify(this)));
+        console.log('Outside Scope: ', JSON.parse(JSON.stringify(this)));
         typeof response.data !== 'undefined' &&
           form.version == 1 &&
           (async () => {
@@ -141,7 +141,7 @@ function formHelperAction(_api) {
             typeof res.insertId !== 'undefined' && (data.id = res.insertId);
             const params = { form, response, data, tableName };
             await this.completeAction(formName, formAction, modalName, params);
-            console.log(this);
+            console.log('Inside Scope: ', this);
           })();
       }
     },
