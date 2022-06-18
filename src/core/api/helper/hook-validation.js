@@ -77,7 +77,7 @@ function validateSystemFields(_api) {
       form.systemFields.forEach((field) => {
         data[field] = this.system.createUniqueId();
       });
-    console.log(data);
+    console.log(JSON.parse(JSON.stringify(data)));
     return data;
   };
 }
