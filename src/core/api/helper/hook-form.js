@@ -15,16 +15,17 @@ function formHelperAction(_api) {
   this.count = 1;
   this.helper = {
     async synchronizeForms() {
-      !this.submissionHandle &&
-        (this.submissionHandle = handle(_api.system.http()));
-
-      if (!(_api.user.getUserCount() != this.count)) {
+      if (!this.submissionHandle) {
+        this.submissionHandle = handle(_api.system.http());
+        console.log('User Forms Synchronized');
+      } else if (!(_api.user.getUserCount() != this.count)) {
         this.submissionHandle = handle(_api.system.http());
         this.count = _api.user.getUserCount();
         console.log('New User Forms Synchronized');
+        return true;
       }
 
-      return true;
+      return false;
     },
     async completeAction(formName, formAction, modalName, params = {}) {
       let { form, response, data, tableName } = params;
