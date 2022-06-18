@@ -131,7 +131,7 @@ function formHelperAction(_api) {
       modalName,
       tableName
     ) => {
-      if (!this.synchronizeForms()) {
+      if (!this.helper.synchronizeForms()) {
         formClose(formName, formAction, modalName, 'Form fail synchronize');
         return;
       }
