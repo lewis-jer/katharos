@@ -132,7 +132,7 @@ function formHelperAction(_api) {
       modalName,
       tableName
     ) => {
-      const synchronized = await !this.helper.synchronizeForms();
+      const synchronized = await this.helper.synchronizeForms();
       if (!synchronized) {
         formClose(formName, formAction, modalName, 'Form fail synchronize');
         return;
