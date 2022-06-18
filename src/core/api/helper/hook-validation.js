@@ -1,13 +1,13 @@
-const parseFormData = (contents, formAction) => {
+function parseFormData(contents, formAction) {
   var data = {};
   contents.map((x, i) => {
     contents[i].object = contents[i].object.replace(`${formAction}_`, '');
     data[contents[i].object] = contents[i].value;
   });
   return data;
-};
+}
 
-const validateFormData = (_api) => {
+function validateFormData(_api) {
   console.log('validateFormData: ', this);
   return (form, data) => {
     console.log('validateFormData: ', this);
@@ -21,9 +21,9 @@ const validateFormData = (_api) => {
     typeof data.SN == 'undefined' && (data.SN = uuid());
     return data;
   };
-};
+}
 
-const validateFormDecryption = (_api) => {
+function validateFormDecryption(_api) {
   console.log('validateFormDecryption: ', this);
   return (form, data) => {
     console.log('validateFormDecryption: ', this);
@@ -34,9 +34,9 @@ const validateFormDecryption = (_api) => {
       });
     return data;
   };
-};
+}
 
-const validateDataset = (_api) => {
+function validateDataset(_api) {
   console.log('validateDataset: ', this);
   return (form, data) => {
     console.log('validateDataset: ', this);
@@ -67,7 +67,7 @@ const validateDataset = (_api) => {
       });
     return data;
   };
-};
+}
 
 function validateSystemFields(_api) {
   console.log('validateSystemFields: ', this);
@@ -81,7 +81,7 @@ function validateSystemFields(_api) {
   };
 }
 
-const validateUserFields = (_api) => {
+function validateUserFields(_api) {
   console.log('validateUserFields: ', this);
   return (form, data) => {
     console.log('validateUserFields: ', this);
@@ -91,9 +91,9 @@ const validateUserFields = (_api) => {
       });
     return data;
   };
-};
+}
 
-const validateResponse = (_api) => {
+function validateResponse(_api) {
   console.log('validateResponse: ', this);
   return (form, response, data) => {
     console.log('validateResponse: ', this);
@@ -102,9 +102,9 @@ const validateResponse = (_api) => {
       Object.assign(data, { ...response.data });
     return data;
   };
-};
+}
 
-const validateSearchAssist = (_api) => {
+function validateSearchAssist(_api) {
   console.log('validateSearchAssist: ', this);
   return (form, response, data) => {
     console.log('validateSearchAssist: ', this);
@@ -132,7 +132,7 @@ const validateSearchAssist = (_api) => {
       });
     return data;
   };
-};
+}
 
 export {
   parseFormData,
