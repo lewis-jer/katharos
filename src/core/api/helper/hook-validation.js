@@ -20,50 +20,44 @@ function validateFormData(form, data) {
   return data;
 }
 
-function validateFormDecryption(_api) {
+function validateFormDecryption(form, data) {
   console.log('validateFormDecryption: ', this);
-  return (form, data) => {
-    console.log('validateFormDecryption: ', this);
-    form.hasOwnProperty('decryption') &&
-      Object.entries(data).forEach((entry) => {
-        const [key, value] = entry;
-        form.decryption.includes(key) && (data[key] = _api.decrypter(value));
-      });
-    return data;
-  };
+  form.hasOwnProperty('decryption') &&
+    Object.entries(data).forEach((entry) => {
+      const [key, value] = entry;
+      form.decryption.includes(key) && (data[key] = _api.decrypter(value));
+    });
+  return data;
 }
 
-function validateDataset(_api) {
+function validateDataset(form, data) {
   console.log('validateDataset: ', this);
-  return (form, data) => {
-    console.log('validateDataset: ', this);
-    form.hasOwnProperty('datasetMatcher') &&
-      form.datasetMatcher.forEach((item) => {
-        switch (item.target) {
-          case 'tx':
-            data[item.index] = _api.txMatcher(data[item.lookupIndex]);
-            break;
-          case 'bcat':
-            data[item.index] = _api.bcatMatcher(
-              data[item.lookupIndex],
-              item.type
-            );
-            break;
-          case 'date':
-            switch (item.type) {
-              case 'LocaleDateString':
-                data[item.index] = `${new Date(
-                  data[item.lookupIndex]
-                ).toLocaleDateString()}`;
-                break;
-            }
-            break;
-          default:
-            data[item.index] = data[item.lookupIndex];
-        }
-      });
-    return data;
-  };
+  form.hasOwnProperty('datasetMatcher') &&
+    form.datasetMatcher.forEach((item) => {
+      switch (item.target) {
+        case 'tx':
+          data[item.index] = _api.txMatcher(data[item.lookupIndex]);
+          break;
+        case 'bcat':
+          data[item.index] = _api.bcatMatcher(
+            data[item.lookupIndex],
+            item.type
+          );
+          break;
+        case 'date':
+          switch (item.type) {
+            case 'LocaleDateString':
+              data[item.index] = `${new Date(
+                data[item.lookupIndex]
+              ).toLocaleDateString()}`;
+              break;
+          }
+          break;
+        default:
+          data[item.index] = data[item.lookupIndex];
+      }
+    });
+  return data;
 }
 
 function validateSystemFields(form, data) {
@@ -76,57 +70,48 @@ function validateSystemFields(form, data) {
   return data;
 }
 
-function validateUserFields(_api) {
+function validateUserFields(form, data) {
   console.log('validateUserFields: ', this);
-  return (form, data) => {
-    console.log('validateUserFields: ', this);
-    form.hasOwnProperty('userFields') &&
-      form.userFields.forEach((item) => {
-        data[item.index] = _api.user.getUserItem(item, data[item.lookupIndex]);
-      });
-    return data;
-  };
+  form.hasOwnProperty('userFields') &&
+    form.userFields.forEach((item) => {
+      data[item.index] = _api.user.getUserItem(item, data[item.lookupIndex]);
+    });
+  return data;
 }
 
-function validateResponse(_api) {
+function validateResponse(form, response, data) {
   console.log('validateResponse: ', this);
-  return (form, response, data) => {
-    console.log('validateResponse: ', this);
-    form.hasOwnProperty('mergeResponse') &&
-      form.mergeResponse &&
-      Object.assign(data, { ...response.data });
-    return data;
-  };
+  form.hasOwnProperty('mergeResponse') &&
+    form.mergeResponse &&
+    Object.assign(data, { ...response.data });
+  return data;
 }
 
-function validateSearchAssist(_api) {
+function validateSearchAssist(form, response, data) {
   console.log('validateSearchAssist: ', this);
-  return (form, response, data) => {
-    console.log('validateSearchAssist: ', this);
-    const monthNames = _api.getMonthNames();
-    form.hasOwnProperty('searchAssist') &&
-      form.searchAssist.enabled &&
-      form.searchAssist.fields.forEach((field, index) => {
-        switch (field.valueType) {
-          case 'month':
-            data[`searchAssist${index}`] = `${
-              monthNames[new Date(data[field.index]).getMonth()]
-            }`;
-            break;
-          case 'year':
-            data[`searchAssist${index}`] = `${new Date(
-              data[field.index]
-            ).getFullYear()}`;
-            break;
-          case 'month/year':
-            data[`searchAssist${index}`] = `${
-              monthNames[new Date(data[field.index]).getMonth()]
-            } ${new Date(data[field.index]).getFullYear()}`;
-            break;
-        }
-      });
-    return data;
-  };
+  const monthNames = _api.getMonthNames();
+  form.hasOwnProperty('searchAssist') &&
+    form.searchAssist.enabled &&
+    form.searchAssist.fields.forEach((field, index) => {
+      switch (field.valueType) {
+        case 'month':
+          data[`searchAssist${index}`] = `${
+            monthNames[new Date(data[field.index]).getMonth()]
+          }`;
+          break;
+        case 'year':
+          data[`searchAssist${index}`] = `${new Date(
+            data[field.index]
+          ).getFullYear()}`;
+          break;
+        case 'month/year':
+          data[`searchAssist${index}`] = `${
+            monthNames[new Date(data[field.index]).getMonth()]
+          } ${new Date(data[field.index]).getFullYear()}`;
+          break;
+      }
+    });
+  return data;
 }
 
 export {

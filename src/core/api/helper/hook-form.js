@@ -17,11 +17,11 @@ function formHelperAction(_api) {
       let { form, response, data, tableName } = params;
       const { data: res } = response;
 
-      data = await validateUserFields(_api)(form, data);
-      data = await validateResponse(_api)(form, response, data);
-      data = await validateSearchAssist(_api)(form, response, data);
-      data = await validateDataset(_api)(form, data);
-      data = await validateFormDecryption(_api)(form, data);
+      data = await validateUserFields.call(_api, form, data);
+      data = await validateResponse.call(_api, form, response, data);
+      data = await validateSearchAssist.call(_api, form, response, data);
+      data = await validateDataset.call(_api, form, data);
+      data = await validateFormDecryption.call(_api, form, data);
 
       form.updateTable &&
         (await _api.updateTable(tableName, data, formAction, endpoint));
