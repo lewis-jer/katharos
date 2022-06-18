@@ -126,7 +126,7 @@ function formHelperAction(_api) {
       var data = parseFormData(contents, formAction);
       form.store && Object.assign(data, { ..._api.store.getInputStore() });
       form.version == 1 && (data = validateFormData(_api)(form, data));
-      data = validateSystemFields(_api).bind(this)(form, data);
+      data = validateSystemFields(_api)(form, data);
 
       console.log(JSON.parse(JSON.stringify(data)));
       if (form.enabled) {
