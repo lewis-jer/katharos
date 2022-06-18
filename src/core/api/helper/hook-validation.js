@@ -69,7 +69,7 @@ const validateDataset = (_api) => {
   };
 };
 
-const validateSystemFields = (_api) => {
+function validateSystemFields(_api) {
   console.log('validateSystemFields: ', this);
   return (form, data) => {
     console.log('validateSystemFields: ', this);
@@ -79,7 +79,7 @@ const validateSystemFields = (_api) => {
       });
     return data;
   };
-};
+}
 
 const validateUserFields = (_api) => {
   console.log('validateUserFields: ', this);
