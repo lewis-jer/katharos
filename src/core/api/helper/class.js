@@ -231,7 +231,8 @@ class User {
   constructor(data) {
     this.data = {
       userLocalSession: {},
-      userProfile: {}
+      userProfile: {},
+      userCount: 0
     };
     this.next = null;
   }
@@ -306,6 +307,12 @@ class User {
     } else {
       return false;
     }
+  }
+  getUserCount() {
+    return this.data.userCount;
+  }
+  setUserCount() {
+    this.data.userCount++;
   }
 }
 
