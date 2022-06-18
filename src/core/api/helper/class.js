@@ -300,6 +300,13 @@ class User {
       0;
     return this.data.userProfile[key][randomNumber];
   }
+  getUserStatus() {
+    if (getLocalStorageItem() == null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 
 export { System, User };
