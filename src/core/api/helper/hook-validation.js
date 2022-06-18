@@ -75,8 +75,9 @@ function validateSystemFields(_api) {
     console.log('validateSystemFields: ', this);
     form.hasOwnProperty('systemFields') &&
       form.systemFields.forEach((field) => {
-        data[field] = _api.system.createUniqueId();
+        data[field] = this.system.createUniqueId();
       });
+    console.log(data);
     return data;
   };
 }
