@@ -24,6 +24,8 @@ function formHelperAction(_api) {
         this.count = _api.user.getUserCount();
         console.log('New User Forms Synchronized');
         return true;
+      } else if (_api.user.getUserStatus()) {
+        return true;
       }
 
       return false;
