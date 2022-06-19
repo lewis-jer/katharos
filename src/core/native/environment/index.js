@@ -31,6 +31,7 @@ const componentLoader = async function (_api, pageInfo) {
 
   _api.system.componentLoader('navigationBar', true);
   const current = _api.system.getModule([components.navbar.arrayExpression]);
+  console.log(current);
   current.loaded
     ? await pageReloader(_api, current)
     : await pageLoader(_api, current);
