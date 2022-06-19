@@ -239,7 +239,7 @@ class System {
     console.log('initializeMiddleware: ', pageInfo);
     pageInfo.middleware
       ? await this.data.middleware.push(
-          this.data.middlewareConfig[pageInfo.arrayExpression]
+          this.data.middlewareConfig[pageInfo.endpoint]
         )
       : this.data.middleware.push(false);
     return true;
