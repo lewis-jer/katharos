@@ -66,4 +66,3 @@ const tableMiddleware = (_api) => {
 };
 
 export { tableMiddleware };
-log
