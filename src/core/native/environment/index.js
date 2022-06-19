@@ -17,7 +17,7 @@ const pageReloader = async function (_api, pageInfo) {
   await _api.system.instantiateMiddleware(_api, pageInfo);
 };
 const componentLoader = async function (_api, pageInfo) {
-  var systemComponents = _api.arrayToObject(components.system);
+  var systemComponents = _api.system.getComponents();
   console.log(systemComponents);
   console.log(_api.system.getComponents());
 
@@ -28,7 +28,7 @@ const componentLoader = async function (_api, pageInfo) {
   document.getElementById('wrapper').innerHTML += systemComponents.navbar.html;
 
   _api.system.componentLoader('navigationBar', true);
-
+  console.log(_api.arrayToObject(components.system).navbar.arrayExpression);
   _api.arrayToObject(modulePath)[
     _api.arrayToObject(components.system).navbar.arrayExpression
   ].loaded
