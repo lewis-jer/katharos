@@ -12,6 +12,7 @@ class System {
       middleware: [],
       middlewareConfig: {},
       componentLib: { navigationBar: { status: false } },
+      components: {},
       modals: {},
       forms: {},
       charts: {},
@@ -56,6 +57,12 @@ class System {
       if (key.includes('views')) {
         for (const [module, view] of Object.entries(value)) {
           this.data.views[view.name] = view;
+        }
+      }
+
+      if (key.includes('components')) {
+        for (const [module, component] of Object.entries(value)) {
+          this.data.views[component.arrayExpression] = component;
         }
       }
 
