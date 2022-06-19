@@ -2,9 +2,7 @@ import { loadPage } from './action-canvas';
 
 function pageActions(_api) {
   this.helper = {
-    loadPage(_api) {
-      return loadPage(_api);
-    },
+    loadPage: loadPage.call(_api),
     loadIndex: 1
   };
 }
