@@ -1,15 +1,10 @@
 const pageObjects = (_api) => {
   return {
     objectGenerator: function (pageName, modalName) {
-      console.log(pageName, modalName);
       var modal = _api.system.getModal(modalName);
-      console.log(modal);
-      var inputModal = _api.arrayToObject(modals[pageName]);
-      console.log(inputModal);
-      document.getElementById('modalCanvas').innerHTML =
-        inputModal[modalName].html;
+      document.getElementById('modalCanvas').innerHTML = modal.html;
       _api.addEvent('createModal', {
-        modalId: inputModal[modalName].id,
+        modalId: modal.id,
         userIdentifier: JSON.parse(localStorage.getItem('user')).email,
         location: pageName
       });
