@@ -68,9 +68,8 @@ class System {
       }
 
       if (key.includes('modules')) {
-        console.log(value);
         for (const module of value) {
-          this.data.modules[module.arrayExpression] = module;
+          this.data.modules[module.endpoint] = module;
         }
       }
 
