@@ -138,7 +138,6 @@ function formHelperAction(_api) {
         formClose(formName, formAction, modalName, 'Form fail synchronize');
         return;
       }
-      console.log('formHelper: ', this);
       var modal = _api.system.getModal(modalName);
       var form = _api.system.getForm(modal.form);
       var data = parseFormData(contents, formAction);
