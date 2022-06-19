@@ -10,7 +10,7 @@ const loadPage = (_api) => {
     console.log(page);
     if (router.sourceRouteInformation.loaded) {
       _api.addEvent('clearPage', {
-        documentId: documents[currPage].id,
+        documentId: page.id,
         userIdentifier: router.authentication.userId,
         location: currPage
       });
@@ -18,6 +18,9 @@ const loadPage = (_api) => {
     }
 
     window.endpoint = router.route;
+    let destination = _api.system.getView(router.route);
+    console.log(router.route);
+    console.log(destination);
     await generatePage(router.route, router.routeInformation);
     _api.addEvent('generatePage', {
       documentId: documents[router.route].id,
