@@ -19,7 +19,8 @@ class System {
       tables: {},
       httpConfig: {},
       http: {},
-      views: {}
+      views: {},
+      modules: {}
     };
     this.next = null;
   }
@@ -63,6 +64,12 @@ class System {
       if (key.includes('components')) {
         for (const component of value) {
           this.data.components[component.arrayExpression] = component;
+        }
+      }
+
+      if (key.includes('modules')) {
+        for (const module of value) {
+          this.data.modules[module.arrayExpression] = module;
         }
       }
 
@@ -130,6 +137,14 @@ class System {
 
   getComponents() {
     return this.data.components;
+  }
+
+  getModule(name) {
+    return this.data.modules[name];
+  }
+
+  getModules() {
+    return this.data.modules;
   }
 
   setChartActiveElement(name, element) {
