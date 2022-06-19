@@ -59,8 +59,9 @@ const dataHandler = {
     }
   },
   plaid: async function ($) {
-    console.log(JSON.parse(JSON.stringify(this)));
+    console.log(this);
     const fetchLinkToken = async () => {
+      console.log(this.system.http().get('plaid/create-link-token'));
       const { linkToken } = await dataService('GET', 'plaid/create-link-token');
       return linkToken;
     };
