@@ -245,8 +245,12 @@ class System {
   }
 
   async instantiateMiddleware(_api, pageInfo) {
+    async function instantiate() {
+      await this.getMiddleware(pageInfo.loadIndex)(_api);
+      return 'Middleware Instantiation Success';
+    }
     var instantiation = this.data.middleware[pageInfo.loadIndex]
-      ? await this.getMiddleware(pageInfo.loadIndex)(_api)
+      ? await instantiate()
       : 'Middleware Instantiation Fail';
     return instantiation;
   }
