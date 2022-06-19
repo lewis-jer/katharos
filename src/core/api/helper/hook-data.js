@@ -81,9 +81,16 @@ const dataHandler = {
         const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
         localStorage.setItem('user', modifiedndstrigifiedForStorage);
         plaidBtn.style.display = 'none';
-        await dataService('POST', 'plaid/token-exchange', false, {
-          publicToken: publicToken
-        });
+        console.log(
+          await this.system
+            .http()
+            .post('fp-app/plaid/token-exchange/' + this.user.getUsername(), {
+              publicToken: publicToken
+            })
+        );
+        // await dataService('POST', 'plaid/token-exchange', false, {
+        //   publicToken: publicToken
+        // });
       },
       onLoad: () => {},
       onExit: (err, metadata) => {},
