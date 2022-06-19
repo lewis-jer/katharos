@@ -62,7 +62,7 @@ class System {
 
       if (key.includes('components')) {
         for (const [module, component] of Object.entries(value)) {
-          this.data.views[component.arrayExpression] = component;
+          this.data.components[component.arrayExpression] = component;
         }
       }
 
