@@ -8,7 +8,6 @@ function parseFormData(contents, formAction) {
 }
 
 function validateFormData(form, data) {
-  console.log('validateFormData: ', this);
   form.hasOwnProperty('encryption') &&
     Object.entries(data).forEach((entry) => {
       const [key, value] = entry;
@@ -21,7 +20,6 @@ function validateFormData(form, data) {
 }
 
 function validateFormDecryption(form, data) {
-  console.log('validateFormDecryption: ', this);
   form.hasOwnProperty('decryption') &&
     Object.entries(data).forEach((entry) => {
       const [key, value] = entry;
@@ -31,7 +29,6 @@ function validateFormDecryption(form, data) {
 }
 
 function validateDataset(form, data) {
-  console.log('validateDataset: ', this);
   form.hasOwnProperty('datasetMatcher') &&
     form.datasetMatcher.forEach((item) => {
       switch (item.target) {
@@ -61,17 +58,14 @@ function validateDataset(form, data) {
 }
 
 function validateSystemFields(form, data) {
-  console.log('validateSystemFields: ', this);
   form.hasOwnProperty('systemFields') &&
     form.systemFields.forEach((field) => {
       data[field] = this.system.createUniqueId();
     });
-  console.log(JSON.parse(JSON.stringify(data)));
   return data;
 }
 
 function validateUserFields(form, data) {
-  console.log('validateUserFields: ', this);
   form.hasOwnProperty('userFields') &&
     form.userFields.forEach((item) => {
       data[item.index] = this.user.getUserItem(item, data[item.lookupIndex]);
@@ -80,7 +74,6 @@ function validateUserFields(form, data) {
 }
 
 function validateResponse(form, response, data) {
-  console.log('validateResponse: ', this);
   form.hasOwnProperty('mergeResponse') &&
     form.mergeResponse &&
     Object.assign(data, { ...response.data });
@@ -88,7 +81,6 @@ function validateResponse(form, response, data) {
 }
 
 function validateSearchAssist(form, response, data) {
-  console.log('validateSearchAssist: ', this);
   const monthNames = this.getMonthNames();
   form.hasOwnProperty('searchAssist') &&
     form.searchAssist.enabled &&
