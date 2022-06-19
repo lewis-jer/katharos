@@ -145,7 +145,7 @@ function formHelperAction(_api) {
       form.version == 1 && (data = validateFormData.call(_api, form, data));
       data = validateSystemFields.call(_api, form, data);
 
-      console.log(JSON.parse(JSON.stringify(data)));
+      console.log(`preparedData: `, JSON.parse(JSON.stringify(data)));
       if (form.enabled) {
         const response =
           form.version == 1 && (await this.submissionHandle(form.handle, data));
