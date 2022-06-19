@@ -2,7 +2,7 @@ import { handleTableAction } from './hook-action';
 
 const updateTable = (_api) => {
   return (tableName, data, formAction) => {
-    console.log(JSON.parse(JSON.stringify(data)));
+    console.log(`updateTable: `, JSON.parse(JSON.stringify(data)));
     handleTableAction(_api)(tableName, data, formAction);
   };
 };
