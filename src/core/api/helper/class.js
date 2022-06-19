@@ -236,6 +236,7 @@ class System {
   }
 
   async initializeMiddleware(pageInfo) {
+    console.log('initializeMiddleware: ', pageInfo);
     pageInfo.middleware
       ? await this.data.middleware.push(
           this.data.middlewareConfig[pageInfo.arrayExpression]
