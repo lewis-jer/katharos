@@ -61,7 +61,7 @@ class System {
       }
 
       if (key.includes('components')) {
-        for (const [module, component] of Object.entries(value)) {
+        for (const component in value) {
           this.data.components[component.arrayExpression] = component;
         }
       }
