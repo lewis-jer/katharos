@@ -63,12 +63,15 @@ const dataHandler = {
   plaid: async function ($) {
     console.log(this);
     const fetchLinkToken = async () => {
-      // console.log(
-      //   await this.system
-      //     .http()
-      //     .get('plaid/create-link-token/' + this.user.getUsername())
-      // );
-      const { linkToken } = await dataService('GET', 'plaid/create-link-token');
+      console.log(
+        await this.system
+          .http()
+          .get('plaid/create-link-token/' + this.user.getUsername())
+      );
+      const { linkToken } = await dataService(
+        'GET',
+        'fp-app/plaid/create-link-token'
+      );
       return linkToken;
     };
 
