@@ -1,7 +1,7 @@
 import { getEndpoint } from '../../../../katharos-router';
 import { generate, clearPage } from '../native';
 
-const loadPage = (_api) => {
+function loadPage(_api) {
   console.log('loadPage: ', this);
   const generatePage = generate(_api);
   return async (currPage, pageName) => {
@@ -25,6 +25,6 @@ const loadPage = (_api) => {
       target: router.route
     });
   };
-};
+}
 
 export { loadPage };
