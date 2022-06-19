@@ -3,7 +3,7 @@ import { loadPage } from './action-canvas';
 function pageActions(_api) {
   console.log('pageActions: ', this);
   return {
-    loadPage: loadPage(_api),
+    loadPage: loadPage.call(this, _api),
     loadIndex: 1
   };
 }
