@@ -251,7 +251,7 @@ class System {
       return 'Middleware Instantiation Success';
     }
     var instantiation = this.data.middleware[pageInfo.loadIndex]
-      ? await instantiate()
+      ? await instantiate.call(this)
       : 'Middleware Instantiation Fail';
     return instantiation;
   }
