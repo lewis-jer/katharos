@@ -5,6 +5,7 @@ const pageObjects = (_api) => {
       var modal = _api.system.getModal(modalName);
       console.log(modal);
       var inputModal = _api.arrayToObject(modals[pageName]);
+      console.log(inputModal);
       document.getElementById('modalCanvas').innerHTML =
         inputModal[modalName].html;
       _api.addEvent('createModal', {
