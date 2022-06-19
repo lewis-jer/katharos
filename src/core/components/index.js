@@ -1,6 +1,9 @@
 const pageObjects = (_api) => {
   return {
     objectGenerator: function (pageName, modalName) {
+      console.log(pageName, modalName);
+      var modal = _api.system.getModal(modalName);
+      console.log(modal);
       var inputModal = _api.arrayToObject(modals[pageName]);
       document.getElementById('modalCanvas').innerHTML =
         inputModal[modalName].html;
