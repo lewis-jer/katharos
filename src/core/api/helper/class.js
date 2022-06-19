@@ -54,6 +54,7 @@ class System {
       }
 
       if (key.includes('views')) {
+        console.log(value);
         for (const [module, view] of Object.entries(value)) {
           this.data.views[view.name] = view;
         }
