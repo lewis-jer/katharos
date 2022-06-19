@@ -9,11 +9,10 @@ const pageObjects = (_api) => {
         location: pageName
       });
 
-      var inputForm = _api.arrayToObject(forms[pageName]);
-      document.getElementById('formCanvas').innerHTML =
-        inputForm[modalName].html;
+      var form = _api.system.getForm(modal.form);
+      document.getElementById('formCanvas').innerHTML = form.html;
       _api.addEvent('createForm', {
-        formId: inputForm[modalName].id,
+        formId: form.id,
         userIdentifier: JSON.parse(localStorage.getItem('user')).email,
         location: pageName
       });
