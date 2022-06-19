@@ -28,21 +28,14 @@ const componentLoader = async function (_api, pageInfo) {
   document.getElementById('wrapper').innerHTML += systemComponents.navbar.html;
 
   _api.system.componentLoader('navigationBar', true);
-  console.log(_api.arrayToObject(components.system).navbar.arrayExpression);
-  _api.arrayToObject(modulePath)[
-    _api.arrayToObject(components.system).navbar.arrayExpression
-  ].loaded
+  _api.arrayToObject(modulePath)[systemComponents.navbar.arrayExpression].loaded
     ? await pageReloader(
         _api,
-        _api.arrayToObject(modulePath)[
-          _api.arrayToObject(components.system).navbar.arrayExpression
-        ]
+        _api.arrayToObject(modulePath)[systemComponents.navbar.arrayExpression]
       )
     : await pageLoader(
         _api,
-        _api.arrayToObject(modulePath)[
-          _api.arrayToObject(components.system).navbar.arrayExpression
-        ]
+        _api.arrayToObject(modulePath)[systemComponents.navbar.arrayExpression]
       );
 
   _api.addEvent('loadComponent', {
