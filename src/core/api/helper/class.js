@@ -125,6 +125,14 @@ class System {
     return this.data.tables[name];
   }
 
+  getComponent(name) {
+    return this.data.components[name];
+  }
+
+  getComponents() {
+    return this.data.components;
+  }
+
   setChartActiveElement(name, element) {
     this.data.charts[name].active = element;
   }

@@ -18,6 +18,8 @@ const pageReloader = async function (_api, pageInfo) {
 };
 const componentLoader = async function (_api, pageInfo) {
   var systemComponents = _api.arrayToObject(components.system);
+  console.log(systemComponents);
+  console.log(_api.system.getComponents());
 
   //Clear Page
   document.getElementById('wrapper').innerHTML = '';
