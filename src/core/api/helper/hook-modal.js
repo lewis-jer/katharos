@@ -20,7 +20,7 @@ const removeElementsById = (_api) => {
 
 const modalSync = (_api) => {
   return (modalFunc, modalName) => {
-    modal = _api.system.getModal(modalName);
+    var modal = _api.system.getModal(modalName);
     for (var j in modal.select) {
       var select = document.getElementById(modal.select[j]);
       var dataset = _api.user.getUserProfileData(modal.datasets[j]);
