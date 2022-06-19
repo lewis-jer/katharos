@@ -1,7 +1,7 @@
 import { loadPage } from './action-canvas';
 
 function pageActions(_api) {
-  console.log(this);
+  console.log('pageActions: ', this);
   return {
     loadPage: loadPage(_api),
     loadIndex: 1
