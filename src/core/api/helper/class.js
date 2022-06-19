@@ -17,7 +17,8 @@ class System {
       charts: {},
       tables: {},
       httpConfig: {},
-      http: {}
+      http: {},
+      views: {}
     };
     this.next = null;
   }
@@ -49,6 +50,12 @@ class System {
           forms.forEach((form) => {
             this.data.forms[form.arrayExpression] = form;
           });
+        }
+      }
+
+      if (key.includes('views')) {
+        for (const [module, view] of Object.entries(value)) {
+          this.data.views[view.name] = view;
         }
       }
 
@@ -96,6 +103,10 @@ class System {
 
   getForm(name) {
     return this.data.forms[name];
+  }
+
+  getView(name) {
+    return this.data.views[name];
   }
 
   getChart(name) {
