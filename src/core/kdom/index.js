@@ -1,9 +1,10 @@
 import { loadPage } from './action-canvas';
 
-const pageActions = (_api) => {
+function pageActions(_api) {
+  console.log(this);
   return {
     loadPage: loadPage(_api),
     loadIndex: 1
   };
-};
+}
 export { pageActions };
