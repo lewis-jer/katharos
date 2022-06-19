@@ -246,6 +246,7 @@ class System {
 
   async instantiateMiddleware(_api, pageInfo) {
     async function instantiate() {
+      console.log(this);
       await this.getMiddleware(pageInfo.loadIndex)(_api);
       return 'Middleware Instantiation Success';
     }
