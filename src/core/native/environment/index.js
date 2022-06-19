@@ -8,7 +8,9 @@ const pageLoader = async function (_api, pageInfo) {
   }
   await _api.system.initializeController(pageInfo);
   await _api.system.initializeMiddleware(pageInfo);
-  await _api.system.instantiateMiddleware(_api, pageInfo);
+  await _api.system
+    .instantiateMiddleware(_api, pageInfo)
+    .then((res) => console.log(res));
   pageInfo.loaded = true;
   configuration.katharos.pageActions.loadIndex++;
 };
