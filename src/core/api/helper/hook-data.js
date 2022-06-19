@@ -67,7 +67,6 @@ const dataHandler = {
       } = await this.system
         .http()
         .get('fp-app/plaid/create-link-token/' + this.user.getUsername());
-      console.log(linkToken);
       return linkToken;
     };
 
@@ -81,16 +80,11 @@ const dataHandler = {
         const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
         localStorage.setItem('user', modifiedndstrigifiedForStorage);
         plaidBtn.style.display = 'none';
-        console.log(
-          await this.system
-            .http()
-            .post('fp-app/plaid/token-exchange/' + this.user.getUsername(), {
-              publicToken: publicToken
-            })
-        );
-        // await dataService('POST', 'plaid/token-exchange', false, {
-        //   publicToken: publicToken
-        // });
+        await this.system
+          .http()
+          .post('fp-app/plaid/token-exchange/' + this.user.getUsername(), {
+            publicToken: publicToken
+          });
       },
       onLoad: () => {},
       onExit: (err, metadata) => {},
