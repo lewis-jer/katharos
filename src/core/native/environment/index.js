@@ -1,6 +1,7 @@
 import { dynamicChartLoader } from './hook-chart';
 
 const pageLoader = async function (_api, pageInfo) {
+  console.log(this);
   pageInfo.loadIndex = configuration.katharos.pageActions.loadIndex;
   for (var i in pageInfo.plugins) {
     await _api.assembler(pageInfo.plugins[i]);
@@ -17,26 +18,21 @@ const pageReloader = async function (_api, pageInfo) {
   await _api.system.instantiateMiddleware(_api, pageInfo);
 };
 const componentLoader = async function (_api, pageInfo) {
-  var systemComponents = _api.system.getComponents();
-  console.log(systemComponents);
+  var components = _api.system.getComponents();
+  console.log(components);
   console.log(_api.system.getComponents());
 
   //Clear Page
   document.getElementById('wrapper').innerHTML = '';
 
   //Generate Page Navigation Bar
-  document.getElementById('wrapper').innerHTML += systemComponents.navbar.html;
+  document.getElementById('wrapper').innerHTML += components.navbar.html;
 
   _api.system.componentLoader('navigationBar', true);
-  _api.arrayToObject(modulePath)[systemComponents.navbar.arrayExpression].loaded
-    ? await pageReloader(
-        _api,
-        _api.arrayToObject(modulePath)[systemComponents.navbar.arrayExpression]
-      )
-    : await pageLoader(
-        _api,
-        _api.arrayToObject(modulePath)[systemComponents.navbar.arrayExpression]
-      );
+  const current = _api.system.getModule([components.navbar.arrayExpression]);
+  current.loaded
+    ? await pageReloader(_api, current)
+    : await pageLoader(_api, current);
 
   _api.addEvent('loadComponent', {
     componentId: _api.system.getComponentId('navigationBar'),
@@ -45,10 +41,9 @@ const componentLoader = async function (_api, pageInfo) {
   });
 
   //Generate Page Body
-  document.getElementById('content').innerHTML += systemComponents.loader.html;
+  document.getElementById('content').innerHTML += components.loader.html;
 
   _api.system.componentLoader('pageLoader', true);
-
   _api.addEvent('loadComponent', {
     componentId: _api.system.getComponentId('pageLoader'),
     userIdentifier: JSON.parse(localStorage.getItem('user')).email,
@@ -56,10 +51,9 @@ const componentLoader = async function (_api, pageInfo) {
   });
 
   //Generate Page Footer
-  document.getElementById('content').innerHTML += systemComponents.footer.html;
+  document.getElementById('content').innerHTML += components.footer.html;
 
   _api.system.componentLoader('footer', true);
-
   _api.addEvent('loadComponent', {
     componentId: _api.system.getComponentId('footer'),
     userIdentifier: JSON.parse(localStorage.getItem('user')).email,
