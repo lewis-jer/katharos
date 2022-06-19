@@ -245,10 +245,10 @@ class System {
   }
 
   async instantiateMiddleware(_api, pageInfo) {
-    this.data.middleware[pageInfo.loadIndex]
+    var instantiation = this.data.middleware[pageInfo.loadIndex]
       ? await this.getMiddleware(pageInfo.loadIndex)(_api)
-      : false;
-    return 'Middleware Instantiated Succesful';
+      : 'Middleware Instantiation Fail';
+    return instantiation;
   }
 
   createUniqueId() {
