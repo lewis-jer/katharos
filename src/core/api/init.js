@@ -1,6 +1,6 @@
 const initialization = (_api) => {
   return async function (url) {
-    modulePath = _api.system.getModules();
+    var modulePath = _api.system.getModules();
     for (const current in modulePath) {
       current.arrayExpression = current.endpoint;
       if (current.system) {
