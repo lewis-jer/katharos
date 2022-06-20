@@ -2,6 +2,7 @@ const initialization = (_api) => {
   return async function (url) {
     let modulePath = _api.system.getModules();
     for (var current in modulePath) {
+      console.log(current);
       current.arrayExpression = current.endpoint;
       if (current.system) {
         current.loaded = true;
