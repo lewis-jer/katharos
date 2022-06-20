@@ -9,7 +9,7 @@ import { _api } from '../api';
 
 var includes = ['login', 'account_verify', 'eula', 'forgot_password'];
 async function terminateLoader(pageName, pageInfo) {
-  if (!_api.loader.excludes.includes(pageName)) {
+  if (!this.loader.excludes.includes(pageName)) {
     await _api.loader.script(pageInfo.name);
     document.getElementById(pageInfo.viewport).style.visibility = 'visible';
     return;
@@ -21,7 +21,7 @@ async function terminateLoader(pageName, pageInfo) {
 async function buildPage(pageName, pageInfo) {
   var body = this.system.getView(pageInfo.arrayExpression).html;
   document.getElementById(pageInfo.viewport).innerHTML = body;
-  !_api.loader.excludes.includes(pageName) &&
+  !this.loader.excludes.includes(pageName) &&
     (document.getElementById(pageInfo.viewport).style.visibility = 'hidden');
 }
 
@@ -50,6 +50,7 @@ async function drawPage(pageName, pageInfo) {
     ? await pageLoader.call(this, pageInfo)
     : await pageReloader.call(this, pageInfo);
 
+  await this.timeout(500);
   await terminateLoader.call(this, pageName, pageInfo);
 
   history.replaceState(
