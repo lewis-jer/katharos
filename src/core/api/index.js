@@ -6,6 +6,7 @@ import { gatherPageInfo, selectionController } from '../util';
 import { initialization } from './init';
 import { System, User } from './helper/class';
 import { Store } from './helper/store';
+import { pageLoader } from './core/instance';
 
 const system = new System({
   name: 'system-reserved'
@@ -26,6 +27,7 @@ console.log(store);
 let _api = {
   ...helper.dataHandler,
   ...helper.eventHandler,
+  ...pageLoader,
   system: system,
   user: user,
   store: store,
