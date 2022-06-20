@@ -2,7 +2,6 @@ import { getEndpoint } from '../../../../katharos-router';
 import { generatePage, clearPage } from '../native';
 
 function loadPage() {
-  console.log('loadPage: ', this);
   return async (currPage, pageName) => {
     let router = await getEndpoint(this, currPage, pageName);
     let page = this.system.getView(currPage);

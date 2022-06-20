@@ -25,9 +25,6 @@ async function buildPage(pageName, pageInfo) {
 }
 
 async function drawPage(pageName, pageInfo) {
-  console.log('drawPage: ', this);
-  console.log(pageInfo);
-
   var navbarStatus = this.system.getComponentStatus('navigationBar');
 
   if (includes.includes(pageName)) {

@@ -1,7 +1,6 @@
 import { dynamicChartLoader } from './hook-chart';
 
 async function pageLoader(pageInfo) {
-  console.log('pageLoader: ', this);
   pageInfo.loadIndex = configuration.katharos.pageActions.loadIndex;
 
   for (var i in pageInfo.plugins) {
@@ -19,11 +18,9 @@ async function pageLoader(pageInfo) {
   configuration.katharos.pageActions.loadIndex++;
 }
 async function pageReloader(pageInfo) {
-  console.log('pageReloader: ', this);
   await this.system.instantiateMiddleware(this, pageInfo);
 }
 async function componentLoader(pageInfo) {
-  console.log('componentLoader: ', this);
   var components = this.system.getComponents();
 
   //Clear Page
