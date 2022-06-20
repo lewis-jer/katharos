@@ -16,7 +16,7 @@ const drawPage = async function (pageName, pageInfo) {
     !pageInfo.document &&
     !this.system.getComponentStatus('navigationBar')
   ) {
-    await componentLoader(this, pageInfo);
+    await componentLoader.call(this, pageInfo);
     let loaderStatus = !configuration.katharos.pageLoader.excludes.includes(
       pageName
     )
@@ -31,9 +31,9 @@ const drawPage = async function (pageName, pageInfo) {
   }
 
   if (!pageInfo.loaded) {
-    await pageLoader(this, pageInfo);
+    await pageLoader.call(this, pageInfo);
   } else {
-    await pageReloader(this, pageInfo);
+    await pageReloader.call(this, pageInfo);
   }
 
   history.replaceState(

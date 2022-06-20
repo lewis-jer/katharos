@@ -1,26 +1,26 @@
 import { dynamicChartLoader } from './hook-chart';
 
-const pageLoader = async function (_api, pageInfo) {
+const pageLoader = async function (pageInfo) {
   console.log('pageLoader: ', this);
   pageInfo.loadIndex = configuration.katharos.pageActions.loadIndex;
   for (var i in pageInfo.plugins) {
-    await _api.assembler(pageInfo.plugins[i]);
+    await this.assembler(pageInfo.plugins[i]);
   }
-  await _api.system.initializeController(pageInfo);
-  await _api.system.initializeMiddleware(pageInfo);
-  await _api.system
-    .instantiateMiddleware(_api, pageInfo)
+  await this.system.initializeController(pageInfo);
+  await this.system.initializeMiddleware(pageInfo);
+  await this.system
+    .instantiateMiddleware(this, pageInfo)
     .then((res) => console.log(res));
   pageInfo.loaded = true;
   configuration.katharos.pageActions.loadIndex++;
 };
-const pageReloader = async function (_api, pageInfo) {
+const pageReloader = async function (pageInfo) {
   console.log('pageReloader: ', this);
-  await _api.system.instantiateMiddleware(_api, pageInfo);
+  await this.system.instantiateMiddleware(this, pageInfo);
 };
-const componentLoader = async function (_api, pageInfo) {
+const componentLoader = async function (pageInfo) {
   console.log('componentLoader: ', this);
-  var components = _api.system.getComponents();
+  var components = this.system.getComponents();
 
   //Clear Page
   document.getElementById('wrapper').innerHTML = '';
@@ -28,32 +28,32 @@ const componentLoader = async function (_api, pageInfo) {
   //Generate Page Navigation Bar
   document.getElementById('wrapper').innerHTML += components.navbar.html;
 
-  _api.system.componentLoader('navigationBar', true);
-  const current = _api.system.getModule([components.navbar.arrayExpression]);
+  this.system.componentLoader('navigationBar', true);
+  const current = this.system.getModule([components.navbar.arrayExpression]);
   current.loaded
-    ? await pageReloader(_api, current)
-    : await pageLoader(_api, current);
+    ? await pageReloader(this, current)
+    : await pageLoader(this, current);
 
-  _api.addEvent('loadComponent', {
-    componentId: _api.system.getComponentId('navigationBar'),
+  this.addEvent('loadComponent', {
+    componentId: this.system.getComponentId('navigationBar'),
     userIdentifier: JSON.parse(localStorage.getItem('user')).email,
     location: window.endpoint
   });
 
   //Generate Page Body
   document.getElementById('content').innerHTML += components.loader.html;
-  _api.system.componentLoader('pageLoader', true);
-  _api.addEvent('loadComponent', {
-    componentId: _api.system.getComponentId('pageLoader'),
+  this.system.componentLoader('pageLoader', true);
+  this.addEvent('loadComponent', {
+    componentId: this.system.getComponentId('pageLoader'),
     userIdentifier: JSON.parse(localStorage.getItem('user')).email,
     location: window.endpoint
   });
 
   //Generate Page Footer
   document.getElementById('content').innerHTML += components.footer.html;
-  _api.system.componentLoader('footer', true);
-  _api.addEvent('loadComponent', {
-    componentId: _api.system.getComponentId('footer'),
+  this.system.componentLoader('footer', true);
+  this.addEvent('loadComponent', {
+    componentId: this.system.getComponentId('footer'),
     userIdentifier: JSON.parse(localStorage.getItem('user')).email,
     location: window.endpoint
   });
