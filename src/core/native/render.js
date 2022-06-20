@@ -8,11 +8,20 @@ import { pageDestructor, dynamicTableDestructor } from './destructor';
 import { _api } from '../api';
 
 var includes = ['login', 'account_verify', 'eula', 'forgot_password'];
+async function terminateLoader(pageName, pageInfo) {
+  await _api.loader.script(pageInfo.name);
+}
+
+async function buildPage(pageName, pageInfo) {
+  var body = this.system.getView(pageInfo.arrayExpression).html;
+  await terminateLoader.call(this, null, pageInfo);
+  document.getElementById(pageInfo.viewport).innerHTML = body;
+}
+
 async function drawPage(pageName, pageInfo) {
   console.log('drawPage: ', this);
   console.log(pageInfo);
 
-  var body = this.system.getView(pageInfo.arrayExpression).html;
   var navbarStatus = this.system.getComponentStatus('navigationBar');
 
   if (includes.includes(pageName)) {
@@ -24,8 +33,6 @@ async function drawPage(pageName, pageInfo) {
     document.querySelector('#loader').style.display = 'flex';
   }
 
-  document.getElementById(pageInfo.viewport).innerHTML = body;
-
   if (!pageInfo.document && pageInfo.dynamicCharts) {
     await dynamicChartLoader(this);
   }
@@ -35,7 +42,7 @@ async function drawPage(pageName, pageInfo) {
     : await pageReloader.call(this, pageInfo);
 
   let loaderStatus = !_api.loader.excludes.includes(pageName)
-    ? await _api.loader.script(pageInfo.name)
+    ? await buildPage.call(this, null, pageInfo)
     : 'Loader Not Initialized';
 
   history.replaceState(
