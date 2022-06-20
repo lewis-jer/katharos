@@ -5,16 +5,11 @@ import {
   componentLoader
 } from './environment/index';
 import { pageDestructor, dynamicTableDestructor } from './destructor';
-
+var includes = ['login', 'account_verify', 'eula', 'forgot_password'];
 const drawPage = async function (pageName, pageInfo) {
   console.log('drawPage: ', this);
   var body = this.system.getView(pageInfo.arrayExpression).html;
-  if (
-    pageName == 'login' ||
-    pageName == 'account_verify' ||
-    pageName == 'eula' ||
-    pageName == 'forgot_password'
-  ) {
+  if (includes.includes(pageName)) {
     document.body.classList.add('bg-gradient-primary');
     this.system.componentLoader('navigationBar', false);
   } else if (
