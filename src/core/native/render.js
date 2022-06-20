@@ -9,6 +9,7 @@ import { _api } from '../api';
 
 var includes = ['login', 'account_verify', 'eula', 'forgot_password'];
 async function terminateLoader(pageName, pageInfo) {
+  console.log(pageName);
   if (!_api.loader.excludes.includes(pageName)) {
     await _api.loader.script(pageInfo.name);
     return;
