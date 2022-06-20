@@ -21,7 +21,7 @@ async function drawPage(pageName, pageInfo) {
   } else if (!pageInfo.document && !navbarStatus) {
     await componentLoader.call(this, pageInfo);
   } else {
-    document.querySelector('#loader').style.display = 'block';
+    document.querySelector('#loader').style.display = 'flex';
   }
 
   document.getElementById(pageInfo.viewport).innerHTML = body;
