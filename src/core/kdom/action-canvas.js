@@ -1,9 +1,8 @@
 import { getEndpoint } from '../../../../katharos-router';
-import { generate, clearPage } from '../native';
+import { generatePage, clearPage } from '../native';
 
 function loadPage() {
   console.log('loadPage: ', this);
-  const generatePage = generate(this);
   return async (currPage, pageName) => {
     let router = await getEndpoint(this, currPage, pageName);
     let page = this.system.getView(currPage);
@@ -13,12 +12,12 @@ function loadPage() {
         userIdentifier: router.authentication.userId,
         location: currPage
       });
-      await clearPage(this, router.sourceRouteInformation);
+      await clearPage.call(this, router.sourceRouteInformation);
     }
 
     window.endpoint = router.route;
     let destination = this.system.getView(router.route);
-    await generatePage(router.route, router.routeInformation);
+    await generatePage.call(this, router.route, router.routeInformation);
     this.addEvent('generatePage', {
       documentId: destination.id,
       userIdentifier: router.authentication.userId,

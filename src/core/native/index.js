@@ -1,16 +1,14 @@
 import { drawPage, dynamicTableDestructor, pageDestructor } from './render.js';
 
-function generate(_api) {
+async function generatePage(pageName, pageInfo) {
   console.log('generate: ', this);
-  return async (pageName, pageInfo) => {
-    await drawPage(pageName, pageInfo, _api);
-  };
+  await drawPage(pageName, pageInfo, this);
 }
 
-async function clearPage(_api, pageInfo) {
+async function clearPage(pageInfo) {
   console.log('clearPage', this);
-  await dynamicTableDestructor(_api, pageInfo);
+  await dynamicTableDestructor(this, pageInfo);
   await pageDestructor(pageInfo);
 }
 
-export { generate, clearPage };
+export { generatePage, clearPage };
