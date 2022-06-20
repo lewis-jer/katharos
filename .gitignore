@@ -1,4 +1,4 @@
-# ignore all logs
+# ignore specific directories
 node_modules
 
 # Windows OS file
