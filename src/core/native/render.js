@@ -50,7 +50,7 @@ async function drawPage(pageName, pageInfo) {
     ? await pageLoader.call(this, pageInfo)
     : await pageReloader.call(this, pageInfo);
 
-  await this.timeout(500);
+  await this.timeout(1000);
   await terminateLoader.call(this, pageName, pageInfo);
 
   history.replaceState(
