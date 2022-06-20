@@ -31,8 +31,8 @@ async function componentLoader(pageInfo) {
   this.system.componentLoader('navigationBar', true);
   const current = this.system.getModule([components.navbar.arrayExpression]);
   current.loaded
-    ? await pageReloader(this, current)
-    : await pageLoader(this, current);
+    ? await pageReloader.call(this, current)
+    : await pageLoader.call(this, current);
 
   this.addEvent('loadComponent', {
     componentId: this.system.getComponentId('navigationBar'),
