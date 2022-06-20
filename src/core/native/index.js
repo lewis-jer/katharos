@@ -7,8 +7,8 @@ async function generatePage(pageName, pageInfo) {
 
 async function clearPage(pageInfo) {
   console.log('clearPage', this);
-  await dynamicTableDestructor(this, pageInfo);
-  await pageDestructor(pageInfo);
+  await dynamicTableDestructor.call(this, pageInfo);
+  await pageDestructor.call(this, pageInfo);
 }
 
 export { generatePage, clearPage };
