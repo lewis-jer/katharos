@@ -27,7 +27,7 @@ console.log(store);
 let _api = {
   ...helper.dataHandler,
   ...helper.eventHandler,
-  ...pageLoader,
+  loader: pageLoader,
   system: system,
   user: user,
   store: store,
