@@ -2,9 +2,7 @@ const initialization = (_api) => {
   return async function (url) {
     let modulePath = _api.system.getModules();
     console.log(modulePath);
-    for (var current in modulePath) {
-      console.log(current);
-      current.arrayExpression = current.endpoint;
+    for (const [key, current] of Object.entries(modulePath)) {
       if (current.system) {
         current.loaded = true;
         current.loadIndex = 0;
