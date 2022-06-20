@@ -5,12 +5,11 @@ import {
   componentLoader
 } from './environment/index';
 import { pageDestructor, dynamicTableDestructor } from './destructor';
-import { _api } from '../api';
 
 var includes = ['login', 'account_verify', 'eula', 'forgot_password'];
 async function terminateLoader(pageName, pageInfo) {
   if (!this.loader.excludes.includes(pageName)) {
-    await _api.loader.script(pageInfo.name);
+    await this.loader.script(pageInfo.name);
     document.getElementById(pageInfo.viewport).style.visibility = 'visible';
     return;
   } else {

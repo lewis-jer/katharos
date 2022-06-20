@@ -1,16 +1,17 @@
-const pageDestructor = async function (pageInfo) {
+async function pageDestructor(pageInfo) {
   console.log('pageDestructor: ', this);
   document.getElementById(pageInfo.viewport).innerHTML = '';
-};
-const dynamicTableDestructor = async function (_api, pageInfo) {
+}
+
+async function dynamicTableDestructor(pageInfo) {
   console.log('dynamicTableDestructor: ', this);
   if (pageInfo.dynamicTables) {
     if (pageInfo.dynamicTables.status) {
       for (var i in pageInfo.dynamicTables.tables) {
-        _api.emptyTable(pageInfo.dynamicTables.tables[i], true);
+        this.emptyTable(pageInfo.dynamicTables.tables[i], true);
       }
     }
   }
-};
+}
 
 export { pageDestructor, dynamicTableDestructor };
