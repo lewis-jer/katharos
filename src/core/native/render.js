@@ -21,7 +21,8 @@ async function terminateLoader(pageName, pageInfo) {
 async function buildPage(pageName, pageInfo) {
   var body = this.system.getView(pageInfo.arrayExpression).html;
   document.getElementById(pageInfo.viewport).innerHTML = body;
-  document.getElementById(pageInfo.viewport).style.visibility = 'hidden';
+  !_api.loader.excludes.includes(pageName) &&
+    (document.getElementById(pageInfo.viewport).style.visibility = 'hidden');
 }
 
 async function drawPage(pageName, pageInfo) {
