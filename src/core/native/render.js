@@ -18,12 +18,12 @@ async function drawPage(pageName, pageInfo) {
     !pageInfo.document &&
     !this.system.getComponentStatus('navigationBar')
   ) {
-    await componentLoader.call(this, pageInfo);
     let loaderStatus = !configuration.katharos.pageLoader.excludes.includes(
       pageName
     )
       ? await configuration.katharos.pageLoader.script(pageInfo.name)
       : 'Loader Not Initialized';
+    await componentLoader.call(this, pageInfo);
   }
 
   document.getElementById(pageInfo.viewport).innerHTML = body;
