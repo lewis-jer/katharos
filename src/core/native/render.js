@@ -9,6 +9,7 @@ import { pageDestructor, dynamicTableDestructor } from './destructor';
 var includes = ['login', 'account_verify', 'eula', 'forgot_password'];
 async function drawPage(pageName, pageInfo) {
   console.log('drawPage: ', this);
+  console.log(pageInfo);
   var body = this.system.getView(pageInfo.arrayExpression).html;
   if (includes.includes(pageName)) {
     document.body.classList.add('bg-gradient-primary');
