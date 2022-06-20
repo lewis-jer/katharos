@@ -4,7 +4,7 @@ import { pageObjects } from '../../core/components';
 import { helper } from './helper';
 import { gatherPageInfo, selectionController } from '../util';
 import { initialization } from './init';
-import { System } from './helper/class';
+import { System } from './helper/system';
 import { User } from './helper/user';
 import { Store } from './helper/store';
 import { pageLoader } from '../instance';
