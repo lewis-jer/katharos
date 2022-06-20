@@ -11,6 +11,7 @@ var includes = ['login', 'account_verify', 'eula', 'forgot_password'];
 async function terminateLoader(pageName, pageInfo) {
   if (!_api.loader.excludes.includes(pageName)) {
     await _api.loader.script(pageInfo.name);
+    document.getElementById(pageInfo.viewport).style.visibility = 'visible';
     return;
   } else {
     return 'Loader Not Initialized';
@@ -19,8 +20,8 @@ async function terminateLoader(pageName, pageInfo) {
 
 async function buildPage(pageName, pageInfo) {
   var body = this.system.getView(pageInfo.arrayExpression).html;
-  await terminateLoader.call(this, pageName, pageInfo);
   document.getElementById(pageInfo.viewport).innerHTML = body;
+  document.getElementById(pageInfo.viewport).style.visibility = 'hidden';
 }
 
 async function drawPage(pageName, pageInfo) {
@@ -42,11 +43,13 @@ async function drawPage(pageName, pageInfo) {
     await dynamicChartLoader(this);
   }
 
+  await buildPage.call(this, pageName, pageInfo);
+
   !pageInfo.loaded
     ? await pageLoader.call(this, pageInfo)
     : await pageReloader.call(this, pageInfo);
 
-  await buildPage.call(this, pageName, pageInfo);
+  await terminateLoader.call(this, pageName, pageInfo);
 
   history.replaceState(
     {},
