@@ -23,12 +23,13 @@ async function pageReloader(pageInfo) {
 async function componentLoader(pageInfo) {
   var components = this.system.getComponents();
 
-  //Clear Page
+  // Clear Page
   document.getElementById('wrapper').innerHTML = '';
 
-  //Generate Page Navigation Bar
+  // Generate Navigation Bar
   document.getElementById('wrapper').innerHTML += components.navbar.html;
 
+  // Instantiate Navigation Bar
   this.system.componentLoader('navigationBar', true);
   const current = this.system.getModule([components.navbar.arrayExpression]);
   current.loaded
@@ -41,7 +42,7 @@ async function componentLoader(pageInfo) {
     location: window.endpoint
   });
 
-  //Generate Page Body
+  // Generate Page Body
   document.getElementById('content').innerHTML += components.loader.html;
   this.system.componentLoader('pageLoader', true);
   this.addEvent('loadComponent', {
@@ -50,7 +51,7 @@ async function componentLoader(pageInfo) {
     location: window.endpoint
   });
 
-  //Generate Page Footer
+  // Generate Page Footer
   document.getElementById('content').innerHTML += components.footer.html;
   this.system.componentLoader('footer', true);
   this.addEvent('loadComponent', {
