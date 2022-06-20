@@ -51,7 +51,10 @@ _api = {
 _api = {
   ..._api,
   ...new helper.formMiddleware(_api).helper,
-  init: initialization(_api)
+  init: initialization(_api),
+  timeout(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 };
 
 window._katharos_api_ = _api;
