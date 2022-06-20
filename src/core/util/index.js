@@ -1,6 +1,6 @@
 const gatherPageInfo = (_api) => {
   return (pageName) => {
-    return _api.arrayToObject(modulePath)[pageName];
+    return _api.system.getModule(pageName);
   };
 };
 
