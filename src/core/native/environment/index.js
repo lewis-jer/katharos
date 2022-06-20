@@ -1,6 +1,6 @@
 import { dynamicChartLoader } from './hook-chart';
 
-const pageLoader = async function (pageInfo) {
+async function pageLoader(pageInfo) {
   console.log('pageLoader: ', this);
   pageInfo.loadIndex = configuration.katharos.pageActions.loadIndex;
   for (var i in pageInfo.plugins) {
@@ -13,12 +13,12 @@ const pageLoader = async function (pageInfo) {
     .then((res) => console.log(res));
   pageInfo.loaded = true;
   configuration.katharos.pageActions.loadIndex++;
-};
-const pageReloader = async function (pageInfo) {
+}
+async function pageReloader(pageInfo) {
   console.log('pageReloader: ', this);
   await this.system.instantiateMiddleware(this, pageInfo);
-};
-const componentLoader = async function (pageInfo) {
+}
+async function componentLoader(pageInfo) {
   console.log('componentLoader: ', this);
   var components = this.system.getComponents();
 
@@ -57,6 +57,6 @@ const componentLoader = async function (pageInfo) {
     userIdentifier: JSON.parse(localStorage.getItem('user')).email,
     location: window.endpoint
   });
-};
+}
 
 export { pageLoader, pageReloader, dynamicChartLoader, componentLoader };

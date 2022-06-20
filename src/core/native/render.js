@@ -5,8 +5,9 @@ import {
   componentLoader
 } from './environment/index';
 import { pageDestructor, dynamicTableDestructor } from './destructor';
+
 var includes = ['login', 'account_verify', 'eula', 'forgot_password'];
-const drawPage = async function (pageName, pageInfo) {
+async function drawPage(pageName, pageInfo) {
   console.log('drawPage: ', this);
   var body = this.system.getView(pageInfo.arrayExpression).html;
   if (includes.includes(pageName)) {
@@ -41,6 +42,6 @@ const drawPage = async function (pageName, pageInfo) {
     null,
     document.URL.slice(0, document.URL.lastIndexOf('/') + 1) + pageName
   );
-};
+}
 
 export { dynamicTableDestructor, pageDestructor, drawPage };
