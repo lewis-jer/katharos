@@ -2,7 +2,7 @@ import { drawPage, dynamicTableDestructor, pageDestructor } from './render.js';
 
 async function generatePage(pageName, pageInfo) {
   console.log('generate: ', this);
-  await drawPage(pageName, pageInfo, this);
+  await drawPage.call(this, pageName, pageInfo);
 }
 
 async function clearPage(pageInfo) {

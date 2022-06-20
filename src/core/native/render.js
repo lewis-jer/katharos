@@ -6,9 +6,9 @@ import {
 } from './environment/index';
 import { pageDestructor, dynamicTableDestructor } from './destructor';
 
-const drawPage = async function (pageName, pageInfo, _api) {
+const drawPage = async function (pageName, pageInfo) {
   console.log('drawPage: ', this);
-  var body = _api.system.getView(pageInfo.arrayExpression).html;
+  var body = this.system.getView(pageInfo.arrayExpression).html;
   if (
     pageName == 'login' ||
     pageName == 'account_verify' ||
@@ -16,12 +16,12 @@ const drawPage = async function (pageName, pageInfo, _api) {
     pageName == 'forgot_password'
   ) {
     document.body.classList.add('bg-gradient-primary');
-    _api.system.componentLoader('navigationBar', false);
+    this.system.componentLoader('navigationBar', false);
   } else if (
     !pageInfo.document &&
-    !_api.system.getComponentStatus('navigationBar')
+    !this.system.getComponentStatus('navigationBar')
   ) {
-    await componentLoader(_api, pageInfo);
+    await componentLoader(this, pageInfo);
     let loaderStatus = !configuration.katharos.pageLoader.excludes.includes(
       pageName
     )
@@ -32,13 +32,13 @@ const drawPage = async function (pageName, pageInfo, _api) {
   document.getElementById(pageInfo.viewport).innerHTML = body;
 
   if (!pageInfo.document && pageInfo.dynamicCharts) {
-    await dynamicChartLoader(_api);
+    await dynamicChartLoader(this);
   }
 
   if (!pageInfo.loaded) {
-    await pageLoader(_api, pageInfo);
+    await pageLoader(this, pageInfo);
   } else {
-    await pageReloader(_api, pageInfo);
+    await pageReloader(this, pageInfo);
   }
 
   history.replaceState(
