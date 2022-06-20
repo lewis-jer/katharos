@@ -5,6 +5,7 @@ import {
   componentLoader
 } from './environment/index';
 import { pageDestructor, dynamicTableDestructor } from './destructor';
+import { _api } from '../api';
 
 var includes = ['login', 'account_verify', 'eula', 'forgot_password'];
 async function drawPage(pageName, pageInfo) {
@@ -19,11 +20,6 @@ async function drawPage(pageName, pageInfo) {
     this.system.componentLoader('navigationBar', false);
   } else if (!pageInfo.document && !navbarStatus) {
     await componentLoader.call(this, pageInfo);
-    let loaderStatus = !configuration.katharos.pageLoader.excludes.includes(
-      pageName
-    )
-      ? await configuration.katharos.pageLoader.script(pageInfo.name)
-      : 'Loader Not Initialized';
   }
 
   document.getElementById(pageInfo.viewport).innerHTML = body;
@@ -35,6 +31,10 @@ async function drawPage(pageName, pageInfo) {
   !pageInfo.loaded
     ? await pageLoader.call(this, pageInfo)
     : await pageReloader.call(this, pageInfo);
+
+  let loaderStatus = !_api.loader.excludes.includes(pageName)
+    ? await _api.loader.script(pageInfo.name)
+    : 'Loader Not Initialized';
 
   history.replaceState(
     {},
