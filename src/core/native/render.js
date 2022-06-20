@@ -20,6 +20,8 @@ async function drawPage(pageName, pageInfo) {
     this.system.componentLoader('navigationBar', false);
   } else if (!pageInfo.document && !navbarStatus) {
     await componentLoader.call(this, pageInfo);
+  } else {
+    document.querySelector('#loader').style.display = 'block';
   }
 
   document.getElementById(pageInfo.viewport).innerHTML = body;
