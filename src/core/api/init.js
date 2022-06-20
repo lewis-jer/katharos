@@ -3,6 +3,7 @@ const initialization = (_api) => {
     let modulePath = _api.system.getModules();
     console.log(modulePath);
     for (const [key, current] of Object.entries(modulePath)) {
+      current.arrayExpression = current.endpoint;
       if (current.system) {
         current.loaded = true;
         current.loadIndex = 0;
