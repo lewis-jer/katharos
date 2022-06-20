@@ -9,7 +9,12 @@ import { _api } from '../api';
 
 var includes = ['login', 'account_verify', 'eula', 'forgot_password'];
 async function terminateLoader(pageName, pageInfo) {
-  await _api.loader.script(pageInfo.name);
+  if (!_api.loader.excludes.includes(pageName)) {
+    await _api.loader.script(pageInfo.name);
+    return;
+  } else {
+    return 'Loader Not Initialized';
+  }
 }
 
 async function buildPage(pageName, pageInfo) {
@@ -41,9 +46,7 @@ async function drawPage(pageName, pageInfo) {
     ? await pageLoader.call(this, pageInfo)
     : await pageReloader.call(this, pageInfo);
 
-  let loaderStatus = !_api.loader.excludes.includes(pageName)
-    ? await buildPage.call(this, null, pageInfo)
-    : 'Loader Not Initialized';
+  await buildPage.call(this, null, pageInfo);
 
   history.replaceState(
     {},
