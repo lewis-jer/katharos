@@ -21,9 +21,9 @@ const store = new Store({
   name: 'system-reserved'
 });
 
-console.log(system);
-console.log(user);
-console.log(store);
+// console.log(system);
+// console.log(user);
+// console.log(store);
 
 let _api = {
   ...helper.dataHandler,
