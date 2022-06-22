@@ -1,8 +1,8 @@
-const dynamicChartLoader = async function (_api) {
+async function dynamicChartLoader() {
   console.log('dynamicChartLoader: ', this);
   if (
-    !Object.keys(_api.system.data.pluginLib).includes(
-      _api.system.stringToHash(verb.src)
+    !Object.keys(this.system.data.pluginLib).includes(
+      this.system.stringToHash(verb.src)
     )
   ) {
     // Generate Page Charts
@@ -17,7 +17,7 @@ const dynamicChartLoader = async function (_api) {
     };
 
     await document.getElementsByTagName('head')[0].appendChild(verb);
-    _api.system.updatePlugin(verb.src);
+    this.system.updatePlugin(verb.src);
   } else {
     window.Verb.init({
       apiKey: configuration.chart,
@@ -27,6 +27,6 @@ const dynamicChartLoader = async function (_api) {
       }
     });
   }
-};
+}
 
 export { dynamicChartLoader };

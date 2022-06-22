@@ -37,7 +37,7 @@ async function drawPage(pageName, pageInfo) {
   }
 
   if (!pageInfo.document && pageInfo.dynamicCharts) {
-    await dynamicChartLoader(this);
+    await dynamicChartLoader.call(this);
   }
 
   await buildPage.call(this, pageName, pageInfo);
