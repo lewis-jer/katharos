@@ -1,5 +1,4 @@
 async function dynamicChartLoader() {
-  console.log('dynamicChartLoader: ', this);
   if (
     !Object.keys(this.system.data.pluginLib).includes(
       this.system.stringToHash(verb.src)
