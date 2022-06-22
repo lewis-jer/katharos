@@ -1,6 +1,6 @@
+import { _api, plugins } from './core/api';
 import { pageActions } from './core/kdom';
 import { pageLoader } from './core/instance';
-import { _api, plugins } from './core/api';
 
 const katharos = {
   pageActions: new pageActions(_api).helper,

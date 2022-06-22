@@ -9,5 +9,5 @@ Katharos supports all [ES5-compliant](https://kangax.github.io/compat-table/es5/
 ## Ecosystem
 
 | Project           | Status                                               | Description            |
-| ----------------- | ---------------------------------------------------- | ---------------------- | ------------------------------ |
-| [katharos-router] | [![katharos-router-status]][katharos-router-package] | Web application router | ------------------------------ |
+| ----------------- | ---------------------------------------------------- | ---------------------- |
+| [katharos-router] | [![katharos-router-status]][katharos-router-package] | Web application router |
