@@ -38,6 +38,7 @@ const dataHandler = {
     }
   },
   bcatMatcher: function (value, type) {
+    
     if (type == 'func') {
       for (var i in userProfile.moduleData) {
         if (userProfile.moduleData[i].SN == value)
@@ -45,7 +46,7 @@ const dataHandler = {
       }
     } else if (type == 'module') {
       for (var i in userProfile.moduleData) {
-        if (userProfile.moduleData[i].SN == value)
+        if (userProfile.moduleData[i].SN == value) 
           return userProfile.moduleData[i].bmod;
       }
     } else if (type == 'type') {
