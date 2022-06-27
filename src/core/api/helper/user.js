@@ -8,6 +8,10 @@ class User {
     this.next = null;
   }
 
+  getUser() {
+    return this.data.userProfile;
+  }
+
   configure(config) {
     console.log();
   }
