@@ -44,6 +44,10 @@ class User {
     this.data.username = data.username;
   }
 
+  setUserProfileItem(key, data) {
+    this.data.userProfile[key] = data;
+  }
+
   setUsername(username) {
     this.data.username = username;
   }
@@ -74,12 +78,14 @@ class User {
     });
     return response;
   }
+
   getRandomUserItem(key) {
     var randomNumber =
       Math.floor(Math.random() * (this.data.userProfile[key].length - 1 - 0)) +
       0;
     return this.data.userProfile[key][randomNumber];
   }
+
   getUserStatus() {
     if (this.getLocalStorageItem() != null) {
       return true;
@@ -87,12 +93,15 @@ class User {
       return false;
     }
   }
+
   getUserCount() {
     return this.data.userCount;
   }
   setUserCount() {
     this.data.userCount++;
   }
+
+  setUserItem() {}
 }
 
 export { User };
