@@ -45,6 +45,7 @@ class User {
   }
 
   setUserProfileItem(key, data) {
+    'status' in data && delete data.status;
     this.data.userProfile[key] = data;
   }
 
