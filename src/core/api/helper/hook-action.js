@@ -17,16 +17,12 @@ const handleTableAction = (_api) => {
     formAction == 'pull' &&
       Array.isArray(table) &&
       table.forEach((el, i) => {
-        console.log('table', el);
-        console.log('table data', data.items);
         emptyTable(el);
         updateTable(el, data.items);
       });
     formAction == 'del' &&
       Array.isArray(table) &&
       table.forEach((el, i) => {
-        console.log('table', el);
-        console.log('table data', data.items);
         emptyTable(el);
         updateTable(el, data.items);
       });
