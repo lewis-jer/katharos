@@ -45,7 +45,7 @@ function validateDataset(form, data) {
           switch (item.type) {
             case 'LocaleDateString':
               data[item.index] = `${new Date(
-                data[item.lookupIndex]
+\watch                data[item.lookupIndex]
               ).toLocaleDateString()}`;
               break;
           }

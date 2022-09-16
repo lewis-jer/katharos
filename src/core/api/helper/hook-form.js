@@ -239,7 +239,7 @@ function formHelperAction(_api) {
       } else {
         formSpinner();
         this.validateForm(formName, formAction);
-        this.formSubmit(contents, formName, formAction, modalName, tableName);
+        await this.formSubmit(contents, formName, formAction, modalName, tableName);
       }
     },
     preloadForm(formName, formAction, modalName, content) {
