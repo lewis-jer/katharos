@@ -222,7 +222,7 @@ function formHelperAction(_api) {
       });
       return contents;
     },
-    formSubmission(formName, formAction, modalName, tableName) {
+    async formSubmission(formName, formAction, modalName, tableName) {
       var { formKeys, formContent } = this.formData(formName);
       var contents = this.formContents(formKeys, formAction, formContent);
 
@@ -239,7 +239,13 @@ function formHelperAction(_api) {
       } else {
         formSpinner();
         this.validateForm(formName, formAction);
-        await this.formSubmit(contents, formName, formAction, modalName, tableName);
+        await this.formSubmit(
+          contents,
+          formName,
+          formAction,
+          modalName,
+          tableName
+        );
       }
     },
     preloadForm(formName, formAction, modalName, content) {
