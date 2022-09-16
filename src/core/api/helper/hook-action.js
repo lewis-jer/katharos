@@ -19,6 +19,8 @@ const handleTableAction = (_api) => {
         console.log('test', item);
         Array.isArray(table) &&
           table.forEach((el, i) => {
+            console.log('table', el);
+            console.log('table data', data.items);
             emptyTable(el);
             updateTable(el, data.items);
           });
