@@ -15,28 +15,20 @@ const handleTableAction = (_api) => {
     formAction == 'empty' && emptyTable(table);
     formAction == 'update' && updateTable(table, data);
     formAction == 'pull' &&
-      Object.keys(data).forEach((item) => {
-        console.log('data items:', data);
-        console.log('tables:', table);
-        Array.isArray(table) &&
-          table.forEach((el, i) => {
-            console.log('table', el);
-            console.log('table data', data.items);
-            emptyTable(el);
-            updateTable(el, data.items);
-          });
+      Array.isArray(table) &&
+      table.forEach((el, i) => {
+        console.log('table', el);
+        console.log('table data', data.items);
+        emptyTable(el);
+        updateTable(el, data.items);
       });
     formAction == 'del' &&
-      Object.keys(data).forEach((item) => {
-        console.log('data items:', data);
-        console.log('tables:', table);
-        Array.isArray(table) &&
-          table.forEach((el, i) => {
-            console.log('table', el);
-            console.log('table data', data.items);
-            emptyTable(el);
-            updateTable(el, data.items);
-          });
+      Array.isArray(table) &&
+      table.forEach((el, i) => {
+        console.log('table', el);
+        console.log('table data', data.items);
+        emptyTable(el);
+        updateTable(el, data.items);
       });
   };
 };
