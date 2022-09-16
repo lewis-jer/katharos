@@ -1,8 +1,9 @@
 const handleTableAction = (_api) => {
   return (tableName, data, formAction) => {
-    var table = (Array.isArray(tableName) && tableName.map(tableElement =>
-      $(`#${tableElement}`).DataTable()
-    )) || $(`#${tableName}`).DataTable();
+    var table =
+      (Array.isArray(tableName) &&
+        tableName.map((tableElement) => $(`#${tableElement}`).DataTable())) ||
+      $(`#${tableName}`).DataTable();
     formAction == 'add' && table.row.add(data).draw().node();
     formAction == 'edit' &&
       table
@@ -12,19 +13,24 @@ const handleTableAction = (_api) => {
     formAction == 'delete' &&
       table.row($(data).parents('tr')).remove().draw(false);
     formAction == 'empty' && emptyTable(table);
-    formAction == 'update' && updateTable(table, data)
-    formAction == 'pull' && Object.keys(data).forEach((item) => {
-      Array.isArray(table) && table.forEach((el, i) => {
-        emptyTable(el);
-        updateTable(el, data.items)
-      })
-    })
-    formAction == 'del' && Object.keys(data).forEach((item) => {
-      Array.isArray(table) && table.forEach((el, i) => {
-        emptyTable(el);
-        updateTable(el, data.items)
-      })
-    })
+    formAction == 'update' && updateTable(table, data);
+    formAction == 'pull' &&
+      Object.keys(data).forEach((item) => {
+        console.log('test', item);
+        Array.isArray(table) &&
+          table.forEach((el, i) => {
+            emptyTable(el);
+            updateTable(el, data.items);
+          });
+      });
+    formAction == 'del' &&
+      Object.keys(data).forEach((item) => {
+        Array.isArray(table) &&
+          table.forEach((el, i) => {
+            emptyTable(el);
+            updateTable(el, data.items);
+          });
+      });
   };
 };
 
