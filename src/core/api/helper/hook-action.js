@@ -16,7 +16,8 @@ const handleTableAction = (_api) => {
     formAction == 'update' && updateTable(table, data);
     formAction == 'pull' &&
       Object.keys(data).forEach((item) => {
-        console.log('test', item);
+        console.log('data items:', item);
+        console.log('tables:', table);
         Array.isArray(table) &&
           table.forEach((el, i) => {
             console.log('table', el);
