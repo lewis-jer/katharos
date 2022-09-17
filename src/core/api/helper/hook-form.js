@@ -173,6 +173,7 @@ function formHelperAction(_api) {
             );
           })());
       }
+      return data || false;
     },
     formClose(formName, formAction, modalName, message = false) {
       _api.removeElementsById();
@@ -239,13 +240,14 @@ function formHelperAction(_api) {
       } else {
         formSpinner();
         this.validateForm(formName, formAction);
-        await this.formSubmit(
+        const response = await this.formSubmit(
           contents,
           formName,
           formAction,
           modalName,
           tableName
         );
+        return response;
       }
     },
     preloadForm(formName, formAction, modalName, content) {
