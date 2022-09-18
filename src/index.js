@@ -1,4 +1,4 @@
-import { _aspi, plugins } from './core/api';
+import { _api, plugins } from './core/api';
 import { pageActions } from './core/kdom';
 import { pageLoader } from './core/instance';
 
