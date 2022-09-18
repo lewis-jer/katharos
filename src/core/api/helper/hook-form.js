@@ -155,13 +155,14 @@ function formHelperAction(_api) {
       console.log(`preparedData: `, JSON.parse(JSON.stringify(data)));
       if (form.enabled) {
         if (form.submission == 'block') {
-          console.log('Form is blocked');
+          console.log('Form Submission is blocked');
           return false;
         }
 
         const response =
           form.version == 1 && (await this.submissionHandle(form.handle, data));
 
+        console.log(`submission response: ${response}`);
         console.log('Outside Scope: ', JSON.parse(JSON.stringify(this)));
         typeof response.data !== 'undefined' &&
           form.version == 1 &&
@@ -170,6 +171,10 @@ function formHelperAction(_api) {
             typeof res.insertId !== 'undefined' && (data.id = res.insertId);
             const params = { form, response, data, tableName };
             console.log('Inside Scope: ', this);
+            if (form.action == 'block') {
+              console.log('Form Action is blocked');
+              return false;
+            }
             await this.helper.completeAction(
               formName,
               formAction,
