@@ -58,7 +58,6 @@ class User {
   }
 
   addUserProfileItem(key, data) {
-    console.log(key, data);
     Array.isArray(this.data.userProfile[key]) &&
       this.data.userProfile[key].push(data);
   }
