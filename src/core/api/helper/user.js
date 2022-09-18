@@ -57,6 +57,11 @@ class User {
     });
   }
 
+  addUserProfileItem(key, data) {
+    Array.isArray(this.data.userProfile[key]) &&
+      this.data.userProfile[key].push(data);
+  }
+
   setUsername(username) {
     this.data.username = username;
   }
