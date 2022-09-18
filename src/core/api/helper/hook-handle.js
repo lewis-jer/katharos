@@ -25,6 +25,9 @@ class DataService {
   deleteBudgetByMonth(data) {
     return http.delete('/fp-app/bx/month', { data: data });
   }
+  deleteBudget(data) {
+    return http.delete('/fp-app/bx', { data: data });
+  }
 }
 
 const handle = (client) => {
