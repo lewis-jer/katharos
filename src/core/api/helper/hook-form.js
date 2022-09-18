@@ -154,13 +154,13 @@ function formHelperAction(_api) {
 
       console.log(`preparedData: `, JSON.parse(JSON.stringify(data)));
       if (form.enabled) {
-        const response =
-          form.version == 1 && (await this.submissionHandle(form.handle, data));
-
         if (form.submission == 'block') {
           console.log('Form is blocked');
           return false;
         }
+
+        const response =
+          form.version == 1 && (await this.submissionHandle(form.handle, data));
 
         console.log('Outside Scope: ', JSON.parse(JSON.stringify(this)));
         typeof response.data !== 'undefined' &&
