@@ -49,6 +49,14 @@ class User {
     this.data.userProfile[key] = data;
   }
 
+  updateUserProfileItem(key, data, object) {
+    this.data.userProfile[key].forEach((item, index) => {
+      if (this.data.userProfile[key][index][object] == data[object]) {
+        this.data.userProfile[key][index] = data;
+      }
+    });
+  }
+
   setUsername(username) {
     this.data.username = username;
   }
