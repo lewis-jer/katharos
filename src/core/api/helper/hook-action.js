@@ -10,6 +10,8 @@ const handleTableAction = (_api) => {
         .row(JSON.parse(data.tableIndex)._DT_CellIndex.row)
         .data(data)
         .draw();
+    formAction == 'del-old' &&
+      table.row($(data.tableIndex).parents('tr')).remove().draw(false);
     formAction == 'delete' &&
       table.row($(data).parents('tr')).remove().draw(false);
     formAction == 'empty' && emptyTable(table);
