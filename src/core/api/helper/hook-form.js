@@ -158,6 +158,7 @@ function formHelperAction(_api) {
           form.version == 1 && (await this.submissionHandle(form.handle, data));
 
         if (form.submission == 'block') {
+          console.log('Form is blocked');
           return false;
         }
 
