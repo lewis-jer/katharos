@@ -33,6 +33,7 @@ function validateDataset(form, data) {
     form.datasetMatcher.forEach((item) => {
       switch (item.target) {
         case 'tx':
+          console.log(this);
           data[item.index] = this.txMatcher(data[item.lookupIndex]);
           break;
         case 'bcat':
