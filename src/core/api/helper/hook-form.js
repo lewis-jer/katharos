@@ -269,6 +269,7 @@ function formHelperAction(_api) {
           Object.keys(content).includes(x.object.replace(`${formAction}_`, ''))
         ) {
           if (formContent[x.object].tagName == 'INPUT') {
+            console.log(content[x.object.replace(`${formAction}_`, '')]);
             var timestamp = new Date(
               content[x.object.replace(`${formAction}_`, '')]
             );
