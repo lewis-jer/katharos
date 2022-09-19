@@ -275,7 +275,9 @@ function formHelperAction(_api) {
             );
             var isDate = function (date) {
               return (
-                new Date(date) !== 'Invalid Date' && !isNaN(new Date(date))
+                new Date(date) !== 'Invalid Date' &&
+                !isNaN(new Date(date)) &&
+                date.match(/^\d{2}([./-])\d{2}\1\d{4}$/)
               );
             };
             console.log(timestamp);
