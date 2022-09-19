@@ -274,7 +274,7 @@ function formHelperAction(_api) {
                 new Date(date) !== 'Invalid Date' &&
                 !isNaN(new Date(date)) &&
                 timestamp > dateValidation &&
-                date.length > 10
+                date.length < 10
               );
             };
             if (isDate(content[x.object.replace(`${formAction}_`, '')])) {
