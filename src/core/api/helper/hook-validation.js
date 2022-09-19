@@ -34,6 +34,8 @@ function validateDataset(form, data) {
       switch (item.target) {
         case 'tx':
           console.log(this);
+          console.log(item);
+          console.log(data);
           data[item.index] = this.txMatcher(data[item.lookupIndex]);
           break;
         case 'bcat':
