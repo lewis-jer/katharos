@@ -36,6 +36,7 @@ function validateDataset(form, data) {
           console.log(this);
           console.log(item);
           console.log(data);
+          console.log(this.user.getUserItems(item, data[item.index]));
           data[item.index] = this.user.getUserItems(
             item,
             data[item.index]
