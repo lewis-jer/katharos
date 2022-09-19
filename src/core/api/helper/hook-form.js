@@ -273,7 +273,16 @@ function formHelperAction(_api) {
             var timestamp = new Date(
               content[x.object.replace(`${formAction}_`, '')]
             );
+            var isDate = function (date) {
+              return (
+                new Date(date) !== 'Invalid Date' && !isNaN(new Date(date))
+              );
+            };
             console.log(timestamp);
+            console.log(isDate(timestamp));
+            console.log(
+              isDate(content[x.object.replace(`${formAction}_`, '')])
+            );
             if (
               timestamp instanceof Date &&
               isNaN(timestamp) == false &&
