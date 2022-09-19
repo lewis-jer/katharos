@@ -32,11 +32,7 @@ function validateDataset(form, data) {
   form.hasOwnProperty('datasetMatcher') &&
     form.datasetMatcher.forEach((item) => {
       switch (item.target) {
-        case 'transactions':
-          console.log(this);
-          console.log(item);
-          console.log(data);
-          console.log(this.user.getUserItems(item, data[item.index]));
+        case 'categories':
           data[item.index] = this.user.getUserItems(
             item,
             data[item.index]
