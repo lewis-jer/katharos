@@ -269,27 +269,15 @@ function formHelperAction(_api) {
           Object.keys(content).includes(x.object.replace(`${formAction}_`, ''))
         ) {
           if (formContent[x.object].tagName == 'INPUT') {
-            console.log(content[x.object.replace(`${formAction}_`, '')]);
-            var timestamp = new Date(
-              content[x.object.replace(`${formAction}_`, '')]
-            );
             var isDate = function (date) {
               return (
                 new Date(date) !== 'Invalid Date' &&
                 !isNaN(new Date(date)) &&
-                date.toISOString().match(/^\d{2}([./-])\d{2}\1\d{4}$/)
+                timestamp > dateValidation &&
+                date.length > 10
               );
             };
-            console.log(timestamp.toISOString());
-            console.log(isDate(timestamp));
-            console.log(
-              isDate(content[x.object.replace(`${formAction}_`, '')])
-            );
-            if (
-              timestamp instanceof Date &&
-              isNaN(timestamp) == false &&
-              timestamp > dateValidation
-            ) {
+            if (isDate(content[x.object.replace(`${formAction}_`, '')])) {
               var d = new Date(timestamp).toISOString().substring(0, 10);
               formContent[x.object].value = d;
             } else {
