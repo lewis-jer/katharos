@@ -33,6 +33,9 @@ function validateDataset(form, data) {
     form.datasetMatcher.forEach((item) => {
       switch (item.target) {
         case 'transactions':
+          console.log(this);
+          console.log(item);
+          console.log(data);
           data[item.index] = this.user.getUserItems(
             item,
             data[item.index]
