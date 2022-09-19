@@ -281,9 +281,9 @@ function formHelperAction(_api) {
               );
             };
             console.log(timestamp);
-            console.log(isDate(timestamp));
+            console.log(isDate(`${timestamp}`));
             console.log(
-              isDate(content[x.object.replace(`${formAction}_`, '')])
+              isDate(`${content[x.object.replace(`${formAction}_`, '')]}`)
             );
             if (
               timestamp instanceof Date &&
