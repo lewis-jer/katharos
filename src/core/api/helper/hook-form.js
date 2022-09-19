@@ -273,7 +273,7 @@ function formHelperAction(_api) {
               if (
                 new Date(date) !== 'Invalid Date' &&
                 !isNaN(new Date(date)) &&
-                timestamp > dateValidation &&
+                new Date(date) > dateValidation &&
                 date.length < 10
               )
                 return date;
