@@ -277,13 +277,13 @@ function formHelperAction(_api) {
               return (
                 new Date(date) !== 'Invalid Date' &&
                 !isNaN(new Date(date)) &&
-                date.match(/^\d{2}([./-])\d{2}\1\d{4}$/)
+                date.toISOString().match(/^\d{2}([./-])\d{2}\1\d{4}$/)
               );
             };
-            console.log(timestamp);
-            console.log(isDate(`${timestamp}`));
+            console.log(timestamp.toISOString());
+            console.log(isDate(timestamp));
             console.log(
-              isDate(`${content[x.object.replace(`${formAction}_`, '')]}`)
+              isDate(content[x.object.replace(`${formAction}_`, '')])
             );
             if (
               timestamp instanceof Date &&
