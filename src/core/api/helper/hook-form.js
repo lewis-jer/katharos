@@ -270,15 +270,18 @@ function formHelperAction(_api) {
         ) {
           if (formContent[x.object].tagName == 'INPUT') {
             var isDate = function (date) {
-              return (
+              if (
                 new Date(date) !== 'Invalid Date' &&
                 !isNaN(new Date(date)) &&
                 timestamp > dateValidation &&
                 date.length < 10
-              );
+              )
+                return date;
+              return false;
             };
-            if (isDate(content[x.object.replace(`${formAction}_`, '')])) {
-              var d = new Date(timestamp).toISOString().substring(0, 10);
+            var date = isDate(content[x.object.replace(`${formAction}_`, '')]);
+            if (date) {
+              var d = new Date(date).toISOString().substring(0, 10);
               formContent[x.object].value = d;
             } else {
               formContent[x.object].value =
