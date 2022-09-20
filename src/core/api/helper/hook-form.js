@@ -161,7 +161,6 @@ function formHelperAction(_api) {
 
         const response =
           form.version == 1 && (await this.submissionHandle(form.handle, data));
-        console.log(JSON.parse(JSON.stringify(data)));
 
         console.log('Outside Scope: ', JSON.parse(JSON.stringify(this)));
         typeof response.data !== 'undefined' &&
@@ -183,8 +182,8 @@ function formHelperAction(_api) {
             );
           })());
       }
-      console.log(data);
-      return data || false;
+
+      return JSON.parse(JSON.stringify(data)) || false;
     },
     formClose(formName, formAction, modalName, message = false) {
       _api.removeElementsById();
