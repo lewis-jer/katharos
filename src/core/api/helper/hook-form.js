@@ -195,8 +195,6 @@ function formHelperAction(_api) {
       message && console.log(message);
     },
     formData(formName) {
-      console.log(formName);
-      console.log(document.forms[formName]);
       var formKeys = [];
       var formContent = document.forms[formName].elements;
       for (var i in formContent) {
