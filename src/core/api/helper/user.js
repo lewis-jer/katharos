@@ -62,6 +62,14 @@ class User {
       this.data.userProfile[key].push(data);
   }
 
+  removeUserProfileItem(key, data, object) {
+    this.data.userProfile[key].forEach((item, index) => {
+      if (this.data.userProfile[key][index][object] == data[object]) {
+        this.data.userProfile[key].splice(index, 1);
+      }
+    });
+  }
+
   setUsername(username) {
     this.data.username = username;
   }

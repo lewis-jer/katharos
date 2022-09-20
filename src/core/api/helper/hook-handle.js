@@ -28,6 +28,9 @@ class DataService {
   deleteBudget(data) {
     return http.delete('/fp-app/bx', { data: data });
   }
+  deleteTransaction(data) {
+    return http.delete('/fp-app/tx', { data: data });
+  }
 }
 
 const handle = (client) => {
