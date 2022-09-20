@@ -182,6 +182,7 @@ function formHelperAction(_api) {
             );
           })());
       }
+      console.log(data);
       return data || false;
     },
     formClose(formName, formAction, modalName, message = false) {
