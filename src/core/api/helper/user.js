@@ -64,6 +64,7 @@ class User {
 
   removeUserProfileItem(key, data, object) {
     this.data.userProfile[key].forEach((item, index) => {
+      console.log(data[object]);
       if (this.data.userProfile[key][index][object] == data[object]) {
         console.log(this.data.userProfile[key][index]);
         this.data.userProfile[key].splice(index, 1);
