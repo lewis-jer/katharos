@@ -183,7 +183,7 @@ function formHelperAction(_api) {
           })());
       }
 
-      return JSON.parse(JSON.stringify(data)) || false;
+      return data || false;
     },
     formClose(formName, formAction, modalName, message = false) {
       _api.removeElementsById();
