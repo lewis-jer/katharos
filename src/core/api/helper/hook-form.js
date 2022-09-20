@@ -167,7 +167,7 @@ function formHelperAction(_api) {
           form.version == 1 &&
           (await (async () => {
             const { data: res } = response;
-            (typeof res.insertId !== 'undefined' || res.insertId !== 0) &&
+            (typeof res.insertId !== 'undefined' || res.insertId != 0) &&
               (data.id = res.insertId);
             const params = { form, response, data, tableName };
             console.log('Inside Scope: ', this);
