@@ -161,6 +161,7 @@ function formHelperAction(_api) {
 
         const response =
           form.version == 1 && (await this.submissionHandle(form.handle, data));
+        console.log(data);
 
         console.log('Outside Scope: ', JSON.parse(JSON.stringify(this)));
         typeof response.data !== 'undefined' &&
