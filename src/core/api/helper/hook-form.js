@@ -189,7 +189,6 @@ function formHelperAction(_api) {
     },
     formClose(formName, formAction, modalName, message = false) {
       _api.removeElementsById();
-      console.log('here');
       this.cleanForm(formName, formAction);
       $(`#${modalName}`).modal('hide');
       if (!message) console.log('Form Closed Successfully');
