@@ -24,21 +24,7 @@ const dataHandler = {
       }
     }
   },
-  txMatcher: function (bcat = false, bmod = false) {
-    if (bcat != false) {
-      for (var i in userProfile.bcatData) {
-        if (userProfile.bcatData[i].bcat == bcat)
-          return userProfile.bcatData[i].Category;
-      }
-    } else if (bmod != false) {
-      for (var i in userProfile.moduleData) {
-        if (userProfile.moduleData[i].SN == bmod)
-          return userProfile.moduleData[i].func;
-      }
-    }
-  },
   bcatMatcher: function (value, type) {
-    
     if (type == 'func') {
       for (var i in userProfile.moduleData) {
         if (userProfile.moduleData[i].SN == value)
@@ -46,7 +32,7 @@ const dataHandler = {
       }
     } else if (type == 'module') {
       for (var i in userProfile.moduleData) {
-        if (userProfile.moduleData[i].SN == value) 
+        if (userProfile.moduleData[i].SN == value)
           return userProfile.moduleData[i].bmod;
       }
     } else if (type == 'type') {
