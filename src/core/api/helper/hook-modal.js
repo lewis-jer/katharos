@@ -27,8 +27,14 @@ const modalSync = (_api) => {
       for (var k in dataset) {
         var opt = dataset[k];
         var el = document.createElement('option');
-        el.textContent = opt[modal.data.label];
-        el.value = opt[modal.data.value];
+        if (!Array.isArray(modal.data)) {
+          el.textContent = opt[modal.data.label];
+          el.value = opt[modal.data.value];
+        }
+        if (Array.isArray(modal.data)) {
+          el.textContent = opt[modal.data[j].label];
+          el.value = opt[modal.data[j].value];
+        }
         select.appendChild(el);
       }
     }
