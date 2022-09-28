@@ -265,43 +265,35 @@ function formHelperAction(_api) {
     preloadForm(formName, formAction, modalName, content) {
       var { formKeys, formContent } = this.formData(formName);
       var contents = this.formContents(formKeys, formAction, formContent);
-      var dateValidation = new Date('02 Jan 1970 00:00:00 GMT');
+      var contentKeys = Object.keys(content);
       contents.forEach((x) => {
-        if (
-          Object.keys(content).includes(x.object.replace(`${formAction}_`, ''))
-        ) {
+        var domMatch = x.object.replace(`${formAction}_`, '');
+        if (contentKeys.includes(domMatch)) {
           if (formContent[x.object].tagName == 'INPUT') {
             var isDate = function (date) {
-              if (
+              var dateValidation = new Date('02 Jan 1970 00:00:00 GMT');
+              var condition1 =
                 new Date(date) !== 'Invalid Date' &&
                 !isNaN(new Date(date)) &&
                 new Date(date) > dateValidation &&
-                date.length < 10
-              )
-                return date;
+                date.length < 10;
+              if (condition1) return date;
               return false;
             };
-            var date = isDate(content[x.object.replace(`${formAction}_`, '')]);
+            var date = isDate(content[domMatch]);
             if (date) {
               var d = new Date(date).toISOString().substring(0, 10);
               formContent[x.object].value = d;
             } else {
-              formContent[x.object].value =
-                content[x.object.replace(`${formAction}_`, '')];
+              formContent[x.object].value = content[domMatch];
             }
           } else if (formContent[x.object].tagName == 'SELECT') {
             [formContent[x.object]].forEach((y, j) => {
               for (var i in y.options) {
-                if (
-                  y.options[i].innerHTML ==
-                  content[x.object.replace(`${formAction}_`, '')]
-                ) {
+                if (y.options[i].innerHTML == content[domMatch]) {
                   y.selectedIndex = i;
                   break;
-                } else if (
-                  y.options[i].value ==
-                  content[x.object.replace(`${formAction}_`, '')]
-                ) {
+                } else if (y.options[i].value == content[domMatch]) {
                   y.selectedIndex = i;
                 }
               }
