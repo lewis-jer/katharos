@@ -31,30 +31,12 @@ function validateFormDecryption(form, data) {
 function validateDataset(form, data) {
   form.hasOwnProperty('datasetMatcher') &&
     form.datasetMatcher.forEach((item) => {
-      switch (item.target) {
+      switch (item.pk) {
         case 'categories':
           data[item.index] = this.user.getUserItems(
             item,
             data[item.index]
           ).Category;
-          break;
-        case 'modules':
-          data[item.index] = this.user.getUserItems(
-            item,
-            data[item.index]
-          ).bmod;
-          break;
-        case 'types':
-          data[item.index] = this.user.getUserItems(
-            item,
-            data[item.index]
-          ).btype;
-          break;
-        case 'frequency':
-          data[item.index] = this.user.getUserItems(
-            item,
-            data[item.index]
-          ).btype;
           break;
         case 'date':
           switch (item.type) {
