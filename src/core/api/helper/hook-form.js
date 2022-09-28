@@ -267,7 +267,6 @@ function formHelperAction(_api) {
       var contents = this.formContents(formKeys, formAction, formContent);
       var dateValidation = new Date('02 Jan 1970 00:00:00 GMT');
       contents.forEach((x) => {
-        console.log(x);
         if (
           Object.keys(content).includes(x.object.replace(`${formAction}_`, ''))
         ) {
