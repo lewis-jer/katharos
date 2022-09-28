@@ -39,7 +39,6 @@ function validateDataset(form, data) {
           ).Category;
           break;
         case 'rewrite':
-          console.log(item, data);
           data[item.rewriteIndex] = this.user.getUserItems(
             item,
             data[item.index]
