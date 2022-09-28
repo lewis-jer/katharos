@@ -263,13 +263,9 @@ function formHelperAction(_api) {
       }
     },
     preloadForm(formName, formAction, modalName, content) {
-      console.log(formName);
-      console.log(formAction);
-      console.log(content);
       var { formKeys, formContent } = this.formData(formName);
       var contents = this.formContents(formKeys, formAction, formContent);
       var dateValidation = new Date('02 Jan 1970 00:00:00 GMT');
-      console.log(contents);
       contents.forEach((x) => {
         console.log(x);
         if (
