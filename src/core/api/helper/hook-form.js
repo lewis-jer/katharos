@@ -264,10 +264,13 @@ function formHelperAction(_api) {
     },
     preloadForm(formName, formAction, modalName, content) {
       console.log(formName);
+      console.log(formAction);
+      console.log(content);
       var { formKeys, formContent } = this.formData(formName);
       var contents = this.formContents(formKeys, formAction, formContent);
       var dateValidation = new Date('02 Jan 1970 00:00:00 GMT');
       contents.forEach((x) => {
+        console.log(x);
         if (
           Object.keys(content).includes(x.object.replace(`${formAction}_`, ''))
         ) {

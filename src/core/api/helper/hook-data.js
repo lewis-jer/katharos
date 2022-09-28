@@ -24,29 +24,6 @@ const dataHandler = {
       }
     }
   },
-  bcatMatcher: function (value, type) {
-    if (type == 'func') {
-      for (var i in userProfile.moduleData) {
-        if (userProfile.moduleData[i].SN == value)
-          return userProfile.moduleData[i].func;
-      }
-    } else if (type == 'module') {
-      for (var i in userProfile.moduleData) {
-        if (userProfile.moduleData[i].SN == value)
-          return userProfile.moduleData[i].bmod;
-      }
-    } else if (type == 'type') {
-      for (var i in userProfile.btypeData) {
-        if (userProfile.btypeData[i].SN == value)
-          return userProfile.btypeData[i].btype;
-      }
-    } else if (type == 'category') {
-      for (var i in userProfile.bcatData) {
-        if (userProfile.bcatData[i].bcat == value)
-          return userProfile.bcatData[i].Category;
-      }
-    }
-  },
   plaid: async function ($) {
     const fetchLinkToken = async () => {
       const {
