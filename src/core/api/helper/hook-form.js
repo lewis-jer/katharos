@@ -266,35 +266,35 @@ function formHelperAction(_api) {
       var { formKeys, formContent } = this.formData(formName);
       var contents = this.formContents(formKeys, formAction, formContent);
       var contentKeys = Object.keys(content);
+      var isDate = function (date) {
+        var dateValidation = new Date('02 Jan 1970 00:00:00 GMT');
+        var condition1 =
+          new Date(date) !== 'Invalid Date' &&
+          !isNaN(new Date(date)) &&
+          new Date(date) > dateValidation &&
+          date.length < 10;
+        if (condition1) return date;
+        return false;
+      };
       contents.forEach((x) => {
-        var domMatch = x.object.replace(`${formAction}_`, '');
+        var objName = x.object;
+        var domObj = formContent[objName];
+        var domMatch = objName.replace(`${formAction}_`, '');
         if (contentKeys.includes(domMatch)) {
-          if (formContent[x.object].tagName == 'INPUT') {
-            var isDate = function (date) {
-              var dateValidation = new Date('02 Jan 1970 00:00:00 GMT');
-              var condition1 =
-                new Date(date) !== 'Invalid Date' &&
-                !isNaN(new Date(date)) &&
-                new Date(date) > dateValidation &&
-                date.length < 10;
-              if (condition1) return date;
-              return false;
-            };
+          if (domObj.tagName == 'INPUT') {
             var date = isDate(content[domMatch]);
-            if (date) {
-              var d = new Date(date).toISOString().substring(0, 10);
-              formContent[x.object].value = d;
-            } else {
-              formContent[x.object].value = content[domMatch];
-            }
-          } else if (formContent[x.object].tagName == 'SELECT') {
-            [formContent[x.object]].forEach((y, j) => {
-              for (var i in y.options) {
-                if (y.options[i].innerHTML == content[domMatch]) {
-                  y.selectedIndex = i;
+            (date &&
+              (domObj.value = new Date(date).toISOString().substring(0, 10))) ||
+              (domObj.value = content[domMatch]);
+          } else if (domObj.tagName == 'SELECT') {
+            [domObj].forEach(({ options, selectedIndex }, j) => {
+              console.log(options, selectedIndex);
+              for (var i in options) {
+                if (options[i].innerHTML == content[domMatch]) {
+                  selectedIndex = i;
                   break;
-                } else if (y.options[i].value == content[domMatch]) {
-                  y.selectedIndex = i;
+                } else if (options[i].value == content[domMatch]) {
+                  selectedIndex = i;
                 }
               }
             });
