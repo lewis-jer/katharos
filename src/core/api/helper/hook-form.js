@@ -290,6 +290,8 @@ function formHelperAction(_api) {
             [domObj].forEach(({ options, selectedIndex }, j) => {
               console.log(options, selectedIndex);
               for (var i in options) {
+                console.log(options[i]);
+                console.log(content[domMatch]);
                 if (options[i].innerHTML == content[domMatch]) {
                   selectedIndex = i;
                   break;
