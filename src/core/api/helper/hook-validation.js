@@ -39,20 +39,12 @@ function validateDataset(form, data) {
           ).Category;
           break;
         case 'rewrite':
-          switch (item.type) {
-            case 'modules':
-              data[item.rewriteIndex] = this.user.getUserItems(
-                item,
-                data[item.index]
-              )[item.responseIndex];
-              break;
-            case 'types':
-              data[item.rewriteIndex] = this.user.getUserItems(
-                item,
-                data[item.index]
-              )[item.responseIndex];
-              break;
-          }
+          console.log(item, data);
+          data[item.rewriteIndex] = this.user.getUserItems(
+            item,
+            data[item.index]
+          )[item.responseIndex];
+          break;
         case 'date':
           switch (item.type) {
             case 'LocaleDateString':
