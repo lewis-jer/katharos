@@ -38,11 +38,23 @@ function validateDataset(form, data) {
             data[item.index]
           ).Category;
           break;
-        case 'bcat':
-          data[item.index] = this.bcatMatcher(
-            data[item.lookupIndex],
-            item.type
-          );
+        case 'modules':
+          data[item.index] = this.user.getUserItems(
+            item,
+            data[item.index]
+          ).bmod;
+          break;
+        case 'types':
+          data[item.index] = this.user.getUserItems(
+            item,
+            data[item.index]
+          ).btype;
+          break;
+        case 'frequency':
+          data[item.index] = this.user.getUserItems(
+            item,
+            data[item.index]
+          ).btype;
           break;
         case 'date':
           switch (item.type) {
