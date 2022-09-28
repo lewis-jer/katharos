@@ -38,6 +38,21 @@ function validateDataset(form, data) {
             data[item.index]
           ).Category;
           break;
+        case 'rewrite':
+          switch (item.type) {
+            case 'modules':
+              data[item.rewriteIndex] = this.user.getUserItems(
+                item,
+                data[item.index]
+              )[item.responseIndex];
+              break;
+            case 'types':
+              data[item.rewriteIndex] = this.user.getUserItems(
+                item,
+                data[item.index]
+              )[item.responseIndex];
+              break;
+          }
         case 'date':
           switch (item.type) {
             case 'LocaleDateString':
