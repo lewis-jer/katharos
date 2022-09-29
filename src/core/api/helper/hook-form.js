@@ -208,6 +208,7 @@ function formHelperAction(_api) {
       }
 
       formKeys = formKeys.filter((el) => {
+        console.log(el);
         return el != null && el != '';
       });
 
