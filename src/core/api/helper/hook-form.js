@@ -201,7 +201,7 @@ function formHelperAction(_api) {
       for (var i in formContent) {
         if (!duplicates.includes(formContent[i].name)) {
           if (typeof formContent[i] !== 'function') {
-            if (formContents[x].tagName != 'BUTTON') {
+            if (formContent[i].tagName != 'BUTTON') {
               console.log(formContent[i].tagName);
               duplicates.push(formContent[i].name);
               formKeys.push(formContent[i].name);
