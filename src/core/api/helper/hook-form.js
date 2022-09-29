@@ -54,10 +54,15 @@ function formHelperAction(_api) {
     },
     filterByValue(array, value) {
       console.log(array, value);
-      return array.filter(
-        (data) =>
+      return array.filter((data) => {
+        console.log(data);
+        console.log(
+          JSON.stringify(data).toLowerCase().indexOf(value.toLowerCase())
+        );
+        return (
           JSON.stringify(data).toLowerCase().indexOf(value.toLowerCase()) !== -1
-      );
+        );
+      });
     },
     validateForm(formName, formAction, formClose = '') {
       var { formKeys, formContent } = this.formData(formName);
