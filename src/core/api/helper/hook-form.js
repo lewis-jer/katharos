@@ -53,21 +53,15 @@ function formHelperAction(_api) {
       res.status == 'fail' && alertify.error('Failure');
     },
     filterByValue(array, value) {
-      console.log(array, value);
       var duplicates = [];
       return array.filter((data) => {
-        console.log(
-          data,
-          JSON.stringify(data).toLowerCase().indexOf(value.toLowerCase())
-        );
         if (!duplicates.includes(data)) {
           duplicates.push(data);
           return (
             JSON.stringify(data).toLowerCase().indexOf(value.toLowerCase()) !==
-              -1 || JSON.stringify(data).toLowerCase() !== 'namedItem'
+            -1
           );
         }
-        console.log('Line 70: ', data);
       });
     },
     validateForm(formName, formAction, formClose = '') {
