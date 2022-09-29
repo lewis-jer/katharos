@@ -205,8 +205,8 @@ function formHelperAction(_api) {
       var formContent = document.forms[formName].elements;
       var duplicates = [];
       for (var i in formContent) {
-        if (!duplicates.includes(data)) {
-          duplicates.push(data);
+        if (!duplicates.includes(formContent[i].name)) {
+          duplicates.push(formContent[i].name);
           console.log(formContent[i]);
           formKeys.push(formContent[i].name);
         }
