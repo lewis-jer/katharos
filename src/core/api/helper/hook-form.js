@@ -219,13 +219,14 @@ function formHelperAction(_api) {
     },
     formContents(formKeys, formAction, formContents) {
       var contents = [];
+      var isNotNull = function (value) {
+        var condition1 = value != '' && value && value != 'null';
+        if (condition1) return true;
+        return false;
+      };
       this.filterByValue(formKeys, formAction).forEach((x) => {
         console.log(x);
-        if (
-          formContents[x].value != '' &&
-          formContents[x].value &&
-          formContents[x].value != 'null'
-        ) {
+        if (isNotNull(formContents[x].value)) {
           if (formContents[x].tagName != 'BUTTON')
             contents.push({
               object: formContents[x].name,
