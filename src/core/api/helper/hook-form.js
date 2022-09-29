@@ -53,16 +53,10 @@ function formHelperAction(_api) {
       res.status == 'fail' && alertify.error('Failure');
     },
     filterByValue(array, value) {
-      var duplicates = [];
-      return array.filter((data) => {
-        if (!duplicates.includes(data)) {
-          duplicates.push(data);
-          return (
-            JSON.stringify(data).toLowerCase().indexOf(value.toLowerCase()) !==
-            -1
-          );
-        }
-      });
+      return array.filter(
+        (data) =>
+          JSON.stringify(data).toLowerCase().indexOf(value.toLowerCase()) !== -1
+      );
     },
     validateForm(formName, formAction, formClose = '') {
       var { formKeys, formContent } = this.formData(formName);
