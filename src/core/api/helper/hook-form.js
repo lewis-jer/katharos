@@ -259,7 +259,6 @@ function formHelperAction(_api) {
     preloadForm(formName, formAction, modalName, content) {
       var { formKeys, formContent } = this.formData(formName);
       var contents = this.formContents(formKeys, formAction, formContent);
-      console.log(contents);
       var contentKeys = Object.keys(content);
       var isDate = function (date) {
         var dateValidation = new Date('02 Jan 1970 00:00:00 GMT');
@@ -283,9 +282,7 @@ function formHelperAction(_api) {
               (domObj.value = content[domMatch]);
           } else if (domObj.tagName == 'SELECT') {
             [domObj].forEach(({ options }) => {
-              console.log('Line 291: ', options);
               for (var i in options) {
-                console.log('Line 293: ', options[i], content[domMatch]);
                 if (options[i].innerHTML == content[domMatch]) {
                   options.selectedIndex = i;
                   break;
