@@ -67,7 +67,7 @@ function formHelperAction(_api) {
             -1
           );
         }
-        console.log(data);
+        console.log('Line 70: ', data);
       });
     },
     validateForm(formName, formAction, formClose = '') {
