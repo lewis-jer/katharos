@@ -200,10 +200,7 @@ function formHelperAction(_api) {
       var duplicates = [];
       for (var i in formContent) {
         if (!duplicates.includes(formContent[i].name)) {
-          if (
-            typeof formContent[i] !== 'function' ||
-            formContent[i].tagName != 'BUTTON'
-          ) {
+          if (typeof formContent[i] !== 'function') {
             duplicates.push(formContent[i].name);
             formKeys.push(formContent[i].name);
           }
@@ -228,17 +225,19 @@ function formHelperAction(_api) {
           formContents[x].value &&
           formContents[x].value != 'null'
         ) {
-          contents.push({
-            object: formContents[x].name,
-            value: formContents[x].value,
-            index: Object.values(formContents).indexOf(formContents[x])
-          });
+          if (formContents[x].tagName != 'BUTTON')
+            contents.push({
+              object: formContents[x].name,
+              value: formContents[x].value,
+              index: Object.values(formContents).indexOf(formContents[x])
+            });
         } else {
-          contents.push({
-            object: formContents[x].name,
-            value: false,
-            index: Object.values(formContents).indexOf(formContents[x])
-          });
+          if (formContents[x].tagName != 'BUTTON')
+            contents.push({
+              object: formContents[x].name,
+              value: false,
+              index: Object.values(formContents).indexOf(formContents[x])
+            });
         }
       });
       return contents;
