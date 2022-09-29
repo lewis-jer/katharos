@@ -54,14 +54,20 @@ function formHelperAction(_api) {
     },
     filterByValue(array, value) {
       console.log(array, value);
+      var duplicates = [];
       return array.filter((data) => {
         console.log(data);
         console.log(
           JSON.stringify(data).toLowerCase().indexOf(value.toLowerCase())
         );
-        return (
-          JSON.stringify(data).toLowerCase().indexOf(value.toLowerCase()) !== -1
-        );
+        if (!duplicates.includes(data)) {
+          duplicates.push(data);
+          return (
+            JSON.stringify(data).toLowerCase().indexOf(value.toLowerCase()) !==
+            -1
+          );
+        }
+        console.log(data);
       });
     },
     validateForm(formName, formAction, formClose = '') {
