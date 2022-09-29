@@ -288,9 +288,9 @@ function formHelperAction(_api) {
               (domObj.value = content[domMatch]);
           } else if (domObj.tagName == 'SELECT') {
             [domObj].forEach(({ options, selectedIndex }, j) => {
-              console.log(options, selectedIndex);
+              console.log('Line 291: ', options, selectedIndex);
               for (var i in options) {
-                console.log(options[i], content[domMatch]);
+                console.log('Line 293: ', options[i], content[domMatch]);
                 if (options[i].innerHTML == content[domMatch]) {
                   options.selectedIndex = i;
                   break;
