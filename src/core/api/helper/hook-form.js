@@ -200,9 +200,8 @@ function formHelperAction(_api) {
       var duplicates = [];
       for (var i in formContent) {
         if (!duplicates.includes(formContent[i].name)) {
-          duplicates.push(formContent[i].name);
-          console.log(formContent[i]);
-          console.log(typeof formContent[i]);
+          if (typeof formContent[i] !== 'function')
+            duplicates.push(formContent[i].name);
           formKeys.push(formContent[i].name);
         }
       }
