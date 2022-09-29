@@ -208,6 +208,7 @@ function formHelperAction(_api) {
         if (!duplicates.includes(formContent[i].name)) {
           duplicates.push(formContent[i].name);
           console.log(formContent[i]);
+          console.log(typeof formContent[i]);
           formKeys.push(formContent[i].name);
         }
       }
