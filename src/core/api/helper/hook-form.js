@@ -292,10 +292,10 @@ function formHelperAction(_api) {
               for (var i in options) {
                 console.log(options[i], content[domMatch]);
                 if (options[i].innerHTML == content[domMatch]) {
-                  selectedIndex = i;
+                  options.selectedIndex = i;
                   break;
                 } else if (options[i].value == content[domMatch]) {
-                  selectedIndex = i;
+                  options.selectedIndex = i;
                 }
               }
             });
