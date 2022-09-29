@@ -210,7 +210,7 @@ function formHelperAction(_api) {
       formKeys = formKeys.filter((el) => {
         console.log(el);
         return (
-          el != null && el != '' && el.toLowerCase().indexOf('item') !== -1
+          el != null && el != '' && el.toLowerCase().indexOf('namedItem') !== 1
         );
       });
 
