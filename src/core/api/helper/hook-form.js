@@ -220,11 +220,6 @@ function formHelperAction(_api) {
     },
     formContents(formKeys, formAction, formContents) {
       var contents = [];
-      var isNotNull = function (value) {
-        var condition1 = value != '' && value && value != 'null';
-        if (condition1) return true;
-        return false;
-      };
       this.filterByValue(formKeys, formAction).forEach((x) => {
         contents.push({
           object: formContents[x].name,
