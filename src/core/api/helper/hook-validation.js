@@ -29,6 +29,7 @@ function validateFormDecryption(form, data) {
 }
 
 function validateDataset(form, data) {
+  console.log(data);
   form.hasOwnProperty('datasetMatcher') &&
     form.datasetMatcher.forEach((item) => {
       switch (item.pk) {
