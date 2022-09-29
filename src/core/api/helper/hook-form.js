@@ -226,18 +226,11 @@ function formHelperAction(_api) {
         return false;
       };
       this.filterByValue(formKeys, formAction).forEach((x) => {
-          contents.push({
-            object: formContents[x].name,
-            value: formContents[x].value || false,
-            index: Object.values(formContents).indexOf(formContents[x])
-          });
-        } else {
-          contents.push({
-            object: formContents[x].name,
-            value: false,
-            index: Object.values(formContents).indexOf(formContents[x])
-          });
-        }
+        contents.push({
+          object: formContents[x].name,
+          value: formContents[x].value || false,
+          index: Object.values(formContents).indexOf(formContents[x])
+        });
       });
       return contents;
     },
