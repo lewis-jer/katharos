@@ -204,14 +204,13 @@ function formHelperAction(_api) {
       var formKeys = [];
       var formContent = document.forms[formName].elements;
       for (var i in formContent) {
+        console.log(formContent[i]);
         formKeys.push(formContent[i].name);
       }
 
       formKeys = formKeys.filter((el) => {
         console.log(el);
-        return (
-          el != null && el != '' && el.toLowerCase().indexOf('namedItem') !== 1
-        );
+        return el != null && el != '';
       });
 
       return {
