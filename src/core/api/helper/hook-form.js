@@ -213,6 +213,7 @@ function formHelperAction(_api) {
     formContents(formKeys, formAction, formContents) {
       var contents = [];
       this.filterByValue(formKeys, formAction).forEach((x) => {
+        console.log(x);
         if (
           formContents[x].value != '' &&
           formContents[x].value &&
