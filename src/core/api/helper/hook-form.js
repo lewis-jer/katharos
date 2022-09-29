@@ -53,6 +53,7 @@ function formHelperAction(_api) {
       res.status == 'fail' && alertify.error('Failure');
     },
     filterByValue(array, value) {
+      console.log(array, value);
       return array.filter(
         (data) =>
           JSON.stringify(data).toLowerCase().indexOf(value.toLowerCase()) !== -1
