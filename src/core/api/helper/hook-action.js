@@ -4,12 +4,12 @@ const handleTableAction = (_api) => {
       (Array.isArray(tableName) &&
         tableName.map((tableElement) => $(`#${tableElement}`).DataTable())) ||
       $(`#${tableName}`).DataTable();
-    formAction == 'add' && table.row.add(data).draw().node();
+    formAction == 'add' && table.row.add(data).draw(false).node();
     formAction == 'edit' &&
       table
         .row(JSON.parse(data.tableIndex)._DT_CellIndex.row)
         .data(data)
-        .draw();
+        .draw(false);
     formAction == 'del-old' &&
       table.row($(data.tableIndex).parents('tr')).remove().draw(false);
     formAction == 'delete' &&
@@ -32,12 +32,12 @@ const handleTableAction = (_api) => {
 };
 
 const emptyTable = (table) => {
-  table.rows().remove().draw();
+  table.rows().remove().draw(false);
 };
 
 const updateTable = (table, data) => {
   data.forEach((x, i) => {
-    table.row.add(data[i]).draw().node();
+    table.row.add(data[i]).draw(false).node();
   });
 };
 
