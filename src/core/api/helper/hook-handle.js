@@ -40,6 +40,9 @@ class DataService {
   deletePendingTransaction(data) {
     return http.delete('/fp-app/tx/upload', { data: data });
   }
+  deleteAllPendingTransaction(data) {
+    return http.delete('/fp-app/tx/upload', { data: data });
+  }
 }
 
 const handle = (client) => {
