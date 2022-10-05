@@ -41,7 +41,7 @@ class DataService {
     return http.delete('/fp-app/tx/upload', { data: data });
   }
   deleteAllPendingTransaction(data) {
-    return http.delete('/fp-app/tx/upload', { data: data });
+    return http.delete('/fp-app/txin/dump', { data: data });
   }
 }
 
