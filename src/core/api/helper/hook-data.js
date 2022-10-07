@@ -59,12 +59,12 @@ const dataHandler = {
     handler.open();
   },
   encrypter: function (message) {
-    var encryptMsg = CryptoJS.AES.encrypt(message, configuration.system);
+    var encryptMsg = CryptoJS.AES.encrypt(message, configs.system);
     encryptMsg = encryptMsg.toString();
     return encryptMsg;
   },
   decrypter: function (encrypted) {
-    var decryptMsg = CryptoJS.AES.decrypt(encrypted, configuration.system);
+    var decryptMsg = CryptoJS.AES.decrypt(encrypted, configs.system);
     decryptMsg = decryptMsg.toString(CryptoJS.enc.Utf8);
     return decryptMsg;
   },

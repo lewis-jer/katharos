@@ -7,7 +7,7 @@ async function dynamicChartLoader() {
     // Generate Page Charts
     window.verbAsyncInit = function () {
       Verb.init({
-        apiKey: configuration.chart,
+        apiKey: configs.chart,
         version: 'v1.0',
         authParams: {
           userToken: `${JSON.parse(localStorage.getItem('user')).accessToken}`
@@ -19,7 +19,7 @@ async function dynamicChartLoader() {
     this.system.updatePlugin(verb.src);
   } else {
     window.Verb.init({
-      apiKey: configuration.chart,
+      apiKey: configs.chart,
       version: 'v1.0',
       authParams: {
         userToken: `${JSON.parse(localStorage.getItem('user')).accessToken}`
