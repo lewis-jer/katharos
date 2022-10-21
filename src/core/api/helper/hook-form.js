@@ -294,6 +294,10 @@ function formHelperAction(_api) {
           }
         }
       });
+    },
+    fastHandle: async () => {
+      console.log(this); 
+      //(await this.submissionHandle(form.handle, data));
     }
   };
 }
