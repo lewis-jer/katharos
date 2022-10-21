@@ -295,8 +295,9 @@ function formHelperAction(_api) {
         }
       });
     },
-    fastHandle: async () => {
-      console.log(this); 
+    fastHandle: async (reqData, handle) => {
+      console.log(this);
+      console.log(reqData, handle);
       //(await this.submissionHandle(form.handle, data));
     }
   };
