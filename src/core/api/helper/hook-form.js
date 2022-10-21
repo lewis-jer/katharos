@@ -304,7 +304,7 @@ function formHelperAction(_api) {
       console.log(reqData, handle);
       var response = await this.submissionHandle(handle, reqData);
       console.log(response);
-      if (response.status === 'success') return response;
+      if (response.data.status === 'success') return response;
       return false;
     }
   };
