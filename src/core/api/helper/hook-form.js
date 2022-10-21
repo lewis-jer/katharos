@@ -297,6 +297,7 @@ function formHelperAction(_api) {
     },
     fastHandle: async (reqData, handle) => {
       console.log(this);
+      const synchronized = await this.helper.synchronizeForms();
       console.log(reqData, handle);
       //(await this.submissionHandle(form.handle, data));
     }
