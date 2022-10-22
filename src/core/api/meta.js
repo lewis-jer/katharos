@@ -18,9 +18,7 @@ var meta = [
     container: false,
     name: 'viewport',
     type: 'meta',
-    values: [
-      { width: 'device-width', 'initial-scale': 1, 'shrink-to-fit': 'no' }
-    ]
+    values: [{ width: 'device-width', 'initial-scale': 1, 'shrink-to-fit': 'no' }]
   },
   {
     attributes: ['content'],
@@ -41,11 +39,7 @@ var meta = [
     container: false,
     name: 'author',
     type: 'link',
-    values: [
-      'shortcut icon',
-      'https://level.blob.core.windows.net/fp-blob/images/level-favicon.png',
-      'image/x-icon'
-    ]
+    values: ['shortcut icon', 'https://level.blob.core.windows.net/fp-blob/images/level-favicon.png', 'image/x-icon']
   },
   {
     attributes: [],
@@ -72,8 +66,7 @@ for (var i in meta) {
             .replace(/[:]/g, '=')
             .replace(/[,p]/g, ', ')
         )
-      : meta[i].values[j] &&
-        child.setAttribute(meta[i].attributes[j], meta[i].values[j]);
+      : meta[i].values[j] && child.setAttribute(meta[i].attributes[j], meta[i].values[j]);
   }
   meta[i].container && (child.innerHTML = meta[i].innerHTML);
   el.appendChild(child);

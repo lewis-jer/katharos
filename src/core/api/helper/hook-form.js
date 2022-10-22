@@ -40,8 +40,7 @@ function formHelperAction(_api) {
       data = await validateDataset.call(_api, form, data);
       data = await validateFormDecryption.call(_api, form, data);
 
-      form.updateTable &&
-        (await _api.updateTable(tableName, data, formAction, endpoint));
+      form.updateTable && (await _api.updateTable(tableName, data, formAction, endpoint));
 
       _api.removeElementsById();
 
@@ -53,26 +52,19 @@ function formHelperAction(_api) {
       res.status == 'fail' && alertify.error('Failure');
     },
     filterByValue(array, value) {
-      return array.filter(
-        (data) =>
-          JSON.stringify(data).toLowerCase().indexOf(value.toLowerCase()) !== -1
-      );
+      return array.filter((data) => JSON.stringify(data).toLowerCase().indexOf(value.toLowerCase()) !== -1);
     },
     validateForm(formName, formAction, formClose = '') {
       var { formKeys, formContent } = this.formData(formName);
       var contents = this.formContents(formKeys, formAction, formContent);
 
       contents = contents.filter((el) => {
-        return (
-          el.object != null && el.object != '' && el.object.includes(formAction)
-        );
+        return el.object != null && el.object != '' && el.object.includes(formAction);
       });
 
       contents.forEach((x, index) => {
         var field = document.forms[formName].elements[x.object];
-        var formField = document
-          .getElementById(formName)
-          .getElementsByClassName('form-group')[x.index].children;
+        var formField = document.getElementById(formName).getElementsByClassName('form-group')[x.index].children;
         if (formClose == '') {
           for (var i in formField) {
             if (formField[i].tagName == 'SPAN' && x.value === false) {
@@ -123,26 +115,14 @@ function formHelperAction(_api) {
       var { formKeys, formContent } = this.formData(formName);
       this.validateForm(formName, formAction, 1);
       this.filterByValue(formKeys, formAction).forEach((x) => {
-        if (formContent[x].value != '')
-          if (formContent[x].tagName != 'SELECT') formContent[x].value = '';
+        if (formContent[x].value != '') if (formContent[x].tagName != 'SELECT') formContent[x].value = '';
         if (formContent[x].tagName == 'SELECT') removeOptions(formContent[x]);
       });
     },
-    formSubmit: async (
-      contents,
-      formName,
-      formAction,
-      modalName,
-      tableName
-    ) => {
+    formSubmit: async (contents, formName, formAction, modalName, tableName) => {
       const synchronized = await this.helper.synchronizeForms();
       if (!synchronized) {
-        this.helper.formClose(
-          formName,
-          formAction,
-          modalName,
-          'Form fail synchronize'
-        );
+        this.helper.formClose(formName, formAction, modalName, 'Form fail synchronize');
         return;
       }
       var modal = _api.system.getModal(modalName);
@@ -159,29 +139,21 @@ function formHelperAction(_api) {
           return false;
         }
 
-        const response =
-          form.version == 1 && (await this.submissionHandle(form.handle, data));
+        const response = form.version == 1 && (await this.submissionHandle(form.handle, data));
 
         console.log('Outside Scope: ', JSON.parse(JSON.stringify(this)));
         typeof response.data !== 'undefined' &&
           form.version == 1 &&
           (await (async () => {
             const { data: res } = response;
-            typeof res.insertId !== 'undefined' &&
-              res.insertId != 0 &&
-              (data.id = res.insertId);
+            typeof res.insertId !== 'undefined' && res.insertId != 0 && (data.id = res.insertId);
             const params = { form, response, data, tableName };
             console.log('Inside Scope: ', this);
             if (form.action == 'block') {
               console.log('Form Action is blocked');
               return false;
             }
-            await this.helper.completeAction(
-              formName,
-              formAction,
-              modalName,
-              params
-            );
+            await this.helper.completeAction(formName, formAction, modalName, params);
           })());
       }
 
@@ -234,9 +206,7 @@ function formHelperAction(_api) {
       var contents = this.formContents(formKeys, formAction, formContent);
 
       contents = contents.filter((el) => {
-        return (
-          el.object != null && el.object != '' && el.object.includes(formAction)
-        );
+        return el.object != null && el.object != '' && el.object.includes(formAction);
       });
 
       // Form Validation
@@ -246,13 +216,7 @@ function formHelperAction(_api) {
       } else {
         formSpinner();
         this.validateForm(formName, formAction);
-        const response = await this.formSubmit(
-          contents,
-          formName,
-          formAction,
-          modalName,
-          tableName
-        );
+        const response = await this.formSubmit(contents, formName, formAction, modalName, tableName);
         return response;
       }
     },
@@ -263,10 +227,7 @@ function formHelperAction(_api) {
       var isDate = function (date) {
         var dateValidation = new Date('02 Jan 1970 00:00:00 GMT');
         var condition1 =
-          new Date(date) !== 'Invalid Date' &&
-          !isNaN(new Date(date)) &&
-          new Date(date) > dateValidation &&
-          date.length < 10;
+          new Date(date) !== 'Invalid Date' && !isNaN(new Date(date)) && new Date(date) > dateValidation && date.length < 10;
         if (condition1) return date;
         return false;
       };
@@ -277,9 +238,7 @@ function formHelperAction(_api) {
         if (contentKeys.includes(domMatch)) {
           if (domObj.tagName == 'INPUT') {
             var date = isDate(content[domMatch]);
-            (date &&
-              (domObj.value = new Date(date).toISOString().substring(0, 10))) ||
-              (domObj.value = content[domMatch]);
+            (date && (domObj.value = new Date(date).toISOString().substring(0, 10))) || (domObj.value = content[domMatch]);
           } else if (domObj.tagName == 'SELECT') {
             [domObj].forEach(({ options }) => {
               for (var i in options) {
@@ -296,14 +255,11 @@ function formHelperAction(_api) {
       });
     },
     fastHandle: async (reqData, handle) => {
-      console.log(this);
       const synchronized = await this.helper.synchronizeForms();
       if (!synchronized) {
         return 'Sychronization Fail';
       }
-      console.log(reqData, handle);
       var response = await this.submissionHandle(handle, reqData);
-      console.log(response);
       if (response.data.status === 'success') return response;
       return false;
     }

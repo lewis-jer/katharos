@@ -9,9 +9,7 @@ async function pageLoader(pageInfo) {
 
   await this.system.initializeController(pageInfo);
   await this.system.initializeMiddleware(pageInfo);
-  await this.system
-    .instantiateMiddleware(this, pageInfo)
-    .then((res) => console.log(res));
+  await this.system.instantiateMiddleware(this, pageInfo).then((res) => console.log(res));
 
   pageInfo.loaded = true;
 
@@ -32,9 +30,7 @@ async function componentLoader(pageInfo) {
   // Instantiate Navigation Bar
   this.system.componentLoader('navigationBar', true);
   const current = this.system.getModule([components.navbar.arrayExpression]);
-  current.loaded
-    ? await pageReloader.call(this, current)
-    : await pageLoader.call(this, current);
+  current.loaded ? await pageReloader.call(this, current) : await pageLoader.call(this, current);
 
   this.addEvent('loadComponent', {
     componentId: this.system.getComponentId('navigationBar'),

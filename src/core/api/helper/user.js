@@ -58,8 +58,7 @@ class User {
   }
 
   addUserProfileItem(key, data) {
-    Array.isArray(this.data.userProfile[key]) &&
-      this.data.userProfile[key].push(data);
+    Array.isArray(this.data.userProfile[key]) && this.data.userProfile[key].push(data);
   }
 
   removeUserProfileItem(key, data, object) {
@@ -102,9 +101,7 @@ class User {
   }
 
   getRandomUserItem(key) {
-    var randomNumber =
-      Math.floor(Math.random() * (this.data.userProfile[key].length - 1 - 0)) +
-      0;
+    var randomNumber = Math.floor(Math.random() * (this.data.userProfile[key].length - 1 - 0)) + 0;
     return this.data.userProfile[key][randomNumber];
   }
 

@@ -15,11 +15,7 @@ const dataHandler = {
   },
   FindInArray: function (Arr, Value0 = '', Value1 = '', Value2 = '') {
     for (var i = 0; i < Arr.length; i++) {
-      if (
-        Arr[i].category == Value0 &&
-        Arr[i].month == Value1 &&
-        Arr[i].year == Value2
-      ) {
+      if (Arr[i].category == Value0 && Arr[i].month == Value1 && Arr[i].year == Value2) {
         return i;
       }
     }
@@ -28,9 +24,7 @@ const dataHandler = {
     const fetchLinkToken = async () => {
       const {
         data: { linkToken }
-      } = await this.system
-        .http()
-        .get('fp-app/plaid/create-link-token/' + this.user.getUsername());
+      } = await this.system.http().get('fp-app/plaid/create-link-token/' + this.user.getUsername());
       return linkToken;
     };
 
@@ -44,11 +38,9 @@ const dataHandler = {
         const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
         localStorage.setItem('user', modifiedndstrigifiedForStorage);
         plaidBtn.style.display = 'none';
-        await this.system
-          .http()
-          .post('fp-app/plaid/token-exchange/' + this.user.getUsername(), {
-            publicToken: publicToken
-          });
+        await this.system.http().post('fp-app/plaid/token-exchange/' + this.user.getUsername(), {
+          publicToken: publicToken
+        });
       },
       onLoad: () => {},
       onExit: (err, metadata) => {},
@@ -142,11 +134,7 @@ const dataHandler = {
     return !str || str.length === 0;
   },
   integerValue(i) {
-    return typeof i === 'string'
-      ? i.replace(/[\$,]/g, '') * 1
-      : typeof i === 'number'
-      ? i
-      : 0;
+    return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
   },
   customNumberFormat(thousands, decimal, precision, prefix, postfix) {
     return function (d) {

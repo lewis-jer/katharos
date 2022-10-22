@@ -1,9 +1,4 @@
-import {
-  pageLoader,
-  pageReloader,
-  dynamicChartLoader,
-  componentLoader
-} from './environment/index';
+import { pageLoader, pageReloader, dynamicChartLoader, componentLoader } from './environment/index';
 import { pageDestructor, dynamicTableDestructor } from './destructor';
 
 var includes = ['login', 'account_verify', 'eula', 'forgot_password'];
@@ -20,8 +15,7 @@ async function terminateLoader(pageName, pageInfo) {
 async function buildPage(pageName, pageInfo) {
   var body = this.system.getView(pageInfo.arrayExpression).html;
   document.getElementById(pageInfo.viewport).innerHTML = body;
-  !this.loader.excludes.includes(pageName) &&
-    (document.getElementById(pageInfo.viewport).style.visibility = 'hidden');
+  !this.loader.excludes.includes(pageName) && (document.getElementById(pageInfo.viewport).style.visibility = 'hidden');
 }
 
 async function drawPage(pageName, pageInfo) {
@@ -42,18 +36,12 @@ async function drawPage(pageName, pageInfo) {
 
   await buildPage.call(this, pageName, pageInfo);
 
-  !pageInfo.loaded
-    ? await pageLoader.call(this, pageInfo)
-    : await pageReloader.call(this, pageInfo);
+  !pageInfo.loaded ? await pageLoader.call(this, pageInfo) : await pageReloader.call(this, pageInfo);
 
   await this.timeout(1000);
   await terminateLoader.call(this, pageName, pageInfo);
 
-  history.replaceState(
-    {},
-    null,
-    document.URL.slice(0, document.URL.lastIndexOf('/') + 1) + pageName
-  );
+  history.replaceState({}, null, document.URL.slice(0, document.URL.lastIndexOf('/') + 1) + pageName);
 }
 
 export { dynamicTableDestructor, pageDestructor, drawPage };

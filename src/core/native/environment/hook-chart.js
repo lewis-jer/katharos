@@ -1,9 +1,5 @@
 async function dynamicChartLoader() {
-  if (
-    !Object.keys(this.system.data.pluginLib).includes(
-      this.system.stringToHash(verb.src)
-    )
-  ) {
+  if (!Object.keys(this.system.data.pluginLib).includes(this.system.stringToHash(verb.src))) {
     // Generate Page Charts
     window.verbAsyncInit = function () {
       Verb.init({

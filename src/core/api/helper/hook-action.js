@@ -1,19 +1,12 @@
 const handleTableAction = (_api) => {
   return (tableName, data, formAction) => {
     var table =
-      (Array.isArray(tableName) &&
-        tableName.map((tableElement) => $(`#${tableElement}`).DataTable())) ||
+      (Array.isArray(tableName) && tableName.map((tableElement) => $(`#${tableElement}`).DataTable())) ||
       $(`#${tableName}`).DataTable();
     formAction == 'add' && table.row.add(data).draw(false).node();
-    formAction == 'edit' &&
-      table
-        .row(JSON.parse(data.tableIndex)._DT_CellIndex.row)
-        .data(data)
-        .draw(false);
-    formAction == 'del-old' &&
-      table.row($(data.tableIndex).parents('tr')).remove().draw(false);
-    formAction == 'delete' &&
-      table.row($(data).parents('tr')).remove().draw(false);
+    formAction == 'edit' && table.row(JSON.parse(data.tableIndex)._DT_CellIndex.row).data(data).draw(false);
+    formAction == 'del-old' && table.row($(data.tableIndex).parents('tr')).remove().draw(false);
+    formAction == 'delete' && table.row($(data).parents('tr')).remove().draw(false);
     formAction == 'empty' && emptyTable(table);
     formAction == 'update' && updateTable(table, data);
     formAction == 'pull' &&

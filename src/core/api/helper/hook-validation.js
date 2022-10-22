@@ -13,8 +13,7 @@ function validateFormData(form, data) {
       const [key, value] = entry;
       form.encryption.includes(key) && (data[key] = this.encrypter(value));
     });
-  typeof data.username == 'undefined' &&
-    (data.username = this.user.getUsername());
+  typeof data.username == 'undefined' && (data.username = this.user.getUsername());
   typeof data.SN == 'undefined' && (data.SN = uuid());
   return data;
 }
@@ -34,23 +33,15 @@ function validateDataset(form, data) {
     form.datasetMatcher.forEach((item) => {
       switch (item.pk) {
         case 'categories':
-          data[item.index] = this.user.getUserItems(
-            item,
-            data[item.index]
-          ).Category;
+          data[item.index] = this.user.getUserItems(item, data[item.index]).Category;
           break;
         case 'rewrite':
-          data[item.rewriteIndex] = this.user.getUserItems(
-            item,
-            data[item.index]
-          )[item.responseIndex];
+          data[item.rewriteIndex] = this.user.getUserItems(item, data[item.index])[item.responseIndex];
           break;
         case 'date':
           switch (item.type) {
             case 'LocaleDateString':
-              data[item.index] = `${new Date(
-                data[item.lookupIndex]
-              ).toLocaleDateString()}`;
+              data[item.index] = `${new Date(data[item.lookupIndex]).toLocaleDateString()}`;
               break;
           }
           break;
@@ -78,9 +69,7 @@ function validateUserFields(form, data) {
 }
 
 function validateResponse(form, response, data) {
-  form.hasOwnProperty('mergeResponse') &&
-    form.mergeResponse &&
-    Object.assign(data, { ...response.data });
+  form.hasOwnProperty('mergeResponse') && form.mergeResponse && Object.assign(data, { ...response.data });
   return data;
 }
 
@@ -91,19 +80,15 @@ function validateSearchAssist(form, response, data) {
     form.searchAssist.fields.forEach((field, index) => {
       switch (field.valueType) {
         case 'month':
-          data[`searchAssist${index}`] = `${
-            monthNames[new Date(data[field.index]).getMonth()]
-          }`;
+          data[`searchAssist${index}`] = `${monthNames[new Date(data[field.index]).getMonth()]}`;
           break;
         case 'year':
-          data[`searchAssist${index}`] = `${new Date(
-            data[field.index]
-          ).getFullYear()}`;
+          data[`searchAssist${index}`] = `${new Date(data[field.index]).getFullYear()}`;
           break;
         case 'month/year':
-          data[`searchAssist${index}`] = `${
-            monthNames[new Date(data[field.index]).getMonth()]
-          } ${new Date(data[field.index]).getFullYear()}`;
+          data[`searchAssist${index}`] = `${monthNames[new Date(data[field.index]).getMonth()]} ${new Date(
+            data[field.index]
+          ).getFullYear()}`;
           break;
       }
     });
