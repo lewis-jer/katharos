@@ -43,6 +43,9 @@ class DataService {
   deleteAllPendingTransaction(data) {
     return http.delete('/fp-app/txin/dump', { data: data });
   }
+  syncUser(data) {
+    return http.post('/fp-app/user/sync', data);
+  }
 }
 
 const handle = (client) => {
