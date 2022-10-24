@@ -42,6 +42,7 @@ class User {
   setUserProfile(data) {
     Object.assign(this.data.userProfile, { ...data });
     this.data.username = data.username;
+    console.log(this);
   }
 
   setUserProfileItem(key, data) {
