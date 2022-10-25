@@ -15,6 +15,7 @@ function formHelperAction(_api) {
   this.count = 1;
   this.helper = {
     synchronizeForms: async () => {
+      console.log(!this.submissionHandle, _api.user.getUserCount() != this.count, _api.user.getUserStatus());
       if (!this.submissionHandle) {
         this.submissionHandle = handle(_api.system.http());
         console.log('User Forms Synchronized');
