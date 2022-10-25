@@ -4,6 +4,7 @@ import { generatePage, clearPage } from '../native';
 function loadPage() {
   return async (currPage, pageName) => {
     let router = await getEndpoint(this, currPage, pageName);
+    console.log(router);
     let page = this.system.getView(currPage);
     if (router.sourceRouteInformation.loaded) {
       this.addEvent('clearPage', {
