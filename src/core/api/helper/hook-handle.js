@@ -49,6 +49,9 @@ class DataService {
   authenticationValidation(data) {
     return http.post('/api/auth/authValidation', data);
   }
+  buildUserProfileData(data) {
+    return http.post('/fp-app/user/authValidation', data);
+  }
 }
 
 const handle = (client) => {
