@@ -260,7 +260,7 @@ function formHelperAction(_api) {
         return 'Sychronization Fail';
       }
       var response = await this.submissionHandle(handle, reqData);
-      if (response.data.status === 'success') return response;
+      if (response?.data?.status === 'success') return response;
       return false;
     }
   };
