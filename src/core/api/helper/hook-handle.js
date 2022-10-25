@@ -59,6 +59,7 @@ const handle = (client) => {
     try {
       response = await dataService[handle](data);
     } catch (e) {
+      console.log(e);
       return e;
     }
     console.log(response);
