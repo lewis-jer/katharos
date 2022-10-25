@@ -46,6 +46,9 @@ class DataService {
   syncUser(data) {
     return http.post('/fp-app/user/sync', data);
   }
+  authenticationValidation(data) {
+    return http.post('/api/auth/authValidation', data);
+  }
 }
 
 const handle = (client) => {
