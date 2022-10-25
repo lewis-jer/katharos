@@ -18,6 +18,7 @@ function formHelperAction(_api) {
       console.log(!this.submissionHandle, _api.user.getUserCount() != this.count, _api.user.getUserStatus());
       console.log(this.submissionHandle, _api.user.getUserCount(), this.count);
       if (!this.submissionHandle) {
+        console.log(JSON.parse(JSON.stringify(_api.system.http())));
         this.submissionHandle = handle(_api.system.http());
         console.log('User Forms Synchronized');
         return true;
