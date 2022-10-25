@@ -50,7 +50,10 @@ class DataService {
     return http.post('/api/auth/authValidation', data);
   }
   buildUserProfileData(data) {
-    return http.post('/fp-app/user/authValidation', data);
+    return http.post('/fp-app/user/build', data);
+  }
+  userAuthentication(data) {
+    return http.post('/api/auth/signin', data);
   }
 }
 
