@@ -93,6 +93,10 @@ class System {
     this.data.httpConfig = http;
   }
 
+  authenticaitonProtocol() {
+    console.log(this.data.httpConfig());
+  }
+
   setupHttpService() {
     this.data.http = this.data.httpConfig.create({
       baseURL: 'https://services.cnsdetroit.com',
