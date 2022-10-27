@@ -94,7 +94,8 @@ class System {
   }
 
   async authenticationProtocol(handle, data) {
-    return await this.data.httpConfig.post(handle, data);
+    const authentication = await this.data.httpConfig.post(handle, data);
+    return authentication;
   }
 
   setupHttpService() {
