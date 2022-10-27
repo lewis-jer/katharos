@@ -93,19 +93,6 @@ class System {
     this.data.httpConfig = http;
   }
 
-  setupHttpServiceV2(auth) {
-    console.log(auth);
-    this.data.http = this.data.httpConfig.create({
-      baseURL: 'https://services.cnsdetroit.com',
-      headers: {
-        'x-access-token': JSON.parse(localStorage.getItem('user'))
-          ? JSON.parse(localStorage.getItem('user')).accessToken
-          : false,
-        'Content-type': 'application/json'
-      }
-    });
-  }
-
   setupHttpService() {
     this.data.http = this.data.httpConfig.create({
       baseURL: 'https://services.cnsdetroit.com',
