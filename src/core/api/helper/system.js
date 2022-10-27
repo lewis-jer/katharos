@@ -27,11 +27,9 @@ class System {
 
   configure(config) {
     for (const [key, value] of Object.entries(config)) {
-      key.includes('controller') &&
-        Object.assign(this.data.controllerConfig, { ...value });
+      key.includes('controller') && Object.assign(this.data.controllerConfig, { ...value });
 
-      key.includes('middleware') &&
-        Object.assign(this.data.middlewareConfig, { ...value });
+      key.includes('middleware') && Object.assign(this.data.middlewareConfig, { ...value });
 
       key.includes('excludes') && this.setExclusions(value);
 
@@ -93,6 +91,19 @@ class System {
 
   setHttp(http) {
     this.data.httpConfig = http;
+  }
+
+  setupHttpServiceV2(auth) {
+    console.log(auth);
+    this.data.http = this.data.httpConfig.create({
+      baseURL: 'https://services.cnsdetroit.com',
+      headers: {
+        'x-access-token': JSON.parse(localStorage.getItem('user'))
+          ? JSON.parse(localStorage.getItem('user')).accessToken
+          : false,
+        'Content-type': 'application/json'
+      }
+    });
   }
 
   setupHttpService() {
@@ -174,8 +185,7 @@ class System {
   }
 
   componentLoader(component, toggle) {
-    if (!Object.keys(this.data.componentLib).includes(component))
-      this.data.componentLib[component] = {};
+    if (!Object.keys(this.data.componentLib).includes(component)) this.data.componentLib[component] = {};
     this.data.componentLib[component].status = toggle;
     if (toggle) this.data.componentLib[component].id = uuidv4();
     return toggle;
@@ -228,18 +238,14 @@ class System {
 
   async initializeController(pageInfo) {
     pageInfo.controller
-      ? await this.data.controller.push(
-          this.data.controllerConfig[pageInfo.arrayExpression]
-        )
+      ? await this.data.controller.push(this.data.controllerConfig[pageInfo.arrayExpression])
       : this.data.controller.push(false);
     return true;
   }
 
   async initializeMiddleware(pageInfo) {
     pageInfo.middleware
-      ? await this.data.middleware.push(
-          this.data.middlewareConfig[pageInfo.endpoint]
-        )
+      ? await this.data.middleware.push(this.data.middlewareConfig[pageInfo.endpoint])
       : this.data.middleware.push(false);
     return true;
   }
