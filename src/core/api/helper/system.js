@@ -93,8 +93,8 @@ class System {
     this.data.httpConfig = http;
   }
 
-  authenticaitonProtocol() {
-    console.log(this.data.httpConfig());
+  async authenticationProtocol(handle, data) {
+    return await this.data.httpConfig.post(handle, data);
   }
 
   setupHttpService() {
