@@ -19,6 +19,7 @@ class System {
       tables: {},
       httpConfig: {},
       http: {},
+      authentication: {},
       views: {},
       modules: {}
     };
@@ -36,6 +37,8 @@ class System {
       key.includes('secret') && this.setSecureContainer(value);
 
       key.includes('axios') && this.setHttp(value);
+
+      key.includes('authentication') && Object.assign(this.data.authenticationProtocol, { ...value });
 
       if (key.includes('modals')) {
         for (const [module, modals] of Object.entries(value)) {
