@@ -38,7 +38,7 @@ class System {
 
       key.includes('axios') && this.setHttp(value);
 
-      key.includes('authentication') && (this.data.authentication = value);
+      key.match(/authentication/) && (this.data.authentication = value);
 
       if (key.includes('modals')) {
         for (const [module, modals] of Object.entries(value)) {
@@ -271,7 +271,6 @@ class System {
     }
     return true;
   }
-  
 }
 
 export { System };
