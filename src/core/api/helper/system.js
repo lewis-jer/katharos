@@ -104,6 +104,11 @@ class System {
     return authentication;
   }
 
+  async logout(input) {
+    const logout = await this.data.authenticationActions.logout(input);
+    return logout;
+  }
+
   setupHttpService() {
     this.data.http = this.data.httpConfig.create({
       baseURL: 'https://services.cnsdetroit.com',
