@@ -19,7 +19,6 @@ async function pageReloader(pageInfo) {
   await this.system.instantiateMiddleware(this, pageInfo);
 }
 async function componentLoader(pageInfo) {
-  console.log(pageInfo);
   var components = this.system.getComponents();
 
   // Clear Page
