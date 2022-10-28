@@ -38,7 +38,7 @@ class System {
 
       key.includes('axios') && this.setHttp(value);
 
-      key.includes('authentication') && console.log(value);
+      key.includes('authentication') && (authentication = value);
 
       if (key.includes('modals')) {
         for (const [module, modals] of Object.entries(value)) {
