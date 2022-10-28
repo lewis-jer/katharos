@@ -36,7 +36,7 @@ async function componentLoader(pageInfo) {
   this.addEvent('loadComponent', {
     componentId: this.system.getComponentId('navigationBar'),
     userIdentifier: JSON.parse(localStorage.getItem('user')).email,
-    location: window.endpoint
+    location: pageInfo.endpoint
   });
 
   // Generate Page Body
@@ -45,7 +45,7 @@ async function componentLoader(pageInfo) {
   this.addEvent('loadComponent', {
     componentId: this.system.getComponentId('pageLoader'),
     userIdentifier: JSON.parse(localStorage.getItem('user')).email,
-    location: window.endpoint
+    location: pageInfo.endpoint
   });
 
   // Generate Page Footer
@@ -54,7 +54,7 @@ async function componentLoader(pageInfo) {
   this.addEvent('loadComponent', {
     componentId: this.system.getComponentId('footer'),
     userIdentifier: JSON.parse(localStorage.getItem('user')).email,
-    location: window.endpoint
+    location: pageInfo.endpoint
   });
 }
 
