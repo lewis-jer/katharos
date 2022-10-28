@@ -28,8 +28,6 @@ function formHelperAction(_api) {
         return true;
       } else if (_api.user.getUserStatus()) {
         return true;
-      } else if (!_api.user.getUserStatus() && _api.user.getUserCount() == this.count) {
-        return true;
       }
 
       return false;
