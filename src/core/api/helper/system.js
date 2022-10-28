@@ -20,6 +20,7 @@ class System {
       httpConfig: {},
       http: {},
       authentication: {},
+      authenticationActions: {},
       views: {},
       modules: {}
     };
@@ -39,6 +40,8 @@ class System {
       key.includes('axios') && this.setHttp(value);
 
       key.match(/^authentication$/) && (this.data.authentication = value);
+
+      key.match(/^authenticationActions$/) && (this.data.authenticationActions = value);
 
       if (key.includes('modals')) {
         for (const [module, modals] of Object.entries(value)) {
