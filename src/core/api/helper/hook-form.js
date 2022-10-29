@@ -135,7 +135,6 @@ function formHelperAction(_api) {
       data = validateSystemFields.call(_api, form, data);
 
       console.log(`preparedData: `, data);
-      console.log(`preparedData: `, JSON.parse(JSON.stringify(data)));
       if (form.enabled) {
         if (form.submission == 'block') {
           console.log('Form Submission is blocked');
