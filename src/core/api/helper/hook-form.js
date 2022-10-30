@@ -33,7 +33,7 @@ function formHelperAction(_api) {
     async completeAction(formName, formAction, modalName, params = {}) {
       let { form, response, data, tableName } = params;
       const { data: res } = response;
-
+      
       data = await validateUserFields.call(_api, form, data);
       data = await validateResponse.call(_api, form, response, data);
       data = await validateSearchAssist.call(_api, form, response, data);
