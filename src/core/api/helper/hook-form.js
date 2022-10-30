@@ -143,6 +143,7 @@ function formHelperAction(_api) {
 
         console.log('beforeResponse: ', JSON.parse(JSON.stringify(data)));
         const response = form.version == 1 && (await this.submissionHandle(form.handle, data));
+        var frozenResponse = JSON.parse(JSON.stringify(response));
 
         console.log('Outside Scope: ', JSON.parse(JSON.stringify(this)));
         typeof response.data !== 'undefined' &&
@@ -160,6 +161,7 @@ function formHelperAction(_api) {
           })());
       }
       form.hasOwnProperty('frozen') && form.frozen && (data = frozenData);
+      form.hasOwnProperty('frozenResponse') && form.frozenResponse && (data = frozenResponse);
 
       return data || false;
     },
