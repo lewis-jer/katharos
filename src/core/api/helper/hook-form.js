@@ -134,7 +134,7 @@ function formHelperAction(_api) {
       form.version == 1 && (data = validateFormData.call(_api, form, data));
       data = validateSystemFields.call(_api, form, data);
 
-      console.log(`preparedData: `, JSON.parse(JSON.stringify(data)));
+      var frozenData = JSON.parse(JSON.stringify(data));
       if (form.enabled) {
         if (form.submission == 'block') {
           console.log('Form Submission is blocked');
@@ -159,6 +159,7 @@ function formHelperAction(_api) {
             await this.helper.completeAction(formName, formAction, modalName, params);
           })());
       }
+      form.hasOwnProperty('frozen') && form.frozen && (data = frozenData);
 
       return data || false;
     },
