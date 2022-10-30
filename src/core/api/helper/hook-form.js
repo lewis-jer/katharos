@@ -33,13 +33,15 @@ function formHelperAction(_api) {
     async completeAction(formName, formAction, modalName, params = {}) {
       let { form, response, data, tableName } = params;
       const { data: res } = response;
-      
+
+      console.log('start completeAction: ', JSON.parse(JSON.stringify(data)));
       data = await validateUserFields.call(_api, form, data);
       data = await validateResponse.call(_api, form, response, data);
       data = await validateSearchAssist.call(_api, form, response, data);
       data = await validateDataset.call(_api, form, data);
       data = await validateFormDecryption.call(_api, form, data);
 
+      console.log('start updateTable: ', JSON.parse(JSON.stringify(data)));
       form.updateTable && (await _api.updateTable(tableName, data, formAction, endpoint));
 
       _api.removeElementsById();
