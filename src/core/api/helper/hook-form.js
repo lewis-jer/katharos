@@ -141,6 +141,7 @@ function formHelperAction(_api) {
           return false;
         }
 
+        console.log('beforeResponse: ', JSON.parse(JSON.stringify(data)));
         const response = form.version == 1 && (await this.submissionHandle(form.handle, data));
 
         console.log('Outside Scope: ', JSON.parse(JSON.stringify(this)));
