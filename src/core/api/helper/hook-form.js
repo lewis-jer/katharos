@@ -219,6 +219,7 @@ function formHelperAction(_api) {
         formSpinner();
         this.validateForm(formName, formAction);
         const response = await this.formSubmit(contents, formName, formAction, modalName, tableName);
+        console.log('formSubmission: ', JSON.parse(JSON.stringify(response)));
         return response;
       }
     },
