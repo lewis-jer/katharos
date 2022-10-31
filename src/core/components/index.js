@@ -22,14 +22,14 @@ const pageObjects = (_api) => {
         document.getElementById('formCanvas').innerHTML = '';
         _api.addEvent('destroyForm', {
           userIdentifier: JSON.parse(localStorage.getItem('user')).email,
-          location: window.endpoint
+          location: pageName
         });
       }
       if (modal) {
         document.getElementById('modalCanvas').innerHTML = '';
         _api.addEvent('destroyModal', {
           userIdentifier: JSON.parse(localStorage.getItem('user')).email,
-          location: window.endpoint
+          location: pageName
         });
       }
     }
