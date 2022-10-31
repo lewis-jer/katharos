@@ -21,15 +21,13 @@ const pageObjects = (_api) => {
       if (form) {
         document.getElementById('formCanvas').innerHTML = '';
         _api.addEvent('destroyForm', {
-          userIdentifier: JSON.parse(localStorage.getItem('user')).email,
-          location: pageName
+          userIdentifier: JSON.parse(localStorage.getItem('user')).email
         });
       }
       if (modal) {
         document.getElementById('modalCanvas').innerHTML = '';
         _api.addEvent('destroyModal', {
-          userIdentifier: JSON.parse(localStorage.getItem('user')).email,
-          location: pageName
+          userIdentifier: JSON.parse(localStorage.getItem('user')).email
         });
       }
     }
