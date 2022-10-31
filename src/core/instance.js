@@ -24,7 +24,7 @@ const pageLoader = {
       return true;
     }
   },
-  selective: ['loginLoader', 'formSubmissionLoader'],
+  selective: ['loginLoader'],
   excludes: ['r', 'login'],
   function: true
 };
