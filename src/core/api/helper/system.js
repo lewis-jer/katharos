@@ -228,6 +228,7 @@ class System {
   }
 
   setSecureURL(value) {
+    console.log(JSON.parse(JSON.stringify(this.data)));
     this.data[this.data.id]['secureId'].url = value;
     return true;
   }
