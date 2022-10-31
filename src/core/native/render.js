@@ -1,7 +1,7 @@
 import { pageLoader, pageReloader, dynamicChartLoader, componentLoader } from './environment/index';
 import { pageDestructor, dynamicTableDestructor } from './destructor';
 
-var includes = ['login', 'account_verify', 'eula', 'forgot_password'];
+var includes = ['login', 'account_verify', 'eula', 'forgot_password', 'login_auth_basic'];
 async function terminateLoader(pageName, pageInfo) {
   if (!this.loader.excludes.includes(pageName)) {
     await this.loader.script(pageInfo.name);
