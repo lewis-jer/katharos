@@ -10,6 +10,22 @@ import {
 } from './hook-validation';
 import { handle } from './hook-handle';
 
+async function formSubmissionLoader(status = '') {
+  if (status == '') {
+    document.getElementById('formSubmitBtn').style.display = 'none';
+    document.getElementById('formLoadBtn').style.display = 'block';
+    document.getElementById('formLoadBtn').innerHTML = 'Loading...';
+    document.getElementById('formLoadBtn').style.backgroundColor = '#8CA4EA';
+    document.getElementById('formLoadBtn').style.borderColor = '#8CA4EA';
+    document.getElementsByClassName('formSubmissionloader')[0].style.display = 'block';
+    return true;
+  } else {
+    document.getElementsByClassName('formSubmissionloader')[0].style.display = 'none';
+    document.getElementById('formLoadBtn').style.display = 'none';
+    document.getElementById('formSubmitBtn').style.display = 'block';
+  }
+}
+
 function formHelperAction(_api) {
   this.submissionHandle = false;
   this.count = 1;
@@ -46,7 +62,7 @@ function formHelperAction(_api) {
       _api.removeElementsById();
 
       this.cleanForm(formName, formAction);
-      formSpinner(1);
+      formSubmissionLoader(1);
       $(`#${modalName}`).modal('hide');
 
       res.status == 'success' && alertify.success('Success');
@@ -219,7 +235,7 @@ function formHelperAction(_api) {
         console.log('Form Missing Required Information');
         this.validateForm(formName, formAction);
       } else {
-        formSpinner();
+        formSubmissionLoader();
         this.validateForm(formName, formAction);
         const response = await this.formSubmit(contents, formName, formAction, modalName, tableName);
         console.log('formSubmission: ', JSON.parse(JSON.stringify(response)));
