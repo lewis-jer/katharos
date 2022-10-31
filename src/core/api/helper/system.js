@@ -227,6 +227,11 @@ class System {
     return secureId;
   }
 
+  setSecureURL(value) {
+    this.data[this.data.id]['secureId'].url = value;
+    return true;
+  }
+
   getNextNode() {
     return this.next;
   }
