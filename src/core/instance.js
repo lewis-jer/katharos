@@ -8,22 +8,6 @@ const pageLoader = {
     });
     return 'Module Initialization';
   },
-  loginLoader: async function (x = false) {
-    if (x) {
-      document.getElementById('loginAuthBtn').hidden = false;
-      document.getElementById('loginAuthSafeBtn').hidden = true;
-      document.getElementsByClassName('loginloader')[0].style.display = 'none';
-      return true;
-    } else {
-      document.getElementById('loginAuthBtn').hidden = true;
-      document.getElementById('loginAuthSafeBtn').hidden = false;
-      document.getElementById('loginAuthSafeBtn').innerHTML = 'Loading...';
-      document.getElementById('loginAuthSafeBtn').style.backgroundColor = '#8CA4EA';
-      document.getElementById('loginAuthSafeBtn').style.borderColor = '#8CA4EA';
-      document.getElementsByClassName('loginloader')[0].style.display = 'block';
-      return true;
-    }
-  },
   selective: ['loginLoader'],
   excludes: ['r', 'login'],
   function: true
