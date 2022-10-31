@@ -68,7 +68,6 @@ const handle = (client) => {
       console.log(e);
       return e;
     }
-    console.log(response);
     return response;
   };
 };
