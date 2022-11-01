@@ -41,7 +41,6 @@ const getDeviceType = () => {
 let _api = {
   ...helper.dataHandler,
   ...helper.eventHandler,
-  loader: pageLoader,
   system: system,
   user: user,
   store: store,
