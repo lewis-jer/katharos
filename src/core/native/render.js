@@ -5,6 +5,7 @@ var includes = ['login', 'account_verify', 'eula', 'forgot_password', 'login_aut
 async function terminateLoader(pageName, pageInfo) {
   if (!this.loader.excludes.includes(pageName)) {
     await this.loader.script(pageInfo.name);
+    console.log(this);
     document.getElementById(pageInfo.viewport).style.visibility = 'visible';
     return;
   } else {
@@ -16,6 +17,7 @@ async function buildPage(pageName, pageInfo) {
   var body = this.system.getView(pageInfo.arrayExpression).html;
   document.getElementById(pageInfo.viewport).innerHTML = body;
   !this.loader.excludes.includes(pageName) && (document.getElementById(pageInfo.viewport).style.visibility = 'hidden');
+  console.log(this);
 }
 
 async function drawPage(pageName, pageInfo) {
