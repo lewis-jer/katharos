@@ -27,6 +27,15 @@ async function componentLoader(pageInfo) {
   // Generate Navigation Bar
   document.getElementById('wrapper').innerHTML += components.navbar.html;
 
+  // Generate Page Body
+  document.getElementById('content').innerHTML += components.loader.html;
+  this.system.componentLoader('pageLoader', true);
+  this.addEvent('loadComponent', {
+    componentId: this.system.getComponentId('pageLoader'),
+    userIdentifier: JSON.parse(localStorage.getItem('user')).email,
+    location: pageInfo.endpoint
+  });
+
   // Instantiate Navigation Bar
   this.system.componentLoader('navigationBar', true);
   const current = this.system.getModule([components.navbar.arrayExpression]);
@@ -34,15 +43,6 @@ async function componentLoader(pageInfo) {
 
   this.addEvent('loadComponent', {
     componentId: this.system.getComponentId('navigationBar'),
-    userIdentifier: JSON.parse(localStorage.getItem('user')).email,
-    location: pageInfo.endpoint
-  });
-
-  // Generate Page Body
-  document.getElementById('content').innerHTML += components.loader.html;
-  this.system.componentLoader('pageLoader', true);
-  this.addEvent('loadComponent', {
-    componentId: this.system.getComponentId('pageLoader'),
     userIdentifier: JSON.parse(localStorage.getItem('user')).email,
     location: pageInfo.endpoint
   });
