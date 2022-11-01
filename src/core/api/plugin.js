@@ -6,22 +6,14 @@ try {
 }
 
 const jsAssembler = async (_api, modulePlugin) => {
-  if (
-    !Object.keys(_api.system.data.pluginLib).includes(
-      _api.system.stringToHash(modulePlugin)
-    )
-  ) {
+  if (!Object.keys(_api.system.data.pluginLib).includes(_api.system.stringToHash(modulePlugin))) {
     await $.getScript(modulePlugin);
     _api.system.updatePlugin(modulePlugin);
   }
 };
 
 const cssAssembler = async (_api, modulePlugin) => {
-  if (
-    !Object.keys(_api.system.data.pluginLib).includes(
-      _api.system.stringToHash(modulePlugin)
-    )
-  ) {
+  if (!Object.keys(_api.system.data.pluginLib).includes(_api.system.stringToHash(modulePlugin))) {
     document.head.innerHTML += `<link type="text/css" rel="stylesheet" href=${modulePlugin}?update=${Date.now()}>`;
     _api.system.updatePlugin(modulePlugin);
   }
@@ -45,4 +37,6 @@ const assembler = (_api) => {
   };
 };
 
-export { plugins, assembler };
+console.log(plugins);
+
+// export { plugins, assembler };

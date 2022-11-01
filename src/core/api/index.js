@@ -2,7 +2,7 @@ import { plugins, assembler } from './plugin';
 import { meta } from './meta';
 import { pageObjects } from '../../core/components';
 import { helper } from './helper';
-import { gatherPageInfo, selectionController } from '../util';
+import { gatherPageInfo, selectionController, getDeviceType } from '../util';
 import { initialization } from './init';
 import { System } from './helper/system';
 import { User } from './helper/user';
@@ -19,23 +19,6 @@ const user = new User({
 const store = new Store({
   name: 'system-reserved'
 });
-
-const getDeviceType = () => {
-  const ua = navigator.userAgent;
-  const iPad =
-    navigator.userAgent.match(/(iPad)/) /* iOS pre 13 */ ||
-    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); /* iPad OS 13 */
-  if (iPad) {
-    return 'tablet';
-  }
-  if (/(tablet|ipad|iPad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
-    return 'tablet';
-  }
-  if (/Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
-    return 'mobile';
-  }
-  return 'desktop';
-};
 
 let _api = {
   ...helper.dataHandler,
