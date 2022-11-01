@@ -51,9 +51,8 @@ var meta = [
   }
 ];
 
-var meta = document.createElement('head');
+var el = document.createElement('head');
 let plugins = [];
-
 try {
   plugins.push('katharos-router');
 } catch (e) {
@@ -111,4 +110,4 @@ for (var i in meta) {
   el.appendChild(child);
 }
 
-export { plugins, assembler, meta };
+export { plugins, assembler, el as meta };
