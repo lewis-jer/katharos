@@ -7,7 +7,6 @@ import { initialization } from './init';
 import { System } from './helper/system';
 import { User } from './helper/user';
 import { Store } from './helper/store';
-import { pageLoader } from '../instance';
 
 const system = new System({
   name: 'system-reserved'
