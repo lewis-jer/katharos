@@ -25,7 +25,7 @@ async function componentLoader(pageInfo) {
   document.getElementById('wrapper').innerHTML = '';
 
   // Generate Page Body
-  document.getElementById('content').innerHTML += components.loader.html;
+  document.getElementById('wrapper').innerHTML += components.loader.html;
   this.system.componentLoader('pageLoader', true);
   this.addEvent('loadComponent', {
     componentId: this.system.getComponentId('pageLoader'),
