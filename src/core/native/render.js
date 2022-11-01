@@ -1,10 +1,25 @@
 import { pageLoader, pageReloader, dynamicChartLoader, componentLoader } from './environment/index';
 import { pageDestructor, dynamicTableDestructor } from './destructor';
 
+const loader = {
+  script: async function (x) {
+    await $(document).ready(function (event) {
+      document.querySelector('#loader').style.display = 'none';
+      analytics.page(x);
+      $('#loaderDiv').fadeIn(750);
+      $('#footer').fadeIn(750);
+    });
+    return 'Module Initialization';
+  },
+  selective: ['loginLoader'],
+  excludes: ['r', 'login'],
+  function: true
+};
+
 var includes = ['login', 'account_verify', 'eula', 'forgot_password', 'login_auth_basic'];
 async function terminateLoader(pageName, pageInfo) {
-  if (!this.loader.excludes.includes(pageName)) {
-    await this.loader.script(pageInfo.name);
+  if (!loader.excludes.includes(pageName)) {
+    await loader.script(pageInfo.name);
     console.log(this);
     document.getElementById(pageInfo.viewport).style.visibility = 'visible';
     return;
@@ -16,7 +31,7 @@ async function terminateLoader(pageName, pageInfo) {
 async function buildPage(pageName, pageInfo) {
   var body = this.system.getView(pageInfo.arrayExpression).html;
   document.getElementById(pageInfo.viewport).innerHTML = body;
-  !this.loader.excludes.includes(pageName) && (document.getElementById(pageInfo.viewport).style.visibility = 'hidden');
+  !loader.excludes.includes(pageName) && (document.getElementById(pageInfo.viewport).style.visibility = 'hidden');
   console.log(this);
 }
 
