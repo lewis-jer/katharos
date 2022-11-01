@@ -24,9 +24,6 @@ async function componentLoader(pageInfo) {
   // Clear Page
   document.getElementById('wrapper').innerHTML = '';
 
-  // Generate Navigation Bar
-  document.getElementById('wrapper').innerHTML += components.navbar.html;
-
   // Generate Page Body
   document.getElementById('content').innerHTML += components.loader.html;
   this.system.componentLoader('pageLoader', true);
@@ -35,6 +32,9 @@ async function componentLoader(pageInfo) {
     userIdentifier: JSON.parse(localStorage.getItem('user')).email,
     location: pageInfo.endpoint
   });
+
+  // Generate Navigation Bar
+  document.getElementById('wrapper').innerHTML += components.navbar.html;
 
   // Instantiate Navigation Bar
   this.system.componentLoader('navigationBar', true);
