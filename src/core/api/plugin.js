@@ -37,6 +37,4 @@ const assembler = (_api) => {
   };
 };
 
-console.log(plugins);
-
-// export { plugins, assembler };
+export { plugins, assembler };
