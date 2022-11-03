@@ -4,27 +4,15 @@ import { helper } from './helper';
 import { gatherPageInfo, selectionController, getDeviceType } from '../util';
 import { initialization } from './init';
 import { System } from './helper/system';
-import { User } from './helper/user';
-import { Store } from './helper/store';
 
-const system = new System({
-  name: 'system-reserved'
-});
-
-const user = new User({
-  name: 'system-reserved'
-});
-
-const store = new Store({
-  name: 'system-reserved'
-});
+const system = new System({ name: 'system-reserved' });
 
 let _api = {
   ...helper.dataHandler,
   ...helper.eventHandler,
   system: system,
-  user: user,
-  store: store,
+  user: system.user,
+  store: system.store,
   meta: meta
 };
 

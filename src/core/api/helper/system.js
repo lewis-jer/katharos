@@ -1,8 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
+import { User } from '../helper/user';
+import { Store } from '../helper/store';
 
 class System {
   constructor(data) {
     this.data = {
+      user: new User({ name: 'system-reserved' }),
+      store: new Store({ name: 'system-reserved' }),
       exclusions: {},
       processName: data.name,
       pluginIndex: 0,
