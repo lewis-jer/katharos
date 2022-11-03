@@ -5,8 +5,8 @@ import { Store } from '../helper/store';
 class System {
   constructor(data) {
     this.data = {
-      user: new User({ name: 'system-reserved' }),
-      store: new Store({ name: 'system-reserved' }),
+      user: await new User({ name: 'system-reserved' }),
+      store: await new Store({ name: 'system-reserved' }),
       exclusions: {},
       processName: data.name,
       pluginIndex: 0,
