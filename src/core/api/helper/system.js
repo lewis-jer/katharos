@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import { User } from '../helper/user';
 import { Store } from '../helper/store';
-console.log(User);
-console.log(Store);
+console.log(new User());
+console.log(new Store());
 
 class System {
   constructor(data) {
