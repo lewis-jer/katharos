@@ -11,8 +11,8 @@ let _api = {
   ...helper.dataHandler,
   ...helper.eventHandler,
   system: system,
-  user: system.user,
-  store: system.store,
+  user: system.getUser(),
+  store: system.getStore(),
   meta: meta
 };
 

@@ -101,6 +101,14 @@ class System {
     }
   }
 
+  getUser() {
+    return this.data.user;
+  }
+
+  getStore() {
+    return this.data.store;
+  }
+
   setHttp(http) {
     this.data.httpConfig = http;
   }
