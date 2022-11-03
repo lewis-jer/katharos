@@ -1,5 +1,18 @@
-import { pageLoader, pageReloader, dynamicChartLoader, componentLoader } from './environment/index';
-import { pageDestructor, dynamicTableDestructor } from './destructor';
+import { pageLoader, pageReloader, dynamicChartLoader, componentLoader } from './environment';
+
+async function pageDestructor(pageInfo) {
+  document.getElementById(pageInfo.viewport).innerHTML = '';
+}
+
+async function dynamicTableDestructor(pageInfo) {
+  if (pageInfo.dynamicTables) {
+    if (pageInfo.dynamicTables.status) {
+      for (var i in pageInfo.dynamicTables.tables) {
+        this.emptyTable(pageInfo.dynamicTables.tables[i], true);
+      }
+    }
+  }
+}
 
 const loader = {
   script: async function (x) {
@@ -45,10 +58,7 @@ async function drawPage(pageName, pageInfo) {
     document.querySelector('#loader').style.display = 'flex';
   }
 
-  if (!pageInfo.document && pageInfo.dynamicCharts) {
-    await dynamicChartLoader.call(this);
-  }
-
+  if (!pageInfo.document && pageInfo.dynamicCharts) await dynamicChartLoader.call(this);
   await buildPage.call(this, pageName, pageInfo);
 
   !pageInfo.loaded ? await pageLoader.call(this, pageInfo) : await pageReloader.call(this, pageInfo);

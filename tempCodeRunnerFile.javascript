@@ -1,6 +1,8 @@
-const solution = (numbers) => {
-    if (numbers.length === 0) return 0
-    return Math.max(...numbers)
+const y = (a) => {
+  return (b) => {
+    return a % b;
+  };
 };
 
-solution([7, 2, 6, 3])
+const x = y(2)(2);
+ console.log(typeof x)
