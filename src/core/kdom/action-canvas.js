@@ -14,7 +14,6 @@ function loadPage() {
       await clearPage.call(this, router.sourceRouteInformation);
     }
 
-    window.endpoint = router.route;
     this.system.setSecureURL(router.route);
     let destination = this.system.getView(router.route);
     await generatePage.call(this, router.route, router.routeInformation);
