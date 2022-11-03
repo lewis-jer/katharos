@@ -1,12 +1,14 @@
 import { v4 as uuidv4 } from 'uuid';
 import { User } from '../helper/user';
 import { Store } from '../helper/store';
+console.log(User);
+console.log(Store);
 
 class System {
   constructor(data) {
     this.data = {
-      user: await new User({ name: 'system-reserved' }),
-      store: await new Store({ name: 'system-reserved' }),
+      user: new User({ name: 'system-reserved' }),
+      store: new Store({ name: 'system-reserved' }),
       exclusions: {},
       processName: data.name,
       pluginIndex: 0,
