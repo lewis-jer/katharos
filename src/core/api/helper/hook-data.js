@@ -1,5 +1,3 @@
-import { _api } from '..';
-
 const dataHandler = {
   arrayToObject: function (array) {
     var obj = {};
