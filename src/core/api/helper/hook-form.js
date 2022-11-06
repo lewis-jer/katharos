@@ -7,8 +7,8 @@ import {
   validateSearchAssist,
   validateFormDecryption,
   validateDataset
-} from './hook-validation';
-import { handle } from './hook-handle';
+} from './hook-validation.js';
+import { handle } from './hook-handle.js';
 
 async function formSubmissionLoader(status = '') {
   if (status == '') {
