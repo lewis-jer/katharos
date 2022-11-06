@@ -1,17 +1,3 @@
-const addElementsById = (_api) => {
-  return (newObjects = false) => {
-    var modalObjects = [];
-    if (newObjects != false) {
-      for (var i in newObjects) {
-        modalObjects.push(newObjects[i]);
-      }
-    }
-
-    modalObjects = new Map(modalObjects);
-    _api.store.setInputItem(modalObjects);
-  };
-};
-
 const removeElementsById = (_api) => {
   return () => {
     _api.store.clearInputStore();

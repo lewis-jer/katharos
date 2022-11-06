@@ -1,5 +1,5 @@
 import { plugins, assembler, meta } from './plugin';
-import { pageObjects } from '../../core/components';
+import { pageObjects } from './components';
 import { helper } from './helper';
 import { gatherPageInfo, selectionController, getDeviceType } from '../util';
 import { initialization } from './init';

@@ -43,6 +43,18 @@ class Store {
     this.data.inputStore = {};
     this.data.domStore = {};
   }
+
+  addElementsById(newObjects = false) {
+    var modalObjects = [];
+    if (newObjects != false) {
+      for (var i in newObjects) {
+        modalObjects.push(newObjects[i]);
+      }
+    }
+
+    modalObjects = new Map(modalObjects);
+    this.setInputItem(modalObjects);
+  }
 }
 
 export { Store };
