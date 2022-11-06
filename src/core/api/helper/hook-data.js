@@ -79,11 +79,6 @@ const dataHandler = {
       }
     }
   },
-  sortByValue: (Arr) => {
-    return Arr.sort((a, b) => {
-      return b.sum - a.sum;
-    });
-  },
   searchArray(obj, searchKey, results = []) {
     const r = results;
     Object.keys(obj).forEach((key) => {
@@ -95,9 +90,6 @@ const dataHandler = {
       }
     });
     return r;
-  },
-  cleanArray: (Array) => {
-    return (Array = []);
   },
   numberFormat: (number, decimals, dec_point, thousands_sep) => {
     // *     example: number_format(1234.56, 2, ',', ' ');
