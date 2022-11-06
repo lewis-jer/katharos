@@ -26,6 +26,7 @@ async function dynamicChartLoader() {
 
 async function pageLoader(pageInfo) {
   console.log(pageInfo);
+  console.log(JSON.parse(JSON.stringify(this.pageActions)));
   pageInfo.loadIndex = this.pageActions.loadIndex;
 
   for (var i in pageInfo.plugins) {
