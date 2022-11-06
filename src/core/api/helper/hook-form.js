@@ -59,7 +59,7 @@ function formHelperAction(_api) {
       console.log('start updateTable: ', JSON.parse(JSON.stringify(data)));
       form.updateTable && (await _api.updateTable(tableName, data, formAction, endpoint));
 
-      _api.removeElementsById();
+      _api.store.clearInputStore();
 
       this.cleanForm(formName, formAction);
       formSubmissionLoader(1);
@@ -181,7 +181,7 @@ function formHelperAction(_api) {
       return data || false;
     },
     formClose(formName, formAction, modalName, message = false) {
-      _api.removeElementsById();
+      _api.store.clearInputStore();
       this.cleanForm(formName, formAction);
       $(`#${modalName}`).modal('hide');
       // if (!message) console.log('Form Closed Successfully');

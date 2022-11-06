@@ -1,9 +1,3 @@
-const removeElementsById = (_api) => {
-  return () => {
-    _api.store.clearInputStore();
-  };
-};
-
 const modalSync = (_api) => {
   return (modalFunc, modalName) => {
     var modal = _api.system.getModal(modalName);
@@ -29,7 +23,6 @@ const modalSync = (_api) => {
 
 const modalMiddleware = (_api) => {
   return {
-    removeElementsById: removeElementsById(_api),
     modalSync: modalSync(_api)
   };
 };
