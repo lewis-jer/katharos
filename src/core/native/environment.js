@@ -28,7 +28,7 @@ async function pageLoader(pageInfo) {
   console.log(pageInfo);
   console.log(this);
   console.log(JSON.parse(JSON.stringify(this.pageActions)));
-  pageInfo.loadIndex = this.pageActions.loadIndex;
+  pageInfo.loadIndex = this.system.getLoadIndex();
 
   for (var i in pageInfo.plugins) {
     await this.assembler(pageInfo.plugins[i]);
@@ -39,7 +39,7 @@ async function pageLoader(pageInfo) {
   await this.system.instantiateMiddleware(this, pageInfo).then((res) => console.log(res));
 
   pageInfo.loaded = true;
-  this.pageActions.loadIndex++;
+  this.system.incrementLoadIndex();
 }
 
 async function pageReloader(pageInfo) {

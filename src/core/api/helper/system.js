@@ -26,7 +26,8 @@ class System {
       authentication: {},
       authenticationActions: {},
       views: {},
-      modules: {}
+      modules: {},
+      loadIndex: 1
     };
     this.next = null;
   }
@@ -109,6 +110,14 @@ class System {
 
   setHttp(http) {
     this.data.httpConfig = http;
+  }
+
+  getLoadIndex() {
+    return this.data.loadIndex;
+  }
+
+  incrementLoadIndex() {
+    this.data.loadIndex++;
   }
 
   async authenticationProtocol(handle, data) {
