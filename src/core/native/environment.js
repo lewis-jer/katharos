@@ -25,7 +25,7 @@ async function dynamicChartLoader() {
 }
 
 async function pageLoader(pageInfo) {
-  pageInfo.loadIndex = configs.katharos.pageActions.loadIndex;
+  pageInfo.loadIndex = this.pageActions.loadIndex;
 
   for (var i in pageInfo.plugins) {
     await this.assembler(pageInfo.plugins[i]);
@@ -36,7 +36,7 @@ async function pageLoader(pageInfo) {
   await this.system.instantiateMiddleware(this, pageInfo).then((res) => console.log(res));
 
   pageInfo.loaded = true;
-  configs.katharos.pageActions.loadIndex++;
+  this.pageActions.loadIndex++;
 }
 
 async function pageReloader(pageInfo) {

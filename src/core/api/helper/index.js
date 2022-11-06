@@ -6,7 +6,7 @@ const event_log = (window.event_log = []);
 
 const eventHandler = {
   addEvent: function (eventName, data) {
-    var eventId = uuid();
+    var eventId = window.uuid();
     event_log.push({
       detail: JSON.stringify(data),
       arrayExpression: eventId,

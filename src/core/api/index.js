@@ -4,6 +4,7 @@ import { helper } from './helper/index.js';
 import { gatherPageInfo, selectionController, getDeviceType } from './util.js';
 import { initialization } from './init.js';
 import { System } from './helper/system.js';
+import { pageActions } from '../kdom/index.js';
 
 const system = new System({ name: 'system-reserved' });
 
@@ -38,6 +39,11 @@ _api = {
     return new Promise((resolve) => setTimeout(resolve, ms));
   },
   getDeviceType: getDeviceType
+};
+
+_api = {
+  ..._api,
+  pageActions: new pageActions(_api).helper
 };
 
 window._katharos_api_ = _api;
