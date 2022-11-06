@@ -43,7 +43,7 @@ _api = {
 
 _api = {
   ..._api,
-  pageActions: new pageActions(_api).helper
+  pageActions: new pageActions(_api).bind(_api).helper
 };
 
 window._katharos_api_ = _api;
