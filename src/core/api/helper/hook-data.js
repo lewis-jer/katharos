@@ -13,13 +13,6 @@ const dataHandler = {
     }
     return tmp;
   },
-  FindInArray: function (Arr, Value0 = '', Value1 = '', Value2 = '') {
-    for (var i = 0; i < Arr.length; i++) {
-      if (Arr[i].category == Value0 && Arr[i].month == Value1 && Arr[i].year == Value2) {
-        return i;
-      }
-    }
-  },
   plaid: async function ($) {
     const fetchLinkToken = async () => {
       const {
