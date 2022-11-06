@@ -29,7 +29,6 @@ const modalSync = (_api) => {
 
 const modalMiddleware = (_api) => {
   return {
-    addElementsById: addElementsById(_api),
     removeElementsById: removeElementsById(_api),
     modalSync: modalSync(_api)
   };
