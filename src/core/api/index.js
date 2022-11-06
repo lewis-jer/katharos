@@ -26,7 +26,7 @@ _api = {
 
 _api = {
   ..._api,
-  ...helper.modalMiddleware(_api),
+  modalSync: helper.modalSync(_api),
   assembler: assembler(_api)
 };
 
