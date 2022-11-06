@@ -57,7 +57,7 @@ function formHelperAction(_api) {
       data = await validateFormDecryption.call(_api, form, data);
 
       console.log('start updateTable: ', JSON.parse(JSON.stringify(data)));
-      form.updateTable && (await _api.updateTable(tableName, data, formAction, endpoint));
+      form.updateTable && (await _api.updateTable(tableName, data, formAction));
 
       _api.store.clearInputStore();
 
