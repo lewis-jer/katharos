@@ -1,5 +1,5 @@
-import { getEndpoint } from '../../../../katharos-router';
-import { generatePage, clearPage } from '../native';
+import { getEndpoint } from '../../../../katharos-router/index.js';
+import { generatePage, clearPage } from '../native/index.js';
 
 function loadPage() {
   return async (currPage, pageName) => {

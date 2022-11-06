@@ -1,6 +1,6 @@
-import { tableMiddleware } from './hook-table';
-import { formHelperAction } from './hook-form';
-import { dataHandler } from './hook-data';
+import { tableMiddleware } from './hook-table.js';
+import { formHelperAction } from './hook-form.js';
+import { dataHandler } from './hook-data.js';
 
 const event_log = (window.event_log = []);
 

@@ -1,9 +1,9 @@
-import { plugins, assembler, meta } from './plugin';
-import { pageObjects } from './components';
-import { helper } from './helper';
-import { gatherPageInfo, selectionController, getDeviceType } from '../util';
-import { initialization } from './init';
-import { System } from './helper/system';
+import { plugins, assembler, meta } from './plugin.js';
+import { pageObjects } from './components.js';
+import { helper } from './helper/index.js';
+import { gatherPageInfo, selectionController, getDeviceType } from './util.js';
+import { initialization } from './init.js';
+import { System } from './helper/system.js';
 
 const system = new System({ name: 'system-reserved' });
 

@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
-import { User } from '../helper/user';
-import { Store } from '../helper/store';
+import { User } from '../helper/user.js';
+import { Store } from '../helper/store.js';
 
 class System {
   constructor(data) {

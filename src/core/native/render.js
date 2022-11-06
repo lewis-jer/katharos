@@ -1,4 +1,4 @@
-import { pageLoader, pageReloader, dynamicChartLoader, componentLoader } from './environment';
+import { pageLoader, pageReloader, dynamicChartLoader, componentLoader } from './environment.js';
 
 async function pageDestructor(pageInfo) {
   document.getElementById(pageInfo.viewport).innerHTML = '';

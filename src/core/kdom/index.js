@@ -1,4 +1,4 @@
-import { loadPage } from './action-canvas';
+import { loadPage } from './action-canvas.js';
 
 function pageActions(_api) {
   this.helper = {

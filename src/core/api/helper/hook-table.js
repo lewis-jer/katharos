@@ -1,4 +1,4 @@
-import { handleTableAction } from './hook-action';
+import { handleTableAction } from './hook-action.js';
 
 const updateTable = (_api) => {
   return (tableName, data, formAction) => {
