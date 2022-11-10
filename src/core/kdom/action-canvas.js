@@ -3,7 +3,6 @@ import { generatePage, clearPage } from '../native/index.js';
 
 function loadPage() {
   return async (currPage, pageName) => {
-    console.log(this, currPage, pageName);
     let router = await getEndpoint(this, currPage, pageName);
     let page = this.system.getView(currPage);
     if (router.sourceRouteInformation.loaded) {

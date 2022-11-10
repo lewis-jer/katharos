@@ -136,8 +136,8 @@ class System {
       headers: {
         'x-access-token': JSON.parse(localStorage.getItem('user'))
           ? JSON.parse(localStorage.getItem('user')).accessToken
-          : false,
-        'Content-type': 'application/json'
+          : false
+        // 'Content-type': 'application/json'
       }
     });
   }
