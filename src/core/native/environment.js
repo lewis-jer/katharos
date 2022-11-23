@@ -1,9 +1,10 @@
 async function dynamicChartLoader() {
   if (!Object.keys(this.system.data.pluginLib).includes(this.system.stringToHash(verb.src))) {
     // Generate Page Charts
+    console.log('this', JSON.parse(JSON.stringify(this)));
     window.verbAsyncInit = function () {
       Verb.init({
-        apiKey: configs.chart,
+        apiKey: this.system.getSecureContainer().chart,
         version: 'v1.0',
         authParams: {
           userToken: `${JSON.parse(localStorage.getItem('user')).accessToken}`
@@ -14,8 +15,9 @@ async function dynamicChartLoader() {
     await document.getElementsByTagName('head')[0].appendChild(verb);
     this.system.updatePlugin(verb.src);
   } else {
+    console.log('this', this);
     window.Verb.init({
-      apiKey: configs.chart,
+      apiKey: this.system.getSecureContainer().chart,
       version: 'v1.0',
       authParams: {
         userToken: `${JSON.parse(localStorage.getItem('user')).accessToken}`
