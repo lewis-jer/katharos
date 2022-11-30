@@ -41,6 +41,8 @@ _api = {
   getDeviceType: getDeviceType
 };
 
+console.log('Framework API: ', JSON.parse(JSON.stringify(_api)));
+
 _api = {
   ..._api,
   pageActions: new pageActions(_api).helper

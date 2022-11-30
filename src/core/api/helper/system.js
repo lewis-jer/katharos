@@ -7,6 +7,7 @@ class System {
     this.data = {
       user: new User({ name: 'system-reserved' }),
       store: new Store({ name: 'system-reserved' }),
+      baseURL: '',
       exclusions: {},
       processName: data.name,
       pluginIndex: 0,
@@ -47,6 +48,8 @@ class System {
       key.match(/^authentication$/) && (this.data.authentication = value);
 
       key.match(/^authenticationActions$/) && (this.data.authenticationActions = value);
+
+      key.match(/^baseURL$/) && (this.data.baseURL = value);
 
       if (key.includes('modals')) {
         for (const [module, modals] of Object.entries(value)) {
@@ -108,6 +111,10 @@ class System {
     return this.data.store;
   }
 
+  getBaseURL() {
+    return this.data.baseURL;
+  }
+
   setHttp(http) {
     this.data.httpConfig = http;
   }
@@ -132,7 +139,7 @@ class System {
 
   setupHttpService() {
     this.data.http = this.data.httpConfig.create({
-      baseURL: 'https://services.cnsdetroit.com',
+      baseURL: this.data.baseURL,
       headers: {
         'x-access-token': JSON.parse(localStorage.getItem('user'))
           ? JSON.parse(localStorage.getItem('user')).accessToken

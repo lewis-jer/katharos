@@ -41,13 +41,40 @@ const dataHandler = {
 
     handler.open();
   },
+  plaidLoginRequired: async function ($) {
+    const fetchLinkToken = async () => {
+      const {
+        data: { linkToken }
+      } = await this.system.http().post('fp-app/plaid/update-link-token/' + this.user.getUsername(), {
+        username: this.user.getUsername()
+      });
+      return linkToken;
+    };
+
+    const handler = await Plaid.create({
+      token: await fetchLinkToken(),
+      onSuccess: async (publicToken, metadata) => {
+        const response = await this.system.http().post('fp-app/plaid/alerts/clear/' + this.user.getUsername(), {
+          username: this.user.getUsername()
+        });
+      },
+      onLoad: () => {},
+      onExit: (err, metadata) => {},
+      onEvent: (eventName, metadata) => {},
+      receivedRedirectUri: null
+    });
+
+    await handler.open();
+  },
   encrypter: function (message) {
-    var encryptMsg = CryptoJS.AES.encrypt(message, configs.system);
+    var systemConfig = this.system.getSecureContainer().system;
+    var encryptMsg = CryptoJS.AES.encrypt(message, systemConfig);
     encryptMsg = encryptMsg.toString();
     return encryptMsg;
   },
   decrypter: function (encrypted) {
-    var decryptMsg = CryptoJS.AES.decrypt(encrypted, configs.system);
+    var systemConfig = this.system.getSecureContainer().system;
+    var decryptMsg = CryptoJS.AES.decrypt(encrypted, systemConfig);
     decryptMsg = decryptMsg.toString(CryptoJS.enc.Utf8);
     return decryptMsg;
   },
