@@ -28,6 +28,9 @@ class DataService {
   pullBudget(data) {
     return http.post('/fp-app/bx/pull', data);
   }
+  retrieveAllPendingTransaction(data) {
+    return http.get('/fp-app/tx/upload', { params: data });
+  }
   deleteBudgetByMonth(data) {
     return http.delete('/fp-app/bx/month', { data: data });
   }

@@ -34,7 +34,7 @@ const dataHandler = {
         });
       },
       onLoad: () => {},
-      onExit: (err, metadata) => {},
+      onExit: async (err, metadata) => {},
       onEvent: (eventName, metadata) => {},
       receivedRedirectUri: null
     });
@@ -51,10 +51,10 @@ const dataHandler = {
       return linkToken;
     };
 
-    const handler = await Plaid.create({
+    const handler = Plaid.create({
       token: await fetchLinkToken(),
       onSuccess: async (publicToken, metadata) => {
-        const response = await this.system.http().post('fp-app/plaid/alerts/clear/' + this.user.getUsername(), {
+        const response = await this.system.http().post('fp-app/plaid/alerts/clear', {
           username: this.user.getUsername()
         });
       },
@@ -64,7 +64,7 @@ const dataHandler = {
       receivedRedirectUri: null
     });
 
-    await handler.open();
+    handler.open();
   },
   encrypter: function (message) {
     var systemConfig = this.system.getSecureContainer().system;
