@@ -45,7 +45,7 @@ const dataHandler = {
     const fetchLinkToken = async () => {
       const {
         data: { linkToken }
-      } = await this.system.http().post('fp-app/plaid/update-link-token/' + this.user.getUsername(), {
+      } = await this.system.http().post('fp-app/plaid/update-link-token/', {
         username: this.user.getUsername()
       });
       return linkToken;
