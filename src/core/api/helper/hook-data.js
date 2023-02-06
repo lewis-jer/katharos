@@ -22,14 +22,14 @@ const dataHandler = {
     const handler = Plaid.create({
       token: await fetchLinkToken(),
       onSuccess: async (publicToken, metadata) => {
-        var plaidBtn = document.getElementById('plaid');
         const retrievedString = localStorage.getItem('user');
-        const parsedObject = JSON.parse(retrievedString);
-        parsedObject.plaid = true;
-        const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
-        localStorage.setItem('user', modifiedndstrigifiedForStorage);
-        plaidBtn.style.display = 'none';
-        await this.system.http().post('fp-app/plaid/token-exchange/' + this.user.getUsername(), {
+        const parsedObject = (JSON.parse(retrievedString).plaid = true);
+
+        localStorage.setItem('user', JSON.stringify(parsedObject));
+        document.getElementById('plaid').style.display = 'none';
+
+        await this.system.http().post('fp-app/plaid/token-exchange  ', {
+          username: this.user.getUsername(),
           publicToken: publicToken
         });
       },
@@ -45,7 +45,7 @@ const dataHandler = {
     const fetchLinkToken = async () => {
       const {
         data: { linkToken }
-      } = await this.system.http().post('fp-app/plaid/update-link-token/', {
+      } = await this.system.http().post('fp-app/plaid/update-link-token', {
         username: this.user.getUsername()
       });
       return linkToken;

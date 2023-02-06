@@ -58,6 +58,12 @@ class DataService {
   userAuthentication(data) {
     return http.post('/api/auth/signin', data);
   }
+  userAuthentication(data) {
+    return http.post('/api/auth/signin', data);
+  }
+  getSubscription(data) {
+    return http.post('/fp-app/user/currentSub/active', data);
+  }
 }
 
 const handle = (client) => {
