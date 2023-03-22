@@ -29,7 +29,7 @@ const dataHandler = {
         document.getElementById('plaid').style.display = 'none';
 
         await this.system.http().post('fp-app/plaid/token-exchange  ', {
-          username: this.user.getUsername(),
+          userId: this.user.getUser().userId,
           publicToken: publicToken
         });
       },
