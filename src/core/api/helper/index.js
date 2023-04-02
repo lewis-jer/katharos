@@ -21,21 +21,20 @@ const eventHandler = {
 };
 
 const modalSync = (_api) => {
-  return (modalFunc, modalName) => {
-    var modal = _api.system.getModal(modalName);
-    for (var j in modal.select) {
-      var select = document.getElementById(modal.select[j]);
-      var dataset = _api.user.getUserProfileData(modal.datasets[j]);
+  return (modalFunc, form) => {
+    for (var j in form.select) {
+      var select = document.getElementById(form.select[j]);
+      var dataset = _api.user.getUserProfileData(form.datasets[j]);
       for (var k in dataset) {
         var opt = dataset[k];
         var el = document.createElement('option');
-        if (!Array.isArray(modal.data)) {
-          el.textContent = opt[modal.data.label];
-          el.value = opt[modal.data.value];
+        if (!Array.isArray(form.data)) {
+          el.textContent = opt[form.data.label];
+          el.value = opt[form.data.value];
         }
-        if (Array.isArray(modal.data)) {
-          el.textContent = opt[modal.data[j].label];
-          el.value = opt[modal.data[j].value];
+        if (Array.isArray(form.data)) {
+          el.textContent = opt[form.data[j].label];
+          el.value = opt[form.data[j].value];
         }
         select.appendChild(el);
       }

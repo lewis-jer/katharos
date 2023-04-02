@@ -54,7 +54,7 @@ async function componentLoader(pageInfo) {
   current.loaded ? await pageReloader.call(this, current) : await pageLoader.call(this, current);
   this.addEvent('loadComponent', {
     componentId: this.system.getComponentId('navigationBar'),
-    userIdentifier: JSON.parse(localStorage.getItem('user')).email,
+    userIdentifier: JSON.parse(localStorage.getItem('user')).email || null,
     location: pageInfo.endpoint
   });
 
@@ -62,7 +62,7 @@ async function componentLoader(pageInfo) {
   this.system.componentLoader('pageLoader', true);
   this.addEvent('loadComponent', {
     componentId: this.system.getComponentId('pageLoader'),
-    userIdentifier: JSON.parse(localStorage.getItem('user')).email,
+    userIdentifier: JSON.parse(localStorage.getItem('user')).email || null,
     location: pageInfo.endpoint
   });
 
@@ -70,7 +70,7 @@ async function componentLoader(pageInfo) {
   this.system.componentLoader('footer', true);
   this.addEvent('loadComponent', {
     componentId: this.system.getComponentId('footer'),
-    userIdentifier: JSON.parse(localStorage.getItem('user')).email,
+    userIdentifier: JSON.parse(localStorage.getItem('user')).email || null,
     location: pageInfo.endpoint
   });
 }

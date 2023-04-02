@@ -136,13 +136,12 @@ function formHelperAction(_api) {
         if (formContent[x].tagName == 'SELECT') removeOptions(formContent[x]);
       });
     },
-    formSubmit: async (contents, formName, formAction, modalName, tableName) => {
+    formSubmit: async (contents, formName, formAction, modal, tableName) => {
       const synchronized = await this.helper.synchronizeForms();
       if (!synchronized) {
-        this.helper.formClose(formName, formAction, modalName, 'Form fail synchronize');
+        this.helper.formClose(formName, formAction, modal.modal, 'Form fail synchronize');
         return;
       }
-      var modal = _api.system.getModal(modalName);
       var form = _api.system.getForm(modal.form);
       var data = parseFormData(contents, formAction);
       form.store && Object.assign(data, { ..._api.store.getInputStore() });
@@ -172,7 +171,7 @@ function formHelperAction(_api) {
               console.log('Form Action is blocked');
               return false;
             }
-            await this.helper.completeAction(formName, formAction, modalName, params);
+            await this.helper.completeAction(formName, formAction, modal.modal, params);
           })());
       }
       form.hasOwnProperty('frozen') && form.frozen && (data = frozenData);

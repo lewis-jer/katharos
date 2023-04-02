@@ -100,6 +100,16 @@ class System {
           });
         }
       }
+
+      if (key.includes('preloader') && value) {
+        this.data.preloader = true;
+        this.componentLoader('preloader', true);
+        document.getElementById('preloader').classList.add(this.getComponent('preloader').class);
+        document.getElementById('preloader').innerHTML = this.getComponent('preloader').html;
+      } else {
+        this.data.preloader = false;
+        this.componentLoader('preloader', false);
+      }
     }
   }
 
@@ -291,6 +301,7 @@ class System {
       await this.getMiddleware(pageInfo.loadIndex)(_api);
       return 'Middleware Instantiation Success';
     }
+
     var instantiation = this.data.middleware[pageInfo.loadIndex]
       ? await instantiate.call(this)
       : 'Middleware Instantiation Fail';

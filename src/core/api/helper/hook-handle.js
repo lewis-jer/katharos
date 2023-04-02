@@ -58,6 +58,12 @@ class DataService {
   getSubscription(data) {
     return http.post('/fp-app/user/currentSub/active', data);
   }
+  getSubscription(data) {
+    return http.post('/fp-app/user/currentSub/active', data);
+  }
+  verifyEULA(data) {
+    return http.put('/api/user/eula', data);
+  }
 }
 
 const handle = (client) => {

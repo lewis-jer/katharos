@@ -25,7 +25,7 @@ const loader = {
     return 'Module Initialization';
   },
   selective: ['loginLoader'],
-  excludes: ['r', 'login'],
+  excludes: ['login', 'account_verify', 'eula', 'forgot_password', 'login_auth_basic'],
   function: true
 };
 
@@ -47,8 +47,10 @@ async function buildPage(pageName, pageInfo) {
 }
 
 async function drawPage(pageName, pageInfo) {
+  var preloaderStatus = this.system.getComponentStatus('preloader');
   var navbarStatus = this.system.getComponentStatus('navigationBar');
 
+  if (preloaderStatus) document.getElementById('preloader').style.display = 'none';
   if (includes.includes(pageName)) {
     document.body.classList.add('bg-gradient-primary');
     this.system.componentLoader('navigationBar', false);
