@@ -4,7 +4,7 @@ import { helper } from './helper/index.js';
 import { gatherPageInfo, selectionController, getDeviceType } from './util.js';
 import { initialization } from './init.js';
 import { System } from './helper/system.js';
-import { loadPage } from '../native/action-canvas.js';
+import { loadPage } from './action-canvas.js';
 
 const system = new System({ name: 'system-reserved' });
 
