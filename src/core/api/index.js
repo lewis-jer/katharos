@@ -4,7 +4,7 @@ import { helper } from './helper/index.js';
 import { gatherPageInfo, selectionController, getDeviceType } from './util.js';
 import { initialization } from './init.js';
 import { System } from './helper/system.js';
-import { pageActions } from '../kdom/index.js';
+import { loadPage } from '../native/action-canvas.js';
 
 const system = new System({ name: 'system-reserved' });
 
@@ -45,7 +45,7 @@ console.log('Framework API: ', JSON.parse(JSON.stringify(_api)));
 
 _api = {
   ..._api,
-  pageActions: new pageActions(_api).helper
+  pageActions: { loadPage: loadPage.call(_api) }
 };
 
 window._katharos_api_ = _api;

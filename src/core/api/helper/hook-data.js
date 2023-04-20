@@ -4,6 +4,12 @@ const dataHandler = {
     array.map((element) => (obj[element.arrayExpression] = element));
     return obj;
   },
+  createArrayByKey: (Arr, Key) => {
+    let ArrItem = [];
+    Arr = Arr.filter((el) => el != null && el != '');
+    Arr.forEach((x, i) => (ArrItem[i] = x[Key]));
+    return ArrItem;
+  },
   squash: function (arr) {
     var tmp = [];
     for (var i = 0; i < arr.length; i++) {

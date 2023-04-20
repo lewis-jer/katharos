@@ -10,6 +10,7 @@ class System {
       baseURL: '',
       exclusions: {},
       processName: data.name,
+      packages: {},
       pluginIndex: 0,
       pluginLib: {},
       controller: [],
@@ -110,6 +111,8 @@ class System {
         this.data.preloader = false;
         this.componentLoader('preloader', false);
       }
+
+      key.includes('packages') && Object.assign(this.data.packages, { ...value });
     }
   }
 
@@ -197,6 +200,10 @@ class System {
 
   getModules() {
     return this.data.modules;
+  }
+
+  getPackages() {
+    return this.data.packages;
   }
 
   setChartActiveElement(name, element) {
@@ -312,7 +319,11 @@ class System {
     return uuidv4();
   }
 
-  getExclusions(index) {
+  getExclusions() {
+    return this.data.exclusions;
+  }
+
+  getExclusion(index) {
     return this.data.exclusions[index];
   }
 

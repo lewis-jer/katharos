@@ -1,74 +1,62 @@
-import { pageLoader, pageReloader, dynamicChartLoader, componentLoader } from './environment.js';
-
-async function pageDestructor(pageInfo) {
-  document.getElementById(pageInfo.viewport).innerHTML = '';
+async function pageLoader(pageInfo) {
+  pageInfo.loadIndex = this.system.getLoadIndex();
+  for (var i in pageInfo.plugins) await this.assembler(pageInfo.plugins[i]);
+  await this.system.initializeController(pageInfo);
+  await this.system.initializeMiddleware(pageInfo);
+  await this.system.instantiateMiddleware(this, pageInfo).then((res) => console.log(res));
+  pageInfo.loaded = true;
+  this.system.incrementLoadIndex();
 }
 
-async function dynamicTableDestructor(pageInfo) {
-  if (pageInfo.dynamicTables) {
-    if (pageInfo.dynamicTables.status) {
-      for (var i in pageInfo.dynamicTables.tables) {
-        this.emptyTable(pageInfo.dynamicTables.tables[i], true);
-      }
-    }
-  }
+async function pageReloader(pageInfo) {
+  await this.system.instantiateMiddleware(this, pageInfo);
 }
 
-const loader = {
-  script: async function (x) {
-    await $(document).ready(function (event) {
-      document.querySelector('#loader').style.display = 'none';
-      analytics.page(x);
-      $('#loaderDiv').fadeIn(750);
-      $('#footer').fadeIn(750);
-    });
-    return 'Module Initialization';
-  },
-  selective: ['loginLoader'],
-  excludes: ['login', 'account_verify', 'eula', 'forgot_password', 'login_auth_basic'],
-  function: true
-};
+async function componentLoader(pageInfo) {
+  var components = this.system.getComponents();
+  let event = { userIdentifier: JSON.parse(localStorage.getItem('user')).email || null, location: pageInfo.endpoint };
 
-var includes = ['login', 'account_verify', 'eula', 'forgot_password', 'login_auth_basic'];
-async function terminateLoader(pageName, pageInfo) {
-  if (!loader.excludes.includes(pageName)) {
-    await loader.script(pageInfo.name);
-    document.getElementById(pageInfo.viewport).style.visibility = 'visible';
-    return;
-  } else {
-    return 'Loader Not Initialized';
-  }
+  document.getElementById('wrapper').innerHTML = '';
+  document.getElementById('wrapper').innerHTML += components.navbar.html;
+
+  this.system.componentLoader('navigationBar', true);
+  const current = this.system.getModule([components.navbar.arrayExpression]);
+  current.loaded ? await pageReloader.call(this, current) : await pageLoader.call(this, current);
+  event.componentId = this.system.getComponentId('navigationBar');
+  this.addEvent('loadComponent', event);
+
+  document.getElementById('content').innerHTML += components.loader.html;
+  this.system.componentLoader('pageLoader', true);
+  event.componentId = this.system.getComponentId('pageLoader');
+  this.addEvent('loadComponent', event);
+
+  document.getElementById('content').innerHTML += components.footer.html;
+  this.system.componentLoader('footer', true);
+  event.componentId = this.system.getComponentId('footer');
+  this.addEvent('loadComponent', event);
 }
 
-async function buildPage(pageName, pageInfo) {
+async function terminateLoader(pageInfo) {
+  const termination = (x) =>
+    new Promise((resolve) =>
+      $(document).ready(async function (event) {
+        document.querySelector('#loader').style.display = 'none';
+        analytics.page(x);
+        $('#loaderDiv').fadeIn(900);
+        $('#footer').fadeIn(750);
+        resolve();
+      })
+    );
+  if (!pageInfo.exclusions[1]) return await termination(pageInfo.name);
+  else return 'Loader Not Initialized';
+}
+
+async function buildPage(pageInfo) {
   var body = this.system.getView(pageInfo.arrayExpression).html;
+  !pageInfo.exclusions[1] && (document.getElementById(pageInfo.viewport).style.display = 'none');
+  if ('navLocation' in pageInfo) document.getElementById(pageInfo.navLocation).classList.add('active');
+  if ('navItem' in pageInfo) document.getElementById(pageInfo.navItem).classList.add('active');
   document.getElementById(pageInfo.viewport).innerHTML = body;
-  !loader.excludes.includes(pageName) && (document.getElementById(pageInfo.viewport).style.visibility = 'hidden');
 }
 
-async function drawPage(pageName, pageInfo) {
-  var preloaderStatus = this.system.getComponentStatus('preloader');
-  var navbarStatus = this.system.getComponentStatus('navigationBar');
-
-  if (preloaderStatus) document.getElementById('preloader').style.display = 'none';
-  if (includes.includes(pageName)) {
-    document.body.classList.add('bg-gradient-primary');
-    this.system.componentLoader('navigationBar', false);
-  } else if (!pageInfo.document && !navbarStatus) {
-    await componentLoader.call(this, pageInfo);
-  } else {
-    document.querySelector('#loader').style.display = 'flex';
-  }
-
-  if (!pageInfo.document && pageInfo.dynamicCharts) await dynamicChartLoader.call(this);
-  await buildPage.call(this, pageName, pageInfo);
-
-  !pageInfo.loaded ? await pageLoader.call(this, pageInfo) : await pageReloader.call(this, pageInfo);
-
-  await this.timeout(1000);
-  await terminateLoader.call(this, pageName, pageInfo);
-
-  history.replaceState({}, null, document.URL.slice(0, document.URL.lastIndexOf('/') + 1) + pageName);
-}
-
-export { dynamicTableDestructor, pageDestructor, drawPage };
+export { buildPage, componentLoader, pageLoader, pageReloader, terminateLoader };
