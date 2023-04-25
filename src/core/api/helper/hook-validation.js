@@ -9,26 +9,19 @@ function parseFormData(contents, formAction) {
 
 function validateFormData(form, data) {
   form.hasOwnProperty('encryption') &&
-    Object.entries(data).forEach((entry) => {
-      const [key, value] = entry;
-      form.encryption.includes(key) && (data[key] = this.encrypter(value));
-    });
+    Object.entries(data).forEach(([key, value]) => form.encryption.includes(key) && (data[key] = this.encrypter(value)));
   typeof data.username == 'undefined' && (data.username = this.user.getUsername());
-  typeof data.SN == 'undefined' && (data.SN = uuid());
+  typeof data.SN == 'undefined' && (data.SN = this.system.createUniqueId());
   return data;
 }
 
 function validateFormDecryption(form, data) {
   form.hasOwnProperty('decryption') &&
-    Object.entries(data).forEach((entry) => {
-      const [key, value] = entry;
-      form.decryption.includes(key) && (data[key] = this.decrypter(value));
-    });
+    Object.entries(data).forEach(([key, value]) => form.decryption.includes(key) && (data[key] = this.decrypter(value)));
   return data;
 }
 
 function validateDataset(form, data) {
-  console.log('validateDataset: ', JSON.parse(JSON.stringify(data)));
   form.hasOwnProperty('datasetMatcher') &&
     form.datasetMatcher.forEach((item) => {
       switch (item.pk) {
@@ -53,18 +46,12 @@ function validateDataset(form, data) {
 }
 
 function validateSystemFields(form, data) {
-  form.hasOwnProperty('systemFields') &&
-    form.systemFields.forEach((field) => {
-      data[field] = this.system.createUniqueId();
-    });
+  form.hasOwnProperty('systemFields') && form.systemFields.forEach((field) => (data[field] = this.system.createUniqueId()));
   return data;
 }
 
 function validateUserFields(form, data) {
-  form.hasOwnProperty('userFields') &&
-    form.userFields.forEach((item) => {
-      data[item.index] = this.user.getUserItem(item, data[item.lookupIndex]);
-    });
+  form.hasOwnProperty('userFields') && form.userFields.forEach((item) => (data[item.index] = this.user.getUserItem(item, data[item.lookupIndex])));
   return data;
 }
 
@@ -86,9 +73,7 @@ function validateSearchAssist(form, response, data) {
           data[`searchAssist${index}`] = `${new Date(data[field.index]).getFullYear()}`;
           break;
         case 'month/year':
-          data[`searchAssist${index}`] = `${monthNames[new Date(data[field.index]).getMonth()]} ${new Date(
-            data[field.index]
-          ).getFullYear()}`;
+          data[`searchAssist${index}`] = `${monthNames[new Date(data[field.index]).getMonth()]} ${new Date(data[field.index]).getFullYear()}`;
           break;
       }
     });

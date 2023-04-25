@@ -1,54 +1,72 @@
-import { plugins, assembler, meta } from './plugin.js';
+import { assembler, meta } from './plugin.js';
 import { pageObjects } from './components.js';
 import { helper } from './helper/index.js';
-import { gatherPageInfo, selectionController, getDeviceType } from './util.js';
-import { initialization } from './init.js';
+import { selectionController, getDeviceType } from './util.js';
 import { System } from './helper/system.js';
-import { loadPage } from './action-canvas.js';
+import { loadPage, pageAnimations } from './action-canvas.js';
 
-const system = new System({ name: 'system-reserved' });
+let modules = [
+  { data: helper.dataHandler, invoke: false, enabled: true, type: ['spread'] },
+  { data: meta, invoke: false, enabled: true, type: ['name', 'meta'] },
+  { data: pageObjects, invoke: true, enabled: true, type: ['spread'] },
+  { data: helper.tableMiddleware, invoke: true, enabled: true, type: ['spread'] },
+  { data: selectionController, invoke: true, enabled: true, type: ['name', 'selectionController'] },
+  { data: (_api) => (pageName) => _api.system.getModule(pageName), invoke: true, enabled: true, type: ['name', 'gatherPageInfo'] },
+  { data: helper.modalSync, invoke: true, enabled: true, type: ['name', 'modalSync'] },
+  { data: assembler, invoke: true, enabled: true, type: ['name', 'assembler'] },
+  { data: helper.formMiddleware, invoke: false, enabled: true, lib: 'helper', type: ['spread', 'instance'] },
+  { data: (ms) => new Promise((resolve) => setTimeout(resolve, ms)), invoke: false, enabled: true, type: ['name', 'timeout'] },
+  { data: getDeviceType, invoke: false, enabled: true, type: ['name', 'getDeviceType'] },
+  { data: loadPage, invoke: true, enabled: true, type: ['name', 'loadPage', 'call'] },
+  { data: pageAnimations, invoke: false, enabled: true, type: ['name', 'pageAnimations'] }
+];
 
-let _api = {
-  ...helper.dataHandler,
-  ...helper.eventHandler,
-  system: system,
-  user: system.getUser(),
-  store: system.getStore(),
-  meta: meta
-};
+class Interface {
+  constructor(system) {
+    this.system = system;
+    this.user = system.getUser();
+    this.store = system.getStore();
+  }
 
-_api = {
-  ..._api,
-  ...pageObjects(_api),
-  ...helper.tableMiddleware(_api),
-  selectionController: selectionController(_api),
-  gatherPageInfo: gatherPageInfo(_api)
-};
+  initialization(modules) {
+    for (var module of modules) this.initialize(module);
+    return 'Initialization Complete';
+  }
 
-_api = {
-  ..._api,
-  modalSync: helper.modalSync(_api),
-  assembler: assembler(_api)
-};
+  initialize(module) {
+    let { data, enabled, invoke, type } = module;
+    if (!enabled) return;
+    let initializer = invoke && !type.includes('call') ? data(this) : type.includes('call') ? data.call(this) : data;
+    initializer = type.includes('instance') ? new initializer(this)[module.lib] : initializer;
+    if (type.includes('spread')) Object.assign(this, { ...initializer });
+    if (type.includes('name')) this[type[1]] = initializer;
+  }
 
-_api = {
-  ..._api,
-  ...new helper.formMiddleware(_api).helper,
-  init: initialization(_api),
-  timeout(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  },
-  getDeviceType: getDeviceType
-};
+  async create() {
+    for (const [key, current] of Object.entries(this.system.getModules())) {
+      current.arrayExpression = current.endpoint;
+      if (!current.system) continue;
+      current.loaded = true;
+      current.loadIndex = 0;
+      await this.system.initializeController('system reserved');
+      await this.system.initializeMiddleware('system reserved');
+      for (var j in current.plugins) await this.assembler(current.plugins[j]);
+    }
+  }
 
-console.log('Framework API: ', JSON.parse(JSON.stringify(_api)));
+  addEvent(name, data) {
+    var id = this.system.createUniqueId();
+    let string = JSON.stringify(data);
+    let event = { detail: string, arrayExpression: id, id: id, identifier: name, location: document.location.href, timestamp: Date.now() };
+    event_log.push(event);
+    return true;
+  }
+}
 
-_api = {
-  ..._api,
-  pageActions: { loadPage: loadPage.call(_api) }
-};
+let api = new Interface(new System({ name: 'system-reserved' }));
+api.initialization(modules);
 
-window._katharos_api_ = _api;
-window._katharos_system_ = system;
+const event_log = (window.event_log = []);
+window._katharos_api_ = api;
 
-export { _api, plugins };
+export { api as _api };

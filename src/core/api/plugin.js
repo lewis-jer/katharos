@@ -1,18 +1,6 @@
 var meta = [
-  {
-    attributes: ['charset'],
-    container: false,
-    name: '',
-    type: 'meta',
-    values: ['utf-8']
-  },
-  {
-    attributes: ['http-equiv', 'content'],
-    container: false,
-    name: '',
-    type: 'meta',
-    values: ['X-UA-Compatible', 'IE=edge']
-  },
+  { attributes: ['charset'], container: false, name: '', type: 'meta', values: ['utf-8'] },
+  { attributes: ['http-equiv', 'content'], container: false, name: '', type: 'meta', values: ['X-UA-Compatible', 'IE=edge'] },
   {
     attributes: ['content'],
     container: false,
@@ -20,20 +8,8 @@ var meta = [
     type: 'meta',
     values: [{ width: 'device-width', 'initial-scale': 1, 'shrink-to-fit': 'no' }]
   },
-  {
-    attributes: ['content'],
-    container: false,
-    name: 'description',
-    type: 'meta',
-    values: ['']
-  },
-  {
-    attributes: ['content'],
-    container: false,
-    name: 'author',
-    type: 'meta',
-    values: ['']
-  },
+  { attributes: ['content'], container: false, name: 'description', type: 'meta', values: [''] },
+  { attributes: ['content'], container: false, name: 'author', type: 'meta', values: [''] },
   {
     attributes: ['rel', 'href', 'type'],
     container: false,
@@ -41,14 +17,7 @@ var meta = [
     type: 'link',
     values: ['shortcut icon', 'https://level.blob.core.windows.net/fp-blob/images/level-favicon.png', 'image/x-icon']
   },
-  {
-    attributes: [],
-    container: true,
-    innerHTML: 'Level | Official Site',
-    name: '',
-    type: 'title',
-    values: []
-  }
+  { attributes: [], container: true, innerHTML: 'Level | Official Site', name: '', type: 'title', values: [] }
 ];
 
 var el = document.createElement('head');
@@ -98,11 +67,7 @@ for (var i in meta) {
     typeof meta[i].values[j] == 'object'
       ? child.setAttribute(
           meta[i].attributes[j],
-          JSON.stringify(meta[i].values[j])
-            .replace(/[{}]/g, '')
-            .replace(/["]/g, '')
-            .replace(/[:]/g, '=')
-            .replace(/[,p]/g, ', ')
+          JSON.stringify(meta[i].values[j]).replace(/[{}]/g, '').replace(/["]/g, '').replace(/[:]/g, '=').replace(/[,p]/g, ', ')
         )
       : meta[i].values[j] && child.setAttribute(meta[i].attributes[j], meta[i].values[j]);
   }

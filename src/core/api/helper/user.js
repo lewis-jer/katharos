@@ -42,7 +42,7 @@ class User {
   setUserProfile(data) {
     Object.assign(this.data.userProfile, { ...data });
     this.data.username = data.username;
-    this.setUserCount();
+    // this.setUserCount();
   }
 
   setUserProfileItem(key, data) {
@@ -117,8 +117,8 @@ class User {
   getUserCount() {
     return this.data.userCount;
   }
-  setUserCount() {
-    this.data.userCount++;
+  async setUserCount() {
+    await Promise.resolve(this.data.userCount++);
   }
 
   setUserItem() {}

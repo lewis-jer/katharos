@@ -12,9 +12,7 @@ const dataHandler = {
   },
   squash: function (arr) {
     var tmp = [];
-    for (var i = 0; i < arr.length; i++) {
-      if (tmp.indexOf(arr[i]) == -1) tmp.push(arr[i]);
-    }
+    for (var i = 0; i < arr.length; i++) if (tmp.indexOf(arr[i]) == -1) tmp.push(arr[i]);
     return tmp;
   },
   plaid: async function ($) {
@@ -30,14 +28,9 @@ const dataHandler = {
       onSuccess: async (publicToken, metadata) => {
         const retrievedString = localStorage.getItem('user');
         const parsedObject = (JSON.parse(retrievedString).plaid = true);
-
         localStorage.setItem('user', JSON.stringify(parsedObject));
         document.getElementById('plaid').style.display = 'none';
-
-        await this.system.http().post('fp-app/plaid/token-exchange  ', {
-          userId: this.user.getUser().userId,
-          publicToken: publicToken
-        });
+        await this.system.http().post('fp-app/plaid/token-exchange  ', { userId: this.user.getUser().userId, publicToken: publicToken });
       },
       onLoad: () => {},
       onExit: async (err, metadata) => {},
@@ -60,9 +53,7 @@ const dataHandler = {
     const handler = Plaid.create({
       token: await fetchLinkToken(),
       onSuccess: async (publicToken, metadata) => {
-        const response = await this.system.http().post('fp-app/plaid/alerts/clear', {
-          username: this.user.getUsername()
-        });
+        const response = await this.system.http().post('fp-app/plaid/alerts/clear', { username: this.user.getUsername() });
       },
       onLoad: () => {},
       onExit: (err, metadata) => {},
@@ -75,56 +66,28 @@ const dataHandler = {
   encrypter: function (message) {
     var systemConfig = this.system.getSecureContainer().system;
     var encryptMsg = CryptoJS.AES.encrypt(message, systemConfig);
-    encryptMsg = encryptMsg.toString();
-    return encryptMsg;
+    return encryptMsg.toString();
   },
   decrypter: function (encrypted) {
     var systemConfig = this.system.getSecureContainer().system;
     var decryptMsg = CryptoJS.AES.decrypt(encrypted, systemConfig);
-    decryptMsg = decryptMsg.toString(CryptoJS.enc.Utf8);
-    return decryptMsg;
+    return decryptMsg.toString(CryptoJS.enc.Utf8);
   },
-  mySQLDateCreator: (x) => {
-    return new Date(x).toJSON().slice(0, 10);
-  },
-  getMonthNames: () => {
-    return [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
-    ];
-  },
+  mySQLDateCreator: (x) => new Date(x).toJSON().slice(0, 10),
+  getMonthNames: () => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   findInCatArray: (Arr, Value) => {
-    for (var i = 0; i < Arr.length; i++) {
-      if (Arr[i] === Value) {
-        return i;
-      }
-    }
+    for (var i = 0; i < Arr.length; i++) if (Arr[i] === Value) return i;
   },
   searchArray(obj, searchKey, results = []) {
     const r = results;
     Object.keys(obj).forEach((key) => {
       const value = obj[key];
-      if (key === searchKey && typeof value !== 'object') {
-        r.push(value);
-      } else if (typeof value === 'object') {
-        this.searchArray(value, searchKey, r);
-      }
+      if (key === searchKey && typeof value !== 'object') r.push(value);
+      else if (typeof value === 'object') this.searchArray(value, searchKey, r);
     });
     return r;
   },
   numberFormat: (number, decimals, dec_point, thousands_sep) => {
-    // *     example: number_format(1234.56, 2, ',', ' ');
-    // *     return: '1 234,56'
     number = (number + '').replace(',', '').replace(' ', '');
     var n = !isFinite(+number) ? 0 : +number,
       prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
@@ -135,11 +98,8 @@ const dataHandler = {
         var k = Math.pow(10, prec);
         return '' + Math.round(n * k) / k;
       };
-    // Fix for IE parseFloat(0.55).toFixed(0) = 0;
     s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
-    if (s[0].length > 3) {
-      s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-    }
+    if (s[0].length > 3) s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
     if ((s[1] || '').length < prec) {
       s[1] = s[1] || '';
       s[1] += new Array(prec - s[1].length + 1).join('0');
@@ -154,20 +114,10 @@ const dataHandler = {
   },
   customNumberFormat(thousands, decimal, precision, prefix, postfix) {
     return function (d) {
-      if (typeof d !== 'number' && typeof d !== 'string') {
-        return d;
-      }
-
+      if (typeof d !== 'number' && typeof d !== 'string') return d;
       var negative = d < 0 ? '-' : '';
       var flo = parseFloat(d);
-
-      // If NaN then there isn't much formatting that we can do - just
-      // return immediately, escaping any HTML (this was supposed to
-      // be a number after all)
-      if (isNaN(flo)) {
-        return __htmlEscapeEntities(d);
-      }
-
+      if (isNaN(flo)) return __htmlEscapeEntities(d);
       flo = flo.toFixed(precision);
       d = Math.abs(flo);
 
@@ -194,13 +144,7 @@ const dataHandler = {
           break;
       }
 
-      return (
-        negative +
-        (prefix || '') +
-        intPart.toString().replace(/\B(?=(\d{3})+(?!\d))/g, thousands) +
-        floatPart +
-        (postfix || '')
-      );
+      return negative + (prefix || '') + intPart.toString().replace(/\B(?=(\d{3})+(?!\d))/g, thousands) + floatPart + (postfix || '');
     };
   },
   calculate(originalValue, newValue, operator) {

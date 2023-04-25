@@ -19,7 +19,6 @@ class System {
       middlewareConfig: {},
       componentLib: { navigationBar: { status: false } },
       components: {},
-      modals: {},
       forms: {},
       charts: {},
       tables: {},
@@ -27,7 +26,6 @@ class System {
       http: {},
       authentication: {},
       authenticationActions: {},
-      views: {},
       modules: {},
       loadIndex: 1
     };
@@ -37,70 +35,28 @@ class System {
   configure(config) {
     for (const [key, value] of Object.entries(config)) {
       key.includes('controller') && Object.assign(this.data.controllerConfig, { ...value });
-
       key.includes('middleware') && Object.assign(this.data.middlewareConfig, { ...value });
-
       key.includes('excludes') && this.setExclusions(value);
-
       key.includes('secret') && this.setSecureContainer(value);
-
       key.includes('axios') && this.setHttp(value);
-
       key.match(/^authentication$/) && (this.data.authentication = value);
-
       key.match(/^authenticationActions$/) && (this.data.authenticationActions = value);
-
       key.match(/^baseURL$/) && (this.data.baseURL = value);
-
-      if (key.includes('modals')) {
-        for (const [module, modals] of Object.entries(value)) {
-          modals.forEach((modal) => {
-            this.data.modals[modal.arrayExpression] = modal;
+      if (key.includes('forms'))
+        for (const [m, i] of Object.entries(value))
+          i.forEach((j) => {
+            j.id = uuidv4();
+            this.data.forms[j.arrayExpression] = j;
           });
-        }
-      }
 
-      if (key.includes('forms')) {
-        for (const [module, forms] of Object.entries(value)) {
-          forms.forEach((form) => {
-            this.data.forms[form.arrayExpression] = form;
-          });
+      if (key.includes('components')) for (const item of value) this.data.components[item.arrayExpression] = item;
+      if (key.includes('modules'))
+        for (const item of value) {
+          item.id = uuidv4();
+          this.data.modules[item.endpoint] = item;
         }
-      }
-
-      if (key.includes('views')) {
-        for (const [module, view] of Object.entries(value)) {
-          this.data.views[view.name] = view;
-        }
-      }
-
-      if (key.includes('components')) {
-        for (const component of value) {
-          this.data.components[component.arrayExpression] = component;
-        }
-      }
-
-      if (key.includes('modules')) {
-        for (const module of value) {
-          this.data.modules[module.endpoint] = module;
-        }
-      }
-
-      if (key.includes('charts')) {
-        for (const [module, charts] of Object.entries(value)) {
-          charts.forEach((chart) => {
-            this.data.charts[chart.arrayExpression] = chart;
-          });
-        }
-      }
-
-      if (key.includes('tables')) {
-        for (const [module, tables] of Object.entries(value)) {
-          tables.forEach((table) => {
-            this.data.tables[table.arrayExpression] = table;
-          });
-        }
-      }
+      if (key.includes('charts')) for (const [m, i] of Object.entries(value)) i.forEach((j) => (this.data.charts[j.arrayExpression] = j));
+      if (key.includes('tables')) for (const [m, i] of Object.entries(value)) i.forEach((j) => (this.data.tables[j.arrayExpression] = j));
 
       if (key.includes('preloader') && value) {
         this.data.preloader = true;
@@ -150,32 +106,24 @@ class System {
     return logout;
   }
 
-  setupHttpService() {
-    this.data.http = this.data.httpConfig.create({
-      baseURL: this.data.baseURL,
-      headers: {
-        'x-access-token': JSON.parse(localStorage.getItem('user'))
-          ? JSON.parse(localStorage.getItem('user')).accessToken
-          : false
-        // 'Content-type': 'application/json'
-      }
-    });
+  async setupHttpService() {
+    this.data.http = await Promise.resolve(
+      this.data.httpConfig.create({
+        baseURL: this.data.baseURL,
+        headers: {
+          'x-access-token': JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).accessToken : false
+        }
+      })
+    );
+    console.log('setupHttpService', JSON.parse(localStorage.getItem('user'))?.accessToken);
   }
 
   http() {
     return this.data.http;
   }
 
-  getModal(name) {
-    return this.data.modals[name];
-  }
-
   getForm(name) {
     return this.data.forms[name];
-  }
-
-  getView(name) {
-    return this.data.views[name];
   }
 
   getChart(name) {
@@ -200,6 +148,10 @@ class System {
 
   getModules() {
     return this.data.modules;
+  }
+
+  getPackage(name) {
+    return this.data.packages[name];
   }
 
   getPackages() {
@@ -290,16 +242,12 @@ class System {
   }
 
   async initializeController(pageInfo) {
-    pageInfo.controller
-      ? await this.data.controller.push(this.data.controllerConfig[pageInfo.arrayExpression])
-      : this.data.controller.push(false);
+    pageInfo.controller ? await this.data.controller.push(this.data.controllerConfig[pageInfo.arrayExpression]) : this.data.controller.push(false);
     return true;
   }
 
   async initializeMiddleware(pageInfo) {
-    pageInfo.middleware
-      ? await this.data.middleware.push(this.data.middlewareConfig[pageInfo.endpoint])
-      : this.data.middleware.push(false);
+    pageInfo.middleware ? await this.data.middleware.push(this.data.middlewareConfig[pageInfo.endpoint]) : this.data.middleware.push(false);
     return true;
   }
 
@@ -309,9 +257,7 @@ class System {
       return 'Middleware Instantiation Success';
     }
 
-    var instantiation = this.data.middleware[pageInfo.loadIndex]
-      ? await instantiate.call(this)
-      : 'Middleware Instantiation Fail';
+    var instantiation = this.data.middleware[pageInfo.loadIndex] ? await instantiate.call(this) : 'Middleware Instantiation Fail';
     return instantiation;
   }
 

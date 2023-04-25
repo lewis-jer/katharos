@@ -15,12 +15,13 @@ async function pageReloader(pageInfo) {
 async function componentLoader(pageInfo) {
   var components = this.system.getComponents();
   let event = { userIdentifier: JSON.parse(localStorage.getItem('user')).email || null, location: pageInfo.endpoint };
-
-  document.getElementById('wrapper').innerHTML = '';
-  document.getElementById('wrapper').innerHTML += components.navbar.html;
+  document.getElementById(components.navbar.viewport).innerHTML = '';
+  document.getElementById(components.navbar.viewport).innerHTML += components.navbar.html;
+  document.getElementById(components.navbar.viewport).style.display = 'block';
 
   this.system.componentLoader('navigationBar', true);
   const current = this.system.getModule([components.navbar.arrayExpression]);
+  await $(`#${components.navbar.contentport}`).fadeIn(500).promise();
   current.loaded ? await pageReloader.call(this, current) : await pageLoader.call(this, current);
   event.componentId = this.system.getComponentId('navigationBar');
   this.addEvent('loadComponent', event);
@@ -42,7 +43,7 @@ async function terminateLoader(pageInfo) {
       $(document).ready(async function (event) {
         document.querySelector('#loader').style.display = 'none';
         analytics.page(x);
-        $('#loaderDiv').fadeIn(900);
+        $('#loaderDiv').fadeIn(pageInfo?.delay || 500);
         $('#footer').fadeIn(750);
         resolve();
       })
@@ -52,8 +53,8 @@ async function terminateLoader(pageInfo) {
 }
 
 async function buildPage(pageInfo) {
-  var body = this.system.getView(pageInfo.arrayExpression).html;
-  !pageInfo.exclusions[1] && (document.getElementById(pageInfo.viewport).style.display = 'none');
+  var body = this.system.getModule(pageInfo.arrayExpression).html;
+  document.getElementById(pageInfo.viewport).style.display = 'none';
   if ('navLocation' in pageInfo) document.getElementById(pageInfo.navLocation).classList.add('active');
   if ('navItem' in pageInfo) document.getElementById(pageInfo.navItem).classList.add('active');
   document.getElementById(pageInfo.viewport).innerHTML = body;
