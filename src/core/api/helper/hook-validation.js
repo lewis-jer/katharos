@@ -34,7 +34,9 @@ function validateDataset(form, data) {
         case 'date':
           switch (item.type) {
             case 'LocaleDateString':
-              data[item.index] = `${new Date(data[item.lookupIndex]).toLocaleDateString()}`;
+              var dD = data[item.lookupIndex].split('T')[0];
+              var d = dD.split('-');
+              data[item.index] = `${parseInt(d[1]) + '/' + d[2] + '/' + d[0]}`;
               break;
           }
           break;

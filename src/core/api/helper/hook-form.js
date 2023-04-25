@@ -31,9 +31,9 @@ function formHelperAction(_api) {
   this.count = 1;
   this.helper = {
     synchronizeForms: async () => {
-      console.log('synchronizeForms boolean', !this.submissionHandle, _api.user.getUserCount() != this.count);
-      console.log('synchronizeForms ', this.submissionHandle, _api.user.getUserCount(), this.count);
-      console.log('synchronizeForms user status', _api.user.getUserStatus());
+      // console.log('synchronizeForms boolean', !this.submissionHandle, _api.user.getUserCount() != this.count);
+      // console.log('synchronizeForms ', this.submissionHandle, _api.user.getUserCount(), this.count);
+      // console.log('synchronizeForms user status', _api.user.getUserStatus());
       if (!this.submissionHandle) {
         this.submissionHandle = handle(_api.system.http());
         return true;
@@ -48,11 +48,17 @@ function formHelperAction(_api) {
     async completeAction(formName, formAction, modalName, params = {}) {
       let { form, response, data, tableName } = params;
       const { data: res } = response;
+      console.log('completeAction 1', JSON.parse(JSON.stringify(data)));
       data = await validateUserFields.call(_api, form, data);
+      console.log('completeAction 2', JSON.parse(JSON.stringify(data)));
       data = await validateResponse.call(_api, form, response, data);
+      console.log('completeAction 3', JSON.parse(JSON.stringify(data)));
       data = await validateSearchAssist.call(_api, form, response, data);
+      console.log('completeAction 4', JSON.parse(JSON.stringify(data)));
       data = await validateDataset.call(_api, form, data);
+      console.log('completeAction 5', JSON.parse(JSON.stringify(data)));
       data = await validateFormDecryption.call(_api, form, data);
+      console.log('completeAction n', JSON.parse(JSON.stringify(data)));
       form.updateTable && (await _api.updateTable(tableName, data, formAction));
       _api.store.clearInputStore();
       this.cleanForm(formName, formAction);
