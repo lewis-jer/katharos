@@ -10,35 +10,20 @@ import {
 } from './hook-validation.js';
 import { handle } from './hook-handle.js';
 
-async function formSubmissionLoader(status = '') {
-  if (status == '') {
-    document.getElementById('formSubmitBtn').style.display = 'none';
-    document.getElementById('formLoadBtn').style.display = 'block';
-    document.getElementById('formLoadBtn').innerHTML = 'Loading...';
-    document.getElementById('formLoadBtn').style.backgroundColor = '#8CA4EA';
-    document.getElementById('formLoadBtn').style.borderColor = '#8CA4EA';
-    document.getElementsByClassName('formSubmissionloader')[0].style.display = 'block';
-    return true;
-  } else {
-    document.getElementsByClassName('formSubmissionloader')[0].style.display = 'none';
-    document.getElementById('formLoadBtn').style.display = 'none';
-    document.getElementById('formSubmitBtn').style.display = 'block';
-  }
-}
-
 function formHelperAction(_api) {
   this.submissionHandle = false;
   this.count = 1;
   this.helper = {
+    async formSubmissionLoader(name, status = '') {
+      if (status == '') _api.formLoaderInvoke(`form[name="${name}"]`, { loader: '.formLoader', button: '#formSubmitBtn', text: 'Loading...' });
+      else _api.formLoaderInvoke(`form[name="${name}"]`, { loader: '.formLoader', button: '#formSubmitBtn', text: 'Closing...' });
+    },
     synchronizeForms: async () => {
-      // console.log('synchronizeForms boolean', !this.submissionHandle, _api.user.getUserCount() != this.count);
-      // console.log('synchronizeForms ', this.submissionHandle, _api.user.getUserCount(), this.count);
-      // console.log('synchronizeForms user status', _api.user.getUserStatus());
       if (!this.submissionHandle) {
-        this.submissionHandle = handle(_api.system.http());
+        this.submissionHandle = handle(_api.system.getService('dataservice'), _api.system.http());
         return true;
       } else if (_api.user.getUserCount() != this.count) {
-        this.submissionHandle = handle(_api.system.http());
+        this.submissionHandle = handle(_api.system.getService('dataservice'), _api.system.http());
         this.count = _api.user.getUserCount();
         return true;
       } else if (_api.user.getUserStatus()) return true;
@@ -47,24 +32,17 @@ function formHelperAction(_api) {
     },
     async completeAction(formName, formAction, modalName, params = {}) {
       let { form, response, data, tableName } = params;
+      console.log(form.formId);
       const { data: res } = response;
-      console.log('completeAction 1', JSON.parse(JSON.stringify(data)));
       data = await validateUserFields.call(_api, form, data);
-      console.log('completeAction 2', JSON.parse(JSON.stringify(data)));
       data = await validateResponse.call(_api, form, response, data);
-      console.log('completeAction 3', JSON.parse(JSON.stringify(data)));
       data = await validateSearchAssist.call(_api, form, response, data);
-      console.log('completeAction 4', JSON.parse(JSON.stringify(data)));
       data = await validateDataset.call(_api, form, data);
-      console.log('completeAction 5', JSON.parse(JSON.stringify(data)));
       data = await validateFormDecryption.call(_api, form, data);
-      console.log('completeAction n', JSON.parse(JSON.stringify(data)));
       form.updateTable && (await _api.updateTable(tableName, data, formAction));
       _api.store.clearInputStore();
       this.cleanForm(formName, formAction);
-      formSubmissionLoader(1);
-      $(`#${modalName}`).modal('hide');
-
+      this.formSubmissionLoader(form.formId, 1);
       res.status == 'success' && alertify.success('Success');
       res.status == 'fail' && alertify.error('Failure');
     },
@@ -162,7 +140,6 @@ function formHelperAction(_api) {
     formClose(formName, formAction, modalName, message = false) {
       _api.store.clearInputStore();
       this.cleanForm(formName, formAction);
-      $(`#${modalName}`).modal('hide');
     },
     formData(formName) {
       var formKeys = [];
@@ -193,7 +170,7 @@ function formHelperAction(_api) {
       contents = contents.filter((el) => el.object != null && el.object != '' && el.object.includes(formAction));
       if (contents.some((x) => x.value === false)) this.validateForm(formName, formAction);
       else {
-        formSubmissionLoader();
+        this.formSubmissionLoader(form.formId);
         this.validateForm(formName, formAction);
         return await this.formSubmit(contents, formName, formAction, form, tableName);
       }

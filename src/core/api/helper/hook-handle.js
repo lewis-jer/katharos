@@ -1,73 +1,7 @@
 var http = false;
 
-class DataService {
-  insertTransaction(data) {
-    return http.post('/fp-app/tx', data);
-  }
-  updateTransaction(data) {
-    return http.put('/fp-app/tx', data);
-  }
-  createCategory(data) {
-    return http.post('/fp-app/bcat', data);
-  }
-  updateCategory(data) {
-    return http.put('/fp-app/bcat', data);
-  }
-  createType(data) {
-    return http.post('/fp-app/btype', data);
-  }
-  updateType(data) {
-    return http.put('/fp-app/btype', data);
-  }
-  createBudget(data) {
-    return http.post('/fp-app/bx', data);
-  }
-  updateBudget(data) {
-    return http.put('/fp-app/bx', data);
-  }
-  pullBudget(data) {
-    return http.post('/fp-app/bx/pull', data);
-  }
-  retrieveAllPendingTransaction(data) {
-    return http.get('/fp-app/tx/upload', { params: data });
-  }
-  deleteBudgetByMonth(data) {
-    return http.delete('/fp-app/bx/month', { data: data });
-  }
-  deleteBudget(data) {
-    return http.delete('/fp-app/bx', { data: data });
-  }
-  deleteTransaction(data) {
-    return http.delete('/fp-app/tx', { data: data });
-  }
-  deletePendingTransaction(data) {
-    return http.delete('/fp-app/tx/upload', { data: data });
-  }
-  deleteAllPendingTransaction(data) {
-    return http.delete('/fp-app/txin/dump', { data: data });
-  }
-  syncUser(data) {
-    return http.post('/fp-app/user/sync', data);
-  }
-  authenticationValidation(data) {
-    return http.post('/api/auth/authValidation', data);
-  }
-  buildUserProfileData(data) {
-    return http.post('/fp-app/user/build', data);
-  }
-  getSubscription(data) {
-    return http.post('/fp-app/user/currentSub/active', data);
-  }
-  getSubscription(data) {
-    return http.post('/fp-app/user/currentSub/active', data);
-  }
-  verifyEULA(data) {
-    return http.put('/api/user/eula', data);
-  }
-}
-
-const handle = (client) => {
-  const dataService = new DataService();
+const handle = (service, client) => {
+  const dataService = new service(client);
   http = client;
   return async (handle, data) => {
     let response;

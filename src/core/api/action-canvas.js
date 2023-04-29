@@ -64,7 +64,6 @@ async function drawPage(pageInfo) {
 function loadPage() {
   return async (currPage, pageName) => {
     let router = await getEndpoint(this, currPage, pageName);
-    console.log(currPage, router);
     let page = this.system.getModule(currPage);
     let event = { documentId: page?.id, userIdentifier: router.authentication.userId, location: currPage };
     if (router.sourceRouteInformation?.loaded) {

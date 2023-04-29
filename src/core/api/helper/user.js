@@ -42,7 +42,6 @@ class User {
   setUserProfile(data) {
     Object.assign(this.data.userProfile, { ...data });
     this.data.username = data.username;
-    // this.setUserCount();
   }
 
   setUserProfileItem(key, data) {

@@ -5,29 +5,30 @@ import { Store } from '../helper/store.js';
 class System {
   constructor(data) {
     this.data = {
+      baseURL: '',
       user: new User({ name: 'system-reserved' }),
       store: new Store({ name: 'system-reserved' }),
-      baseURL: '',
+      authentication: {},
+      authenticationActions: {},
+      charts: {},
+      components: {},
+      componentLib: { navigationBar: { status: false } },
+      controller: [],
+      controllerConfig: {},
       exclusions: {},
-      processName: data.name,
+      forms: {},
+      http: {},
+      httpConfig: {},
+      loadIndex: 1,
+      middleware: [],
+      middlewareConfig: {},
+      modules: {},
       packages: {},
       pluginIndex: 0,
       pluginLib: {},
-      controller: [],
-      controllerConfig: {},
-      middleware: [],
-      middlewareConfig: {},
-      componentLib: { navigationBar: { status: false } },
-      components: {},
-      forms: {},
-      charts: {},
-      tables: {},
-      httpConfig: {},
-      http: {},
-      authentication: {},
-      authenticationActions: {},
-      modules: {},
-      loadIndex: 1
+      processName: data.name,
+      services: {},
+      tables: {}
     };
     this.next = null;
   }
@@ -43,11 +44,16 @@ class System {
       key.match(/^authenticationActions$/) && (this.data.authenticationActions = value);
       key.match(/^baseURL$/) && (this.data.baseURL = value);
       if (key.includes('forms'))
-        for (const [m, i] of Object.entries(value))
+        for (const [m, i] of Object.entries(value)) {
+          if (!Array.isArray(i)) {
+            this.data.modal = i;
+            continue;
+          }
           i.forEach((j) => {
             j.id = uuidv4();
             this.data.forms[j.arrayExpression] = j;
           });
+        }
 
       if (key.includes('components')) for (const item of value) this.data.components[item.arrayExpression] = item;
       if (key.includes('modules'))
@@ -69,6 +75,7 @@ class System {
       }
 
       key.includes('packages') && Object.assign(this.data.packages, { ...value });
+      key.includes('services') && Object.assign(this.data.services, { ...value });
     }
   }
 
@@ -96,6 +103,10 @@ class System {
     this.data.loadIndex++;
   }
 
+  async getAuth() {
+    return await this.data.authentication();
+  }
+
   async authenticationProtocol(handle, data) {
     const authentication = await this.data.httpConfig.post(handle, data);
     return authentication;
@@ -104,6 +115,10 @@ class System {
   async logout(input) {
     const logout = await this.data.authenticationActions.logout(input);
     return logout;
+  }
+
+  async login(token) {
+    return await this.data.authenticationActions.login(token);
   }
 
   async setupHttpService() {
@@ -120,6 +135,10 @@ class System {
 
   http() {
     return this.data.http;
+  }
+
+  getModal() {
+    return this.data.modal;
   }
 
   getForm(name) {
@@ -156,6 +175,10 @@ class System {
 
   getPackages() {
     return this.data.packages;
+  }
+
+  getService(name) {
+    return this.data.services[name];
   }
 
   setChartActiveElement(name, element) {
@@ -222,6 +245,10 @@ class System {
     this.data.id = secureId;
     Object.assign(this.data[secureId], { ...value });
     return secureId;
+  }
+
+  setSecureContainerItem(key, value) {
+    this.data[this.data.id][key] = value;
   }
 
   setSecureURL(value) {

@@ -40,6 +40,7 @@ class Interface {
     initializer = type.includes('instance') ? new initializer(this)[module.lib] : initializer;
     if (type.includes('spread')) Object.assign(this, { ...initializer });
     if (type.includes('name')) this[type[1]] = initializer;
+    this.formLoaderStatus = {};
   }
 
   async create() {
@@ -60,6 +61,39 @@ class Interface {
     let event = { detail: string, arrayExpression: id, id: id, identifier: name, location: document.location.href, timestamp: Date.now() };
     event_log.push(event);
     return true;
+  }
+
+  async _modifyStorageObject(item, { key, value }) {
+    const parsedObject = await Promise.resolve(JSON.parse(localStorage.getItem(item)));
+    await Promise.resolve((parsedObject[key] = value));
+    await Promise.resolve(localStorage.setItem(item, JSON.stringify(parsedObject)));
+    return true;
+  }
+
+  async formLoaderInvoke(selector, { loader, button, text }) {
+    if (!(selector in this.formLoaderStatus)) this.formLoaderStatus[selector] = false;
+    this.formLoaderStatus[selector] = !this.formLoaderStatus[selector];
+    console.log(`${selector} ${loader}`);
+    if (this.formLoaderStatus[selector]) {
+      document.querySelector(`${selector} ${button}`).classList.add('active');
+      document.querySelector(`${selector} ${loader}`).classList.add('active');
+      document.querySelector(`${selector} ${button}`).innerHTML = text;
+    } else if (!this.formLoaderStatus[selector]) {
+      document.querySelector(`${selector} ${button}`).classList.remove('active');
+      document.querySelector(`${selector} ${loader}`).classList.remove('active');
+      document.querySelector(`${selector} ${button}`).innerHTML = text;
+    }
+  }
+
+  async clearFormMessage(selector, { wrapper, element }) {
+    document.querySelector(`${selector} ${wrapper}`).style.display = 'none';
+    document.querySelector(`${selector} ${element}`).innerHTML = '';
+  }
+
+  async displayFormMessage(selector, { wrapper, element, text }) {
+    document.querySelector(`${selector} ${wrapper}`).style.display = 'grid';
+    document.querySelector(`${selector} ${element}`).innerHTML = text;
+    setTimeout(this.clearFormMessage, 5000, selector, { wrapper, element });
   }
 }
 
