@@ -15,54 +15,6 @@ const dataHandler = {
     for (var i = 0; i < arr.length; i++) if (tmp.indexOf(arr[i]) == -1) tmp.push(arr[i]);
     return tmp;
   },
-  plaid: async function ($) {
-    const fetchLinkToken = async () => {
-      const {
-        data: { linkToken }
-      } = await this.system.http().get('fp-app/plaid/create-link-token/' + this.user.getUsername());
-      return linkToken;
-    };
-
-    const handler = Plaid.create({
-      token: await fetchLinkToken(),
-      onSuccess: async (publicToken, metadata) => {
-        const retrievedString = localStorage.getItem('user');
-        const parsedObject = (JSON.parse(retrievedString).plaid = true);
-        localStorage.setItem('user', JSON.stringify(parsedObject));
-        document.getElementById('plaid').style.display = 'none';
-        await this.system.http().post('fp-app/plaid/token-exchange  ', { userId: this.user.getUser().userId, publicToken: publicToken });
-      },
-      onLoad: () => {},
-      onExit: async (err, metadata) => {},
-      onEvent: (eventName, metadata) => {},
-      receivedRedirectUri: null
-    });
-
-    handler.open();
-  },
-  plaidLoginRequired: async function ($) {
-    const fetchLinkToken = async () => {
-      const {
-        data: { linkToken }
-      } = await this.system.http().post('fp-app/plaid/update-link-token', {
-        username: this.user.getUsername()
-      });
-      return linkToken;
-    };
-
-    const handler = Plaid.create({
-      token: await fetchLinkToken(),
-      onSuccess: async (publicToken, metadata) => {
-        const response = await this.system.http().post('fp-app/plaid/alerts/clear', { username: this.user.getUsername() });
-      },
-      onLoad: () => {},
-      onExit: (err, metadata) => {},
-      onEvent: (eventName, metadata) => {},
-      receivedRedirectUri: null
-    });
-
-    handler.open();
-  },
   encrypter: function (message) {
     var systemConfig = this.system.getSecureContainer().system;
     var encryptMsg = CryptoJS.AES.encrypt(message, systemConfig);
