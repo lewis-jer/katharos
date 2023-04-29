@@ -1,4 +1,4 @@
-import { getEndpoint } from '../../../../katharos-router/index.js';
+import { getEndpoint } from '../../../katharos-router/index.js';
 import { buildPage, componentLoader, pageLoader, pageReloader, terminateLoader } from './render.js';
 
 async function pageAnimations(animations) {

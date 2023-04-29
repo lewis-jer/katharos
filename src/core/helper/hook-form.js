@@ -8,22 +8,31 @@ import {
   validateFormDecryption,
   validateDataset
 } from './hook-validation.js';
-import { handle } from './hook-handle.js';
 
 function formHelperAction(_api) {
   this.submissionHandle = false;
   this.count = 1;
   this.helper = {
+    handle: (service, client) => {
+      const dataService = new service(client);
+      return async (handle, data) => {
+        try {
+          return await dataService[handle](data);
+        } catch (e) {
+          return e;
+        }
+      };
+    },
     async formSubmissionLoader(name, status = '') {
       if (status == '') _api.formLoaderInvoke(`form[name="${name}"]`, { loader: '.formLoader', button: '#formSubmitBtn', text: 'Loading...' });
       else _api.formLoaderInvoke(`form[name="${name}"]`, { loader: '.formLoader', button: '#formSubmitBtn', text: 'Closing...' });
     },
     synchronizeForms: async () => {
       if (!this.submissionHandle) {
-        this.submissionHandle = handle(_api.system.getService('dataservice'), _api.system.http());
+        this.submissionHandle = this.helper.handle(_api.system.getService('dataservice'), _api.system.http());
         return true;
       } else if (_api.user.getUserCount() != this.count) {
-        this.submissionHandle = handle(_api.system.getService('dataservice'), _api.system.http());
+        this.submissionHandle = this.helper.handle(_api.system.getService('dataservice'), _api.system.http());
         this.count = _api.user.getUserCount();
         return true;
       } else if (_api.user.getUserStatus()) return true;
