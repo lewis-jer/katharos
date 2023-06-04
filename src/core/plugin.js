@@ -21,12 +21,6 @@ var meta = [
 ];
 
 var el = document.createElement('head');
-let plugins = [];
-try {
-  plugins.push('katharos-router');
-} catch (e) {
-  console.error('katharos-router is not found');
-}
 
 const jsAssembler = async (_api, modulePlugin) => {
   if (!Object.keys(_api.system.data.pluginLib).includes(_api.system.stringToHash(modulePlugin))) {
@@ -75,4 +69,4 @@ for (var i in meta) {
   el.appendChild(child);
 }
 
-export { plugins, assembler, el as meta };
+export { assembler, el as meta };

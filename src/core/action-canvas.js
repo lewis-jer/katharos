@@ -37,13 +37,12 @@ async function dynamicTableDestructor(pageInfo) {
 
 async function drawPage(pageInfo) {
   let { animatedElements } = pageInfo;
-  var preloaderStatus = this.system.getComponentStatus('preloader');
   var navbarStatus = this.system.getComponentStatus('navigationBar');
   let publicExclusions = this.system.getExclusion('public');
   let systemExclusions = this.system.getExclusion('system');
   pageInfo.exclusions = [publicExclusions.includes(pageInfo.endpoint), systemExclusions.includes(pageInfo.endpoint)];
 
-  if (preloaderStatus) {
+  if (this.system.getComponentStatus('preloader')) {
     document.getElementById('preloader').style.display = 'none';
     this.system.componentLoader('preloader', false);
   }
@@ -63,7 +62,9 @@ async function drawPage(pageInfo) {
 
 function loadPage() {
   return async (currPage, pageName) => {
-    let router = await getEndpoint(this, currPage, pageName);
+    let newRouter = await this.system.router.get(this.gatherPageInfo(currPage), this.gatherPageInfo(pageName));
+    let router = await getEndpoint(this, this.gatherPageInfo(currPage), this.gatherPageInfo(pageName));
+    console.log('router', router);
     let page = this.system.getModule(currPage);
     let event = { documentId: page?.id, userIdentifier: router.authentication.userId, location: currPage };
     if (router.sourceRouteInformation?.loaded) {

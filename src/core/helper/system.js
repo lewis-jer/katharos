@@ -26,6 +26,8 @@ class System {
       packages: {},
       pluginIndex: 0,
       pluginLib: {},
+      pluginRegister: [],
+      pluginInternal: [],
       processName: data.name,
       services: {},
       tables: {}
@@ -35,6 +37,7 @@ class System {
 
   configure(config) {
     for (const [key, value] of Object.entries(config)) {
+      key.includes('Router') && (this.router = value);
       key.includes('controller') && Object.assign(this.data.controllerConfig, { ...value });
       key.includes('middleware') && Object.assign(this.data.middlewareConfig, { ...value });
       key.includes('excludes') && this.setExclusions(value);
@@ -77,6 +80,11 @@ class System {
       key.includes('packages') && Object.assign(this.data.packages, { ...value });
       key.includes('services') && Object.assign(this.data.services, { ...value });
     }
+  }
+
+  registerPlugin(plugin) {
+    this.data.pluginRegister.push(plugin.name);
+    console.log(plugin);
   }
 
   getUser() {
@@ -225,14 +233,6 @@ class System {
       hash = hash & hash;
     }
     return 'eyz' + hash;
-  }
-
-  setNextNode(node) {
-    if (node instanceof System || node === null) {
-      this.next = node;
-    } else {
-      throw new Error('Next node must be a member of the Node class.');
-    }
   }
 
   getSecureContainer() {
