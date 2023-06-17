@@ -14,7 +14,7 @@ async function pageReloader(pageInfo) {
 
 async function componentLoader(pageInfo) {
   var components = this.system.getComponents();
-  let event = { userIdentifier: JSON.parse(localStorage.getItem('user')).email || null, location: pageInfo.endpoint };
+  let event = { userIdentifier: JSON.parse(localStorage.getItem('user'))?.email || null, location: pageInfo.endpoint };
   document.getElementById(components.navbar.viewport).innerHTML = '';
   document.getElementById(components.navbar.viewport).innerHTML += components.navbar.html;
   document.getElementById(components.navbar.viewport).style.display = 'block';

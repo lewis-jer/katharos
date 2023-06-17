@@ -8,7 +8,6 @@ class System {
       baseURL: '',
       user: new User({ name: 'system-reserved' }),
       store: new Store({ name: 'system-reserved' }),
-      authentication: {},
       authenticationActions: {},
       charts: {},
       components: {},
@@ -43,7 +42,6 @@ class System {
       key.includes('excludes') && this.setExclusions(value);
       key.includes('secret') && this.setSecureContainer(value);
       key.includes('axios') && this.setHttp(value);
-      key.match(/^authentication$/) && (this.data.authentication = value);
       key.match(/^authenticationActions$/) && (this.data.authenticationActions = value);
       key.match(/^baseURL$/) && (this.data.baseURL = value);
       if (key.includes('forms'))
@@ -111,10 +109,6 @@ class System {
     this.data.loadIndex++;
   }
 
-  async getAuth() {
-    return await this.data.authentication();
-  }
-
   async authenticationProtocol(handle, data) {
     const authentication = await this.data.httpConfig.post(handle, data);
     return authentication;
@@ -138,7 +132,6 @@ class System {
         }
       })
     );
-    console.log('setupHttpService', JSON.parse(localStorage.getItem('user'))?.accessToken);
   }
 
   http() {

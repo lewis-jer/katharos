@@ -61,7 +61,6 @@ class Interface {
 
   async register(plugin) {
     this.system.registerPlugin(plugin);
-    // key.match(/^router$/) && (this.data.authentication = value);
   }
 
   addEvent(name, data) {
@@ -109,6 +108,7 @@ const api = new Interface(new System({ name: 'system-reserved' }));
 api.initialization(modules);
 
 const event_log = (window.event_log = []);
+const history_log = (window.history_log = []);
 window._katharos_api_ = api;
 
 export default api;
