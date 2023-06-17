@@ -1,4 +1,3 @@
-import { getEndpoint } from '../../../katharos-router/index.js';
 import { buildPage, componentLoader, pageLoader, pageReloader, terminateLoader } from './render.js';
 
 async function pageAnimations(animations) {
@@ -36,6 +35,7 @@ async function dynamicTableDestructor(pageInfo) {
 }
 
 async function drawPage(pageInfo) {
+  history.pushState({}, null, document.URL.slice(0, document.URL.lastIndexOf('/') + 1) + pageInfo.endpoint);
   let { animatedElements } = pageInfo;
   var navbarStatus = this.system.getComponentStatus('navigationBar');
   let publicExclusions = this.system.getExclusion('public');
@@ -57,14 +57,13 @@ async function drawPage(pageInfo) {
   pageInfo.exclusions[1] &&
     (await pageAnimations([{ id: pageInfo.viewport, delay: pageInfo?.delay || 500, promise: true, style: 'fadeIn', enabled: true }]));
   if ('animatedElements' in pageInfo) for (var animation of animatedElements) if (animation.type == 'oncreate') await pageAnimations([animation]);
-  history.replaceState({}, null, document.URL.slice(0, document.URL.lastIndexOf('/') + 1) + pageInfo.endpoint);
 }
 
 function loadPage() {
   return async (currPage, pageName) => {
-    let newRouter = await this.system.router.get(this.gatherPageInfo(currPage), this.gatherPageInfo(pageName));
-    let router = await getEndpoint(this, this.gatherPageInfo(currPage), this.gatherPageInfo(pageName));
-    console.log('router', router);
+    window.history_log.push({ previous: currPage, current: pageName });
+    localStorage.setItem('view', JSON.stringify({ previous: currPage, current: pageName }));
+    let router = await this.system.router.get(this.gatherPageInfo(currPage), this.gatherPageInfo(pageName));
     let page = this.system.getModule(currPage);
     let event = { documentId: page?.id, userIdentifier: router.authentication.userId, location: currPage };
     if (router.sourceRouteInformation?.loaded) {
@@ -81,5 +80,38 @@ function loadPage() {
     return 'Page Loaded';
   };
 }
+
+// (function (global) {
+//   if (typeof global === 'undefined') throw new Error('window is undefined');
+//   var _hash = '!';
+
+//   var navigationGuard = function () {
+//     let view = localStorage.getItem('view');
+//     for (let entry of global.history_log) console.log(entry);
+//   };
+
+//   var noBackPlease = function () {
+//     global.location.href += '#';
+//     global.setTimeout(function () {
+//       global.location.href += '!';
+//       let view = localStorage.getItem('view');
+//       for (let entry of global.history_log) console.log(entry);
+//     }, 50);
+//   };
+
+//   global.onhashchange = function () {
+//     if (global.location.hash !== _hash) global.location.hash = _hash;
+//   };
+
+//   global.onload = function () {
+//     noBackPlease();
+
+//     document.body.onkeydown = function (e) {
+//       var elm = e.target.nodeName.toLowerCase();
+//       if (e.which === 8 && elm !== 'input' && elm !== 'textarea') e.preventDefault();
+//       e.stopPropagation();
+//     };
+//   };
+// })(window);
 
 export { loadPage, pageAnimations };
