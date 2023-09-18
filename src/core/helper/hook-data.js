@@ -61,7 +61,7 @@ const dataHandler = {
   isEmpty(str) {
     return !str || str.length === 0;
   },
-  integerValue(i) {
+  getInt(i) {
     return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
   },
   customNumberFormat(thousands, decimal, precision, prefix, postfix) {

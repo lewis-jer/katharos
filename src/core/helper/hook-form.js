@@ -23,10 +23,6 @@ function formHelperAction(_api) {
         }
       };
     },
-    async formSubmissionLoader(name, status = '') {
-      if (status == '') _api.formLoaderInvoke(`form[name="${name}"]`, { loader: '.formLoader', button: '#formSubmitBtn', text: 'Loading...' });
-      else _api.formLoaderInvoke(`form[name="${name}"]`, { loader: '.formLoader', button: '#formSubmitBtn', text: 'Closing...' });
-    },
     synchronizeForms: async () => {
       if (!this.submissionHandle) {
         this.submissionHandle = this.helper.handle(_api.system.getService('dataservice'), _api.system.http());
@@ -41,19 +37,14 @@ function formHelperAction(_api) {
     },
     async completeAction(formName, formAction, modalName, params = {}) {
       let { form, response, data, tableName } = params;
-      console.log(form.formId);
       const { data: res } = response;
       data = await validateUserFields.call(_api, form, data);
       data = await validateResponse.call(_api, form, response, data);
       data = await validateSearchAssist.call(_api, form, response, data);
       data = await validateDataset.call(_api, form, data);
+      console.log(JSON.parse(JSON.stringify(data)));
       data = await validateFormDecryption.call(_api, form, data);
-      form.updateTable && (await _api.updateTable(tableName, data, formAction));
-      _api.store.clearInputStore();
-      this.cleanForm(formName, formAction);
-      this.formSubmissionLoader(form.formId, 1);
-      res.status == 'success' && alertify.success('Success');
-      res.status == 'fail' && alertify.error('Failure');
+      Object.assign(data, { transport: { ...res }, sanitizedResult: { ...JSON.parse(JSON.stringify(data)) } });
     },
     filterByValue(array, value) {
       return array.filter((data) => JSON.stringify(data).toLowerCase().indexOf(value.toLowerCase()) !== -1);
@@ -65,7 +56,7 @@ function formHelperAction(_api) {
 
       contents.forEach((x, index) => {
         var field = document.forms[formName].elements[x.object];
-        var formField = document.getElementById(formName).getElementsByClassName('form-group')[x.index].children;
+        var formField = document.getElementById('form').getElementsByClassName('form-group')[x.index].children;
         if (formClose == '') {
           for (var i in formField) {
             if (formField[i].tagName == 'SPAN' && x.value === false) {
@@ -133,17 +124,19 @@ function formHelperAction(_api) {
       if (form.submission == 'block') return false;
       const response = form.version == 1 && (await this.submissionHandle(form.handle, data));
       var { data: frozenResponse } = JSON.parse(JSON.stringify(response));
-      typeof response.data !== 'undefined' &&
-        form.version == 1 &&
-        (await (async () => {
+      if (typeof response.data !== 'undefined' && form.version == 1) {
+        var transporter = await (async () => {
           const { data: res } = response;
           typeof res.insertId !== 'undefined' && res.insertId != 0 && (data.id = res.insertId);
           if (form.action == 'block') return false;
           await this.helper.completeAction(formName, formAction, form.modal, { form, response, data, tableName });
-        })());
+          if ('transport' in data) return JSON.parse(JSON.stringify(data));
+        })();
+      }
 
       form.hasOwnProperty('frozen') && form.frozen && (data = frozenData);
       form.hasOwnProperty('frozenResponse') && form.frozenResponse && (data = frozenResponse);
+      if (!!transporter) Object.assign(data, { transportResult: { ...transporter } });
       return data || false;
     },
     formClose(formName, formAction, modalName, message = false) {
@@ -172,17 +165,6 @@ function formHelperAction(_api) {
         contents.push({ object: content.name, value: content.value || false, index: Object.values(formContents).indexOf(content) });
       });
       return contents;
-    },
-    async formSubmission(formName, formAction, form, tableName) {
-      var { formKeys, formContent } = this.formData(formName);
-      var contents = this.formContents(formKeys, formAction, formContent);
-      contents = contents.filter((el) => el.object != null && el.object != '' && el.object.includes(formAction));
-      if (contents.some((x) => x.value === false)) this.validateForm(formName, formAction);
-      else {
-        this.formSubmissionLoader(form.formId);
-        this.validateForm(formName, formAction);
-        return await this.formSubmit(contents, formName, formAction, form, tableName);
-      }
     },
     preloadForm(formName, formAction, modalName, content) {
       var { formKeys, formContent } = this.formData(formName);

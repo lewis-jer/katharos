@@ -22,9 +22,25 @@ var meta = [
 
 var el = document.createElement('head');
 
-const jsAssembler = async (_api, modulePlugin) => {
+const jsAssembler = async (_api, modulePlugin, callback = null) => {
   if (!Object.keys(_api.system.data.pluginLib).includes(_api.system.stringToHash(modulePlugin))) {
-    await $.getScript(modulePlugin);
+    await new Promise((resolve) => {
+      (function (document, tag) {
+        var scriptTag = document.createElement(tag);
+        var firstScriptTag = document.getElementsByTagName(tag)[0];
+        scriptTag.src = modulePlugin;
+        firstScriptTag.parentNode.insertBefore(scriptTag, firstScriptTag);
+
+        scriptTag.onload = scriptTag.onreadystatechange = function (_, isAbort) {
+          if (isAbort || !scriptTag.readyState || /loaded|complete/.test(scriptTag.readyState)) {
+            scriptTag.onload = scriptTag.onreadystatechange = null;
+            scriptTag = undefined;
+            if (!isAbort && callback) setTimeout(callback, 0);
+            resolve();
+          }
+        };
+      })(document, 'script');
+    });
     _api.system.updatePlugin(modulePlugin);
   }
 };

@@ -29,7 +29,106 @@ class System {
       pluginInternal: [],
       processName: data.name,
       services: {},
-      tables: {}
+      tables: {},
+      animation: {
+        slideUp: async function (element, duration = 500) {
+          return await new Promise(async (resolve) => {
+            let target = document.querySelector(element);
+            if (!target) return;
+            target.style.transitionProperty = 'height, margin, padding';
+            target.style.transitionDuration = duration + 'ms';
+            target.style.boxSizing = 'border-box';
+            target.style.height = target.offsetHeight + 'px';
+            target.offsetHeight;
+            target.style.overflow = 'hidden';
+            target.style.height = 0;
+            target.style.paddingTop = 0;
+            target.style.paddingBottom = 0;
+            target.style.marginTop = 0;
+            target.style.marginBottom = 0;
+            window.setTimeout(() => {
+              target.style.display = 'none';
+              target.style.removeProperty('height');
+              target.style.removeProperty('padding-top');
+              target.style.removeProperty('padding-bottom');
+              target.style.removeProperty('margin-top');
+              target.style.removeProperty('margin-bottom');
+              target.style.removeProperty('overflow');
+              target.style.removeProperty('transition-duration');
+              target.style.removeProperty('transition-property');
+              return resolve(true);
+            }, duration);
+          });
+        },
+        slideDown: async function (element, duration = 500, props = {}) {
+          return await new Promise(async (resolve) => {
+            let target = document.querySelector(element);
+            target.style.removeProperty('display');
+            let display = window.getComputedStyle(target).display;
+            if (display === 'none') display = props?.display || 'block';
+            target.style.display = display;
+            let height = target.offsetHeight;
+            target.style.overflow = 'hidden';
+            target.style.height = 0;
+            target.style.paddingTop = 0;
+            target.style.paddingBottom = 0;
+            target.style.marginTop = 0;
+            target.style.marginBottom = 0;
+            target.offsetHeight;
+            target.style.boxSizing = 'border-box';
+            target.style.transitionProperty = 'height, margin, padding';
+            target.style.transitionDuration = duration + 'ms';
+            target.style.height = height + 'px';
+            target.style.removeProperty('padding-top');
+            target.style.removeProperty('padding-bottom');
+            target.style.removeProperty('margin-top');
+            target.style.removeProperty('margin-bottom');
+            window.setTimeout(() => {
+              target.style.removeProperty('height');
+              target.style.removeProperty('overflow');
+              target.style.removeProperty('transition-duration');
+              target.style.removeProperty('transition-property');
+              return resolve(true);
+            }, duration);
+          });
+        },
+        fadeIn: async function (element, speed, props = {}) {
+          let elem = document.querySelector(element);
+          if (!elem) return;
+          elem.style.opacity = 0;
+          elem.style.display = props?.display || 'block';
+
+          if (elem.style.opacity <= 0) {
+            return await new Promise((resolve) => {
+              var inInterval = setInterval(function () {
+                elem.style.opacity = Number(elem.style.opacity) + 0.02;
+                if (elem.style.opacity >= 1) {
+                  clearInterval(inInterval);
+                  return resolve(true);
+                }
+              }, speed / 50);
+            });
+          }
+        },
+        fadeOut: async function (element, speed) {
+          let elem = document.querySelector(element);
+          if (!elem) return;
+          if (!elem.style.opacity) elem.style.opacity = 1;
+
+          if (elem.style.opacity <= 1) {
+            return await new Promise((resolve) => {
+              var outInterval = setInterval(function () {
+                elem.style.opacity -= 0.02;
+                if (elem.style.opacity <= 0) {
+                  clearInterval(outInterval);
+                  elem.style.display = 'none';
+                  return resolve(true);
+                }
+              }, speed / 50);
+            });
+          }
+        }
+      }
     };
     this.next = null;
   }
@@ -82,7 +181,6 @@ class System {
 
   registerPlugin(plugin) {
     this.data.pluginRegister.push(plugin.name);
-    console.log(plugin);
   }
 
   getUser() {
@@ -109,8 +207,8 @@ class System {
     this.data.loadIndex++;
   }
 
-  async authenticationProtocol(handle, data) {
-    const authentication = await this.data.httpConfig.post(handle, data);
+  async authenticationProtocol(handle, data, options = {}) {
+    const authentication = await this.data.httpConfig.post(handle, data, options);
     return authentication;
   }
 
@@ -119,19 +217,12 @@ class System {
     return logout;
   }
 
-  async login(token) {
-    return await this.data.authenticationActions.login(token);
+  async login(token, options = {}) {
+    return await this.data.authenticationActions.login(token, options);
   }
 
-  async setupHttpService() {
-    this.data.http = await Promise.resolve(
-      this.data.httpConfig.create({
-        baseURL: this.data.baseURL,
-        headers: {
-          'x-access-token': JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).accessToken : false
-        }
-      })
-    );
+  async setupHttpService(object) {
+    this.data.http = await Promise.resolve(this.data.httpConfig.create(object));
   }
 
   http() {

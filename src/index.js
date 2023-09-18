@@ -9,7 +9,6 @@ let modules = [
   { data: helper.dataHandler, invoke: false, enabled: true, type: ['spread'] },
   { data: meta, invoke: false, enabled: true, type: ['name', 'meta'] },
   { data: pageObjects, invoke: true, enabled: true, type: ['spread'] },
-  { data: helper.tableMiddleware, invoke: true, enabled: true, type: ['spread'] },
   { data: selectionController, invoke: true, enabled: true, type: ['name', 'selectionController'] },
   { data: (_api) => (pageName) => _api.system.getModule(pageName), invoke: true, enabled: true, type: ['name', 'gatherPageInfo'] },
   { data: helper.modalSync, invoke: true, enabled: true, type: ['name', 'modalSync'] },
@@ -55,7 +54,7 @@ class Interface {
       current.loadIndex = 0;
       await this.system.initializeController('system reserved');
       await this.system.initializeMiddleware('system reserved');
-      for (var j in current.plugins) await this.assembler(current.plugins[j]);
+      for (var j in current.plugins) await Promise.resolve(this.assembler(current.plugins[j]));
     }
   }
 
@@ -82,13 +81,13 @@ class Interface {
     if (!(selector in this.formLoaderStatus)) this.formLoaderStatus[selector] = false;
     this.formLoaderStatus[selector] = !this.formLoaderStatus[selector];
     if (this.formLoaderStatus[selector]) {
-      document.querySelector(`${selector} ${button}`).classList.add('active');
-      document.querySelector(`${selector} ${loader}`).classList.add('active');
-      document.querySelector(`${selector} ${button}`).innerHTML = text;
+      if (button) document.querySelector(`${selector} ${button}`).classList.add('active');
+      if (loader) document.querySelector(`${selector} ${loader}`).classList.add('active');
+      if (button) document.querySelector(`${selector} ${button}`).innerHTML = text;
     } else if (!this.formLoaderStatus[selector]) {
-      document.querySelector(`${selector} ${button}`).classList.remove('active');
-      document.querySelector(`${selector} ${loader}`).classList.remove('active');
-      document.querySelector(`${selector} ${button}`).innerHTML = text;
+      if (button) document.querySelector(`${selector} ${button}`).classList.remove('active');
+      if (loader) document.querySelector(`${selector} ${loader}`).classList.remove('active');
+      if (button) document.querySelector(`${selector} ${button}`).innerHTML = text;
     }
   }
 

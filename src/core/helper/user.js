@@ -1,6 +1,7 @@
 class User {
   constructor(data) {
     this.data = {
+      user: {},
       userLocalSession: {},
       userProfile: {},
       userCount: 0
@@ -8,45 +9,61 @@ class User {
     this.next = null;
   }
 
+  setUser(user) {
+    this.data.user = user;
+  }
+
+  setUserItem(key, value) {
+    this.data.user[key] = value;
+  }
+
   getUser() {
+    return this.data.user;
+  }
+
+  clearUser() {
+    this.data.user = {};
+  }
+
+  getUserData() {
     return this.data.userProfile;
   }
 
-  configure(config) {
-    console.log();
-  }
-
-  getLocalStorageItem() {
-    return localStorage.getItem('user') || null;
-  }
-
   getUsername() {
-    return this.data.username;
+    return this.data.user.username;
   }
 
-  setLocalStorageItem(user) {
-    localStorage.setItem('user', user);
+  clearUserProfile() {
+    this.data.userProfile = {};
   }
 
-  parseUserObject(user) {
-    for (const [key, value] of Object.entries(user)) {
-      Object.assign(this.data.userLocalSession, { ...value });
-    }
-    setLocalStorageItem(user);
+  getUserProfileData(key) {
+    return this.data.userProfile[key];
   }
 
-  initializeUser(user) {
-    typeof user == 'object' ? parseUserObject(user) : setLocalStorageItem(user);
+  getUserCount() {
+    return this.data.userCount;
+  }
+  async setUserCount() {
+    await Promise.resolve(this.data.userCount++);
+  }
+
+  addUserProfileItem(key, data) {
+    Array.isArray(this.data.userProfile[key]) && this.data.userProfile[key].push(data);
   }
 
   setUserProfile(data) {
     Object.assign(this.data.userProfile, { ...data });
-    this.data.username = data.username;
   }
 
   setUserProfileItem(key, data) {
-    'status' in data && delete data.status;
+    typeof data != 'string' && 'status' in data && delete data.status;
     this.data.userProfile[key] = data;
+  }
+
+  getRandomUserItem(key) {
+    var randomNumber = Math.floor(Math.random() * (this.data.userProfile[key].length - 1 - 0)) + 0;
+    return this.data.userProfile[key][randomNumber];
   }
 
   updateUserProfileItem(key, data, object) {
@@ -57,10 +74,6 @@ class User {
     });
   }
 
-  addUserProfileItem(key, data) {
-    Array.isArray(this.data.userProfile[key]) && this.data.userProfile[key].push(data);
-  }
-
   removeUserProfileItem(key, data, object) {
     this.data.userProfile[key].forEach((item, index) => {
       if (this.data.userProfile[key][index][object] == data[object]) {
@@ -69,21 +82,13 @@ class User {
     });
   }
 
-  setUsername(username) {
-    this.data.username = username;
-  }
-
-  getUserProfileData(key) {
-    return this.data.userProfile[key];
-  }
-
   getUserItem(item, lookupValue) {
     const object = this.data.userProfile[item.target];
     var response;
     object.forEach((element) => {
       element[item.lookupIndex];
       if (element[item.lookupIndex] == lookupValue) {
-        response = element.Category;
+        response = element.category;
       }
     });
     return response;
@@ -100,27 +105,13 @@ class User {
     return response;
   }
 
-  getRandomUserItem(key) {
-    var randomNumber = Math.floor(Math.random() * (this.data.userProfile[key].length - 1 - 0)) + 0;
-    return this.data.userProfile[key][randomNumber];
-  }
-
   getUserStatus() {
-    if (this.getLocalStorageItem() != null) {
+    if (this.data.user != null || Object.keys(this.data.user).length === 0) {
       return true;
     } else {
       return false;
     }
   }
-
-  getUserCount() {
-    return this.data.userCount;
-  }
-  async setUserCount() {
-    await Promise.resolve(this.data.userCount++);
-  }
-
-  setUserItem() {}
 }
 
 export { User };

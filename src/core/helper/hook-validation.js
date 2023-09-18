@@ -8,10 +8,11 @@ function parseFormData(contents, formAction) {
 }
 
 function validateFormData(form, data) {
+  let uniqueId = this.system.createUniqueId();
   form.hasOwnProperty('encryption') &&
     Object.entries(data).forEach(([key, value]) => form.encryption.includes(key) && (data[key] = this.encrypter(value)));
-  typeof data.username == 'undefined' && (data.username = this.user.getUsername());
-  typeof data.SN == 'undefined' && (data.SN = this.system.createUniqueId());
+  typeof data.SN == 'undefined' && (data.SN = uniqueId);
+  typeof data.sn == 'undefined' && (data.sn = uniqueId);
   return data;
 }
 
@@ -26,7 +27,7 @@ function validateDataset(form, data) {
     form.datasetMatcher.forEach((item) => {
       switch (item.pk) {
         case 'categories':
-          data[item.index] = this.user.getUserItems(item, data[item.index]).Category;
+          data[item.index] = this.user.getUserItems(item, data[item.index]).category;
           break;
         case 'rewrite':
           data[item.rewriteIndex] = this.user.getUserItems(item, data[item.index])[item.responseIndex];

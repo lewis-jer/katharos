@@ -1,4 +1,3 @@
-import { tableMiddleware } from './hook-table.js';
 import { formHelperAction } from './hook-form.js';
 import { dataHandler } from './hook-data.js';
 
@@ -30,11 +29,5 @@ const modalSync = (_api) => {
   };
 };
 
-const helper = {
-  dataHandler: dataHandler,
-  tableMiddleware: tableMiddleware,
-  formMiddleware: formHelperAction,
-  modalSync: modalSync
-};
-
+const helper = { dataHandler: dataHandler, formMiddleware: formHelperAction, modalSync: modalSync };
 export { helper };

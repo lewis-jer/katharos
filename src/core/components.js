@@ -8,7 +8,7 @@ const pageObjects = (_api) => {
       modalTitle.id = 'exampleModalLabel';
       modalTitle.classList.add('modal-title');
       document.querySelector('#modal .modal-header').prepend(modalTitle);
-      let event = { modalId: form.id, userIdentifier: JSON.parse(localStorage.getItem('user'))?.email || null, location: pageName };
+      let event = { modalId: form.id, location: pageName };
       _api.addEvent('createModal', event);
 
       // document.getElementById('formCanvas').innerHTML = form.html;
@@ -17,17 +17,17 @@ const pageObjects = (_api) => {
       document.querySelector(`form[name="${form.formId}"] .modal-body`).innerHTML += form.html;
       document.querySelector(`form[name="${form.formId}"] .modal-body`).innerHTML += formLoaderHTML;
       document.querySelector(`form[name="${form.formId}"]`).innerHTML += _api.system.getModal().buttons;
-      event = { formId: form.id, userIdentifier: JSON.parse(localStorage.getItem('user'))?.email || null, location: pageName };
+      event = { formId: form.id, location: pageName };
       _api.addEvent('createForm', event);
     },
     objectDestructor: function (form = false, modal = false) {
       if (form) {
         document.getElementById('formCanvas').innerHTML = '';
-        _api.addEvent('destroyForm', { userIdentifier: JSON.parse(localStorage.getItem('user'))?.email || null });
+        _api.addEvent('destroyForm', {});
       }
       if (modal) {
         document.getElementById('modalCanvas').innerHTML = '';
-        _api.addEvent('destroyModal', { userIdentifier: JSON.parse(localStorage.getItem('user'))?.email || null });
+        _api.addEvent('destroyModal', {});
       }
     }
   };

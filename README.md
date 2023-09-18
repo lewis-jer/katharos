@@ -6,6 +6,12 @@ Katharos is a **framework** for building enterprise user interfaces. The package
 
 Katharos supports all [ES5-compliant](https://kangax.github.io/compat-table/es5/) browsers (IE11 and below are not supported).
 
+#### Get Started
+
+npm install katharos
+
+#### Support Katharos
+
 ## Ecosystem
 
 Libraries
@@ -17,5 +23,3 @@ Libraries
 [katharos-router]: https://github.com/cnsdetroit/katharos-router
 [katharos-router-status]: https://img.shields.io/npm/v/katharos-router.svg
 [katharos-router-package]: https://npmjs.com/package/katharos-router
-
-

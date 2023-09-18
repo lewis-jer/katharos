@@ -14,14 +14,16 @@ async function pageReloader(pageInfo) {
 
 async function componentLoader(pageInfo) {
   var components = this.system.getComponents();
-  let event = { userIdentifier: JSON.parse(localStorage.getItem('user'))?.email || null, location: pageInfo.endpoint };
+  let event = { location: pageInfo.endpoint };
   document.getElementById(components.navbar.viewport).innerHTML = '';
+  let page = this.system.data.animation.fadeIn(`#${components.navbar.viewport}`, pageInfo?.delay || 350);
+  const pageAwait = await page;
   document.getElementById(components.navbar.viewport).innerHTML += components.navbar.html;
-  document.getElementById(components.navbar.viewport).style.display = 'block';
 
   this.system.componentLoader('navigationBar', true);
   const current = this.system.getModule([components.navbar.arrayExpression]);
-  await $(`#${components.navbar.contentport}`).fadeIn(500).promise();
+  let nav = this.system.data.animation.fadeIn(`#${components.navbar.contentport}`, pageInfo?.delay || 350, { display: 'flex' });
+  const navAwait = await nav;
   current.loaded ? await pageReloader.call(this, current) : await pageLoader.call(this, current);
   event.componentId = this.system.getComponentId('navigationBar');
   this.addEvent('loadComponent', event);
@@ -37,21 +39,6 @@ async function componentLoader(pageInfo) {
   this.addEvent('loadComponent', event);
 }
 
-async function terminateLoader(pageInfo) {
-  const termination = (x) =>
-    new Promise((resolve) =>
-      $(document).ready(async function (event) {
-        document.querySelector('#loader').style.display = 'none';
-        analytics.page(x);
-        $('#loaderDiv').fadeIn(pageInfo?.delay || 500);
-        $('#footer').fadeIn(750);
-        resolve();
-      })
-    );
-  if (!pageInfo.exclusions[1]) return await termination(pageInfo.name);
-  else return 'Loader Not Initialized';
-}
-
 async function buildPage(pageInfo) {
   var body = this.system.getModule(pageInfo.arrayExpression).html;
   document.getElementById(pageInfo.viewport).style.display = 'none';
@@ -60,4 +47,4 @@ async function buildPage(pageInfo) {
   document.getElementById(pageInfo.viewport).innerHTML = body;
 }
 
-export { buildPage, componentLoader, pageLoader, pageReloader, terminateLoader };
+export { buildPage, componentLoader, pageLoader, pageReloader };
