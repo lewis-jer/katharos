@@ -4,7 +4,8 @@ class User {
       user: {},
       userLocalSession: {},
       userProfile: {},
-      userCount: 0
+      userCount: 0,
+      models: { categories: 'bcat', types: 'btype', transactions: 'tx', pendingTransactions: 'tx_u' }
     };
     this.next = null;
   }
@@ -21,20 +22,8 @@ class User {
     return this.data.user;
   }
 
-  clearUser() {
-    this.data.user = {};
-  }
-
   getUserData() {
     return this.data.userProfile;
-  }
-
-  getUsername() {
-    return this.data.user.username;
-  }
-
-  clearUserProfile() {
-    this.data.userProfile = {};
   }
 
   getUserProfileData(key) {
@@ -111,6 +100,17 @@ class User {
     } else {
       return false;
     }
+  }
+
+  findUserItem(identifier) {
+    let result = [];
+    for (var dataset in this.data.userProfile) {
+      let data = this.data.userProfile[dataset];
+      for (var item of data) {
+        if (item.SN == identifier) result.push({ data: item, location: this.data.models[dataset] });
+      }
+    }
+    if (result.length === 1) return result[0];
   }
 }
 

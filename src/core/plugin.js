@@ -54,15 +54,15 @@ const cssAssembler = async (_api, modulePlugin) => {
 
 const assembler = (_api) => {
   return async (modulePlugin) => {
-    if (modulePlugin.includes('js')) {
+    if (modulePlugin.includes('.css')) {
       try {
-        await jsAssembler(_api, modulePlugin);
+        await cssAssembler(_api, modulePlugin);
       } catch (e) {
         _api.system.updatePlugin(modulePlugin);
       }
-    } else if (modulePlugin.includes('css')) {
+    } else if (modulePlugin.includes('.js')) {
       try {
-        await cssAssembler(_api, modulePlugin);
+        await jsAssembler(_api, modulePlugin);
       } catch (e) {
         _api.system.updatePlugin(modulePlugin);
       }

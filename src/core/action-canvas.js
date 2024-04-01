@@ -22,7 +22,7 @@ async function pageDestructor(pageInfo) {
     let foot = pageAnimations.call(this, [{ id: 'footer', delay: 350, promise: true, style: 'fadeOut', enabled: true }]);
     const bodyAwait = await body;
     const footAwait = await foot;
-    document.getElementById(pageInfo.viewport).innerHTML = '';
+    await Promise.resolve((document.getElementById(pageInfo.viewport).innerHTML = ''));
     resolve();
   });
 
@@ -89,8 +89,8 @@ function loadPage() {
     let { animatedElements } = pageInfo;
 
     await buildPage.call(this, pageInfo);
-    !pageInfo.loaded ? await pageLoader.call(this, pageInfo) : await pageReloader.call(this, pageInfo);
     await terminateLoader.call(this, pageInfo);
+    !pageInfo.loaded ? await pageLoader.call(this, pageInfo) : await pageReloader.call(this, pageInfo);
     pageInfo.exclusions[1] &&
       (await pageAnimations.call(this, [{ id: pageInfo.viewport, delay: pageInfo?.delay || 500, promise: true, style: 'fadeIn', enabled: true }]));
     if ('animatedElements' in pageInfo)

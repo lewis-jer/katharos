@@ -3,7 +3,7 @@ async function pageLoader(pageInfo) {
   for (var i in pageInfo.plugins) await this.assembler(pageInfo.plugins[i]);
   await this.system.initializeController(pageInfo);
   await this.system.initializeMiddleware(pageInfo);
-  await this.system.instantiateMiddleware(this, pageInfo).then((res) => console.log(res));
+  await this.system.instantiateMiddleware(this, pageInfo).then((res) => res /* console.log(res) */);
   pageInfo.loaded = true;
   this.system.incrementLoadIndex();
 }

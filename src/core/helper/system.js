@@ -9,13 +9,13 @@ class System {
       user: new User({ name: 'system-reserved' }),
       store: new Store({ name: 'system-reserved' }),
       authenticationActions: {},
+      cards: {},
       charts: {},
       components: {},
       componentLib: { navigationBar: { status: false } },
       controller: [],
       controllerConfig: {},
       exclusions: {},
-      forms: {},
       http: {},
       httpConfig: {},
       loadIndex: 1,
@@ -23,6 +23,7 @@ class System {
       middlewareConfig: {},
       modules: {},
       packages: {},
+      panes: {},
       pluginIndex: 0,
       pluginLib: {},
       pluginRegister: [],
@@ -143,26 +144,16 @@ class System {
       key.includes('axios') && this.setHttp(value);
       key.match(/^authenticationActions$/) && (this.data.authenticationActions = value);
       key.match(/^baseURL$/) && (this.data.baseURL = value);
-      if (key.includes('forms'))
-        for (const [m, i] of Object.entries(value)) {
-          if (!Array.isArray(i)) {
-            this.data.modal = i;
-            continue;
-          }
-          i.forEach((j) => {
-            j.id = uuidv4();
-            this.data.forms[j.arrayExpression] = j;
-          });
-        }
-
       if (key.includes('components')) for (const item of value) this.data.components[item.arrayExpression] = item;
       if (key.includes('modules'))
         for (const item of value) {
           item.id = uuidv4();
           this.data.modules[item.endpoint] = item;
         }
+      if (key.includes('cards')) Object.assign(this.data.cards, { ...value });
+      if (key.includes('panes')) Object.assign(this.data.panes, { ...value });
       if (key.includes('charts')) for (const [m, i] of Object.entries(value)) i.forEach((j) => (this.data.charts[j.arrayExpression] = j));
-      if (key.includes('tables')) for (const [m, i] of Object.entries(value)) i.forEach((j) => (this.data.tables[j.arrayExpression] = j));
+      if (key.includes('tables')) for (var j of value) this.data.tables[j.arrayExpression] = j;
 
       if (key.includes('preloader') && value) {
         this.data.preloader = true;
@@ -217,8 +208,8 @@ class System {
     return logout;
   }
 
-  async login(token, options = {}) {
-    return await this.data.authenticationActions.login(token, options);
+  async authenticate(token, options = {}) {
+    return await this.data.authenticationActions.authenticate(token, options);
   }
 
   async setupHttpService(object) {
@@ -227,14 +218,6 @@ class System {
 
   http() {
     return this.data.http;
-  }
-
-  getModal() {
-    return this.data.modal;
-  }
-
-  getForm(name) {
-    return this.data.forms[name];
   }
 
   getChart(name) {
@@ -365,6 +348,7 @@ class System {
   async instantiateMiddleware(_api, pageInfo) {
     async function instantiate() {
       await this.getMiddleware(pageInfo.loadIndex)(_api);
+      // console.log('Awaiting Middleware');
       return 'Middleware Instantiation Success';
     }
 

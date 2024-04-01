@@ -8,17 +8,14 @@ const pageObjects = (_api) => {
       modalTitle.id = 'exampleModalLabel';
       modalTitle.classList.add('modal-title');
       document.querySelector('#modal .modal-header').prepend(modalTitle);
-      let event = { modalId: form.id, location: pageName };
-      _api.addEvent('createModal', event);
+      _api.addEvent('createModal', { modalId: form.id, location: pageName });
 
-      // document.getElementById('formCanvas').innerHTML = form.html;
       let formLoaderHTML = _api.system.getComponent('form-loader').html;
       document.getElementById('form').name = form.formId;
       document.querySelector(`form[name="${form.formId}"] .modal-body`).innerHTML += form.html;
       document.querySelector(`form[name="${form.formId}"] .modal-body`).innerHTML += formLoaderHTML;
-      document.querySelector(`form[name="${form.formId}"]`).innerHTML += _api.system.getModal().buttons;
-      event = { formId: form.id, location: pageName };
-      _api.addEvent('createForm', event);
+      document.querySelector(`form[name="${form.formId}"]`).innerHTML += form.modalBtnHTML;
+      _api.addEvent('createForm', { modalId: form.id, location: pageName });
     },
     objectDestructor: function (form = false, modal = false) {
       if (form) {

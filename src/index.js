@@ -13,7 +13,6 @@ let modules = [
   { data: (_api) => (pageName) => _api.system.getModule(pageName), invoke: true, enabled: true, type: ['name', 'gatherPageInfo'] },
   { data: helper.modalSync, invoke: true, enabled: true, type: ['name', 'modalSync'] },
   { data: assembler, invoke: true, enabled: true, type: ['name', 'assembler'] },
-  { data: helper.formMiddleware, invoke: false, enabled: true, lib: 'helper', type: ['spread', 'instance'] },
   { data: (ms) => new Promise((resolve) => setTimeout(resolve, ms)), invoke: false, enabled: true, type: ['name', 'timeout'] },
   { data: getDeviceType, invoke: false, enabled: true, type: ['name', 'getDeviceType'] },
   { data: loadPage, invoke: true, enabled: true, type: ['name', 'loadPage', 'call'] },
@@ -80,14 +79,20 @@ class Interface {
   async formLoaderInvoke(selector, { loader, button, text }) {
     if (!(selector in this.formLoaderStatus)) this.formLoaderStatus[selector] = false;
     this.formLoaderStatus[selector] = !this.formLoaderStatus[selector];
-    if (this.formLoaderStatus[selector]) {
-      if (button) document.querySelector(`${selector} ${button}`).classList.add('active');
-      if (loader) document.querySelector(`${selector} ${loader}`).classList.add('active');
-      if (button) document.querySelector(`${selector} ${button}`).innerHTML = text;
-    } else if (!this.formLoaderStatus[selector]) {
-      if (button) document.querySelector(`${selector} ${button}`).classList.remove('active');
-      if (loader) document.querySelector(`${selector} ${loader}`).classList.remove('active');
-      if (button) document.querySelector(`${selector} ${button}`).innerHTML = text;
+    try {
+      if (this.formLoaderStatus[selector]) {
+        if (button) document.querySelector(`${selector} ${button}`).classList.add('active');
+        if (loader) document.querySelector(`${selector} ${loader}`).classList.add('active');
+        if (button) document.querySelector(`${selector} ${button}`).innerHTML = text;
+        return true;
+      } else if (!this.formLoaderStatus[selector]) {
+        if (button) document.querySelector(`${selector} ${button}`).classList.remove('active');
+        if (loader) document.querySelector(`${selector} ${loader}`).classList.remove('active');
+        if (button) document.querySelector(`${selector} ${button}`).innerHTML = text;
+        return false;
+      }
+    } catch (e) {
+      return false;
     }
   }
 
