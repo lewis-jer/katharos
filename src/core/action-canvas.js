@@ -45,19 +45,17 @@ async function terminateLoader(pageInfo) {
 }
 
 function loadPage() {
-  return async (currPage, pageName) => {
-    let currentView = this.gatherPageInfo(currPage);
-    let newView = this.gatherPageInfo(pageName);
-    let event = { documentId: currentView?.id, location: currPage };
-
-    if (currentView?.loaded) {
+  return async (pageName, state = false) => {
+    let currPage = `${this.system.getSecureContainer().url}` || '';
+    let event = { location: currPage };
+    let current = this.system.getModule(currPage);
+    if (current) {
       this.addEvent('clearPage', event);
-      await pageDestructor.call(this, currentView);
-      if (!currentView.document) document.querySelector('#loader').style.display = 'flex';
+      await pageDestructor.call(this, current);
+      if (!current?.document) document.querySelector('#loader').style.display = 'flex';
     }
 
-    await Promise.resolve(this.system.setSecureURL(pageName));
-    let router = await this.system.router.get(currentView, newView);
+    let router = await this.system.router.get(currPage, pageName);
     let baseURL = await Promise.resolve(document.URL.slice(0, document.URL.lastIndexOf('/') + 1));
     await Promise.resolve(this.system.setSecureURL(router.route));
     sessionStorage.setItem('29b193de-2725-41b7-b8aa-4363c4e041ba', JSON.stringify({ previous: currPage, current: router.route }));
@@ -70,6 +68,7 @@ function loadPage() {
     var navbarStatus = this.system.getComponentStatus('navigationBar');
     let publicExclusions = this.system.getExclusion('public');
     let systemExclusions = this.system.getExclusion('system');
+
     router.routeInformation.exclusions = [
       publicExclusions.includes(router.routeInformation.endpoint),
       systemExclusions.includes(router.routeInformation.endpoint)
@@ -78,8 +77,7 @@ function loadPage() {
     if (router.routeInformation.document && router.routeInformation.exclusions[1]) this.system.componentLoader('navigationBar', false);
     else if (!router.routeInformation.document && !navbarStatus) await componentLoader.call(this, router.routeInformation);
 
-    if (!!currPage) history.pushState({}, null, baseURL + router.routeInformation.endpoint);
-    else history.replaceState({}, null, baseURL + router.routeInformation.endpoint);
+    if (currPage && !state) history.pushState({}, null, baseURL + router.routeInformation.endpoint);
 
     this.formLoaderStatus = {};
     let destination = this.gatherPageInfo(router.route);

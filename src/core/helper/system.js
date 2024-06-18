@@ -8,7 +8,6 @@ class System {
       baseURL: '',
       user: new User({ name: 'system-reserved' }),
       store: new Store({ name: 'system-reserved' }),
-      authenticationActions: {},
       cards: {},
       charts: {},
       components: {},
@@ -141,15 +140,17 @@ class System {
       key.includes('middleware') && Object.assign(this.data.middlewareConfig, { ...value });
       key.includes('excludes') && this.setExclusions(value);
       key.includes('secret') && this.setSecureContainer(value);
-      key.includes('axios') && this.setHttp(value);
-      key.match(/^authenticationActions$/) && (this.data.authenticationActions = value);
       key.match(/^baseURL$/) && (this.data.baseURL = value);
       if (key.includes('components')) for (const item of value) this.data.components[item.arrayExpression] = item;
-      if (key.includes('modules'))
+      if (key.includes('modules_ssr')) {
+        this.data.modules_ssr = value;
+        continue;
+      }
+      if (key.includes('modules')) {
         for (const item of value) {
-          item.id = uuidv4();
-          this.data.modules[item.endpoint] = item;
+          this.setModule(item);
         }
+      }
       if (key.includes('cards')) Object.assign(this.data.cards, { ...value });
       if (key.includes('panes')) Object.assign(this.data.panes, { ...value });
       if (key.includes('charts')) for (const [m, i] of Object.entries(value)) i.forEach((j) => (this.data.charts[j.arrayExpression] = j));
@@ -198,20 +199,6 @@ class System {
     this.data.loadIndex++;
   }
 
-  async authenticationProtocol(handle, data, options = {}) {
-    const authentication = await this.data.httpConfig.post(handle, data, options);
-    return authentication;
-  }
-
-  async logout(input) {
-    const logout = await this.data.authenticationActions.logout(input);
-    return logout;
-  }
-
-  async authenticate(token, options = {}) {
-    return await this.data.authenticationActions.authenticate(token, options);
-  }
-
   async setupHttpService(object) {
     this.data.http = await Promise.resolve(this.data.httpConfig.create(object));
   }
@@ -234,6 +221,13 @@ class System {
 
   getComponents() {
     return this.data.components;
+  }
+
+  setModule(item) {
+    item.arrayExpression = item.endpoint;
+    item.id = uuidv4();
+    this.data.modules[item.endpoint] = item;
+    return this.data.modules[item.endpoint];
   }
 
   getModule(name) {

@@ -115,4 +115,18 @@ const event_log = (window.event_log = []);
 const history_log = (window.history_log = []);
 window._katharos_api_ = api;
 
+function handleBackForwardButtonPress(onBackPress) {
+  window.addEventListener('popstate', async (event) => {
+    // const currentPageURL = window.location.href;
+    const currentPageName = window.location.pathname.split('/').pop();
+    await api.loadPage(currentPageName, true);
+
+    if (typeof onBackPress === 'function') {
+      onBackPress(event);
+    }
+  });
+}
+
+handleBackForwardButtonPress();
+
 export default api;
