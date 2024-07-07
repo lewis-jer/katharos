@@ -12,9 +12,6 @@ class System {
       charts: {},
       components: {},
       componentLib: { navigationBar: { status: false } },
-      controller: [],
-      controllerConfig: {},
-      exclusions: {},
       http: {},
       httpConfig: {},
       loadIndex: 1,
@@ -136,9 +133,7 @@ class System {
   configure(config) {
     for (const [key, value] of Object.entries(config)) {
       key.includes('Router') && (this.router = value);
-      key.includes('controller') && Object.assign(this.data.controllerConfig, { ...value });
       key.includes('middleware') && Object.assign(this.data.middlewareConfig, { ...value });
-      key.includes('excludes') && this.setExclusions(value);
       key.includes('secret') && this.setSecureContainer(value);
       key.match(/^baseURL$/) && (this.data.baseURL = value);
       if (key.includes('components')) for (const item of value) this.data.components[item.arrayExpression] = item;
@@ -321,17 +316,8 @@ class System {
     return this.next;
   }
 
-  getController(index) {
-    return this.data.controller[index];
-  }
-
   getMiddleware(index) {
     return this.data.middleware[index];
-  }
-
-  async initializeController(pageInfo) {
-    pageInfo.controller ? await this.data.controller.push(this.data.controllerConfig[pageInfo.arrayExpression]) : this.data.controller.push(false);
-    return true;
   }
 
   async initializeMiddleware(pageInfo) {
@@ -352,22 +338,6 @@ class System {
 
   createUniqueId() {
     return uuidv4();
-  }
-
-  getExclusions() {
-    return this.data.exclusions;
-  }
-
-  getExclusion(index) {
-    return this.data.exclusions[index];
-  }
-
-  setExclusions(exclusionList) {
-    for (const [key, value] of Object.entries(exclusionList)) {
-      !(key in this.data.exclusions) && (this.data.exclusions[key] = []);
-      this.data.exclusions[key].push(...value);
-    }
-    return true;
   }
 }
 

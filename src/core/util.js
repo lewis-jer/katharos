@@ -1,10 +1,3 @@
-const selectionController =
-  (_api) =>
-  (x, y = '', z = '') => {
-    var { a, b } = _api.system.getController(x)(y, z);
-    return { a, b };
-  };
-
 const getDeviceType = () => {
   const ua = navigator.userAgent;
   const iPad = navigator.userAgent.match(/(iPad)/) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -14,4 +7,7 @@ const getDeviceType = () => {
   return 'desktop';
 };
 
-export { selectionController, getDeviceType };
+window.event_log = [];
+window.history_log = [];
+
+export { getDeviceType };

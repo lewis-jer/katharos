@@ -40,7 +40,8 @@ async function terminateLoader(pageInfo) {
       const footAwait = await foot;
       return resolve(true);
     });
-  if (!pageInfo.exclusions[1]) return await termination(pageInfo.name);
+
+  if (!pageInfo.document) return await termination(pageInfo.name);
   else return 'Loader Not Initialized';
 }
 
@@ -49,10 +50,11 @@ function loadPage() {
     let currPage = `${this.system.getSecureContainer().url}` || '';
     let event = { location: currPage };
     let current = this.system.getModule(currPage);
-    if (current) {
+    if (current && current.loaded) {
       this.addEvent('clearPage', event);
       await pageDestructor.call(this, current);
       if (!current?.document) document.querySelector('#loader').style.display = 'flex';
+      current.loaded = !current.loaded;
     }
 
     let router = await this.system.router.get(currPage, pageName);
@@ -66,15 +68,8 @@ function loadPage() {
     }
 
     var navbarStatus = this.system.getComponentStatus('navigationBar');
-    let publicExclusions = this.system.getExclusion('public');
-    let systemExclusions = this.system.getExclusion('system');
 
-    router.routeInformation.exclusions = [
-      publicExclusions.includes(router.routeInformation.endpoint),
-      systemExclusions.includes(router.routeInformation.endpoint)
-    ];
-
-    if (router.routeInformation.document && router.routeInformation.exclusions[1]) this.system.componentLoader('navigationBar', false);
+    if (router.routeInformation.document) this.system.componentLoader('navigationBar', false);
     else if (!router.routeInformation.document && !navbarStatus) await componentLoader.call(this, router.routeInformation);
 
     if (currPage && !state) history.pushState({}, null, baseURL + router.routeInformation.endpoint);
@@ -89,7 +84,7 @@ function loadPage() {
     await buildPage.call(this, pageInfo);
     await terminateLoader.call(this, pageInfo);
     !pageInfo.loaded ? await pageLoader.call(this, pageInfo) : await pageReloader.call(this, pageInfo);
-    pageInfo.exclusions[1] &&
+    pageInfo.document &&
       (await pageAnimations.call(this, [{ id: pageInfo.viewport, delay: pageInfo?.delay || 500, promise: true, style: 'fadeIn', enabled: true }]));
     if ('animatedElements' in pageInfo)
       for (var animation of animatedElements) if (animation.type == 'oncreate') await pageAnimations.call(this, [animation]);

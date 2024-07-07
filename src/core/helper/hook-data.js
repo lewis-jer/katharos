@@ -58,9 +58,6 @@ const dataHandler = {
     }
     return s.join(dec);
   },
-  isEmpty(str) {
-    return !str || str.length === 0;
-  },
   getInt(i) {
     return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
   },

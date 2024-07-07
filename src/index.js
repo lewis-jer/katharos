@@ -1,17 +1,13 @@
 import { assembler, meta } from './core/plugin.js';
-import { pageObjects } from './core/components.js';
-import { helper } from './core/helper/index.js';
-import { selectionController, getDeviceType } from './core/util.js';
+import { getDeviceType } from './core/util.js';
 import { System } from './core/helper/system.js';
 import { loadPage, pageAnimations } from './core/action-canvas.js';
+import { dataHandler } from './core/helper/hook-data.js';
 
 let modules = [
-  { data: helper.dataHandler, invoke: false, enabled: true, type: ['spread'] },
+  { data: dataHandler, invoke: false, enabled: true, type: ['spread'] },
   { data: meta, invoke: false, enabled: true, type: ['name', 'meta'] },
-  { data: pageObjects, invoke: true, enabled: true, type: ['spread'] },
-  { data: selectionController, invoke: true, enabled: true, type: ['name', 'selectionController'] },
   { data: (_api) => (pageName) => _api.system.getModule(pageName), invoke: true, enabled: true, type: ['name', 'gatherPageInfo'] },
-  { data: helper.modalSync, invoke: true, enabled: true, type: ['name', 'modalSync'] },
   { data: assembler, invoke: true, enabled: true, type: ['name', 'assembler'] },
   { data: (ms) => new Promise((resolve) => setTimeout(resolve, ms)), invoke: false, enabled: true, type: ['name', 'timeout'] },
   { data: getDeviceType, invoke: false, enabled: true, type: ['name', 'getDeviceType'] },
@@ -21,12 +17,12 @@ let modules = [
 
 class Interface {
   constructor(system) {
-    this.system = system;
-    this.user = system.getUser();
-    this.store = system.getStore();
+    this.system = new System({ name: 'system-reserved' });
+    this.user = this.system.getUser();
+    this.store = this.system.getStore();
   }
 
-  initialization(modules) {
+  initialization() {
     for (var module of modules) this.initialize(module);
     return 'Initialization Complete';
   }
@@ -42,7 +38,18 @@ class Interface {
   }
 
   configure(config) {
+    if (config.initialize) this.initialization();
     this.system.configure(config);
+  }
+
+  assign(_modules) {
+    if (!_modules) return;
+    if (typeof _modules !== 'object' || (typeof _modules === 'object' && !Array.isArray(_modules))) var $modules = [_modules];
+
+    for (var $module of $modules) {
+      if (typeof $module === 'function' && /^class\s/.test(Function.prototype.toString.call($module)) && Reflect.construct(String, [], $module))
+        modules.push({ data: $module, lib: 'helper', enabled: true, type: ['name', 'helper', 'instance'] });
+    }
   }
 
   async create() {
@@ -51,7 +58,6 @@ class Interface {
       if (!current.system) continue;
       current.loaded = true;
       current.loadIndex = 0;
-      await this.system.initializeController('system reserved');
       await this.system.initializeMiddleware('system reserved');
       for (var j in current.plugins) await Promise.resolve(this.assembler(current.plugins[j]));
     }
@@ -65,7 +71,7 @@ class Interface {
     var id = this.system.createUniqueId();
     let string = JSON.stringify(data);
     let event = { detail: string, arrayExpression: id, id: id, identifier: name, location: document.location.href, timestamp: Date.now() };
-    event_log.push(event);
+    window.event_log.push(event);
     return true;
   }
 
@@ -106,27 +112,10 @@ class Interface {
     document.querySelector(`${selector} ${element}`).innerHTML = text;
     setTimeout(this.clearFormMessage, 5000, selector, { wrapper, element });
   }
+
+  whoami() {
+    return { name: 'katharos', version: '1.0.4' };
+  }
 }
 
-const api = new Interface(new System({ name: 'system-reserved' }));
-api.initialization(modules);
-
-const event_log = (window.event_log = []);
-const history_log = (window.history_log = []);
-window._katharos_api_ = api;
-
-function handleBackForwardButtonPress(onBackPress) {
-  window.addEventListener('popstate', async (event) => {
-    // const currentPageURL = window.location.href;
-    const currentPageName = window.location.pathname.split('/').pop();
-    await api.loadPage(currentPageName, true);
-
-    if (typeof onBackPress === 'function') {
-      onBackPress(event);
-    }
-  });
-}
-
-handleBackForwardButtonPress();
-
-export default api;
+export default Interface;
