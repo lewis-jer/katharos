@@ -16,7 +16,7 @@ class Store {
   }
 
   setInputItem(data) {
-    Object.assign(this.data.inputStore, { ...Object.fromEntries(data) });
+    Promise.resolve(Object.assign(this.data.inputStore, { ...Object.fromEntries(data) }));
   }
 
   setInputStoreItem(key, value) {
@@ -46,14 +46,27 @@ class Store {
 
   addElementsById(newObjects = false) {
     var modalObjects = [];
+
+    function asyncOperation(item) {
+      return new Promise((resolve) => {
+        modalObjects.push(item);
+        resolve(item);
+      });
+    }
+
     if (newObjects != false) {
-      for (var i in newObjects) {
-        modalObjects.push(newObjects[i]);
+      const promises = [];
+
+      for (let index = 0; index < newObjects.length; index++) {
+        const item = newObjects[index];
+        promises.push(asyncOperation(item));
       }
+
+      Promise.all(promises);
     }
 
     modalObjects = new Map(modalObjects);
-    this.setInputItem(modalObjects);
+    Promise.resolve(this.setInputItem(modalObjects));
   }
 }
 

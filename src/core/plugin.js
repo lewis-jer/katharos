@@ -22,13 +22,13 @@ var meta = [
 
 var el = document.createElement('head');
 
-const jsAssembler = async (_api, modulePlugin, callback = null) => {
+const jsAssembler = async (_api, { modulePlugin, cacheBust }, callback = null) => {
   if (!Object.keys(_api.system.data.pluginLib).includes(_api.system.stringToHash(modulePlugin))) {
     await new Promise((resolve) => {
       (function (document, tag) {
         var scriptTag = document.createElement(tag);
         var firstScriptTag = document.getElementsByTagName(tag)[0];
-        scriptTag.src = modulePlugin;
+        scriptTag.src = cacheBust ? modulePlugin + `?update=${Date.now()}` : modulePlugin;
         firstScriptTag.parentNode.insertBefore(scriptTag, firstScriptTag);
 
         scriptTag.onload = scriptTag.onreadystatechange = function (_, isAbort) {
@@ -45,26 +45,27 @@ const jsAssembler = async (_api, modulePlugin, callback = null) => {
   }
 };
 
-const cssAssembler = async (_api, modulePlugin) => {
+const cssAssembler = async (_api, { modulePlugin, cacheBust }) => {
   if (!Object.keys(_api.system.data.pluginLib).includes(_api.system.stringToHash(modulePlugin))) {
-    document.head.innerHTML += `<link type="text/css" rel="stylesheet" href=${modulePlugin}?update=${Date.now()}>`;
+    let _src = cacheBust ? modulePlugin + `?update=${Date.now()}` : modulePlugin;
+    document.head.innerHTML += `<link type="text/css" rel="stylesheet" href=${_src}>`;
     _api.system.updatePlugin(modulePlugin);
   }
 };
 
 const assembler = (_api) => {
-  return async (modulePlugin) => {
-    if (modulePlugin.includes('.css')) {
+  return async (plugin) => {
+    if (plugin.modulePlugin.includes('.css')) {
       try {
-        await cssAssembler(_api, modulePlugin);
+        await cssAssembler(_api, plugin);
       } catch (e) {
-        _api.system.updatePlugin(modulePlugin);
+        _api.system.updatePlugin(plugin);
       }
-    } else if (modulePlugin.includes('.js')) {
+    } else if (plugin.modulePlugin.includes('.js')) {
       try {
-        await jsAssembler(_api, modulePlugin);
+        await jsAssembler(_api, plugin);
       } catch (e) {
-        _api.system.updatePlugin(modulePlugin);
+        _api.system.updatePlugin(plugin);
       }
     }
   };

@@ -5,7 +5,21 @@ class User {
       userLocalSession: {},
       userProfile: {},
       userCount: 0,
-      models: { categories: 'bcat', types: 'btype', transactions: 'tx', pendingTransactions: 'tx_u' }
+      models: { categories: 'bcat', types: 'btype', transactions: 'tx', pendingTransactions: 'tx_u' },
+      modelConfig: {
+        bcat: {
+          table: 'categories'
+        },
+        btype: {
+          table: 'types'
+        },
+        tx: {
+          table: 'transactions'
+        },
+        tx_u: {
+          table: 'pendingTransactionsTable'
+        }
+      }
     };
     this.next = null;
   }
@@ -107,7 +121,11 @@ class User {
     for (var dataset in this.data.userProfile) {
       let data = this.data.userProfile[dataset];
       for (var item of data) {
-        if (item.SN == identifier) result.push({ data: item, location: this.data.models[dataset] });
+        if (item.SN == identifier) {
+          let location = this.data.models[dataset];
+          let locationConfig = this.data.modelConfig[location];
+          result.push({ data: item, location: location, table: locationConfig.table });
+        }
       }
     }
     if (result.length === 1) return result[0];

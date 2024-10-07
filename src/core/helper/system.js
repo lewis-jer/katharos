@@ -26,7 +26,6 @@ class System {
       pluginInternal: [],
       processName: data.name,
       services: {},
-      tables: {},
       animation: {
         slideUp: async function (element, duration = 500) {
           return await new Promise(async (resolve) => {
@@ -149,7 +148,6 @@ class System {
       if (key.includes('cards')) Object.assign(this.data.cards, { ...value });
       if (key.includes('panes')) Object.assign(this.data.panes, { ...value });
       if (key.includes('charts')) for (const [m, i] of Object.entries(value)) i.forEach((j) => (this.data.charts[j.arrayExpression] = j));
-      if (key.includes('tables')) for (var j of value) this.data.tables[j.arrayExpression] = j;
 
       if (key.includes('preloader') && value) {
         this.data.preloader = true;
@@ -204,10 +202,6 @@ class System {
 
   getChart(name) {
     return this.data.charts[name];
-  }
-
-  getTable(name) {
-    return this.data.tables[name];
   }
 
   getComponent(name) {
@@ -312,10 +306,6 @@ class System {
     return true;
   }
 
-  getNextNode() {
-    return this.next;
-  }
-
   getMiddleware(index) {
     return this.data.middleware[index];
   }
@@ -327,9 +317,14 @@ class System {
 
   async instantiateMiddleware(_api, pageInfo) {
     async function instantiate() {
-      await this.getMiddleware(pageInfo.loadIndex)(_api);
-      // console.log('Awaiting Middleware');
-      return 'Middleware Instantiation Success';
+      try {
+        await this.getMiddleware(pageInfo.loadIndex)(_api);
+        // console.log('Awaiting Middleware');
+        return 'Middleware Instantiation Success';
+      } catch (error) {
+        console.log(error);
+        return 'Middleware Instantiation Failure';
+      }
     }
 
     var instantiation = this.data.middleware[pageInfo.loadIndex] ? await instantiate.call(this) : 'Middleware Instantiation Fail';
