@@ -23,7 +23,12 @@ const dataHandler = {
   decrypter: function (encrypted) {
     var systemConfig = this.system.getSecureContainer().system;
     var decryptMsg = CryptoJS.AES.decrypt(encrypted, systemConfig);
-    return decryptMsg.toString(CryptoJS.enc.Utf8);
+    try {
+      var decryptMsg = CryptoJS.AES.decrypt(encrypted, systemConfig);
+      return decryptMsg.toString(CryptoJS.enc.Utf8);
+    } catch (e) {
+      return false;
+    }
   },
   mySQLDateCreator: (x) => new Date(x).toJSON().slice(0, 10),
   getMonthNames: () => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],

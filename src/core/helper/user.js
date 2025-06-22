@@ -100,11 +100,25 @@ class User {
   getUserItems(item, lookupValue) {
     const object = this.data.userProfile[item.target];
     var response;
-    object.forEach((element) => {
+
+    for (let element of object) {
       if (element[item.lookupIndex] == lookupValue) {
         response = element;
+        break;
+      } else {
+        response = {};
+        continue;
       }
-    });
+    }
+
+    // object.forEach((element) => {
+    //   if (element[item.lookupIndex] == lookupValue) {
+    //     response = element;
+    //   } else {
+    //     response = {};
+    //   }
+    // });
+
     return response;
   }
 

@@ -30,6 +30,9 @@ class System {
         slideUp: async function (element, duration = 500) {
           return await new Promise(async (resolve) => {
             let target = document.querySelector(element);
+            let overflowState = JSON.parse(JSON.stringify(target.style.overflow)) || null;
+            let overflowXState = JSON.parse(JSON.stringify(target.style.overflowX)) || null;
+            let overflowYState = JSON.parse(JSON.stringify(target.style.overflowY)) || null;
             if (!target) return;
             target.style.transitionProperty = 'height, margin, padding';
             target.style.transitionDuration = duration + 'ms';
@@ -50,6 +53,9 @@ class System {
               target.style.removeProperty('margin-top');
               target.style.removeProperty('margin-bottom');
               target.style.removeProperty('overflow');
+              overflowState !== null ? (target.style.overflow = overflowState) : target.style.removeProperty('overflow');
+              overflowXState !== null ? (target.style.overflowX = overflowXState) : target.style.removeProperty('overflowX');
+              overflowYState !== null ? (target.style.overflowY = overflowYState) : target.style.removeProperty('overflowY');
               target.style.removeProperty('transition-duration');
               target.style.removeProperty('transition-property');
               return resolve(true);
@@ -59,6 +65,9 @@ class System {
         slideDown: async function (element, duration = 500, props = {}) {
           return await new Promise(async (resolve) => {
             let target = document.querySelector(element);
+            let overflowState = JSON.parse(JSON.stringify(target.style.overflow)) || null;
+            let overflowXState = JSON.parse(JSON.stringify(target.style.overflowX)) || null;
+            let overflowYState = JSON.parse(JSON.stringify(target.style.overflowY)) || null;
             target.style.removeProperty('display');
             let display = window.getComputedStyle(target).display;
             if (display === 'none') display = props?.display || 'block';
@@ -81,7 +90,9 @@ class System {
             target.style.removeProperty('margin-bottom');
             window.setTimeout(() => {
               target.style.removeProperty('height');
-              target.style.removeProperty('overflow');
+              overflowState !== null ? (target.style.overflow = overflowState) : target.style.removeProperty('overflow');
+              overflowXState !== null ? (target.style.overflowX = overflowXState) : target.style.removeProperty('overflowX');
+              overflowYState !== null ? (target.style.overflowY = overflowYState) : target.style.removeProperty('overflowY');
               target.style.removeProperty('transition-duration');
               target.style.removeProperty('transition-property');
               return resolve(true);
@@ -322,7 +333,7 @@ class System {
         // console.log('Awaiting Middleware');
         return 'Middleware Instantiation Success';
       } catch (error) {
-        console.log(error);
+        // console.trace(error);
         return 'Middleware Instantiation Failure';
       }
     }

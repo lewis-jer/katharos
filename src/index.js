@@ -28,6 +28,7 @@ class Interface {
   }
 
   initialize(module) {
+    // console.log(module);
     let { data, enabled, invoke, type } = module;
     if (!enabled) return;
     let initializer = invoke && !type.includes('call') ? data(this) : type.includes('call') ? data.call(this) : data;
@@ -80,6 +81,10 @@ class Interface {
     await Promise.resolve((parsedObject[key] = value));
     await Promise.resolve(localStorage.setItem(item, JSON.stringify(parsedObject)));
     return true;
+  }
+
+  getLoaderStatus(selector) {
+    return this.formLoaderStatus[selector];
   }
 
   async formLoaderInvoke(selector, { loader, button, text }) {
