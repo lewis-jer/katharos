@@ -1,0 +1,12 @@
+{
+  "format": "markdown",
+  "output_dir": "docs/readme",
+  "readme_section": "Guides",
+  "sync_strategy": "on_commit",
+  "auto_generate_code_samples": true,
+  "api_reference_mode": "structured",
+  "max_warning_count": 10,
+  "project_name": "katharos",
+  "project_version": "1.1.3",
+  "last_sync": "2024-01-01T00:00:00Z"
+}
