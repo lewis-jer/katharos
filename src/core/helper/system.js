@@ -203,6 +203,11 @@ class System {
     this.data.loadIndex++;
   }
 
+  getPageLoadIndex(pageName) {
+    const module = this.getModule(pageName);
+    return module ? module.loadIndex : null;
+  }
+
   async setupHttpService(object) {
     this.data.http = await Promise.resolve(this.data.httpConfig.create(object));
   }
@@ -318,11 +323,18 @@ class System {
   }
 
   getMiddleware(index) {
+    if (index < 0 || index >= this.data.middleware.length) {
+      console.warn(`[getMiddleware] Invalid index ${index}, middleware array length: ${this.data.middleware.length}`);
+      return null;
+    }
     return this.data.middleware[index];
   }
 
   async initializeMiddleware(pageInfo) {
-    pageInfo.middleware ? await this.data.middleware.push(this.data.middlewareConfig[pageInfo.endpoint]) : this.data.middleware.push(false);
+    // Guard against duplicate initialization - only initialize if not already set at this index
+    if (this.data.middleware[pageInfo.loadIndex] === undefined) {
+      this.data.middleware[pageInfo.loadIndex] = pageInfo.middleware ? this.data.middlewareConfig[pageInfo.endpoint] : false;
+    }
     return true;
   }
 

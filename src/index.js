@@ -59,7 +59,8 @@ class Interface {
       if (!current.system) continue;
       current.loaded = true;
       current.loadIndex = 0;
-      await this.system.initializeMiddleware('system reserved');
+      // Pass the actual current object (pageInfo) instead of a string
+      await this.system.initializeMiddleware(current);
       for (var j in current.plugins) await Promise.resolve(this.assembler(current.plugins[j]));
     }
   }
