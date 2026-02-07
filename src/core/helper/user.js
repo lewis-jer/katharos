@@ -86,6 +86,7 @@ class User {
   }
 
   getUserItem(item, lookupValue) {
+    if (lookupValue === undefined) return undefined;
     const object = this.data.userProfile[item.target];
     var response;
     object.forEach((element) => {
@@ -98,6 +99,7 @@ class User {
   }
 
   getUserItems(item, lookupValue) {
+    if (lookupValue === undefined) return undefined;
     const object = this.data.userProfile[item.target];
     var response;
 

@@ -20,6 +20,40 @@ class Interface {
     this.system = new System({ name: 'system-reserved' });
     this.user = this.system.getUser();
     this.store = this.system.getStore();
+    this.componentLoaders = [];
+  }
+
+  registerComponentLoader(name, loaderFn, options = {}) {
+    const loaderConfig = {
+      name,
+      loader: loaderFn,
+      hasMiddleware: options.hasMiddleware || false,
+      middlewareModule: options.middlewareModule || name
+    };
+
+    if (options.order !== undefined) {
+      this.componentLoaders.splice(options.order, 0, loaderConfig);
+    } else {
+      this.componentLoaders.push(loaderConfig);
+    }
+  }
+
+  async loadComponents(pageInfo) {
+    for (const config of this.componentLoaders) {
+      try {
+        await config.loader.call(this, pageInfo);
+      } catch (error) {
+        console.log('loadComponents', error);
+      }
+
+      // Automatically load middleware if component needs it
+      if (config.hasMiddleware) {
+        const module = this.system.getModule(config.middlewareModule);
+        if (module) {
+          module.loaded ? await this.system.reloadMiddleware(this, module) : await this.system.loadMiddleware(this, module);
+        }
+      }
+    }
   }
 
   initialization() {
@@ -57,11 +91,7 @@ class Interface {
     for (const [key, current] of Object.entries(this.system.getModules())) {
       current.arrayExpression = current.endpoint;
       if (!current.system) continue;
-      current.loaded = true;
-      current.loadIndex = 0;
-      // Pass the actual current object (pageInfo) instead of a string
-      await this.system.initializeMiddleware(current);
-      for (var j in current.plugins) await Promise.resolve(this.assembler(current.plugins[j]));
+      await this.system.loadMiddleware(this, current);
     }
   }
 
@@ -72,7 +102,7 @@ class Interface {
   addEvent(name, data) {
     var id = this.system.createUniqueId();
     let string = JSON.stringify(data);
-    let event = { detail: string, arrayExpression: id, id: id, identifier: name, location: document.location.href, timestamp: Date.now() };
+    let event = { detail: string, arrayExpression: id, id: id, identifier: name, location: document?.location?.href, timestamp: Date.now() };
     window.event_log.push(event);
     return true;
   }

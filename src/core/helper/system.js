@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import { User } from './user.js';
 import { Store } from './store.js';
 
@@ -14,7 +13,7 @@ class System {
       componentLib: { navigationBar: { status: false } },
       http: {},
       httpConfig: {},
-      loadIndex: 1,
+      loadIndex: 0,
       middleware: [],
       middlewareConfig: {},
       modules: {},
@@ -26,6 +25,9 @@ class System {
       pluginInternal: [],
       processName: data.name,
       services: {},
+      assemblerType: 'browser',
+      libraryMappings: [],
+      libraryRules: [],
       animation: {
         slideUp: async function (element, duration = 500) {
           return await new Promise(async (resolve) => {
@@ -143,7 +145,7 @@ class System {
   configure(config) {
     for (const [key, value] of Object.entries(config)) {
       key.includes('Router') && (this.router = value);
-      key.includes('middleware') && Object.assign(this.data.middlewareConfig, { ...value });
+      key.includes('middlewareConfig') && Object.assign(this.data.middlewareConfig, { ...value });
       key.includes('secret') && this.setSecureContainer(value);
       key.match(/^baseURL$/) && (this.data.baseURL = value);
       if (key.includes('components')) for (const item of value) this.data.components[item.arrayExpression] = item;
@@ -172,6 +174,14 @@ class System {
 
       key.includes('packages') && Object.assign(this.data.packages, { ...value });
       key.includes('services') && Object.assign(this.data.services, { ...value });
+      if (key.includes('resolve') && value?.alias) this.data.libraryMappings = value.alias;
+      if (key.includes('resolve') && value?.rules) this.data.libraryRules = value.rules;
+
+      key.includes('renderEngine') ? (this.data.renderEngine = value) : (this.data.renderEngine = true);
+      // key.includes('assemblerType') ? (this.data.assemblerType = value) : (this.data.assemblerType = 'browser');
+
+      key.includes('assemblerType') && (this.data.assemblerType = value);
+      key.includes('renderEngine') && (this.data.renderEngine = value);
     }
   }
 
@@ -230,7 +240,7 @@ class System {
 
   setModule(item) {
     item.arrayExpression = item.endpoint;
-    item.id = uuidv4();
+    item.id = crypto.randomUUID();
     this.data.modules[item.endpoint] = item;
     return this.data.modules[item.endpoint];
   }
@@ -284,7 +294,7 @@ class System {
   componentLoader(component, toggle) {
     if (!Object.keys(this.data.componentLib).includes(component)) this.data.componentLib[component] = {};
     this.data.componentLib[component].status = toggle;
-    if (toggle) this.data.componentLib[component].id = uuidv4();
+    if (toggle) this.data.componentLib[component].id = crypto.randomUUID();
     return toggle;
   }
 
@@ -306,7 +316,7 @@ class System {
   }
 
   setSecureContainer(value) {
-    const secureId = uuidv4();
+    const secureId = crypto.randomUUID();
     this.data[secureId] = {};
     this.data.id = secureId;
     Object.assign(this.data[secureId], { ...value });
@@ -333,19 +343,85 @@ class System {
   async initializeMiddleware(pageInfo) {
     // Guard against duplicate initialization - only initialize if not already set at this index
     if (this.data.middleware[pageInfo.loadIndex] === undefined) {
-      this.data.middleware[pageInfo.loadIndex] = pageInfo.middleware ? this.data.middlewareConfig[pageInfo.endpoint] : false;
+      let middlewareStatus = typeof pageInfo?.middleware === 'object' ? pageInfo?.middleware?.enabled : pageInfo?.middleware || false;
+
+      // Handle different middleware types
+      if (typeof pageInfo?.middleware === 'object' && pageInfo?.middleware?.type === 'cloud' && middlewareStatus) {
+        // Cloud middleware: use cached instance pattern
+        this.data.middleware[pageInfo.loadIndex] = this.createCloudMiddleware(pageInfo);
+      } else if (typeof pageInfo?.middleware === 'object' && pageInfo?.middleware?.type === 'local' && middlewareStatus) {
+        // Cloud middleware: use cached instance pattern
+        if (typeof pageInfo?.middleware?.path !== 'string' || !pageInfo?.middleware?.path) this.data.middleware[pageInfo.loadIndex] = false;
+        else {
+          const loadedMiddleware = this.data.middlewareConfig[pageInfo?.middleware?.path];
+          if (loadedMiddleware) {
+            this.data.middleware[pageInfo.loadIndex] = loadedMiddleware;
+          } else {
+            this.data.middleware[pageInfo.loadIndex] = false;
+          }
+        }
+      } else if (middlewareStatus) {
+        // Traditional middleware from config
+        this.data.middleware[pageInfo.loadIndex] = this.data.middlewareConfig[pageInfo.endpoint];
+      } else {
+        this.data.middleware[pageInfo.loadIndex] = false;
+      }
     }
     return true;
+  }
+
+  createCloudMiddleware(pageInfo) {
+    // Cache key based on endpoint
+    const cacheKey = `_cloud_${pageInfo.endpoint}`;
+    const loaderName = pageInfo?.middleware?.path;
+
+    // Arrow function auto-captures 'this' - no .bind() needed
+    return {
+      [loaderName]: async (_api) => {
+        // Check if already initialized (singleton pattern like index.middleware.js)
+        if (!this.data[cacheKey]) {
+          // Create dynamically named class
+          const LoaderClass = {
+            [loaderName]: class {
+              constructor(_api, { name, component, system }) {
+                this.invocation = async () => {
+                  this.name = name;
+                  this.component = component;
+                  this.system = system;
+                  await _api.helper.getSuper().view.intialize(this);
+                  return this;
+                };
+              }
+            }
+          }[loaderName];
+
+          // Create and cache the cloud middleware instance
+          const loader = new LoaderClass(_api, {
+            name: pageInfo?.endpoint || '',
+            component: pageInfo?.component || false,
+            system: pageInfo?.system || false
+          });
+          this.data[cacheKey] = await loader.invocation();
+        }
+
+        // Return cached instance (reloads use same instance)
+        return this.data[cacheKey];
+      }
+    }[loaderName];
   }
 
   async instantiateMiddleware(_api, pageInfo) {
     async function instantiate() {
       try {
-        await this.getMiddleware(pageInfo.loadIndex)(_api);
-        // console.log('Awaiting Middleware');
+        if (typeof pageInfo?.middleware === 'object' && pageInfo?.middleware?.type === 'cloud' && pageInfo?.loaded) {
+          const cloudFactory = this.getMiddleware(pageInfo.loadIndex);
+          const cachedInstance = await cloudFactory(_api);
+          await cachedInstance.invocation();
+          // await (await this.getMiddleware(pageInfo.loadIndex)(_api)).invocation();
+        } else await this.getMiddleware(pageInfo.loadIndex)(_api);
         return 'Middleware Instantiation Success';
       } catch (error) {
-        // console.trace(error);
+        console.trace(error);
         return 'Middleware Instantiation Failure';
       }
     }
@@ -354,8 +430,45 @@ class System {
     return instantiation;
   }
 
+  async loadMiddleware(_api, pageInfo) {
+    try {
+      // Guard against overwriting existing loadIndex for already loaded modules
+      if (pageInfo.loadIndex == null || pageInfo.loadIndex === undefined) {
+        pageInfo.loadIndex = this.getLoadIndex();
+        this.incrementLoadIndex();
+      }
+
+      for (var i in pageInfo.plugins) await _api.assembler(pageInfo.plugins[i]);
+      await this.initializeMiddleware(pageInfo);
+      await this.instantiateMiddleware(_api, pageInfo);
+      pageInfo.loaded = true;
+    } catch (error) {
+      console.error('[loadMiddleware] Error:', error);
+      throw error;
+    }
+  }
+
+  async reloadMiddleware(_api, pageInfo) {
+    // Ensure pageInfo has a valid loadIndex before instantiating middleware
+    if (pageInfo.loadIndex == null || pageInfo.loadIndex === undefined) {
+      console.warn('[reloadMiddleware] Missing loadIndex for already loaded page, assigning new one');
+      pageInfo.loadIndex = this.getLoadIndex();
+      this.incrementLoadIndex();
+      await this.initializeMiddleware(pageInfo);
+    }
+    await this.instantiateMiddleware(_api, pageInfo);
+  }
+
   createUniqueId() {
-    return uuidv4();
+    return crypto.randomUUID();
+  }
+
+  getLibraryMappings() {
+    return this.data.libraryMappings || [];
+  }
+
+  getLibraryRules() {
+    return this.data.libraryRules || [];
   }
 }
 
