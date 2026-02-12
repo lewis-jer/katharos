@@ -1,0 +1,109 @@
+{
+  "version": "1.0.0",
+  "updated": "2024-01-01T00:00:00Z",
+  "sections": [
+    {
+      "title": "Introduction",
+      "path": "Introduction.md",
+      "order": 1,
+      "category": "overview"
+    },
+    {
+      "title": "Getting Started",
+      "path": "Getting-Started.md",
+      "order": 2,
+      "category": "overview"
+    },
+    {
+      "title": "Authentication",
+      "path": "Authentication.md",
+      "order": 3,
+      "category": "overview"
+    },
+    {
+      "title": "API Reference",
+      "path": "API-Reference/",
+      "order": 4,
+      "category": "reference",
+      "children": [
+        {
+          "title": "Interface",
+          "path": "API-Reference/Interface.md",
+          "order": 1
+        },
+        {
+          "title": "System",
+          "path": "API-Reference/System.md",
+          "order": 2
+        },
+        {
+          "title": "Store",
+          "path": "API-Reference/Store.md",
+          "order": 3
+        },
+        {
+          "title": "User",
+          "path": "API-Reference/User.md",
+          "order": 4
+        },
+        {
+          "title": "Plugin",
+          "path": "API-Reference/Plugin.md",
+          "order": 5
+        }
+      ]
+    },
+    {
+      "title": "Guides",
+      "path": "Guides/",
+      "order": 5,
+      "category": "guides",
+      "children": [
+        {
+          "title": "Plugin Development",
+          "path": "Guides/Plugin-Development.md",
+          "order": 1
+        },
+        {
+          "title": "State Management",
+          "path": "Guides/State-Management.md",
+          "order": 2
+        },
+        {
+          "title": "Advanced Plugins",
+          "path": "Guides/Advanced-Plugins.md",
+          "order": 3
+        },
+        {
+          "title": "Page Routing",
+          "path": "Guides/Page-Routing.md",
+          "order": 4
+        }
+      ]
+    },
+    {
+      "title": "Tutorials",
+      "path": "Tutorials/",
+      "order": 6,
+      "category": "tutorials",
+      "children": [
+        {
+          "title": "Building a Todo App",
+          "path": "Tutorials/Todo-App.md",
+          "order": 1
+        },
+        {
+          "title": "Form Handling",
+          "path": "Tutorials/Form-Handling.md",
+          "order": 2
+        }
+      ]
+    },
+    {
+      "title": "Changelog",
+      "path": "CHANGELOG.md",
+      "order": 7,
+      "category": "meta"
+    }
+  ]
+}
